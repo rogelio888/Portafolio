@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: portafolio-portal
+    runtime: node
+    rootDir: portafolio-portal
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.2
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
