@@ -24,6 +24,7 @@
     "nuxt": "^4.4.8",
     "radix-vue": "^1.9.17",
     "reka-ui": "^2.10.1",
+    "shadcn-nuxt": "^2.7.4",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.2",
     "tailwindcss-animate": "^1.0.7",
@@ -31,7 +32,6 @@
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
-    "shadcn-nuxt": "^2.7.4",
     "typescript": "^7.0.2"
   }
 }
