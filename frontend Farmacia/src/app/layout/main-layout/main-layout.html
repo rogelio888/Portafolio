@@ -1,0 +1,25 @@
+<div class="flex h-screen overflow-hidden bg-slate-50">
+  <!-- Sidebar Overlay (Móvil) -->
+  @if (isMobileMenuOpen) {
+    <div (click)="toggleMobileMenu()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 md:hidden"></div>
+  }
+
+  <!-- Sidebar -->
+  <app-sidebar 
+    [isMobileOpen]="isMobileMenuOpen" 
+    (closeMenu)="toggleMobileMenu()"
+    class="fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 bg-white border-r border-slate-200 md:relative md:translate-x-0"
+    [class]="isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'">
+  </app-sidebar>
+
+  <!-- Main Content wrapper -->
+  <div class="flex-1 flex flex-col overflow-hidden min-w-0">
+    <!-- Navbar -->
+    <app-navbar (menuToggle)="toggleMobileMenu()" class="h-16 flex-shrink-0 border-b border-slate-200 bg-white z-10 relative"></app-navbar>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 bg-slate-50">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

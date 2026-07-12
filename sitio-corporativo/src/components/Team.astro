@@ -1,0 +1,27 @@
+---
+const team = [
+  { name: 'Rodrigo Mamani', role: 'Arquitecto Fundador' },
+  { name: 'Camila Vargas', role: 'Directora de Obra' },
+  { name: 'Esteban Salazar', role: 'Ingeniero Estructural' },
+  { name: 'Nadia Paredes', role: 'Diseño de Interiores' }
+];
+---
+
+<section id="equipo" class="max-w-7xl mx-auto px-5 sm:px-8 py-20 sm:py-28 border-b border-ink/12">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+    <div class="lg:col-span-3">
+      <h2 class="font-display text-3xl sm:text-4xl text-ink" data-reveal>Equipo</h2>
+    </div>
+    <div class="lg:col-span-9">
+      {team.map((member, i) => (
+        <div class="group flex items-center justify-between gap-6 py-6 border-b border-ink/12" data-reveal data-reveal-delay={i * 70}>
+          <div class="flex items-baseline gap-5">
+            <span class="text-xs font-mono-label text-ink-soft/50 w-6">0{i + 1}</span>
+            <h3 class="font-display text-2xl sm:text-3xl text-ink group-hover:text-clay transition-colors">{member.name}</h3>
+          </div>
+          <span class="text-sm text-ink-soft text-right shrink-0">{member.role}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,185 @@
+<div class="reportes-container">
+  <div class="reportes-header hide-on-print">
+    <div class="header-titles">
+      <h1>Reportes Gerenciales</h1>
+      <p>Estadísticas y análisis del sistema de la clínica</p>
+    </div>
+    
+    <div class="header-actions">
+      <div class="filtro-fechas">
+        <div class="input-group">
+          <label>Desde</label>
+          <input type="date" [ngModel]="fechaDesde()" (ngModelChange)="fechaDesde.set($event)">
+        </div>
+        <div class="input-group">
+          <label>Hasta</label>
+          <input type="date" [ngModel]="fechaHasta()" (ngModelChange)="fechaHasta.set($event)">
+        </div>
+      </div>
+      
+      <button class="btn-secondary" (click)="exportarCSV()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exportar CSV
+      </button>
+      <button class="btn-primary" (click)="imprimirReporte()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimir PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="reportes-tabs hide-on-print">
+    <button class="tab-btn" [class.active]="activeTab() === 'ingresos'" (click)="cambiarTab('ingresos')">
+      Flujo de Ingresos
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'citas'" (click)="cambiarTab('citas')">
+      Citas y Ausentismo
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'rendimiento'" (click)="cambiarTab('rendimiento')">
+      Rendimiento Médico
+    </button>
+  </div>
+
+  <!-- Pestaña: Ingresos -->
+  @if (activeTab() === 'ingresos') {
+    <div class="tab-content print-section">
+      <h2 class="print-only">Reporte de Flujo de Ingresos ({{ fechaDesde() | date:'shortDate' }} - {{ fechaHasta() | date:'shortDate' }})</h2>
+      
+      <div class="kpi-grid">
+        <div class="kpi-card highlight">
+          <div class="kpi-title">Ingreso Total</div>
+          <div class="kpi-value">{{ ingresoTotal() | currency:'Bs. ' }}</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Efectivo</div>
+          <div class="kpi-value">{{ ingresoEfectivo() | currency:'Bs. ' }}</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Pagos Digitales (QR/Tarjeta)</div>
+          <div class="kpi-value">{{ ingresoDigital() | currency:'Bs. ' }}</div>
+        </div>
+      </div>
+
+      <div class="tabla-container">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Fecha/Hora</th>
+              <th>N° Comprobante</th>
+              <th>Paciente</th>
+              <th>Método</th>
+              <th class="text-right">Monto</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (comp of ingresosFiltrados(); track comp.id) {
+              <tr>
+                <td>{{ comp.fechaEmision | date:'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ comp.numeroCorrelativo }}</td>
+                <td>{{ getNombrePaciente(comp.pacienteId) }}</td>
+                <td>
+                  <span class="metodo-tag metodo-{{ comp.metodoPago.toLowerCase() }}">{{ comp.metodoPago }}</span>
+                </td>
+                <td class="text-right">{{ comp.monto | currency:'Bs. ' }}</td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="text-center text-muted empty-state">No hay datos en este rango de fechas</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  <!-- Pestaña: Citas -->
+  @if (activeTab() === 'citas') {
+    <div class="tab-content print-section">
+      <h2 class="print-only">Reporte de Citas y Ausentismo ({{ fechaDesde() | date:'shortDate' }} - {{ fechaHasta() | date:'shortDate' }})</h2>
+      
+      <div class="kpi-grid">
+        <div class="kpi-card highlight">
+          <div class="kpi-title">Total Citas Programadas</div>
+          <div class="kpi-value">{{ citasTotal() }}</div>
+        </div>
+        <div class="kpi-card success">
+          <div class="kpi-title">Completadas</div>
+          <div class="kpi-value">{{ citasCompletadas() }}</div>
+        </div>
+        <div class="kpi-card danger">
+          <div class="kpi-title">Canceladas (Ausentismo)</div>
+          <div class="kpi-value">
+            {{ citasCanceladas() }}
+            @if (citasTotal() > 0) {
+              <span class="badge danger">{{ porcentajeAusentismo() }}%</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="tabla-container">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Fecha/Hora</th>
+              <th>Paciente</th>
+              <th>Médico</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cita of citasFiltradas(); track cita.id) {
+              <tr>
+                <td>{{ cita.fecha }} {{ cita.horaInicio }}</td>
+                <td>{{ getNombrePaciente(cita.pacienteId) }}</td>
+                <td>Dr(a). {{ getNombreMedico(cita.medicoId) }}</td>
+                <td>
+                  <span class="estado-tag estado-{{ cita.estado.toLowerCase() }}">{{ cita.estado }}</span>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" class="text-center text-muted empty-state">No hay datos en este rango de fechas</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+  <!-- Pestaña: Rendimiento -->
+  @if (activeTab() === 'rendimiento') {
+    <div class="tab-content print-section">
+      <h2 class="print-only">Reporte de Rendimiento Médico ({{ fechaDesde() | date:'shortDate' }} - {{ fechaHasta() | date:'shortDate' }})</h2>
+      
+      <div class="tabla-container">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Médico Profesional</th>
+              <th>Especialidad</th>
+              <th class="text-right">Consultas Completadas</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (med of rendimientoMedicos(); track med.medicoNombre; let idx = $index) {
+              <tr>
+                <td>{{ idx + 1 }}</td>
+                <td>Dr(a). {{ med.medicoNombre }}</td>
+                <td>{{ med.especialidad }}</td>
+                <td class="text-right font-semibold">{{ med.citasCompletadas }}</td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" class="text-center text-muted empty-state">No hay datos en este rango de fechas</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>

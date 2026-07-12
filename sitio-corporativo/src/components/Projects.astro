@@ -1,0 +1,72 @@
+---
+import BlueprintIcon from './BlueprintIcon.astro';
+
+const projects = [
+  { name: 'Casa Illimani', type: 'Residencial unifamiliar', year: '2024', size: '340 m²', icon: 'house' as const },
+  { name: 'Torre Obrajes', type: 'Edificio de departamentos', year: '2023', size: '4.200 m²', icon: 'tower' as const },
+  { name: 'Centro Cultural Kantuta', type: 'Institucional', year: '2022', size: '1.800 m²', icon: 'arch' as const },
+  { name: 'Oficinas Zona Sur', type: 'Corporativo', year: '2023', size: '960 m²', icon: 'plan' as const },
+  { name: 'Residencial Los Pinos', type: 'Conjunto habitacional', year: '2021', size: '6.500 m²', icon: 'stairs' as const },
+  { name: 'Mirador Achumani', type: 'Residencial unifamiliar', year: '2024', size: '410 m²', icon: 'column' as const }
+];
+---
+
+<section id="proyectos" class="py-20 sm:py-28 border-b border-ink/12">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 mb-10 flex items-end justify-between flex-wrap gap-6" data-reveal>
+    <h2 class="font-display text-3xl sm:text-4xl text-ink">Proyectos</h2>
+    <div class="flex items-center gap-3">
+      <button id="proj-prev" type="button" aria-label="Anterior" class="w-10 h-10 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition-colors cursor-pointer">←</button>
+      <button id="proj-next" type="button" aria-label="Siguiente" class="w-10 h-10 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition-colors cursor-pointer">→</button>
+    </div>
+  </div>
+
+  <div class="swiper projects-swiper pl-5 sm:pl-8">
+    <div class="swiper-wrapper">
+      {projects.map((p) => (
+        <div class="swiper-slide !w-[300px] sm:!w-[420px]">
+          <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-stone-950 flex items-end">
+            <div class="absolute inset-0 flex items-center justify-center text-paper/10">
+              <div class="w-40 h-40 sm:w-52 sm:h-52">
+                <BlueprintIcon name={p.icon} />
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/10 to-transparent"></div>
+            <div class="relative z-10 p-6 sm:p-7 w-full">
+              <div class="flex items-center justify-between text-[11px] font-mono-label text-paper/50 mb-2">
+                <span>{p.type.toUpperCase()}</span>
+                <span>{p.year}</span>
+              </div>
+              <h3 class="font-display text-2xl text-paper">{p.name}</h3>
+              <span class="text-sm text-clay-light">{p.size}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="swiper-pagination mt-8 relative"></div>
+  </div>
+</section>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, Pagination } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/pagination';
+
+  new Swiper('.projects-swiper', {
+    modules: [Navigation, Pagination],
+    slidesPerView: 'auto',
+    spaceBetween: 20,
+    grabCursor: true,
+    navigation: {
+      nextEl: '#proj-next',
+      prevEl: '#proj-prev'
+    },
+    pagination: {
+      el: '.projects-swiper .swiper-pagination',
+      clickable: true
+    }
+  });
+</script>

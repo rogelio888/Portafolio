@@ -1,0 +1,30 @@
+<!-- Bento Box: Métricas Rápidas -->
+<h2 class="section-title">Resumen Operativo</h2>
+<div class="metrics-grid">
+  @for (m of metricas(); track m.etiqueta) {
+    <div class="metric-card">
+      <h3 class="metric-label">{{ m.etiqueta }}</h3>
+      <p class="metric-value">{{ m.valor }}</p>
+    </div>
+  }
+</div>
+
+<!-- Bento Box: Módulos del Sistema -->
+<h2 class="section-title">Centro de Gestión</h2>
+<div class="modules-grid">
+  @for (modulo of modulos(); track modulo.nombre) {
+    <div class="module-card" (click)="navegarA(modulo.ruta!)">
+      <div class="module-icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          @switch (modulo.icono) {
+            @case ('config') { <path d="M10.3 2.5h3.4l.5 2.7a7.4 7.4 0 0 1 2 1.16l2.6-1 1.7 2.95-2.2 1.7c.1.4.1.8.1 1.3s0 .9-.1 1.3l2.2 1.7-1.7 2.95-2.6-1a7.4 7.4 0 0 1-2 1.16l-.5 2.7h-3.4l-.5-2.7a7.4 7.4 0 0 1-2-1.16l-2.6 1-1.7-2.95 2.2-1.7a6.7 6.7 0 0 1-.1-1.3c0-.45 0-.9.1-1.3l-2.2-1.7 1.7-2.95 2.6 1a7.4 7.4 0 0 1 2-1.16l.5-2.7Z" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.6"/> }
+            @case ('admin') { <rect x="3" y="10" width="4" height="10"/><rect x="10" y="6" width="4" height="14"/><rect x="17" y="3" width="4" height="17"/> }
+            @case ('reportes') { <path d="M4 19h16M7 16V9M12 16V5M17 16v-7" stroke-linecap="round"/> }
+          }
+        </svg>
+      </div>
+      <h3 class="module-title">{{ modulo.nombre }}</h3>
+      <p class="module-desc">{{ modulo.descripcion }}</p>
+    </div>
+  }
+</div>

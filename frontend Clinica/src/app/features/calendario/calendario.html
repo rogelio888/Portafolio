@@ -1,0 +1,164 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Calendario General</h1>
+    <p class="page-subtitle">Panorama completo de la programación clínica.</p>
+  </div>
+  
+  <div class="header-actions">
+    <div class="filtro-medico">
+      <select class="form-control" [ngModel]="filtroMedico()" (ngModelChange)="filtroMedico.set(+$event || null)">
+        <option [value]="null">Todos los Médicos</option>
+        @for (m of medicos(); track m.id) {
+          <option [value]="m.id">Dr(a). {{ m.nombre }}</option>
+        }
+      </select>
+    </div>
+    
+    <div class="vista-selector">
+      <button [class.active]="vistaActual() === 'Mes'" (click)="cambiarVista('Mes')">Mes</button>
+      <button [class.active]="vistaActual() === 'Semana'" (click)="cambiarVista('Semana')">Semana</button>
+      <button [class.active]="vistaActual() === 'Dia'" (click)="cambiarVista('Dia')">Día</button>
+    </div>
+  </div>
+</div>
+
+<div class="calendario-workspace">
+  
+  <div class="calendario-navegacion">
+    <button class="btn-icon" (click)="navegar('prev')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <h2 class="fecha-titulo">{{ tituloVista() }}</h2>
+    <button class="btn-icon" (click)="navegar('next')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <button class="btn-outline ml-4" (click)="navegar('hoy')">Hoy</button>
+  </div>
+
+  <div class="calendario-contenedor">
+    
+    <!-- VISTA MENSUAL -->
+    @if (vistaActual() === 'Mes') {
+      <div class="grid-mes">
+        <div class="header-dias">
+          <div>Lunes</div><div>Martes</div><div>Miércoles</div><div>Jueves</div><div>Viernes</div><div>Sábado</div><div>Domingo</div>
+        </div>
+        <div class="body-mes">
+          @for (dia of diasMes(); track dia.fecha.toISOString()) {
+            <div class="celda-dia" [class.otro-mes]="dia.esOtroMes" [class.hoy]="dia.esHoy">
+              <div class="numero-dia">{{ dia.fecha | date:'d' }}</div>
+              <div class="citas-contenedor">
+                @for (cita of dia.citas; track cita.id) {
+                  <div class="etiqueta-cita" [ngClass]="'estado-' + cita.estado.toLowerCase() + (cita.esControl ? ' es-control' : '')" (click)="verDetalleCita(cita)">
+                    <span class="hora">{{ cita.horaInicio }}</span> {{ getNombrePaciente(cita.pacienteId) }}
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- VISTA SEMANAL -->
+    @if (vistaActual() === 'Semana') {
+      <div class="grid-semana">
+        @for (dia of diasSemana(); track dia.fecha.toISOString()) {
+          <div class="columna-dia" [class.hoy]="dia.esHoy">
+            <div class="header-dia-semana">
+              <span class="nombre-dia">{{ dia.fecha | date:'EEEE' }}</span>
+              <span class="numero-dia-semana">{{ dia.fecha | date:'dd' }}</span>
+            </div>
+            <div class="lista-citas-semana">
+              @for (cita of dia.citas; track cita.id) {
+                <div class="tarjeta-cita" [ngClass]="'estado-' + cita.estado.toLowerCase() + (cita.esControl ? ' es-control' : '')" (click)="verDetalleCita(cita)">
+                  <div class="hora-tarjeta">{{ cita.horaInicio }} - {{ cita.horaFin }}</div>
+                  <div class="paciente-tarjeta">{{ getNombrePaciente(cita.pacienteId) }}</div>
+                  <div class="medico-tarjeta">{{ getNombreMedico(cita.medicoId) }}</div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- VISTA DIARIA -->
+    @if (vistaActual() === 'Dia') {
+      <div class="vista-diaria">
+        @if (diaUnico().citas.length === 0) {
+          <div class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3>Sin Citas Programadas</h3>
+            <p>No hay citas registradas para este día.</p>
+          </div>
+        } @else {
+          <div class="lista-citas-dia">
+            @for (cita of diaUnico().citas; track cita.id) {
+              <div class="tarjeta-cita-grande" [ngClass]="'estado-' + cita.estado.toLowerCase() + (cita.esControl ? ' es-control' : '')" (click)="verDetalleCita(cita)">
+                <div class="hora-grande">
+                  <strong>{{ cita.horaInicio }}</strong>
+                  <span>{{ cita.horaFin }}</span>
+                </div>
+                <div class="info-grande">
+                  <h4>{{ getNombrePaciente(cita.pacienteId) }}</h4>
+                  <p>{{ getNombreMedico(cita.medicoId) }}</p>
+                </div>
+                <div class="estado-grande">
+                  <span class="badge" [ngClass]="'bg-' + cita.estado.toLowerCase()">
+                    {{ cita.esControl ? 'Cita de Control' : cita.estado }}
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</div>
+
+<!-- MODAL DETALLES DE CITA -->
+@if (panelDetalle && citaSeleccionada) {
+  <div class="slideover-backdrop" (click)="cerrarPanel()"></div>
+  <div class="slideover-panel open">
+    <div class="slideover-header">
+      <h2>Detalles de Cita</h2>
+      <button class="btn-close" (click)="cerrarPanel()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="slideover-body">
+      
+      <div class="estado-banner" [ngClass]="'banner-' + citaSeleccionada.estado.toLowerCase() + (citaSeleccionada.esControl ? ' banner-control' : '')">
+        {{ citaSeleccionada.esControl ? 'Cita de Control' : 'Cita ' + citaSeleccionada.estado }}
+      </div>
+
+      <div class="detalle-grupo mt-4">
+        <label>Paciente</label>
+        <p class="detalle-valor grande">{{ getNombrePaciente(citaSeleccionada.pacienteId) }}</p>
+      </div>
+
+      <div class="detalle-grupo">
+        <label>Médico Asignado</label>
+        <p class="detalle-valor">{{ getNombreMedico(citaSeleccionada.medicoId) }}</p>
+      </div>
+
+      <div class="detalle-grupo">
+        <label>Fecha y Hora</label>
+        <p class="detalle-valor">{{ citaSeleccionada.fecha | date:'EEEE, dd MMMM yyyy' }}</p>
+        <p class="detalle-valor destacado">{{ citaSeleccionada.horaInicio }} - {{ citaSeleccionada.horaFin }}</p>
+      </div>
+
+      @if (citaSeleccionada.estado === 'Cancelada' && citaSeleccionada.motivoCancelacion) {
+        <div class="detalle-grupo mt-4 alert-cancelada">
+          <label>Motivo de Cancelación</label>
+          <p>{{ citaSeleccionada.motivoCancelacion }}</p>
+        </div>
+      }
+
+    </div>
+  </div>
+}

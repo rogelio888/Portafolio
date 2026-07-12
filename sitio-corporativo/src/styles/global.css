@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@import "tailwindcss";
+
+@theme static {
+  --font-display: 'Fraunces', serif;
+  --font-sans: 'Manrope', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --color-ink: #211d17;
+  --color-ink-soft: #55503f;
+  --color-stone-950: #17140f;
+  --color-stone-900: #201c16;
+  --color-paper: #f7f3e9;
+  --color-paper-dim: #eee7d6;
+  --color-clay: #b5502e;
+  --color-clay-light: #d97a52;
+  --color-moss: #626b4f;
+
+  --color-primary-50: #fbede7;
+  --color-primary-100: #f4d0c1;
+  --color-primary-200: #e9ab8f;
+  --color-primary-300: #dd855c;
+  --color-primary-400: #c96940;
+  --color-primary-500: #b5502e;
+  --color-primary-600: #924025;
+  --color-primary-700: #6e301c;
+  --color-primary-800: #4a2013;
+  --color-primary-900: #29110a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-clay);
+  color: var(--color-paper);
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+}
+
+/* Faint technical grid backdrop, used sparingly */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(33, 29, 23, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(33, 29, 23, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Reveal-on-scroll base state (Motion One animates from this) */
+[data-reveal] {
+  opacity: 0;
+}
+
+/* Swiper overrides */
+.projects-swiper .swiper-pagination-bullet {
+  background: var(--color-ink);
+  opacity: 0.25;
+}
+.projects-swiper .swiper-pagination-bullet-active {
+  background: var(--color-clay);
+  opacity: 1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper-dim);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(181, 80, 46, 0.3);
+  border-radius: 9999px;
+}

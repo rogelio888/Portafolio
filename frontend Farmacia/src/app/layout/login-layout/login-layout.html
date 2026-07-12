@@ -1,0 +1,39 @@
+<div class="min-h-screen flex bg-white">
+
+  <!-- Panel de marca (solo escritorio) -->
+  <div class="hidden lg:flex lg:w-[44%] xl:w-[40%] relative bg-blue-950 flex-col justify-between overflow-hidden p-12 xl:p-16">
+    <!-- Textura de cuadrícula sutil -->
+    <div class="absolute inset-0 opacity-[0.06]" style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 34px 34px;"></div>
+    <!-- Resplandores decorativos -->
+    <div class="absolute -top-24 -left-24 w-[28rem] h-[28rem] bg-blue-600/25 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 -right-24 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl"></div>
+
+    <!-- Marca -->
+    <div class="relative z-10 flex items-center gap-3">
+      <img src="logo2.svg" alt="Logo" class="w-9 h-9 object-contain" />
+      <span class="text-white font-semibold text-lg tracking-tight">Sistema de Farmacia</span>
+    </div>
+
+    <!-- Mensaje principal -->
+    <div class="relative z-10">
+      <h2 class="text-4xl font-bold text-white leading-[1.15] mb-5 tracking-tight">
+        Control total de tu farmacia, en un solo lugar.
+      </h2>
+      <p class="text-blue-200/80 text-sm leading-relaxed max-w-sm">
+        Inventario, KARDEX, ventas y reportes en tiempo real — diseñado para la operación diaria de tu negocio.
+      </p>
+    </div>
+
+    <!-- Pie -->
+    <div class="relative z-10 text-blue-300/60 text-xs">
+      © 2026 Sistema de Farmacia. Prototipo Funcional.
+    </div>
+  </div>
+
+  <!-- Panel de formulario -->
+  <div class="flex-1 flex items-center justify-center p-4 sm:p-8">
+    <div class="w-full max-w-[400px]">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

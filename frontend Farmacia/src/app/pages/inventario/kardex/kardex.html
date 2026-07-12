@@ -1,0 +1,173 @@
+<div class="h-full flex flex-col gap-6 font-sans">
+  <!-- Cabecera -->
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-left">
+    <div>
+      <h2 class="text-2xl font-bold text-slate-800">Libro Kardex y Ajustes</h2>
+      <p class="text-slate-500 text-sm mt-1">Historial auditable de movimientos físicos (HU10)</p>
+    </div>
+    <button (click)="openAjusteModal()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 shadow-sm cursor-pointer">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+      Ajuste Manual (HU9)
+    </button>
+  </div>
+
+  <!-- Contenedor Principal -->
+  <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden flex-1 flex flex-col">
+    <!-- Filtros del Kardex -->
+    <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row gap-4 text-left">
+      <div class="flex-1 w-full sm:max-w-md">
+        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Seleccionar Producto</label>
+        <select [(ngModel)]="selectedProductId" (change)="onProductChange()" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 text-sm text-slate-700 cursor-pointer">
+          @for (p of products; track p.id) {
+            <option [value]="p.id">{{ p.nombre }} ({{ p.id }})</option>
+          }
+        </select>
+      </div>
+      <div class="w-full sm:w-64">
+        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Filtrar por Lote</label>
+        <select [(ngModel)]="selectedLoteId" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 text-sm text-slate-700 cursor-pointer">
+          <option value="">Todos los Lotes</option>
+          @for (l of activeProduct?.lotes; track l.id) {
+            <option [value]="l.id">Lote {{ l.id }} (Stock: {{ l.stock }} und)</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <!-- Panel de Resumen del Producto Seleccionado -->
+    <div class="px-6 py-4 border-b border-slate-100 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-left">
+      <div>
+        <h4 class="text-base font-bold text-slate-800">{{ activeProduct?.nombre }}</h4>
+        <p class="text-xs text-slate-500 font-mono mt-0.5">ID: {{ activeProduct?.id }} | Lab: {{ activeProduct?.laboratorio }}</p>
+      </div>
+      <div class="text-right">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Saldo Actual Contable</p>
+        <p class="text-2xl font-black text-slate-800">{{ activeProduct ? getProductStock(activeProduct) : 0 }} und</p>
+      </div>
+    </div>
+
+    <!-- Tabla Kardex (Valorada Físicamente) -->
+    <div class="overflow-x-auto flex-1 w-full">
+      <table class="w-full text-left text-sm whitespace-nowrap min-w-[800px]">
+        <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+          <tr>
+            <th class="px-6 py-3 w-40">Fecha y Hora</th>
+            <th class="px-6 py-3">Detalle / Referencia</th>
+            <th class="px-6 py-3">Lote Afectado</th>
+            <th class="px-6 py-3 text-center border-l border-slate-200 bg-emerald-50/30">Entrada</th>
+            <th class="px-6 py-3 text-center bg-red-50/30">Salida</th>
+            <th class="px-6 py-3 text-center bg-blue-50/30">Saldo Nuevo</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-slate-700 font-mono text-xs">
+          @for (m of movements; track m.id) {
+          <tr [class.bg-red-50/20]="m.detalle.includes('Ajuste: Egreso') || m.detalle.includes('Merma')"
+              [class.bg-emerald-50/15]="m.detalle.includes('Ajuste: Ingreso')">
+            <td class="px-6 py-4 text-slate-500">{{ m.fecha }} {{ m.hora }}</td>
+            <td class="px-6 py-4 font-sans text-slate-800">
+              @if (m.tipoMovimiento === 'Entrada') {
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-800 mr-2">ENTRADA</span>
+              } @else {
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-black bg-amber-100 text-amber-800 mr-2">SALIDA</span>
+              }
+              {{ m.detalle }}
+            </td>
+            <td class="px-6 py-4 font-bold text-slate-600">{{ m.loteId }}</td>
+            <td class="px-6 py-4 text-center font-bold text-emerald-600 border-l border-slate-100 bg-emerald-50/10">
+              {{ m.tipoMovimiento === 'Entrada' ? m.cantidad : '-' }}
+            </td>
+            <td class="px-6 py-4 text-center font-bold text-red-600 bg-red-50/10">
+              {{ m.tipoMovimiento === 'Salida' ? m.cantidad : '-' }}
+            </td>
+            <td class="px-6 py-4 text-center font-bold text-slate-800 bg-blue-50/10">
+              {{ m.stockNuevo }}
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="6" class="px-6 py-12 text-center text-slate-400 font-sans">
+              No se han encontrado movimientos registrados en la bitácora del Kardex para esta selección.
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SIMULACIÓN MODAL: AJUSTE MANUAL DE INVENTARIO (HU9) -->
+  <div [class.hidden]="!showModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col text-left">
+      
+      <!-- Cabecera del Modal -->
+      <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-red-50">
+        <div>
+          <h3 class="font-bold text-lg text-red-800">Ajuste Manual de Inventario</h3>
+          <p class="text-xs text-red-600 font-medium">Esta acción restará o sumará stock y quedará registrada en el Kardex.</p>
+        </div>
+        <button (click)="showModal = false" class="text-red-400 hover:text-red-600 transition-colors cursor-pointer bg-red-100/55 p-1 rounded-full">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Cuerpo del Modal -->
+      <div class="p-6 overflow-y-auto flex-1 space-y-4">
+        
+        <!-- Alerta -->
+        <div class="bg-amber-50 border border-amber-200 rounded-md p-3 flex gap-3 items-start">
+          <svg class="w-5 h-5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          <p class="text-xs text-amber-800 leading-relaxed">
+            Estás modificando el inventario sin un comprobante de compra o venta. Todo ajuste manual se audita bajo tu usuario y modifica las existencias contables.
+          </p>
+        </div>
+
+        <form (submit)="confirmarAjuste(); $event.preventDefault()" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Producto Seleccionado</label>
+            <input type="text" disabled [value]="activeProduct?.nombre" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 text-slate-500 rounded-md text-sm font-semibold" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Lote Físico a Afectar <span class="text-red-500">*</span></label>
+              <select [(ngModel)]="ajusteLoteId" name="ajusteLoteId" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-sm text-slate-800 cursor-pointer">
+                @for (l of activeProduct?.lotes; track l.id) {
+                  <option [value]="l.id">Lote {{ l.id }} (Stock: {{ l.stock }} und)</option>
+                }
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Tipo de Ajuste <span class="text-red-500">*</span></label>
+              <select [(ngModel)]="ajusteTipo" name="ajusteTipo" class="w-full px-3 py-2 bg-white border border-red-300 text-red-700 font-bold rounded-md focus:outline-none focus:ring-1 focus:ring-red-600 text-sm cursor-pointer">
+                <option value="salida">Egreso (Merma / Rotura / Vencido)</option>
+                <option value="entrada">Ingreso (Sobrante Físico)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="w-1/2">
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Cantidad a Ajustar <span class="text-red-500">*</span></label>
+            <input type="number" [(ngModel)]="ajusteCantidad" name="ajusteCantidad" min="1" required class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-sm font-bold text-center text-slate-800" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Justificación / Motivo <span class="text-red-500">*</span></label>
+            <textarea [(ngModel)]="ajusteMotivo" name="ajusteMotivo" required placeholder="Ej. Frascos de jarabe rotos durante la limpieza de repisas..." class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-red-600 text-sm h-20 resize-none text-slate-800"></textarea>
+          </div>
+        </form>
+      </div>
+
+      <!-- Pie del Modal -->
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-end gap-3 font-sans">
+        <button type="button" (click)="showModal = false" class="px-4 py-2 border border-slate-300 text-slate-700 bg-white hover:bg-slate-50 rounded-md font-medium text-sm transition-colors cursor-pointer">
+          Cancelar
+        </button>
+        <button (click)="confirmarAjuste()" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-medium text-sm transition-colors shadow-sm flex items-center gap-2 cursor-pointer font-bold">
+          Confirmar Ajuste
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,284 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Agenda de Citas Médicas</h1>
+    <p class="page-subtitle">Gestión de turnos y disponibilidad de especialistas.</p>
+  </div>
+</div>
+
+<!-- Filtros Principales -->
+<div class="agenda-toolbar">
+  <div class="filter-group">
+    <label>Fecha de Consulta</label>
+    <div class="date-selector">
+      <input type="date" class="form-control date-input" [ngModel]="fechaSeleccionada()" (ngModelChange)="fechaSeleccionada.set($event)">
+    </div>
+  </div>
+
+  <div class="filter-group flex-1">
+    <label>Médico Especialista</label>
+    <select class="form-control" [ngModel]="medicoSeleccionado()" (ngModelChange)="medicoSeleccionado.set(Number($event))">
+      <option [value]="null">-- Seleccione un Especialista --</option>
+      @for (med of medicos(); track med.id) {
+        <option [value]="med.id">
+          {{ med.nombre }} ({{ especialidadService.especialidades()[med.especialidadId - 1]?.nombre || 'Sin Especialidad' }})
+        </option>
+      }
+    </select>
+  </div>
+</div>
+
+<!-- Área de Grilla de Turnos -->
+<div class="agenda-workspace">
+  @if (!medicoSeleccionado()) {
+    <div class="empty-state">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <h3>Agenda Diaria</h3>
+      <p>Seleccione un médico y una fecha en la parte superior para visualizar la disponibilidad de turnos.</p>
+    </div>
+  } @else {
+    
+    @if (sinHorario()) {
+      <div class="alert-info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div>
+          <strong>Sin Disponibilidad</strong>
+          <p>El médico seleccionado no tiene horarios laborables configurados para este día, o la fecha coincide con unas vacaciones/feriado. Diríjase a Configuración de Horarios para solucionarlo.</p>
+        </div>
+      </div>
+    } @else {
+      <!-- Grilla Visual de Slots -->
+      <div class="slots-grid">
+        @for (turno of turnos(); track turno.horaInicio) {
+          
+          @if (turno.disponible) {
+            <div class="slot-card available" (click)="seleccionarTurno(turno)">
+              <div class="slot-time">{{ turno.horaInicio }}</div>
+              <div class="slot-status">Disponible</div>
+              <div class="slot-action">Reservar</div>
+            </div>
+          } @else {
+            <div class="slot-card booked" (click)="seleccionarTurno(turno)">
+              <div class="slot-time">{{ turno.horaInicio }}</div>
+              <div class="slot-status">Ocupado</div>
+              <div class="slot-patient">{{ getNombrePaciente(turno.pacienteId) }}</div>
+              @if (turno.esControl) {
+                <div class="slot-badge-control">Cita de Control</div>
+              }
+            </div>
+          }
+
+        }
+      </div>
+    }
+  }
+</div>
+
+<!-- OVERLAYS & MODALES -->
+@if (panelReserva || panelCancelacion) {
+  <div class="slideover-backdrop" (click)="cerrarModales()"></div>
+}
+
+<!-- PANEL DE RESERVA -->
+<div class="slideover-panel" [class.open]="panelReserva">
+  <div class="slideover-header">
+    <h2>Agendar Cita</h2>
+    <button class="btn-close" (click)="cerrarModales()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="slideover-body">
+    <div class="reserva-resumen">
+      <div class="resumen-item">
+        <span class="label">Fecha:</span>
+        <strong>{{ fechaSeleccionada() | date:'EEEE, dd MMMM yyyy' }}</strong>
+      </div>
+      <div class="resumen-item">
+        <span class="label">Horario:</span>
+        <strong>{{ turnoSeleccionado?.horaInicio }} - {{ turnoSeleccionado?.horaFin }}</strong>
+      </div>
+    </div>
+
+    @if (!mostrandoRegistroRapido) {
+      <div class="form-group search-paciente">
+        <label>Buscar Paciente (CI o Nombre)</label>
+        <input type="text" class="form-control" placeholder="Escriba para buscar..." [(ngModel)]="busquedaPaciente">
+        
+        @if (busquedaPaciente.length >= 3) {
+          <div class="search-results">
+            @for (pac of pacientesEncontrados(); track pac.id) {
+              <div class="result-item" [class.selected]="pacienteASeleccionar === pac.id" (click)="seleccionarPaciente(pac.id)">
+                <strong>{{ pac.nombre }}</strong> (CI: {{ pac.ci }})
+              </div>
+            } @empty {
+              <div class="result-empty">No se encontraron pacientes.</div>
+            }
+          </div>
+        }
+      </div>
+
+      @if (pacienteASeleccionar) {
+        <div class="resumen-seleccion">
+          <strong>Paciente seleccionado:</strong>
+          <span>{{ getNombrePaciente(pacienteASeleccionar) }}</span>
+        </div>
+
+        <div class="opciones-cobro-rapido mt-4 mb-4">
+          <label class="checkbox-container">
+            <input type="checkbox" [ngModel]="cobrarAlReservar()" (ngModelChange)="cobrarAlReservar.set($event)">
+            <span class="checkmark"></span>
+            <strong>Cobrar consulta en este momento</strong>
+          </label>
+
+          @if (cobrarAlReservar()) {
+            <div class="calculadora-mini mt-2">
+              <div class="calc-row">
+                <label>Método de Pago</label>
+                <select class="calc-select" [ngModel]="metodoPago()" (ngModelChange)="metodoPago.set($event)">
+                  <option value="Efectivo">Efectivo</option>
+                  <option value="Tarjeta">Tarjeta de Crédito / Débito</option>
+                  <option value="QR">Transferencia / QR</option>
+                </select>
+              </div>
+              
+              <div class="calc-row">
+                <label>Tarifa (Bs.)</label>
+                <input type="number" class="calc-input" [ngModel]="tarifaCobro()" (ngModelChange)="tarifaCobro.set($event)" min="0">
+              </div>
+
+              @if (metodoPago() === 'Efectivo') {
+                <div class="calc-row">
+                  <label>Efectivo Recibido</label>
+                  <input type="number" class="calc-input" [ngModel]="efectivoRecibido()" (ngModelChange)="efectivoRecibido.set($event)" min="0">
+                </div>
+                <div class="calc-row result" [class.error]="cambioADevolver() < 0">
+                  <label>Cambio a Devolver</label>
+                  <strong>{{ cambioADevolver() | currency:'Bs. ' }}</strong>
+                </div>
+              }
+
+              @if (metodoPago() === 'QR' || metodoPago() === 'Tarjeta') {
+                <div class="qr-simulator">
+                  @if (estadoQR() === 'inactivo') {
+                    <div class="qr-placeholder">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h6v6H3z"/><path d="M15 3h6v6h-6z"/><path d="M3 15h6v6H3z"/><path d="M15 15h6v6h-6z"/></svg>
+                      <p>Presione el botón inferior para confirmar la reserva y generar el cobro.</p>
+                    </div>
+                  } @else if (estadoQR() === 'esperando') {
+                    <div class="qr-loading">
+                      <div class="spinner"></div>
+                      <p>Esperando pago...</p>
+                    </div>
+                  } @else if (estadoQR() === 'aprobado') {
+                    <div class="qr-success">
+                      <div class="success-icon">✓</div>
+                      <h3>¡Pago Aprobado!</h3>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+
+      @if (!pacienteASeleccionar) {
+        <div class="registro-rapido-banner">
+          <p>¿Paciente nuevo? Regístrelo al instante sin salir de la agenda.</p>
+          <button class="btn-secondary btn-sm" (click)="activarRegistroRapido()">Registro Rápido</button>
+        </div>
+      }
+    
+      <div class="slideover-footer">
+        @if (cobrarAlReservar() && metodoPago() === 'QR') {
+          <button class="btn-primary w-full btn-qr" [disabled]="!pacienteASeleccionar || estadoQR() !== 'inactivo'" (click)="generarQR()">
+            Confirmar Reserva y Generar QR
+          </button>
+        } @else {
+          <button class="btn-primary w-full" [disabled]="!pacienteASeleccionar || estadoQR() !== 'inactivo'" (click)="confirmarReserva()">
+            Confirmar y Agendar
+          </button>
+        }
+      </div>
+    } @else {
+      <!-- Mini formulario embebido de HU10 -->
+      <div class="form-rapido-container">
+        <h3>Registro Rápido de Paciente</h3>
+        <form [formGroup]="formPaciente" (ngSubmit)="guardarPacienteRapido()">
+          <div class="form-group">
+            <label>Nombre Completo</label>
+            <input type="text" formControlName="nombre" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Carnet de Identidad</label>
+            <input type="text" formControlName="ci" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Teléfono Celular</label>
+            <input type="text" formControlName="telefono" class="form-control">
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" (click)="mostrandoRegistroRapido = false">Volver</button>
+            <button type="submit" class="btn-primary" [disabled]="formPaciente.invalid">Crear y Seleccionar</button>
+          </div>
+        </form>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- PANEL DE CANCELACIÓN -->
+<div class="slideover-panel" [class.open]="panelCancelacion">
+  <div class="slideover-header">
+    <h2>Detalle de Cita</h2>
+    <button class="btn-close" (click)="cerrarModales()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="slideover-body">
+    <div class="cita-detalles">
+      <div class="paciente-gran-nombre">
+        {{ getNombrePaciente(turnoSeleccionado?.pacienteId) }}
+      </div>
+      <div class="detalle-fila">
+        <span>Horario:</span>
+        <strong>{{ turnoSeleccionado?.horaInicio }} a {{ turnoSeleccionado?.horaFin }}</strong>
+      </div>
+    </div>
+
+    <div class="cancelacion-zona">
+      <h3 class="text-danger">Cancelar Cita</h3>
+      <p class="text-muted">La cancelación liberará este espacio horario para que otro paciente pueda tomarlo de forma inmediata.</p>
+      
+      <div class="form-group">
+        <label>Motivo de cancelación (Opcional)</label>
+        <textarea class="form-control" rows="3" [(ngModel)]="motivoCancelacion" placeholder="Ej. El paciente llamó para avisar que no llegará."></textarea>
+      </div>
+
+      <button class="btn-danger w-full" (click)="confirmarCancelacion()">Confirmar Cancelación</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Comprobante Post-Pago -->
+@if (mostrarModalComprobante && ultimoComprobante) {
+  <div class="slideover-backdrop" (click)="cerrarModalComprobante()"></div>
+  <div class="modal-comprobante">
+    <div class="modal-comprobante-content">
+      <div class="comprobante-success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3>¡Cita Agendada y Cobrada!</h3>
+      <p class="comprobante-numero">{{ ultimoComprobante.numeroCorrelativo }}</p>
+      <p class="comprobante-monto">{{ ultimoComprobante.monto | currency:'Bs. ' }}</p>
+      <div class="comprobante-acciones">
+        <button class="btn-primary" (click)="imprimirComprobante()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir Comprobante
+        </button>
+        <button class="btn-secondary" (click)="cerrarModalComprobante()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+}

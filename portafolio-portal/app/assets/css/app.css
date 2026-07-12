@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.99 0.003 255);
+  --foreground: oklch(0.17 0.02 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.17 0.02 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.17 0.02 255);
+  --primary: oklch(0.56 0.22 265);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.96 0.006 260);
+  --secondary-foreground: oklch(0.2 0.02 255);
+  --muted: oklch(0.96 0.006 260);
+  --muted-foreground: oklch(0.48 0.02 255);
+  --accent: oklch(0.94 0.02 262);
+  --accent-foreground: oklch(0.22 0.02 255);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.006 255);
+  --input: oklch(0.9 0.006 255);
+  --ring: oklch(0.56 0.22 265 / 40%);
+  --grid-line: rgba(15, 15, 25, 0.045);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(15, 15, 25, 0.06);
+  --glass-hover-bg: rgba(255, 255, 255, 0.85);
+  --scrollbar-track: #f1f1f4;
+}
+
+.dark {
+  --background: oklch(0.03 0.01 255);
+  --foreground: oklch(0.95 0.01 255);
+  --card: oklch(0.06 0.015 255);
+  --card-foreground: oklch(0.9 0.01 255);
+  --popover: oklch(0.06 0.015 255);
+  --popover-foreground: oklch(0.95 0.01 255);
+  --primary: oklch(0.62 0.22 265);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.08 0.02 255);
+  --secondary-foreground: oklch(0.9 0.01 255);
+  --muted: oklch(0.08 0.02 255);
+  --muted-foreground: oklch(0.55 0.02 255);
+  --accent: oklch(0.12 0.03 260);
+  --accent-foreground: oklch(0.95 0.01 255);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.12 0.02 255);
+  --input: oklch(0.12 0.02 255);
+  --ring: oklch(0.62 0.22 265 / 40%);
+  --grid-line: rgba(255, 255, 255, 0.015);
+  --glass-bg: rgba(8, 10, 20, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-hover-bg: rgba(10, 12, 26, 0.75);
+  --scrollbar-track: #030712;
+}
+
+/* Premium scrollbar styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.18);
+  border-radius: 9999px;
+  border: 3px solid var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.4);
+}
+
+/* Glassmorphism styling */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(139, 92, 246, 0.25);
+  background: var(--glass-hover-bg);
+}
+
+/* Infinite Marquee for tech logo carousel */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Cyber-grid background pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
+}
+
+/* Smooth theme transition */
+body, header, .glass-card-hover, .glass-panel {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+/* Floating animation blobs */
+@keyframes float-blob {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -60px) scale(1.15);
+  }
+  66% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.animate-blob-1 {
+  animation: float-blob 18s ease-in-out infinite alternate;
+}
+
+.animate-blob-2 {
+  animation: float-blob 24s ease-in-out infinite alternate-reverse;
+}
+
+.animate-blob-3 {
+  animation: float-blob 28s ease-in-out infinite alternate;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: #0f172a !important;
+  }
+  .print-page {
+    display: block !important;
+    color: #0f172a !important;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+}

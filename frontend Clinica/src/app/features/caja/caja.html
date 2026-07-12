@@ -1,0 +1,215 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Caja Registradora</h1>
+    <p class="page-subtitle">Gestión de cobros y facturación diaria.</p>
+  </div>
+  
+  <div class="simulador-login">
+    <span class="simulador-label">Cajero en Turno:</span>
+    <select class="form-control" [ngModel]="cajeroLogueado()" (ngModelChange)="cajeroLogueado.set(+$event)">
+      <option [value]="null">Seleccione Cajero...</option>
+      @for (u of recepcionistas(); track u.id) {
+        <option [value]="u.id">{{ u.nombre }} ({{ u.rolId === 1 ? 'Admin' : 'Caja' }})</option>
+      }
+    </select>
+  </div>
+</div>
+
+<div class="caja-dashboard">
+  
+  @if (mensajeEstado()) {
+    <div class="toast-notification" [class]="'toast-' + mensajeEstado()?.tipo">
+      {{ mensajeEstado()?.texto }}
+    </div>
+  }
+
+  <!-- Panel Izquierdo: Cuentas por Cobrar -->
+  <div class="panel-cobros">
+    <div class="panel-header">
+      <h2>Cuentas por Cobrar</h2>
+      <span class="badge">{{ citasPendientes().length }} pendientes</span>
+    </div>
+
+    @if (!cajeroLogueado()) {
+      <div class="empty-state">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="12" y1="12" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="8"/></svg>
+        <h3>Caja Cerrada</h3>
+        <p>Seleccione un cajero en el simulador superior para comenzar a cobrar.</p>
+      </div>
+    } @else {
+      @if (citasPendientes().length === 0) {
+        <div class="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Todo al día</h3>
+          <p>No hay cuentas pendientes de cobro.</p>
+        </div>
+      } @else {
+        <div class="lista-cobros">
+          @for (cita of citasPendientes(); track cita.id) {
+            <div class="cobro-card">
+              <div class="hora-badge">
+                <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 2px;">{{ cita.fecha }}</div>
+                <div>{{ cita.horaInicio }}</div>
+              </div>
+              <div class="info-cobro">
+                <div class="paciente-nombre">{{ getNombrePaciente(cita.pacienteId) }}</div>
+                <div class="meta-cobro">
+                  Dr(a). {{ getNombreMedico(cita.medicoId) }}
+                  @if (cita.esControl) {
+                    <span class="control-tag">• Control</span>
+                  }
+                </div>
+              </div>
+              <div class="acciones-cobro">
+                <button class="btn-cobrar" (click)="abrirCobro(cita)">Cobrar</button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Panel Derecho: Historial de Comprobantes -->
+  <div class="panel-resumen">
+    <div class="panel-header">
+      <h2>Historial de Cobros</h2>
+      <span class="badge">{{ comprobanteService.comprobantes().length }} emitidos</span>
+    </div>
+    
+    <div class="kpi-financiero">
+      <div class="kpi-label">Total Recaudado</div>
+      <div class="kpi-valor">{{ totalRecaudado() | currency:'Bs. ' }}</div>
+    </div>
+
+    <div class="lista-pagados">
+      @if (comprobanteService.comprobantes().length === 0) {
+        <div class="empty-state-mini">
+          <p>Aún no se han emitido comprobantes.</p>
+        </div>
+      }
+      
+      @for (comp of comprobanteService.comprobantes(); track comp.id) {
+        <div class="pagado-card" (click)="verDetalleComprobante(comp)">
+          <div class="pagado-info">
+            <strong>{{ getNombrePaciente(comp.pacienteId) }}</strong>
+            <span class="text-xs text-muted">{{ comp.numeroCorrelativo }}</span>
+          </div>
+          <div class="pagado-derecha">
+            <div class="pagado-monto">{{ comp.monto | currency:'Bs. ' }}</div>
+            <span class="metodo-tag metodo-{{ comp.metodoPago.toLowerCase() }}">{{ comp.metodoPago }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL CALCULADORA DE CAMBIO -->
+@if (panelPago && citaAPagar) {
+  <div class="slideover-backdrop" (click)="cerrarCobro()"></div>
+  <div class="slideover-panel open">
+    <div class="slideover-header">
+      <h2>Procesar Cobro</h2>
+      <button class="btn-close" (click)="cerrarCobro()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="slideover-body flex-col">
+      <div class="resumen-paciente">
+        <label>Paciente a cobrar:</label>
+        <h3>{{ getNombrePaciente(citaAPagar.pacienteId) }}</h3>
+      </div>
+
+      <div class="calculadora-caja">
+        
+        <div class="calc-row">
+          <label>Método de Pago</label>
+          <select class="calc-select" [ngModel]="metodoPago()" (ngModelChange)="metodoPago.set($event)">
+            <option value="Efectivo">Efectivo</option>
+            <option value="Tarjeta">Tarjeta de Crédito / Débito</option>
+            <option value="QR">Transferencia / QR</option>
+          </select>
+        </div>
+
+        <div class="calc-row">
+          <label>Tarifa a Cobrar (Bs.)</label>
+          <input type="number" class="calc-input" [ngModel]="tarifaCobro()" (ngModelChange)="tarifaCobro.set($event)" min="0">
+        </div>
+
+        @if (metodoPago() === 'Efectivo') {
+          <div class="calc-row highlight">
+            <label>Efectivo Recibido (Bs.)</label>
+            <input type="number" class="calc-input" [ngModel]="efectivoRecibido()" (ngModelChange)="efectivoRecibido.set($event)" min="0">
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="calc-row result" [class.error]="cambioADevolver() < 0">
+            <label>Cambio a Devolver</label>
+            <div class="cambio-monto">{{ cambioADevolver() | currency:'Bs. ' }}</div>
+          </div>
+        }
+
+        @if (metodoPago() === 'QR' || metodoPago() === 'Tarjeta') {
+          <div class="qr-simulator">
+            @if (estadoQR() === 'inactivo') {
+              <div class="qr-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h6v6H3z"/><path d="M15 3h6v6h-6z"/><path d="M3 15h6v6H3z"/><path d="M15 15h6v6h-6z"/></svg>
+                <p>Presione el botón inferior para generar el cobro y esperar confirmación del banco.</p>
+              </div>
+            } @else if (estadoQR() === 'esperando') {
+              <div class="qr-loading">
+                <div class="spinner"></div>
+                <p>Esperando pago del paciente...</p>
+                <small>No cierre esta ventana, el sistema confirmará automáticamente.</small>
+              </div>
+            } @else if (estadoQR() === 'aprobado') {
+              <div class="qr-success">
+                <div class="success-icon">✓</div>
+                <h3>¡Pago Aprobado!</h3>
+                <p>El banco ha confirmado la transacción exitosamente.</p>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="spacer"></div>
+      
+      @if (metodoPago() === 'Efectivo' || metodoPago() === 'Tarjeta') {
+        <button class="btn-primary w-full" (click)="metodoPago() === 'Efectivo' ? procesarPago() : generarQR()" [disabled]="estadoQR() !== 'inactivo'">
+          {{ metodoPago() === 'Efectivo' ? 'Confirmar Pago y Emitir Recibo' : 'Generar Cobro Digital' }}
+        </button>
+      } @else if (metodoPago() === 'QR') {
+        <button class="btn-primary w-full btn-qr" (click)="generarQR()" [disabled]="estadoQR() !== 'inactivo'">
+          Generar Código QR
+        </button>
+      }
+    </div>
+  </div>
+}
+
+<!-- Modal de Comprobante Post-Pago -->
+@if (mostrarModalComprobante && ultimoComprobante) {
+  <div class="slideover-backdrop" (click)="cerrarModalComprobante()"></div>
+  <div class="modal-comprobante">
+    <div class="modal-comprobante-content">
+      <div class="comprobante-success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3>¡Pago Registrado!</h3>
+      <p class="comprobante-numero">{{ ultimoComprobante.numeroCorrelativo }}</p>
+      <p class="comprobante-monto">{{ ultimoComprobante.monto | currency:'Bs. ' }}</p>
+      <div class="comprobante-acciones">
+        <button class="btn-primary" (click)="imprimirComprobante()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir Comprobante
+        </button>
+        <button class="btn-secondary" (click)="cerrarModalComprobante()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+}

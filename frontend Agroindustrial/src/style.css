@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', 'Inter', system-ui, sans-serif;
+  
+  /* Paleta Agroindustrial */
+  --color-agro-50: #f5f8f6;
+  --color-agro-100: #e6eee9;
+  --color-agro-200: #cfe0d5;
+  --color-agro-500: #2e6f40;
+  --color-agro-600: #1e522c;
+  --color-agro-700: #163d21;
+  --color-agro-850: #0d2514;
+  --color-agro-900: #08170c;
+  
+  /* Tonos Tierra y Cosecha */
+  --color-earth-50: #faf8f5;
+  --color-earth-100: #f3edd7;
+  --color-earth-500: #b8860b;
+  --color-earth-600: #8b5a2b;
+  --color-earth-900: #3d2511;
+  
+  /* Alertas de Maquinaria */
+  --color-mechanic-alert: #d97706;
+  --color-mechanic-danger: #be123c;
+}
+
+body {
+  background-color: var(--color-agro-50);
+  font-family: var(--font-sans);
+}
+
+/* Barra de desplazamiento personalizada para zonas oscuras (Sidebar) */
+.scrollbar-dark {
+  scrollbar-width: thin;
+  scrollbar-color: #1e522c #08170c; /* Firefox support */
+}
+
+.scrollbar-dark::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-track {
+  background: #08170c; /* Combina con agro-900 */
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  background: #1e522c; /* Combina con agro-600 */
+  border-radius: 9999px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: #2e6f40; /* Combina con agro-500 */
+}
+
+/* Barra de desplazamiento personalizada para zonas claras (Panel Principal) */
+.scrollbar-light {
+  scrollbar-width: thin;
+  scrollbar-color: #cfe0d5 #f5f8f6; /* Firefox support */
+}
+
+.scrollbar-light::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-light::-webkit-scrollbar-track {
+  background: #f5f8f6; /* Combina con agro-50 */
+}
+
+.scrollbar-light::-webkit-scrollbar-thumb {
+  background: #cfe0d5; /* Combina con agro-200 */
+  border-radius: 9999px;
+}
+
+.scrollbar-light::-webkit-scrollbar-thumb:hover {
+  background: #2e6f40; /* Combina con agro-500 */
+}

@@ -1,0 +1,324 @@
+:host {
+  display: block;
+  height: 100%;
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.usuarios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark, #0f172a);
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted, #64748b);
+  margin: 0.25rem 0 0 0;
+}
+
+.btn-primary {
+  background: var(--accent, #1a659e);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(26, 101, 158, 0.2);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover, #134e7c);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26, 101, 158, 0.3);
+}
+
+/* Glass Table Container */
+.table-container {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border-light, #e2e8f0);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: rgba(248, 250, 252, 0.8);
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-light, #e2e8f0);
+}
+
+td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-light, #e2e8f0);
+  vertical-align: middle;
+}
+
+tr {
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+tr:hover {
+  background-color: rgba(248, 250, 252, 0.6);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-gradient-1, #e2e8f0);
+  color: var(--primary-color, #0b2545);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.user-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark, #0f172a);
+  margin: 0;
+}
+
+.user-email {
+  font-size: 0.8rem;
+  color: var(--text-muted, #64748b);
+  margin: 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-rol {
+  background: var(--accent-light, rgba(26, 101, 158, 0.1));
+  color: var(--accent, #1a659e);
+}
+
+.badge-activo {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.badge-suspendido {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #64748b);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--primary-color, #0b2545);
+}
+
+.btn-icon.suspend:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+.btn-icon.activate:hover {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+
+/* --- Slide-over Panel --- */
+.slideover-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.slideover-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slideover-panel {
+  width: 100%;
+  max-width: 440px;
+  height: 100%;
+  background: white;
+  box-shadow: -10px 0 25px rgba(0,0,0,0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.slideover-backdrop.open .slideover-panel {
+  transform: translateX(0);
+}
+
+.panel-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-light, #e2e8f0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-dark, #0f172a);
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted, #64748b);
+  cursor: pointer;
+}
+
+.panel-body {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.panel-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-light, #e2e8f0);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark, #0f172a);
+  margin-bottom: 0.4rem;
+}
+
+.form-control, .form-select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  color: var(--text-dark, #0f172a);
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  transition: all 0.2s;
+  outline: none;
+  font-family: inherit;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: white;
+  border-color: var(--accent, #1a659e);
+  box-shadow: 0 0 0 3px rgba(26, 101, 158, 0.15);
+}
+
+.form-control.is-invalid {
+  border-color: #ef4444;
+}
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.invalid-feedback {
+  display: block;
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+.alert-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--text-dark, #0f172a);
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #f1f5f9;
+}

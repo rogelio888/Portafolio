@@ -1,0 +1,122 @@
+:host {
+  display: block;
+  animation: fade-in 0.4s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
+.page-title { font-size: 1.75rem; font-weight: 800; color: #0f172a; margin: 0 0 0.5rem 0; letter-spacing: -0.02em; }
+.page-subtitle { font-size: 1rem; color: #64748b; margin: 0; }
+
+.header-actions { display: flex; gap: 1rem; align-items: center; }
+.form-control { padding: 0.5rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 0.95rem; background: #fff;}
+
+.vista-selector { display: flex; background: #f1f5f9; padding: 0.25rem; border-radius: 8px; }
+.vista-selector button { background: transparent; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s; }
+.vista-selector button:hover { color: #0f172a; }
+.vista-selector button.active { background: white; color: #0f172a; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+.calendario-workspace { background: white; border-radius: 16px; border: 1px solid #e2e8f0; min-height: 500px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); }
+
+.calendario-navegacion { padding: 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 1rem; }
+.fecha-titulo { margin: 0; font-size: 1.25rem; font-weight: 700; color: #0f172a; min-width: 250px; text-align: center; }
+.btn-icon { background: none; border: none; padding: 0.5rem; border-radius: 8px; cursor: pointer; color: #64748b; transition: 0.2s; display: flex; align-items: center; justify-content: center;}
+.btn-icon:hover { background: #f1f5f9; color: #0f172a; }
+.btn-outline { background: transparent; border: 1px solid #cbd5e1; padding: 0.4rem 1rem; border-radius: 8px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s; }
+.btn-outline:hover { background: #f8fafc; color: #0f172a; }
+.ml-4 { margin-left: 1rem; }
+
+.calendario-contenedor { flex: 1; display: flex; flex-direction: column; background: #f8fafc; overflow: auto; }
+
+/* VISTA MENSUAL */
+.grid-mes { display: flex; flex-direction: column; flex: 1; }
+.header-dias { display: grid; grid-template-columns: repeat(7, 1fr); background: white; border-bottom: 1px solid #e2e8f0; }
+.header-dias div { padding: 1rem; text-align: center; font-weight: 700; font-size: 0.85rem; color: #64748b; text-transform: uppercase; }
+.body-mes { display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: minmax(120px, auto); flex: 1; background: #e2e8f0; gap: 1px; }
+
+.celda-dia { background: white; padding: 0.5rem; display: flex; flex-direction: column; transition: 0.2s; }
+.celda-dia:hover { background: #f8fafc; }
+.celda-dia.otro-mes { background: #fcfcfc; }
+.celda-dia.otro-mes .numero-dia { color: #cbd5e1; }
+.celda-dia.hoy .numero-dia { background: #3b82f6; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+
+.numero-dia { font-weight: 600; font-size: 0.95rem; color: #334155; margin-bottom: 0.5rem; align-self: flex-end; }
+.citas-contenedor { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.etiqueta-cita { font-size: 0.75rem; padding: 0.2rem 0.4rem; border-radius: 4px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; transition: 0.2s; }
+.etiqueta-cita:hover { filter: brightness(0.95); transform: translateY(-1px); }
+.etiqueta-cita .hora { font-weight: 800; margin-right: 0.2rem; }
+
+/* VISTA SEMANAL */
+.grid-semana { display: grid; grid-template-columns: repeat(7, 1fr); background: #e2e8f0; gap: 1px; flex: 1; }
+.columna-dia { background: white; display: flex; flex-direction: column; }
+.columna-dia.hoy { background: #f8fafc; }
+.columna-dia.hoy .header-dia-semana { border-bottom-color: #3b82f6; }
+.columna-dia.hoy .numero-dia-semana { color: #3b82f6; }
+.header-dia-semana { padding: 1rem; text-align: center; border-bottom: 2px solid #e2e8f0; display: flex; flex-direction: column; }
+.nombre-dia { font-size: 0.8rem; text-transform: uppercase; font-weight: 700; color: #64748b; }
+.numero-dia-semana { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem; }
+.lista-citas-semana { padding: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+
+.tarjeta-cita { padding: 0.5rem; border-radius: 6px; border-left: 3px solid; cursor: pointer; transition: 0.2s; }
+.tarjeta-cita:hover { filter: brightness(0.95); transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+.hora-tarjeta { font-size: 0.75rem; font-weight: 800; margin-bottom: 0.2rem; }
+.paciente-tarjeta { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.medico-tarjeta { font-size: 0.75rem; opacity: 0.8; }
+
+/* VISTA DIARIA */
+.vista-diaria { padding: 2rem; max-width: 800px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+.lista-citas-dia { display: flex; flex-direction: column; gap: 1rem; }
+.tarjeta-cita-grande { display: flex; align-items: center; padding: 1.5rem; border-radius: 12px; background: white; border-left: 4px solid; cursor: pointer; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.tarjeta-cita-grande:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+.hora-grande { width: 120px; display: flex; flex-direction: column; }
+.hora-grande strong { font-size: 1.25rem; color: #0f172a; }
+.hora-grande span { font-size: 0.85rem; color: #64748b; }
+.info-grande { flex: 1; }
+.info-grande h4 { margin: 0 0 0.25rem 0; font-size: 1.1rem; color: #0f172a; }
+.info-grande p { margin: 0; font-size: 0.9rem; color: #475569; }
+.estado-grande .badge { padding: 0.5rem 1rem; border-radius: 99px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+
+/* COLORES DE ESTADOS DE CITA */
+.estado-programada { background: #eff6ff; color: #1e3a8a; border-left-color: #3b82f6; }
+.estado-completada { background: #f8fafc; color: #475569; border-left-color: #94a3b8; }
+.estado-cancelada { background: #fef2f2; color: #991b1b; border-left-color: #dc2626; opacity: 0.7; text-decoration: line-through; }
+.es-control { background: #ecfdf5; color: #065f46; border-left-color: #10b981; }
+
+.bg-programada { background: #dbeafe; color: #1e40af; }
+.bg-completada { background: #e2e8f0; color: #334155; }
+.bg-cancelada { background: #fee2e2; color: #991b1b; }
+
+.empty-state { text-align: center; padding: 4rem 2rem; color: #64748b; }
+.empty-state h3 { color: #334155; margin: 1rem 0 0.5rem 0; font-size: 1.25rem; }
+
+/* Modal Slide-over */
+.slideover-backdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,23,42,0.4); backdrop-filter: blur(4px); z-index: 40; animation: fade-in 0.3s; }
+.slideover-panel { position: fixed; top: 0; right: -500px; width: 100%; max-width: 400px; height: 100vh; background: #ffffff; z-index: 50; box-shadow: -10px 0 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.slideover-panel.open { right: 0; }
+.slideover-header { padding: 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc;}
+.slideover-header h2 { margin: 0; font-size: 1.1rem; font-weight: 700; color: #0f172a;}
+.btn-close { background: none; border: none; cursor: pointer; color: #64748b; padding: 0.5rem; border-radius: 50%; }
+.btn-close:hover { background: #e2e8f0; color: #0f172a; }
+.slideover-body { padding: 1.5rem; flex: 1; overflow-y: auto; }
+
+.estado-banner { padding: 1rem; border-radius: 8px; font-weight: 700; text-align: center; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.banner-programada { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.banner-completada { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+.banner-cancelada { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.banner-control { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+
+.detalle-grupo { margin-bottom: 1.25rem; }
+.detalle-grupo label { display: block; font-size: 0.85rem; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 0.25rem; }
+.detalle-valor { margin: 0; color: #0f172a; font-size: 1rem; font-weight: 500; }
+.detalle-valor.grande { font-size: 1.25rem; font-weight: 700; }
+.detalle-valor.destacado { font-weight: 800; color: #3b82f6; font-size: 1.1rem; margin-top: 0.25rem; }
+
+.alert-cancelada { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; }
+.alert-cancelada label { color: #991b1b; }
+.alert-cancelada p { margin: 0; color: #7f1d1d; font-size: 0.95rem; }
+.mt-4 { margin-top: 1.5rem; }

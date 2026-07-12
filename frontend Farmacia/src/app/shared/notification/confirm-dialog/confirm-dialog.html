@@ -1,0 +1,41 @@
+@if (notify.confirmState(); as state) {
+  <div class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[90] flex items-center justify-center p-4 animate-fade-in">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center">
+      <div
+        class="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4 border-4"
+        [class.bg-red-100]="state.danger"
+        [class.text-red-600]="state.danger"
+        [class.border-red-200]="state.danger"
+        [class.bg-amber-100]="!state.danger"
+        [class.text-amber-600]="!state.danger"
+        [class.border-amber-200]="!state.danger"
+      >
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m0 3.75h.007M10.29 3.86 1.82 18a1.5 1.5 0 0 0 1.28 2.25h17.8a1.5 1.5 0 0 0 1.28-2.25L13.71 3.86a1.5 1.5 0 0 0-2.42 0Z"/>
+        </svg>
+      </div>
+
+      <h3 class="font-black text-xl text-slate-800 mb-1">{{ state.title }}</h3>
+      <p class="text-slate-500 text-sm mb-6">{{ state.message }}</p>
+
+      <div class="flex gap-3">
+        <button
+          (click)="notify.resolveConfirm(false)"
+          class="px-4 py-2.5 bg-white border border-slate-300 rounded-lg font-semibold text-slate-700 hover:bg-slate-100 transition-colors flex-1 cursor-pointer"
+        >
+          {{ state.cancelText }}
+        </button>
+        <button
+          (click)="notify.resolveConfirm(true)"
+          class="px-4 py-2.5 text-white rounded-lg font-bold transition-colors flex-1 shadow-md cursor-pointer"
+          [class.bg-red-600]="state.danger"
+          [class.hover:bg-red-700]="state.danger"
+          [class.bg-blue-700]="!state.danger"
+          [class.hover:bg-blue-800]="!state.danger"
+        >
+          {{ state.confirmText }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

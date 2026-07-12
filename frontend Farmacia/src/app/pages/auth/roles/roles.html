@@ -1,0 +1,123 @@
+<div class="h-full flex flex-col gap-6">
+  <!-- Cabecera -->
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+    <div>
+      <h2 class="text-2xl font-bold text-slate-800">Roles y Permisos</h2>
+      <p class="text-slate-500 text-sm mt-1">Gestión de jerarquías y acceso al sistema (HU1)</p>
+    </div>
+    <button (click)="openCreateModal()" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center gap-2 shadow-sm">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+      Nuevo Rol
+    </button>
+  </div>
+
+  <!-- Contenedor Principal -->
+  <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden flex-1 flex flex-col">
+    <!-- Tabla de Roles -->
+    <div class="overflow-x-auto flex-1 w-full">
+      <table class="w-full text-left text-sm whitespace-nowrap min-w-[600px]">
+        <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+          <tr>
+            <th class="px-6 py-3 font-semibold">Nombre del Rol</th>
+            <th class="px-6 py-3 font-semibold">Nivel de Acceso</th>
+            <th class="px-6 py-3 font-semibold text-center">Usuarios Activos</th>
+            <th class="px-6 py-3 font-semibold text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-slate-700">
+          
+          @for (role of roles; track role.id) {
+            <tr class="hover:bg-slate-50 transition-colors">
+              <td class="px-6 py-4 font-medium text-slate-900">{{ role.name }}</td>
+              <td class="px-6 py-4">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                  {{ role.permissions.length }} Permisos
+                </span>
+              </td>
+              <td class="px-6 py-4 text-center">{{ role.active_users_count ?? 0 }}</td>
+              <td class="px-6 py-4 text-right">
+                <button (click)="editRole(role)" class="text-blue-600 hover:text-blue-800 mx-2" title="Editar">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                </button>
+                <button (click)="deleteRole(role)" class="text-red-500 hover:text-red-700 mx-2" title="Eliminar Rol">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="px-6 py-10 text-center text-slate-500 text-sm">
+                No se encontraron roles registrados.
+              </td>
+            </tr>
+          }
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SIMULACIÓN MODAL: NUEVO ROL (HU1) -->
+  <div [class.hidden]="!showModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      
+      <!-- Cabecera del Modal -->
+      <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+        <div>
+          <h3 class="font-bold text-lg text-slate-800">{{ selectedRoleId ? 'Editar Rol' : 'Crear Nuevo Rol' }}</h3>
+          <p class="text-xs text-slate-500">Defina el nombre y seleccione los permisos de acceso.</p>
+        </div>
+        <button (click)="showModal = false" class="text-slate-400 hover:text-slate-600 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Cuerpo del Modal -->
+      <div class="p-5 overflow-y-auto flex-1">
+        <form class="space-y-6" (ngSubmit)="onSubmit()">
+          <!-- Nombre del Rol -->
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Nombre del Rol <span class="text-red-500">*</span></label>
+            <input type="text" [(ngModel)]="roleName" name="roleName" placeholder="Ej. Contador, Cajero Fin de Semana..." class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-sm" />
+          </div>
+
+          <!-- Matriz de Permisos -->
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-3">Asignación de Permisos <span class="text-red-500">*</span></label>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              @for (module of ['Seguridad', 'Inventario', 'Ventas', 'Finanzas']; track module) {
+                <div class="border border-slate-200 rounded-md p-3">
+                  <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wide mb-2 flex items-center gap-2">
+                    {{ module }}
+                  </h4>
+                  <div class="space-y-2">
+                    @for (perm of getPermissionsByModule(module); track perm.slug) {
+                      <label class="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+                        <input type="checkbox" [(ngModel)]="perm.checked" [name]="perm.slug" class="rounded border-slate-300 text-blue-600 focus:ring-blue-600" />
+                        {{ perm.label }}
+                      </label>
+                    }
+                  </div>
+                </div>
+              }
+
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Pie del Modal -->
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-end gap-3">
+        <button type="button" (click)="showModal = false" class="px-4 py-2 border border-slate-300 text-slate-700 bg-white hover:bg-slate-50 rounded-md font-medium text-sm transition-colors">
+          Cancelar
+        </button>
+        <button type="button" (click)="onSubmit()" class="px-5 py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-md font-medium text-sm transition-colors shadow-sm">
+          Guardar Rol
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

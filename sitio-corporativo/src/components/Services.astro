@@ -1,0 +1,36 @@
+---
+import BlueprintIcon from './BlueprintIcon.astro';
+
+const services = [
+  { icon: 'plan' as const, name: 'Diseño Arquitectónico', desc: 'Anteproyecto, planos ejecutivos y modelado 3D adaptados al terreno y presupuesto real.', big: true },
+  { icon: 'crane' as const, name: 'Construcción', desc: 'Obra gris y acabados con cuadrilla propia.' },
+  { icon: 'house' as const, name: 'Remodelación', desc: 'Ampliaciones y modernización de espacios existentes.' },
+  { icon: 'level' as const, name: 'Supervisión de Obra', desc: 'Fiscalización técnica independiente para obras de terceros.' },
+  { icon: 'column' as const, name: 'Consultoría Estructural', desc: 'Cálculo estructural y regularización de planos municipales.', big: true }
+];
+---
+
+<section id="servicios" class="max-w-7xl mx-auto px-5 sm:px-8 py-20 sm:py-28 border-b border-ink/12">
+  <div class="flex items-end justify-between flex-wrap gap-6 mb-12" data-reveal>
+    <h2 class="font-display text-3xl sm:text-4xl text-ink">Qué hacemos</h2>
+    <span class="text-sm text-ink-soft max-w-xs">Un solo equipo para todo el proceso, del boceto a la llave en mano.</span>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {services.map((s, i) => (
+      <div
+        class={`group border border-ink/12 rounded-2xl p-7 sm:p-8 flex flex-col justify-between transition-colors hover:border-clay/40 hover:bg-paper-dim/60 ${s.big ? 'lg:col-span-2 lg:row-span-1' : ''}`}
+        data-reveal
+        data-reveal-delay={i * 60}
+      >
+        <div class="w-11 h-11 text-clay mb-10">
+          <BlueprintIcon name={s.icon} />
+        </div>
+        <div>
+          <h3 class="font-display text-xl sm:text-2xl text-ink mb-2">{s.name}</h3>
+          <p class="text-ink-soft text-sm leading-relaxed max-w-sm">{s.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

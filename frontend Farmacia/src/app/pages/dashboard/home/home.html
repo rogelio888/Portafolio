@@ -1,0 +1,207 @@
+<div class="flex flex-col gap-6 pb-12 font-sans text-left">
+
+  <!-- Cabecera de Bienvenida -->
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2 sm:gap-4">
+    <div class="flex items-center gap-4">
+      <img src="logo2.svg" alt="Logo" class="w-14 h-14 object-contain drop-shadow-sm" />
+      <div>
+        <h2 class="text-2xl font-bold text-slate-800">Panel de Control</h2>
+        <p class="text-slate-500 text-sm mt-0.5">Visión general y alertas operativas en tiempo real.</p>
+      </div>
+    </div>
+    <div class="text-right shrink-0">
+      <p class="text-sm font-semibold text-slate-500">{{ todayFormatted }}</p>
+      <p class="text-[10px] text-slate-400 mt-0.5 font-mono">Sistema de Farmacia</p>
+    </div>
+  </div>
+
+  <!-- KPI Cards (Métricas del Día) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+    <!-- Ventas del Día -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+      <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0 border border-blue-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      <div>
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Ventas de Hoy</p>
+        <p class="text-2xl font-black text-slate-800">Bs. {{ ventasHoy | number:'1.2-2' }}</p>
+      </div>
+    </div>
+
+    <!-- Unidades Vendidas -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+      <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center shrink-0 border border-emerald-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+      </div>
+      <div>
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Unidades Vendidas Hoy</p>
+        <p class="text-2xl font-black text-slate-800">{{ unidadesVendidasHoy }} <span class="text-sm font-semibold text-slate-400">und</span></p>
+      </div>
+    </div>
+
+    <!-- Tickets Emitidos -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+      <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0 border border-indigo-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+      </div>
+      <div>
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Tickets Emitidos</p>
+        <p class="text-2xl font-black text-slate-800">{{ ticketsHoy }}</p>
+      </div>
+    </div>
+
+    <!-- Productos en Catálogo -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex items-center gap-4 hover:shadow-md transition-shadow">
+      <div class="w-12 h-12 bg-violet-50 text-violet-600 rounded-xl flex items-center justify-center shrink-0 border border-violet-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+      </div>
+      <div>
+        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Productos en Catálogo</p>
+        <p class="text-2xl font-black text-slate-800">{{ totalProductos }} <span class="text-sm font-semibold text-slate-400">ítems</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN DE ALERTAS CRÍTICAS (HU18) -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
+
+    <!-- Alertas de Vencimiento (FEFO) -->
+    <div class="bg-white rounded-xl shadow-sm border border-red-200 overflow-hidden flex flex-col">
+      <div class="bg-red-50 p-4 border-b border-red-100 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-red-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          <h3 class="font-bold text-red-900 text-sm">Lotes Próximos a Vencer (&lt; 90 días)</h3>
+        </div>
+        <span class="text-white text-[10px] font-black px-2 py-1 rounded-full"
+              [class]="expiringAlerts.length > 0 ? 'bg-red-600' : 'bg-emerald-600'">
+          {{ expiringAlerts.length }} Alertas
+        </span>
+      </div>
+      <div class="overflow-x-auto w-full">
+        <table class="w-full text-left text-sm whitespace-nowrap min-w-[480px]">
+          <thead class="bg-slate-50 text-slate-500 text-[10px] uppercase tracking-wider border-b border-slate-100">
+            <tr>
+              <th class="px-4 py-2 font-semibold">Producto</th>
+              <th class="px-4 py-2 font-semibold">Lote</th>
+              <th class="px-4 py-2 font-semibold text-center">Stock</th>
+              <th class="px-4 py-2 font-semibold text-center">Vence en</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            @for (alert of expiringAlerts; track alert.loteId) {
+            <tr class="hover:bg-red-50/40 transition-colors">
+              <td class="px-4 py-3 font-semibold text-slate-800 text-xs">{{ alert.productoNombre }}</td>
+              <td class="px-4 py-3 text-slate-500 font-mono text-[10px]">{{ alert.loteId }}<br><span class="text-slate-400">{{ alert.fechaVencimiento }}</span></td>
+              <td class="px-4 py-3 text-center font-bold text-slate-600 text-xs">{{ alert.stock }} und</td>
+              <td class="px-4 py-3 text-center">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold" [class]="getExpiryClass(alert.diasRestantes)">
+                  {{ alert.diasRestantes }} días
+                </span>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="4" class="px-4 py-8 text-center text-slate-400 text-xs">
+                <span class="text-emerald-600 font-bold">✓</span> No hay lotes próximos a vencer. Inventario en orden.
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Alertas de Stock Bajo -->
+    <div class="bg-white rounded-xl shadow-sm border border-amber-200 overflow-hidden flex flex-col">
+      <div class="bg-amber-50 p-4 border-b border-amber-100 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <h3 class="font-bold text-amber-900 text-sm">Alerta de Stock Crítico</h3>
+        </div>
+        <span class="text-white text-[10px] font-black px-2 py-1 rounded-full"
+              [class]="lowStockAlerts.length > 0 ? 'bg-amber-500' : 'bg-emerald-600'">
+          {{ lowStockAlerts.length }} Alertas
+        </span>
+      </div>
+      <div class="overflow-x-auto w-full">
+        <table class="w-full text-left text-sm whitespace-nowrap min-w-[480px]">
+          <thead class="bg-slate-50 text-slate-500 text-[10px] uppercase tracking-wider border-b border-slate-100">
+            <tr>
+              <th class="px-4 py-2 font-semibold">Medicamento</th>
+              <th class="px-4 py-2 font-semibold text-center">Stock Actual</th>
+              <th class="px-4 py-2 font-semibold text-center">Stock Mínimo</th>
+              <th class="px-4 py-2 font-semibold text-center">Déficit</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            @for (alert of lowStockAlerts; track alert.producto.id) {
+            <tr class="hover:bg-amber-50/40 transition-colors">
+              <td class="px-4 py-3">
+                <p class="font-semibold text-slate-800 text-xs">{{ alert.producto.nombre }}</p>
+                <p class="text-[10px] text-slate-400">{{ alert.producto.laboratorio }}</p>
+              </td>
+              <td class="px-4 py-3 text-center">
+                <span class="font-black text-xs" [class]="alert.stockActual === 0 ? 'text-red-700' : 'text-amber-600'">{{ alert.stockActual }}</span>
+              </td>
+              <td class="px-4 py-3 text-center text-slate-500 font-medium text-xs">{{ alert.stockMinimo }}</td>
+              <td class="px-4 py-3 text-center">
+                <span class="text-[10px] font-bold text-red-700 bg-red-50 border border-red-100 px-2 py-0.5 rounded">
+                  -{{ alert.deficit }} und
+                </span>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="4" class="px-4 py-8 text-center text-slate-400 text-xs">
+                <span class="text-emerald-600 font-bold">✓</span> Todos los productos están sobre el stock mínimo.
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Gráfica de Tendencia de Ventas (Últimos 7 días) -->
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h3 class="font-bold text-slate-800 text-sm">Tendencia de Ventas</h3>
+        <p class="text-[10px] text-slate-400 mt-0.5">Últimos 7 días · En Bolivianos (Bs)</p>
+      </div>
+      <span class="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded">SIMULACIÓN</span>
+    </div>
+
+    <div class="h-48 w-full flex items-end gap-2 px-2 border-b border-slate-200 pb-0">
+      @for (day of last7Days; track day.label) {
+      <div class="flex-1 relative group cursor-pointer rounded-t-md transition-colors"
+           [class]="day.isToday ? 'bg-blue-600 shadow-lg shadow-blue-200' : 'bg-blue-100 hover:bg-blue-300'"
+           [style.height.%]="day.heightPct">
+        <div class="absolute -top-9 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 shadow-md">
+          Bs. {{ day.total | number:'1.2-2' }}
+        </div>
+      </div>
+      }
+    </div>
+
+    <div class="w-full flex items-center gap-2 px-2 mt-3">
+      @for (day of last7Days; track day.label) {
+      <span class="flex-1 text-center text-[10px] font-semibold"
+            [class]="day.isToday ? 'text-blue-600 font-black' : 'text-slate-400'">
+        {{ day.label }}
+      </span>
+      }
+    </div>
+
+    <!-- Si no hay datos -->
+    @if (last7Days.every(d => d.total === 0)) {
+    <p class="text-center text-slate-400 text-xs mt-4">
+      Realiza ventas en el Punto de Venta para visualizar la tendencia aquí.
+    </p>
+    }
+  </div>
+
+</div>

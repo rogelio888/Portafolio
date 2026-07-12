@@ -1,0 +1,164 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Directorio de Pacientes</h1>
+    <p class="page-subtitle">Gestión de datos demográficos y de contacto.</p>
+  </div>
+  <button class="btn-primary" (click)="abrirPanelNuevo()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+    Nuevo Paciente
+  </button>
+</div>
+
+<div class="pacientes-container">
+  <!-- Barra de Herramientas Superior -->
+  <div class="toolbar">
+    <div class="search-box">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-input" placeholder="Buscar por Nombre o Carnet de Identidad..." (input)="onSearch($event)">
+    </div>
+    <div class="stats">
+      Total registrados: <strong>{{ pacientesFiltrados().length }}</strong>
+    </div>
+  </div>
+
+  <!-- Tabla de Datos -->
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>CI / DNI</th>
+          <th>Contacto</th>
+          <th>Detalles</th>
+          <th>Estado</th>
+          <th class="text-right">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (pac of pacientesFiltrados(); track pac.id) {
+          <tr [class.inactivo]="pac.estado === 'Inactivo'">
+            <td>
+              <div class="user-cell">
+                <div class="avatar">{{ pac.nombre.charAt(0).toUpperCase() }}</div>
+                <div>
+                  <span class="user-name">{{ pac.nombre }}</span>
+                  <span class="user-meta">Registrado: {{ pac.fechaRegistro | date:'dd/MM/yyyy' }}</span>
+                </div>
+              </div>
+            </td>
+            <td><strong>{{ pac.ci }}</strong></td>
+            <td>
+              <div class="contact-info">
+                <span>{{ pac.telefono }}</span>
+                @if (pac.correo) {
+                  <span class="text-xs text-muted">{{ pac.correo }}</span>
+                }
+              </div>
+            </td>
+            <td>
+              <div class="details-info">
+                @if (pac.genero) { <span class="badge badge-gray">{{ pac.genero }}</span> }
+                @if (pac.fechaNacimiento) { <span class="badge badge-gray">{{ pac.fechaNacimiento | date:'dd/MM/yyyy' }}</span> }
+              </div>
+            </td>
+            <td>
+              <select [class]="'estado-select ' + pac.estado.toLowerCase()" [value]="pac.estado" (change)="cambiarEstado(pac.id, $event)">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </td>
+            <td class="text-right">
+              <button class="btn-icon" (click)="abrirPanelEdicion(pac)" title="Editar Expediente">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6">
+              <div class="empty-state">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="23" y2="14"/><line x1="23" y1="8" x2="17" y2="14"/></svg>
+                <p>No se encontraron pacientes con esos criterios.</p>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Overlay (Backdrop) -->
+@if (panelAbierto) {
+  <div class="slideover-backdrop" (click)="cerrarPanel()"></div>
+}
+
+<!-- Slide-over Panel (RECICLABLE PARA FUTUROS MÓDULOS) -->
+<div class="slideover-panel" [class.open]="panelAbierto">
+  <div class="slideover-header">
+    <h2>{{ modoEdicion ? 'Actualizar Expediente' : 'Registrar Nuevo Paciente' }}</h2>
+    <button class="btn-close" (click)="cerrarPanel()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="slideover-body">
+    @if (errorMensaje) {
+      <div class="alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        {{ errorMensaje }}
+      </div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="guardar()">
+      <div class="section-title">Datos Obligatorios</div>
+      
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input type="text" formControlName="nombre" class="form-control" placeholder="Ej. Ana García">
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Carnet de Identidad (CI)</label>
+          <input type="text" formControlName="ci" class="form-control" placeholder="Obligatorio para evitar duplicados">
+        </div>
+
+        <div class="form-group">
+          <label>Teléfono Celular</label>
+          <input type="text" formControlName="telefono" class="form-control" placeholder="Para recordatorios de citas">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-title">Datos Clínicos Básicos (Opcionales)</div>
+
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" formControlName="correo" class="form-control" placeholder="Para envío de recibos y recetas">
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Fecha de Nacimiento</label>
+          <input type="date" formControlName="fechaNacimiento" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Género</label>
+          <select formControlName="genero" class="form-control">
+            <option value="">Seleccione...</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="slideover-footer">
+        <button type="button" class="btn-secondary" (click)="cerrarPanel()">Cancelar</button>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid">Guardar Paciente</button>
+      </div>
+    </form>
+  </div>
+</div>

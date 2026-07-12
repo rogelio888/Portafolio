@@ -1,0 +1,44 @@
+---
+const cols = [
+  { title: 'Estudio', links: ['Servicios', 'Proyectos', 'Proceso', 'Equipo'] },
+  { title: 'Contacto', links: ['contacto@cantera-estudio.com', '+591 2 279 0000', 'Calacoto, La Paz'] },
+  { title: 'Síguenos', links: ['Instagram', 'LinkedIn', 'Behance'] }
+];
+---
+
+<footer class="border-t border-ink/12 bg-paper-dim/60">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 pt-16 pb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-10 pb-12">
+      <div class="sm:col-span-1">
+        <span class="font-display text-xl text-ink">Cantera <span class="text-clay">Estudio</span></span>
+        <p class="text-ink-soft text-sm mt-3 leading-relaxed">
+          Arquitectura y construcción en La Paz desde 2013.
+        </p>
+      </div>
+
+      {cols.map((col) => (
+        <div>
+          <h4 class="text-xs font-mono-label text-ink-soft/60 mb-4">{col.title.toUpperCase()}</h4>
+          <ul class="space-y-2.5">
+            {col.links.map((link) => (
+              <li>
+                <button
+                  type="button"
+                  title="Demo de portafolio — enlace no funcional"
+                  class="text-sm text-ink-soft hover:text-clay transition-colors cursor-pointer text-left"
+                >
+                  {link}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-between gap-2 pt-6 border-t border-ink/12 text-xs text-ink-soft/60">
+      <span>© {new Date().getFullYear()} Cantera Estudio — La Paz, Bolivia</span>
+      <span>Estudio ficticio — pieza de portafolio web</span>
+    </div>
+  </div>
+</footer>

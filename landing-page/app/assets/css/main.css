@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-display: 'Anton', sans-serif;
+  --font-sans: 'Work Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --color-ink-0: #0a0a0a;
+  --color-ink-1: #121212;
+  --color-ink-2: #1a1a1a;
+  --color-paper: #f2ede4;
+  --color-paper-dim: #cfc8ba;
+  --color-blood: #d81e1e;
+  --color-blood-dim: #7a1414;
+
+  --color-primary-50: #fdecec;
+  --color-primary-100: #f9cfcf;
+  --color-primary-200: #f2a3a3;
+  --color-primary-300: #e97575;
+  --color-primary-400: #e34747;
+  --color-primary-500: #d81e1e;
+  --color-primary-600: #af1717;
+  --color-primary-700: #861212;
+  --color-primary-800: #5c0c0c;
+  --color-primary-900: #360707;
+  --color-primary-950: #1c0303;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink-0);
+}
+
+body {
+  background: var(--color-ink-0);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  cursor: none;
+  overflow-x: clip;
+}
+
+@media (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: var(--color-blood);
+  color: var(--color-paper);
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.font-mono-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+}
+
+/* ---------- Film grain overlay ---------- */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.55) 130%);
+}
+
+/* ---------- Custom cursor ---------- */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-paper);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 70;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
+}
+
+.custom-cursor.is-hovering {
+  width: 56px;
+  height: 56px;
+  background: var(--color-paper);
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background: var(--color-blood);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 71;
+  transform: translate(-50%, -50%);
+}
+
+@media (pointer: coarse) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none;
+  }
+}
+
+/* ---------- Marquee ---------- */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 26s linear infinite;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+/* ---------- Utility: stroke text outline ---------- */
+.text-outline {
+  -webkit-text-stroke: 1.5px var(--color-paper);
+  color: transparent;
+}
+
+/* ---------- Scanline / noise texture on cards ---------- */
+.card-texture {
+  background-image: linear-gradient(rgba(242, 237, 228, 0.035) 1px, transparent 1px);
+  background-size: 100% 3px;
+}
+
+/* Hairline grid backdrop for hero */
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(242, 237, 228, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 237, 228, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}

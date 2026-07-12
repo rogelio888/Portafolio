@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Public Sans', system-ui, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+
+  --color-brand-50: #eef5f4;
+  --color-brand-100: #d2e4e1;
+  --color-brand-200: #a6c9c4;
+  --color-brand-300: #79aea6;
+  --color-brand-400: #4c9389;
+  --color-brand-500: #347a71;
+  --color-brand-600: #285f58;
+  --color-brand-700: #224e48;
+  --color-brand-800: #1c3f3a;
+  --color-brand-900: #16312d;
+  --color-brand-950: #0d1f1c;
+
+  --color-accent-50: #fbf1ee;
+  --color-accent-100: #f5ddd6;
+  --color-accent-200: #e9bcb0;
+  --color-accent-300: #d99a8a;
+  --color-accent-400: #c5705c;
+  --color-accent-500: #a4453a;
+  --color-accent-600: #8a392f;
+}
+
+body {
+  font-family: var(--font-sans);
+}

@@ -1,0 +1,154 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Configuración de Horarios</h1>
+    <p class="page-subtitle">Motor de disponibilidad y bloqueos por vacaciones o feriados.</p>
+  </div>
+</div>
+
+<div class="selector-panel">
+  <label class="selector-label">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Seleccione el Médico a configurar:
+  </label>
+  <select class="form-control" (change)="seleccionarMedico($event)">
+    <option value="">-- Elija un Doctor del catálogo --</option>
+    @for (med of medicos(); track med.id) {
+      <option [value]="med.id">{{ med.nombre }} ({{ med.ci }})</option>
+    }
+  </select>
+</div>
+
+@if (medicoSeleccionado()) {
+  <div class="workspace">
+    <div class="tabs">
+      <button class="tab-btn" [class.active]="tabActiva() === 'regular'" (click)="cambiarTab('regular')">
+        Horario Regular
+      </button>
+      <button class="tab-btn" [class.active]="tabActiva() === 'excepciones'" (click)="cambiarTab('excepciones')">
+        Días Libres y Excepciones
+      </button>
+    </div>
+
+    @if (mensaje) {
+      <div [class]="esError ? 'alert-error' : 'alert-success'">
+        {{ mensaje }}
+      </div>
+    }
+
+    <div class="tab-content">
+      <!-- PESTAÑA: HORARIO REGULAR -->
+      @if (tabActiva() === 'regular') {
+        <div class="config-header">
+          <div>
+            <h3>Días Laborables</h3>
+            <p class="text-muted">Active los días que el médico atiende y configure su horario.</p>
+          </div>
+          <div class="duracion-control">
+            <label>Duración por Consulta:</label>
+            <select [(ngModel)]="duracionGlobal" class="form-control inline-select">
+              <option [value]="15">15 minutos</option>
+              <option [value]="30">30 minutos</option>
+              <option [value]="60">1 Hora</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="dias-grid">
+          @for (dia of diasSemana; track dia.diaSemana) {
+            <div class="dia-card" [class.activo]="dia.activo">
+              <div class="dia-header">
+                <label class="toggle">
+                  <input type="checkbox" [(ngModel)]="dia.activo">
+                  <span class="slider"></span>
+                </label>
+                <span class="dia-nombre">{{ dia.nombre }}</span>
+              </div>
+              
+              <div class="dia-horas" [class.disabled]="!dia.activo">
+                <div class="hora-input">
+                  <label>Entrada</label>
+                  <input type="time" [(ngModel)]="dia.horaInicio" [disabled]="!dia.activo" class="form-control">
+                </div>
+                <div class="hora-input">
+                  <label>Salida</label>
+                  <input type="time" [(ngModel)]="dia.horaFin" [disabled]="!dia.activo" class="form-control">
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-primary" (click)="guardarHorarioRegular()">Guardar Horario Base</button>
+        </div>
+      }
+
+      <!-- PESTAÑA: EXCEPCIONES -->
+      @if (tabActiva() === 'excepciones') {
+        <div class="excepciones-layout">
+          <!-- Formulario para agregar -->
+          <div class="add-excepcion-panel">
+            <h3>Bloquear Nuevo Día</h3>
+            <p class="text-muted">El sistema no permitirá agendar citas en estas fechas.</p>
+            
+            <div class="form-group">
+              <label>Fecha a bloquear</label>
+              <input type="date" [(ngModel)]="nuevaExcepcionFecha" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label>Motivo</label>
+              <select [(ngModel)]="nuevaExcepcionMotivo" class="form-control">
+                <option value="Vacaciones">Vacaciones</option>
+                <option value="Feriado">Feriado Nacional / Local</option>
+                <option value="Personal">Asunto Personal / Permiso</option>
+              </select>
+            </div>
+
+            <button class="btn-primary w-full" (click)="agregarExcepcion()" [disabled]="!nuevaExcepcionFecha">
+              Bloquear Día
+            </button>
+          </div>
+
+          <!-- Lista de Excepciones actuales -->
+          <div class="lista-excepciones">
+            <h3>Días Bloqueados ({{ excepciones().length }})</h3>
+            
+            @if (excepciones().length === 0) {
+              <div class="empty-state">
+                No hay excepciones programadas para este doctor.
+              </div>
+            } @else {
+              <div class="list-group">
+                @for (exc of excepciones(); track exc.id) {
+                  <div class="list-item">
+                    <div class="item-info">
+                      <div class="item-date">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        {{ exc.fecha }}
+                      </div>
+                      <span class="badge" [ngClass]="{
+                        'badge-vacaciones': exc.motivo === 'Vacaciones',
+                        'badge-feriado': exc.motivo === 'Feriado',
+                        'badge-personal': exc.motivo === 'Personal'
+                      }">{{ exc.motivo }}</span>
+                    </div>
+                    <button class="btn-icon danger" (click)="eliminarExcepcion(exc.id)" title="Desbloquear día">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="empty-selection">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="text-muted"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <h3>Sistema de Horarios</h3>
+    <p>Seleccione un médico del catálogo arriba para configurar su disponibilidad o registrar sus días de descanso.</p>
+  </div>
+}

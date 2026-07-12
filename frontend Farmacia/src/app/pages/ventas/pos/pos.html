@@ -1,0 +1,561 @@
+﻿<div class="flex flex-col gap-4 pb-12 font-sans text-left relative">
+
+  <!-- Cabecera -->
+  <div class="mb-2">
+    <h2 class="text-2xl font-bold text-slate-800">Punto de Venta</h2>
+    <p class="text-slate-500 text-sm mt-1">Gestión de ventas y caja registradora (HU12)</p>
+  </div>
+
+  <!-- Pestañas de Navegación -->
+  <div class="flex border-b border-slate-200 shrink-0 overflow-x-auto w-full">
+    <button (click)="activeTab = 'caja'" 
+            class="px-6 py-3 font-semibold text-sm border-b-2 transition-colors cursor-pointer"
+            [class]="activeTab === 'caja' ? 'border-blue-600 text-blue-700' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'">
+      Caja Registradora (Nueva Venta)
+    </button>
+    <button (click)="activeTab = 'historial'" 
+            class="px-6 py-3 font-semibold text-sm border-b-2 transition-colors cursor-pointer"
+            [class]="activeTab === 'historial' ? 'border-blue-600 text-blue-700' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'">
+      Historial de Ventas Diarias
+    </button>
+  </div>
+
+  <!-- ========================== -->
+  <!-- ESTADO: CAJA REGISTRADORA -->
+  <!-- ========================== -->
+  @if (activeTab === 'caja') {
+  <div class="flex-1 flex flex-col lg:flex-row gap-6 animate-fade-in">
+    <!-- Sección Izquierda: Buscador y Carrito -->
+    <div class="flex-1 flex flex-col gap-6">
+      <!-- Buscador Superior -->
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 shrink-0 relative">
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </span>
+          <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar medicamento por nombre, código o principio activo (ej. Paracetamol)..." class="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 text-slate-800 text-sm font-semibold" />
+        </div>
+
+        <!-- Buscador Autocompletado Overlay -->
+        @if (filteredProducts.length > 0) {
+          <div class="absolute left-4 right-4 z-20 mt-1 bg-white border border-slate-200 rounded-xl shadow-lg max-h-60 overflow-y-auto divide-y divide-slate-100 text-left">
+            @for (p of filteredProducts; track p.id) {
+              <button (click)="addToCart(p)" class="w-full px-4 py-3 hover:bg-blue-50/75 flex justify-between items-center cursor-pointer transition-colors text-left">
+                <div>
+                  <p class="font-bold text-slate-800 text-sm">{{ p.nombre }}</p>
+                  <p class="text-[10px] text-slate-400 font-mono">{{ p.id }} | Principio: {{ p.principioActivo }}</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-sm font-black text-blue-700">Bs. {{ p.precioVenta | number:'1.2-2' }}</span>
+                  <p class="text-[10px]" [class]="db.getProductStock(p) <= p.stockMinimo ? 'text-red-500 font-bold' : 'text-slate-500'">Stock: {{ db.getProductStock(p) }} und</p>
+                </div>
+              </button>
+            }
+          </div>
+        }
+        
+        <!-- Resultados sugeridos rápidos -->
+        <div class="mt-3 flex gap-2 items-center">
+          <span class="text-xs text-slate-400 font-medium">Búsqueda rápida:</span>
+          @if (products.length > 0) {
+            <button (click)="addToCart(products[0])" class="px-2.5 py-1 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded text-xs font-semibold hover:text-slate-900 transition-colors border border-slate-200 cursor-pointer">
+              + {{ products[0].nombre }}
+            </button>
+          }
+          @if (products.length > 1) {
+            <button (click)="addToCart(products[1])" class="px-2.5 py-1 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded text-xs font-semibold hover:text-slate-900 transition-colors border border-slate-200 cursor-pointer">
+              + {{ products[1].nombre }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Tabla del Carrito -->
+      <div class="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden min-h-[300px]">
+        <div class="p-3 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Productos en Carrito de Venta</h3>
+          <button (click)="vaciarCarrito()" class="text-xs text-slate-400 hover:text-red-600 font-semibold transition-colors cursor-pointer bg-white px-2 py-1 rounded border border-slate-200 shadow-sm">Vaciar Carrito</button>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto">
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-left text-sm min-w-[650px] whitespace-nowrap">
+              <thead class="bg-slate-50 sticky top-0 border-b border-slate-200 text-slate-500 text-xs">
+                <tr>
+                  <th class="px-4 py-2 font-semibold w-1/2">Medicamento</th>
+                  <th class="px-4 py-2 font-semibold">Lote Despachado (FEFO)</th>
+                  <th class="px-4 py-2 font-semibold text-center">Cant.</th>
+                  <th class="px-4 py-2 font-semibold text-right">PVP</th>
+                  <th class="px-4 py-2 font-semibold text-right">Subtotal</th>
+                  <th class="px-4 py-2"></th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-800">
+                @for (item of cart; track item.productoId; let i = $index) {
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                  <td class="px-4 py-3">
+                    <p class="font-bold text-slate-900">{{ item.productoNombre }}</p>
+                    <p class="text-[10px] text-slate-400 font-medium">Lab: {{ item.laboratorio }}</p>
+                  </td>
+                  <td class="px-4 py-3">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200 tracking-wide font-mono">
+                      {{ item.loteId }} (Vence: {{ item.fechaVencimiento }})
+                    </span>
+                  </td>
+                  <td class="px-4 py-3 text-center">
+                    <div class="flex items-center justify-center gap-1 border border-slate-200 rounded px-1 w-max mx-auto bg-slate-50">
+                      <button (click)="updateQty(item, -1)" class="w-6 h-6 text-slate-500 hover:text-blue-600 font-bold hover:bg-slate-100 rounded cursor-pointer transition-colors">-</button>
+                      <span class="font-bold w-6 text-center text-slate-800 text-xs">{{ item.cantidad }}</span>
+                      <button (click)="updateQty(item, 1)" class="w-6 h-6 text-slate-500 hover:text-blue-600 font-bold hover:bg-slate-100 rounded cursor-pointer transition-colors">+</button>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-right font-medium text-slate-500">Bs. {{ item.precioVenta | number:'1.2-2' }}</td>
+                  <td class="px-4 py-3 text-right font-black text-slate-900">Bs. {{ (item.cantidad * item.precioVenta) | number:'1.2-2' }}</td>
+                  <td class="px-4 py-3 text-right">
+                    <button (click)="removeFromCart(i)" class="text-slate-400 hover:text-red-600 transition-colors cursor-pointer p-1 rounded hover:bg-red-50">
+                      <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
+                  </td>
+                </tr>
+                } @empty {
+                <tr>
+                  <td colspan="6" class="px-4 py-16 text-center text-slate-400 font-sans">
+                    El carrito de ventas está vacío. Busque y seleccione medicamentos arriba para añadirlos a la caja.
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Derecha: Resumen y Pagos -->
+    <div class="w-full lg:w-80 flex flex-col gap-6 text-left shrink-0">
+      <!-- Cliente -->
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide border-b border-slate-100 pb-2 mb-3">Facturación Factura</h3>
+        <div class="space-y-3 pt-1">
+          <div>
+            <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">NIT / CI Cliente</label>
+            <input type="text" [(ngModel)]="clienteNit" name="clienteNit" placeholder="Ej. 1234567" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-sm text-slate-800" />
+          </div>
+          <div>
+            <label class="block text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Razón Social</label>
+            <input type="text" [(ngModel)]="clienteName" name="clienteName" placeholder="Ej. Pérez" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-sm text-slate-800 font-semibold" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Totales -->
+      <div class="bg-white rounded-xl flex flex-col border border-slate-200 shadow-sm p-4">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wide border-b border-slate-100 pb-3 mb-4">Resumen de Venta</h3>
+        
+        <div class="space-y-3">
+          <div class="flex justify-between text-sm text-slate-600">
+            <span>Subtotal Bruto</span>
+            <span>Bs. {{ subtotal | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between text-sm text-slate-600">
+            <span>Descuento</span>
+            <span>Bs. {{ descuento | number:'1.2-2' }}</span>
+          </div>
+          <div class="pt-4 border-t border-slate-100 mt-4">
+            <div class="flex justify-between items-center">
+              <span class="text-slate-800 font-bold text-base">Total Final</span>
+              <span class="text-3xl font-black text-blue-700 tracking-tight">Bs. {{ total | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Métodos de Pago -->
+        <div class="space-y-2 mt-6">
+          <button (click)="abrirEfectivoModal()" class="w-full py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm rounded-md transition-colors flex justify-center items-center gap-2 border border-blue-800 shadow-sm cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            Cobrar Efectivo
+          </button>
+          <button (click)="abrirQrModal()" class="w-full py-2.5 bg-white text-slate-700 hover:bg-slate-50 font-bold text-sm rounded-md transition-colors flex justify-center items-center gap-2 border border-slate-300 shadow-sm cursor-pointer">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+            Cobrar QR
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- =============================== -->
+  <!-- ESTADO: HISTORIAL DE VENTAS     -->
+  <!-- =============================== -->
+  @if (activeTab === 'historial') {
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 animate-fade-in text-left">
+    <!-- Barra de Búsqueda -->
+    <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row gap-4 bg-slate-50/50 items-start sm:items-center justify-between shrink-0">
+      <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full sm:w-auto">
+        <div class="relative w-full sm:max-w-sm">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </span>
+          <input type="text" [(ngModel)]="historialSearchQuery" placeholder="Buscar por Nro. Ticket o Cliente..." class="w-full pl-9 pr-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-sm text-slate-800" />
+        </div>
+        <input type="date" [(ngModel)]="historialDateQuery" class="w-full sm:w-auto px-3 py-2 bg-white border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600 text-sm text-slate-600 cursor-pointer" />
+      </div>
+    </div>
+
+    <!-- Tabla Historial -->
+    <div class="overflow-x-auto w-full">
+      <table class="w-full text-left text-sm whitespace-nowrap min-w-[800px]">
+        <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold text-xs uppercase tracking-wider">
+          <tr>
+            <th class="px-6 py-3">Fecha y Hora</th>
+            <th class="px-6 py-3">Nro. Ticket</th>
+            <th class="px-6 py-3">Cliente</th>
+            <th class="px-6 py-3 text-center">Tipo Pago</th>
+            <th class="px-6 py-3 text-right">Total Cobrado</th>
+            <th class="px-6 py-3 text-center">Estado</th>
+            <th class="px-6 py-3 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-slate-700">
+          @for (s of salesList; track s.id) {
+          <tr class="hover:bg-slate-50/50 transition-colors" [class.opacity-50]="s.estado === 'Anulada'">
+            <td class="px-6 py-4 text-slate-500 font-mono text-xs">{{ s.fecha }} {{ s.hora }}</td>
+            <td class="px-6 py-4 font-bold text-slate-900" [class.line-through]="s.estado === 'Anulada'">{{ s.id }}</td>
+            <td class="px-6 py-4 font-semibold text-slate-800">{{ s.clienteName }} (NIT: {{ s.clienteNit }})</td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-xs font-bold border"
+                    [class]="s.tipoPago === 'QR' ? 'text-indigo-800 bg-indigo-50 border-indigo-200' : 'text-slate-600 bg-slate-100 border-slate-200'">
+                {{ s.tipoPago }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-right font-black text-slate-800">Bs. {{ s.total | number:'1.2-2' }}</td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold"
+                    [class]="s.estado === 'Completada' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800 border border-red-200'">
+                {{ s.estado }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <div class="flex items-center justify-center gap-2">
+                <button (click)="verTicket(s)" class="text-blue-600 hover:text-blue-800 transition-colors bg-blue-50 hover:bg-blue-100 p-1.5 rounded-md cursor-pointer" title="Ver Recibo">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                </button>
+                @if (s.estado === 'Completada') {
+                  <button (click)="anularVenta(s.id)" class="text-red-600 hover:text-red-800 transition-colors bg-red-50 hover:bg-red-100 p-1.5 rounded-md cursor-pointer" title="Anular Venta">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                  </button>
+                }
+              </div>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="7" class="px-6 py-12 text-center text-slate-400">No hay ventas registradas.</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  }
+
+  <!-- SIMULACIÓN MODAL: COBRO POR QR (HU13) -->
+  <div [class.hidden]="!showQrModal()" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden flex flex-col relative text-center transition-all">
+
+      <!-- === ESTADO 1: ESPERANDO PAGO (spinner) === -->
+      <div [class.hidden]="showQrSuccessModal()">
+        <!-- Botón de Cerrar -->
+        <button (click)="cancelarCobroQr()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors bg-slate-100 hover:bg-slate-200 rounded-full p-1 z-10 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- Cabecera -->
+        <div class="pt-8 pb-4 px-6">
+          <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-100">
+            <svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+          </div>
+          <h3 class="font-bold text-xl text-slate-800">QR Pago Express</h3>
+          <p class="text-xs text-slate-500 mt-1">Conexión en línea — Banco Económico API</p>
+        </div>
+
+        <!-- Imagen del QR Simulado -->
+        <div class="px-8 pb-6 flex justify-center">
+          <div class="border-2 border-indigo-100 rounded-2xl p-3 bg-white shadow-sm">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=Farmacia-Venta-Simulada" alt="Código QR" class="w-44 h-44 rounded-lg" />
+          </div>
+        </div>
+
+        <!-- Monto -->
+        <div class="px-6 py-4 bg-slate-50 border-t border-slate-100">
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Monto a Facturar</p>
+          <p class="text-3xl font-black text-blue-700">Bs. {{ total | number:'1.2-2' }}</p>
+        </div>
+
+        <!-- Footer: Spinner de Espera -->
+        <div class="p-4 bg-blue-700 flex flex-col items-center justify-center gap-1.5">
+          <div class="flex items-center gap-3 text-white">
+            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="font-bold text-xs tracking-wide">Esperando confirmación del banco...</span>
+          </div>
+          <p class="text-[10px] text-blue-200">Enlace Banco Económico activo.</p>
+        </div>
+      </div>
+
+      <!-- === ESTADO 2: PAGO CONFIRMADO (éxito verde) === -->
+      <div [class.hidden]="!showQrSuccessModal()" class="p-10 flex flex-col items-center justify-center text-center">
+        <!-- Ícono de Check Animado -->
+        <div class="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-5 shadow-inner border-4 border-white ring-4 ring-emerald-50">
+          <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+
+        <h3 class="font-black text-2xl text-slate-800 mb-1">¡Pago Recibido!</h3>
+        <p class="text-slate-500 text-sm mb-2">Confirmación del Banco Económico</p>
+
+        <!-- Detalle del pago -->
+        <div class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6 text-left space-y-2">
+          <div class="flex justify-between text-xs text-slate-500">
+            <span>Método</span>
+            <span class="font-bold text-indigo-700">QR Simple — Banco Económico</span>
+          </div>
+          <div class="flex justify-between text-xs text-slate-500">
+            <span>Total Acreditado</span>
+            <span class="font-black text-slate-900 text-base">Bs. {{ activeTicket?.total | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between text-xs text-slate-500">
+            <span>Ticket</span>
+            <span class="font-mono font-bold text-slate-700">{{ activeTicket?.id }}</span>
+          </div>
+        </div>
+
+        <p class="text-xs font-bold text-emerald-600 uppercase tracking-wider animate-pulse mb-2">
+          Abriendo recibo fiscal...
+        </p>
+        <p class="text-[10px] text-slate-400">El comprobante se abrirá automáticamente.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OVERLAY DE ÉXITO QR (aparece 3s después, por 2.5s antes de abrir el ticket) -->
+  @if (showQrSuccessModal()) {
+  <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-10 flex flex-col items-center text-center">
+      <!-- Check verde animado -->
+      <div class="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mb-5 border-4 border-emerald-200">
+        <svg class="w-12 h-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+
+      <h3 class="font-black text-2xl text-slate-800 mb-1">¡Pago Realizado!</h3>
+      <p class="text-slate-500 text-sm mb-5">Banco Económico confirmó el pago correctamente.</p>
+
+      <div class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-left space-y-2">
+        <div class="flex justify-between text-xs">
+          <span class="text-slate-500">Método</span>
+          <span class="font-bold text-indigo-700">QR Simple — Banco Económico</span>
+        </div>
+        <div class="flex justify-between text-xs">
+          <span class="text-slate-500">Total Acreditado</span>
+          <span class="font-black text-slate-900 text-base">Bs. {{ activeTicket?.total | number:'1.2-2' }}</span>
+        </div>
+        <div class="flex justify-between text-xs">
+          <span class="text-slate-500">Ticket</span>
+          <span class="font-mono font-bold text-slate-700">{{ activeTicket?.id }}</span>
+        </div>
+      </div>
+
+      <p class="text-xs font-semibold text-emerald-600 uppercase tracking-wider mt-5 animate-pulse">
+        Generando comprobante fiscal...
+      </p>
+    </div>
+  </div>
+  }
+
+  <!-- SIMULACIÓN MODAL: COBRO EN EFECTIVO (HU12) -->
+  <div [class.hidden]="!showEfectivoModal()" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden flex flex-col relative transition-all text-left">
+      
+      <!-- ESTADO 1: Formulario de Pago (Oculto si pagoExitoso es true) -->
+      <div [class.hidden]="pagoExitoso()">
+        <button (click)="showEfectivoModal.set(false)" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors bg-slate-100 hover:bg-slate-200 rounded-full p-1 z-10 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <div class="p-6">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg text-slate-800">Cobro en Efectivo</h3>
+              <p class="text-xs text-slate-500">Monto total: Bs. {{ total | number:'1.2-2' }}</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Monto Recibido en Caja (Bs)</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-500 font-black">Bs.</span>
+                <input type="number" step="0.50" min="{{total}}" [(ngModel)]="efectivoRecibido" name="efectivoRecibido" class="w-full pl-12 pr-4 py-3 bg-white border-2 border-blue-500 rounded-xl focus:outline-none focus:ring-0 text-2xl font-black text-slate-800" />
+              </div>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex justify-between items-center">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wide">Cambio a Devolver</span>
+              <span class="text-2xl font-black text-emerald-600">Bs. {{ efectivoCambio | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 bg-slate-50 border-t border-slate-100 flex gap-3">
+          <button (click)="showEfectivoModal.set(false)" class="px-4 py-2.5 bg-white border border-slate-300 rounded-lg font-semibold text-slate-700 hover:bg-slate-100 transition-colors flex-1 cursor-pointer text-center">
+            Cancelar
+          </button>
+          <button (click)="confirmarPagoEfectivo()" class="px-4 py-2.5 bg-blue-700 text-white rounded-lg font-bold hover:bg-blue-800 transition-colors flex-1 shadow-md cursor-pointer text-center">
+            Confirmar Cobro
+          </button>
+        </div>
+      </div>
+
+      <!-- ESTADO 2: Éxito (Visible si pagoExitoso es true) -->
+      <div [class.hidden]="!pagoExitoso()" class="p-10 flex flex-col items-center justify-center text-center">
+        <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-5 shadow-inner border-4 border-white ring-4 ring-emerald-50">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <h3 class="font-bold text-2xl text-slate-800 mb-1">¡Venta Completada!</h3>
+        <p class="text-slate-500 text-sm mb-6">El stock se ha descontado de los lotes por FEFO.</p>
+        
+        <button (click)="cerrarModalPago()" class="px-8 py-2.5 bg-slate-800 text-white rounded-lg font-bold hover:bg-slate-900 transition-colors shadow-md w-full mb-3 cursor-pointer">
+          Aceptar
+        </button>
+        
+        <p class="text-xs font-bold text-emerald-600 uppercase tracking-wider animate-pulse">Imprimiendo comprobante...</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SIMULACIÓN MODAL: VER TICKET (ESTILO IMPRESORA TÉRMICA) -->
+  <div [class.hidden]="!showTicketModal()" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white shadow-2xl w-full max-w-sm overflow-hidden flex flex-col relative animate-fade-in text-left" style="font-family: 'Courier New', Courier, monospace;">
+      
+      <!-- Botón Cerrar (Fuera del ticket) -->
+      <button (click)="showTicketModal.set(false)" class="absolute top-2 right-2 text-slate-400 hover:text-slate-700 bg-white shadow-md rounded-full p-1.5 z-10 transition-colors cursor-pointer border border-slate-100">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <!-- Ticket Body -->
+      <div class="p-6 bg-[#fbfbfb] border-t-8 border-slate-800">
+        <div class="text-center mb-4 font-mono">
+          <img src="logo2.svg" alt="Logo" class="w-12 h-12 mx-auto mb-2 grayscale object-contain" />
+          <h2 class="font-bold text-base uppercase mb-0.5">SISTEMA DE FARMACIA</h2>
+          <p class="text-[10px] text-slate-600 leading-tight">De: Farmacia Demo SRL</p>
+          <p class="text-[10px] text-slate-600 leading-tight">Telf: 3345-6789</p>
+          <p class="text-[10px] text-slate-600 leading-tight mb-2">NIT: 1020304025</p>
+          <p class="font-bold text-xs border-y border-dashed border-slate-400 py-1 uppercase">RECIBO FISCAL DE VENTA</p>
+          <p class="text-xs font-bold mt-1">Ticket: {{ activeTicket?.id }}</p>
+        </div>
+
+        <div class="border-b border-dashed border-slate-400 pb-2 mb-2 text-[10px] flex justify-between font-mono">
+          <div>
+            <p>FECHA: {{ activeTicket?.fecha }}</p>
+            <p>HORA: {{ activeTicket?.hora }}</p>
+          </div>
+          <div class="text-right">
+            <p>CAJERO: Admin</p>
+          </div>
+        </div>
+
+        <div class="mb-3 text-[10px] font-mono">
+          <p>CLIENTE: {{ activeTicket?.clienteName }}</p>
+          <p>NIT/CI: {{ activeTicket?.clienteNit }}</p>
+        </div>
+
+        <!-- Tabla Productos -->
+        <table class="w-full text-[10px] mb-3 font-mono">
+          <thead class="border-b border-dashed border-slate-400 text-left">
+            <tr>
+              <th class="py-1 font-normal w-1/2">DESCRIPCIÓN</th>
+              <th class="py-1 font-normal text-right">P.U.</th>
+              <th class="py-1 font-normal text-right">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody class="align-top divide-y divide-dashed divide-slate-200">
+            @for (item of activeTicket?.items; track item.productoId) {
+            <tr>
+              <td class="py-1 pr-1 font-mono">
+                {{ item.cantidad }} x {{ item.productoNombre }}
+                <p class="text-[9px] text-slate-500">Lote: {{ item.loteId }}</p>
+              </td>
+              <td class="py-1 text-right pr-2">Bs {{ item.precioVenta | number:'1.2-2' }}</td>
+              <td class="py-1 text-right">Bs {{ (item.cantidad * item.precioVenta) | number:'1.2-2' }}</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+
+        <!-- Totales -->
+        <div class="border-t border-dashed border-slate-400 pt-2 mb-4 font-mono">
+          <div class="flex justify-between text-[10px] mb-0.5">
+            <span>SUBTOTAL:</span>
+            <span>Bs. {{ activeTicket?.subtotal | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between text-[10px] mb-0.5">
+            <span>DESCUENTO:</span>
+            <span>Bs. {{ activeTicket?.descuento | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between text-xs font-bold mt-1 border-t border-dotted border-slate-300 pt-1">
+            <span>TOTAL A PAGAR:</span>
+            <span>Bs. {{ activeTicket?.total | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <div class="font-mono">
+          <div class="flex justify-between text-[10px]">
+            <span>FORMA DE PAGO:</span>
+            <span class="font-bold">{{ activeTicket?.tipoPago }}</span>
+          </div>
+          @if (activeTicket?.tipoPago === 'Efectivo') {
+            <div class="text-[10px] mt-1 space-y-0.5">
+              <div class="flex justify-between">
+                <span>EFECTIVO RECIBIDO:</span>
+                <span>Bs. {{ efectivoRecibido | number:'1.2-2' }}</span>
+              </div>
+              <div class="flex justify-between text-emerald-800">
+                <span>CAMBIO DEVOLVER:</span>
+                <span>Bs. {{ (efectivoRecibido - (activeTicket?.total ?? 0)) | number:'1.2-2' }}</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="text-center text-[10px] mt-6 font-mono border-t border-dashed border-slate-400 pt-4">
+          <p class="font-bold">¡GRACIAS POR SU PREFERENCIA!</p>
+          <p class="mt-0.5">Moneda oficial: Bolivianos (Bs)</p>
+          <p class="mt-1 text-[8px] text-slate-400">Sistema de Farmacia Digital - Bolivia</p>
+        </div>
+      </div>
+      
+      <!-- Footer del modal -->
+      <div class="p-3 bg-slate-50 flex justify-center border-t border-slate-200 gap-2 font-sans shrink-0">
+        <button (click)="imprimirTicket()" class="flex-1 flex justify-center items-center gap-2 text-xs font-bold text-slate-700 hover:text-slate-900 border border-slate-300 rounded px-3 py-1.5 bg-white hover:bg-slate-100 transition-colors cursor-pointer shadow-sm">
+          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+          Reimprimir
+        </button>
+        <button (click)="showTicketModal.set(false)" class="flex-1 text-xs font-bold bg-slate-800 text-white hover:bg-slate-900 rounded px-3 py-1.5 text-center cursor-pointer transition-colors shadow-sm">
+          Cerrar Recibo
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

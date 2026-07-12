@@ -1,0 +1,509 @@
+{
+  "_Button-AgtSY3Ng.js": {
+    "file": "assets/Button-AgtSY3Ng.js",
+    "name": "Button",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_Modal-B7Mg5LTC.js": {
+    "file": "assets/Modal-B7Mg5LTC.js",
+    "name": "Modal",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/Modal-UuNZPOLX.css"
+    ]
+  },
+  "_Modal-UuNZPOLX.css": {
+    "file": "assets/Modal-UuNZPOLX.css",
+    "src": "_Modal-UuNZPOLX.css"
+  },
+  "_Table-Cma2KXjz.js": {
+    "file": "assets/Table-Cma2KXjz.js",
+    "name": "Table",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_habitaciones-BXYPAQ8z.js": {
+    "file": "assets/habitaciones-BXYPAQ8z.js",
+    "name": "habitaciones",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_hoteles-Cj_n2tFk.js": {
+    "file": "assets/hoteles-Cj_n2tFk.js",
+    "name": "hoteles",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_huespedes-CiUlC-eS.js": {
+    "file": "assets/huespedes-CiUlC-eS.js",
+    "name": "huespedes",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_reservas-Cq-m4-rN.js": {
+    "file": "assets/reservas-Cq-m4-rN.js",
+    "name": "reservas",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_servicios-D_Dy-RAM.js": {
+    "file": "assets/servicios-D_Dy-RAM.js",
+    "name": "servicios",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-7iHdx4x7.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DWQ7THlv.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/views/auth/Login.vue",
+      "resources/js/views/Dashboard.vue",
+      "resources/js/views/hoteles/Index.vue",
+      "resources/js/views/hoteles/Create.vue",
+      "resources/js/views/hoteles/Edit.vue",
+      "resources/js/views/hoteles/Show.vue",
+      "resources/js/views/pisos/Index.vue",
+      "resources/js/views/tipo-habitaciones/Index.vue",
+      "resources/js/views/habitaciones/Index.vue",
+      "resources/js/views/habitaciones/Create.vue",
+      "resources/js/views/habitaciones/Edit.vue",
+      "resources/js/views/huespedes/Index.vue",
+      "resources/js/views/huespedes/Create.vue",
+      "resources/js/views/huespedes/Edit.vue",
+      "resources/js/views/reservas/Index.vue",
+      "resources/js/views/reservas/Create.vue",
+      "resources/js/views/reservas/Show.vue",
+      "resources/js/views/servicios/Index.vue",
+      "resources/js/views/consumos/Index.vue",
+      "resources/js/views/pagos/Index.vue",
+      "resources/js/views/empleados/Index.vue",
+      "resources/js/views/empleados/Create.vue",
+      "resources/js/views/roles/Index.vue",
+      "resources/js/views/mantenimientos/Index.vue",
+      "resources/js/views/reportes/Index.vue",
+      "resources/js/views/auditoria/Index.vue",
+      "resources/js/views/profile/Profile.vue",
+      "resources/js/views/NotFound.vue"
+    ],
+    "css": [
+      "assets/app-AvxEl2Ls.css",
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/Dashboard.vue": {
+    "file": "assets/Dashboard-iPD7XtA_.js",
+    "name": "Dashboard",
+    "src": "resources/js/views/Dashboard.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/NotFound.vue": {
+    "file": "assets/NotFound-D3u-Rb6C.js",
+    "name": "NotFound",
+    "src": "resources/js/views/NotFound.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/auditoria/Index.vue": {
+    "file": "assets/Index-NMbpZOJG.js",
+    "name": "Index",
+    "src": "resources/js/views/auditoria/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/auth/Login.vue": {
+    "file": "assets/Login-C-8Tbk9a.js",
+    "name": "Login",
+    "src": "resources/js/views/auth/Login.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/consumos/Index.vue": {
+    "file": "assets/Index-8Yc5RhtE.js",
+    "name": "Index",
+    "src": "resources/js/views/consumos/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/empleados/Create.vue": {
+    "file": "assets/Create-DZyKHDE5.js",
+    "name": "Create",
+    "src": "resources/js/views/empleados/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Button-AgtSY3Ng.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/empleados/Index.vue": {
+    "file": "assets/Index-Dh-5enyD.js",
+    "name": "Index",
+    "src": "resources/js/views/empleados/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Table-Cma2KXjz.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/habitaciones/Create.vue": {
+    "file": "assets/Create-C47qBXTk.js",
+    "name": "Create",
+    "src": "resources/js/views/habitaciones/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_habitaciones-BXYPAQ8z.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Button-AgtSY3Ng.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/habitaciones/Edit.vue": {
+    "file": "assets/Edit-CYW1ZEcy.js",
+    "name": "Edit",
+    "src": "resources/js/views/habitaciones/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_habitaciones-BXYPAQ8z.js",
+      "_Button-AgtSY3Ng.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/habitaciones/Index.vue": {
+    "file": "assets/Index-CYOUoEyD.js",
+    "name": "Index",
+    "src": "resources/js/views/habitaciones/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_habitaciones-BXYPAQ8z.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Table-Cma2KXjz.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/hoteles/Create.vue": {
+    "file": "assets/Create-IFWV2y5J.js",
+    "name": "Create",
+    "src": "resources/js/views/hoteles/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Button-AgtSY3Ng.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/hoteles/Edit.vue": {
+    "file": "assets/Edit-BPBv2zJg.js",
+    "name": "Edit",
+    "src": "resources/js/views/hoteles/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Button-AgtSY3Ng.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/hoteles/Index.vue": {
+    "file": "assets/Index-C2_6mw9f.js",
+    "name": "Index",
+    "src": "resources/js/views/hoteles/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Table-Cma2KXjz.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/hoteles/Show.vue": {
+    "file": "assets/Show-YA-Jc0oJ.js",
+    "name": "Show",
+    "src": "resources/js/views/hoteles/Show.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_hoteles-Cj_n2tFk.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/huespedes/Create.vue": {
+    "file": "assets/Create-BLqfjlpL.js",
+    "name": "Create",
+    "src": "resources/js/views/huespedes/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_huespedes-CiUlC-eS.js",
+      "_Button-AgtSY3Ng.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/huespedes/Edit.vue": {
+    "file": "assets/Edit-C05msnHr.js",
+    "name": "Edit",
+    "src": "resources/js/views/huespedes/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_huespedes-CiUlC-eS.js",
+      "_Button-AgtSY3Ng.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/huespedes/Index.vue": {
+    "file": "assets/Index-v0CbqluK.js",
+    "name": "Index",
+    "src": "resources/js/views/huespedes/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_huespedes-CiUlC-eS.js",
+      "_Table-Cma2KXjz.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/mantenimientos/Index.vue": {
+    "file": "assets/Index-yq3AqxNP.js",
+    "name": "Index",
+    "src": "resources/js/views/mantenimientos/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/pagos/Index.vue": {
+    "file": "assets/Index-DNxo6Inl.js",
+    "name": "Index",
+    "src": "resources/js/views/pagos/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/pisos/Index.vue": {
+    "file": "assets/Index-wClmd-IK.js",
+    "name": "Index",
+    "src": "resources/js/views/pisos/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_Table-Cma2KXjz.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/profile/Profile.vue": {
+    "file": "assets/Profile-BombIbrR.js",
+    "name": "Profile",
+    "src": "resources/js/views/profile/Profile.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/reportes/Index.vue": {
+    "file": "assets/Index-DbTBmu5w.js",
+    "name": "Index",
+    "src": "resources/js/views/reportes/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Button-AgtSY3Ng.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/reservas/Create.vue": {
+    "file": "assets/Create-aWOiBtOc.js",
+    "name": "Create",
+    "src": "resources/js/views/reservas/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_reservas-Cq-m4-rN.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_huespedes-CiUlC-eS.js",
+      "_habitaciones-BXYPAQ8z.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/reservas/Index.vue": {
+    "file": "assets/Index-lkJIBO7B.js",
+    "name": "Index",
+    "src": "resources/js/views/reservas/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_reservas-Cq-m4-rN.js",
+      "_hoteles-Cj_n2tFk.js",
+      "_Table-Cma2KXjz.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/reservas/Show.vue": {
+    "file": "assets/Show-DOlh__01.js",
+    "name": "Show",
+    "src": "resources/js/views/reservas/Show.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_reservas-Cq-m4-rN.js",
+      "_servicios-D_Dy-RAM.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/roles/Index.vue": {
+    "file": "assets/Index-DolGHsLf.js",
+    "name": "Index",
+    "src": "resources/js/views/roles/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/servicios/Index.vue": {
+    "file": "assets/Index-B1xw1rOd.js",
+    "name": "Index",
+    "src": "resources/js/views/servicios/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_servicios-D_Dy-RAM.js",
+      "_Table-Cma2KXjz.js",
+      "_Button-AgtSY3Ng.js",
+      "_Modal-B7Mg5LTC.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  },
+  "resources/js/views/tipo-habitaciones/Index.vue": {
+    "file": "assets/Index-UpwuHp8G.js",
+    "name": "Index",
+    "src": "resources/js/views/tipo-habitaciones/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-7iHdx4x7.css"
+    ]
+  }
+}

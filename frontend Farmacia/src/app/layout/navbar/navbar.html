@@ -1,0 +1,23 @@
+<header class="h-full flex items-center justify-between px-6">
+  <div class="flex items-center gap-3">
+    <!-- Menú Hamburguesa Móvil -->
+    <button (click)="menuToggle.emit()" class="md:hidden p-2 -ml-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+    <h2 class="text-base font-bold text-slate-800 uppercase tracking-wide hidden sm:block">Caja Principal</h2>
+    <h2 class="text-base font-bold text-slate-800 uppercase tracking-wide sm:hidden">Caja</h2>
+  </div>
+
+  <div class="flex items-center gap-5">
+    <!-- Perfil Dinámico -->
+    <div class="flex items-center gap-3 border-l border-slate-200 pl-5">
+      <div class="text-right hidden sm:block">
+        <p class="text-sm font-semibold text-slate-800">{{ getUserName() }}</p>
+        <p class="text-xs text-slate-500">{{ getUserRoleName() }}</p>
+      </div>
+      <div class="w-9 h-9 rounded-md bg-blue-50 flex items-center justify-center text-blue-700 font-bold border border-blue-100 text-sm">
+        {{ getUserInitials() }}
+      </div>
+    </div>
+  </div>
+</header>

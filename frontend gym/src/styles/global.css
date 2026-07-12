@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-dark: #121212;
+  --bg-card: #1e1e1e;
+  --border-color: #2a2a2a;
+  
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  
+  /* Gym Focus Colors: Strong Neon Blue / Green */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  
+  /* High contrast colors for statuses */
+  --status-active: #10b981; /* Strong Green */
+  --status-expired: #ef4444; /* Strong Red */
+  --status-warning: #f59e0b; /* Strong Yellow */
+  
+  --accent: #facc15; /* Energetic yellow for gym feel */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+/* Gym Solid Panels (No Glassmorphism) */
+.glass-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+/* Base UI Elements */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+input, select {
+  font-family: inherit;
+  background: #2a2a2a;
+  border: 2px solid transparent;
+  color: var(--text-main);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #1e1e1e;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}

@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos globales base para el sistema */
+body {
+    @apply bg-slate-50 text-slate-800 font-sans;
+}

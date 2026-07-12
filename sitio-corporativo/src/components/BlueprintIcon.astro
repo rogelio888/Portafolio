@@ -1,0 +1,106 @@
+---
+interface Props {
+  name: 'house' | 'tower' | 'plan' | 'column' | 'crane' | 'compass' | 'level' | 'arch' | 'stairs';
+  class?: string;
+}
+
+const { name, class: className = 'w-full h-full' } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  {name === 'house' && (
+    <>
+      <path d="M12 52 L50 20 L88 52" />
+      <path d="M20 52 L20 84 L80 84 L80 52" />
+      <line x1="42" y1="84" x2="42" y2="62" />
+      <line x1="58" y1="84" x2="58" y2="62" />
+      <line x1="42" y1="62" x2="58" y2="62" />
+      <line x1="50" y1="20" x2="50" y2="8" opacity="0.5" />
+    </>
+  )}
+
+  {name === 'tower' && (
+    <>
+      <rect x="30" y="12" width="40" height="76" />
+      <line x1="30" y1="28" x2="70" y2="28" />
+      <line x1="30" y1="42" x2="70" y2="42" />
+      <line x1="30" y1="56" x2="70" y2="56" />
+      <line x1="30" y1="70" x2="70" y2="70" />
+      <line x1="44" y1="12" x2="44" y2="88" opacity="0.4" />
+      <line x1="56" y1="12" x2="56" y2="88" opacity="0.4" />
+    </>
+  )}
+
+  {name === 'plan' && (
+    <>
+      <rect x="14" y="14" width="72" height="72" />
+      <line x1="14" y1="50" x2="52" y2="50" />
+      <line x1="52" y1="14" x2="52" y2="50" />
+      <path d="M52 40 A10 10 0 0 1 62 50" opacity="0.6" />
+      <line x1="10" y1="14" x2="10" y2="86" opacity="0.4" />
+      <path d="M8 14 L12 14 M8 86 L12 86" opacity="0.4" />
+    </>
+  )}
+
+  {name === 'column' && (
+    <>
+      <line x1="18" y1="10" x2="82" y2="10" stroke-width="4" />
+      <line x1="24" y1="18" x2="76" y2="18" />
+      <line x1="30" y1="18" x2="30" y2="78" />
+      <line x1="70" y1="18" x2="70" y2="78" />
+      <line x1="42" y1="18" x2="42" y2="78" opacity="0.4" />
+      <line x1="58" y1="18" x2="58" y2="78" opacity="0.4" />
+      <line x1="24" y1="78" x2="76" y2="78" />
+      <line x1="18" y1="90" x2="82" y2="90" stroke-width="4" />
+    </>
+  )}
+
+  {name === 'crane' && (
+    <>
+      <line x1="24" y1="90" x2="24" y2="14" stroke-width="3" />
+      <line x1="24" y1="14" x2="82" y2="14" />
+      <line x1="24" y1="14" x2="14" y2="24" />
+      <line x1="24" y1="30" x2="46" y2="14" opacity="0.6" />
+      <line x1="14" y1="90" x2="34" y2="90" stroke-width="3" />
+      <line x1="72" y1="14" x2="72" y2="34" />
+      <circle cx="72" cy="38" r="3" />
+    </>
+  )}
+
+  {name === 'compass' && (
+    <>
+      <circle cx="50" cy="24" r="6" />
+      <line x1="46" y1="29" x2="26" y2="84" />
+      <line x1="54" y1="29" x2="70" y2="70" />
+      <line x1="18" y1="84" x2="34" y2="84" />
+      <line x1="62" y1="70" x2="78" y2="70" />
+      <path d="M40 56 A 12 12 0 0 1 60 56" opacity="0.5" />
+    </>
+  )}
+
+  {name === 'level' && (
+    <>
+      <rect x="10" y="42" width="80" height="16" rx="3" />
+      <circle cx="50" cy="50" r="6" />
+      <line x1="50" y1="42" x2="50" y2="36" opacity="0.5" />
+      <line x1="24" y1="42" x2="24" y2="58" opacity="0.4" />
+      <line x1="76" y1="42" x2="76" y2="58" opacity="0.4" />
+    </>
+  )}
+
+  {name === 'arch' && (
+    <>
+      <path d="M18 88 L18 46 A32 32 0 0 1 82 46 L82 88" />
+      <line x1="18" y1="88" x2="18" y2="94" />
+      <line x1="82" y1="88" x2="82" y2="94" />
+      <path d="M30 46 A20 20 0 0 1 70 46" opacity="0.4" />
+    </>
+  )}
+
+  {name === 'stairs' && (
+    <>
+      <path d="M14 86 L14 68 L34 68 L34 50 L54 50 L54 32 L74 32 L74 14 L90 14" />
+      <line x1="14" y1="86" x2="90" y2="86" opacity="0.3" />
+    </>
+  )}
+</svg>

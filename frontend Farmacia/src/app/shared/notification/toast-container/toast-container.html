@@ -1,0 +1,49 @@
+<div class="fixed top-4 right-4 z-[100] flex flex-col gap-3 w-full max-w-sm pointer-events-none">
+  @for (toast of notify.toasts(); track toast.id) {
+    <div
+      class="pointer-events-auto animate-fade-in flex items-start gap-3 rounded-xl shadow-2xl border p-4 bg-white"
+      [class.border-emerald-200]="toast.type === 'success'"
+      [class.border-red-200]="toast.type === 'error'"
+      [class.border-amber-200]="toast.type === 'warning'"
+      [class.border-blue-200]="toast.type === 'info'"
+    >
+      <div
+        class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 border-4"
+        [class.bg-emerald-100]="toast.type === 'success'"
+        [class.text-emerald-600]="toast.type === 'success'"
+        [class.border-emerald-200]="toast.type === 'success'"
+        [class.bg-red-100]="toast.type === 'error'"
+        [class.text-red-600]="toast.type === 'error'"
+        [class.border-red-200]="toast.type === 'error'"
+        [class.bg-amber-100]="toast.type === 'warning'"
+        [class.text-amber-600]="toast.type === 'warning'"
+        [class.border-amber-200]="toast.type === 'warning'"
+        [class.bg-blue-100]="toast.type === 'info'"
+        [class.text-blue-600]="toast.type === 'info'"
+        [class.border-blue-200]="toast.type === 'info'"
+      >
+        @if (toast.type === 'success') {
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+        }
+        @if (toast.type === 'error') {
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/></svg>
+        }
+        @if (toast.type === 'warning') {
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9v3.75m0 3.75h.007M10.29 3.86 1.82 18a1.5 1.5 0 0 0 1.28 2.25h17.8a1.5 1.5 0 0 0 1.28-2.25L13.71 3.86a1.5 1.5 0 0 0-2.42 0Z"/></svg>
+        }
+        @if (toast.type === 'info') {
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 9.75v4.5m0-9h.008v.008H12V5.25ZM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/></svg>
+        }
+      </div>
+
+      <p class="text-sm font-semibold text-slate-700 flex-1 pt-1.5">{{ toast.message }}</p>
+
+      <button
+        (click)="notify.dismiss(toast.id)"
+        class="text-slate-400 hover:text-slate-600 transition-colors shrink-0 cursor-pointer p-1"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  }
+</div>

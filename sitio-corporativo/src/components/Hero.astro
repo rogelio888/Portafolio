@@ -1,0 +1,68 @@
+---
+const recentWork = [
+  { year: '2024', name: 'Casa Illimani', type: 'Residencial' },
+  { year: '2023', name: 'Torre Obrajes', type: 'Departamentos' },
+  { year: '2023', name: 'Oficinas Zona Sur', type: 'Corporativo' },
+  { year: '2022', name: 'Centro Cultural Kantuta', type: 'Institucional' }
+];
+
+const stats = [
+  { value: '31', label: 'Proyectos entregados' },
+  { value: '11', label: 'Años de trayectoria' },
+  { value: '48k', label: 'm² construidos' }
+];
+---
+
+<section class="border-b border-ink/12">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-y-14 lg:gap-x-10 py-16 sm:py-24">
+    <div class="lg:col-span-7">
+      <span class="text-sm text-clay font-medium block mb-6" data-reveal>Arquitectura &amp; construcción — La Paz</span>
+
+      <h1 class="font-display font-normal text-[10vw] sm:text-[4.6vw] leading-[1.08] text-ink max-w-2xl" data-reveal>
+        Construimos edificios pensados para durar, no para la foto de inauguración.
+      </h1>
+
+      <p class="mt-8 text-ink-soft text-base sm:text-lg max-w-lg leading-relaxed" data-reveal>
+        Diseño, obra y supervisión integral para proyectos residenciales e institucionales,
+        con un equipo que se queda hasta la entrega final.
+      </p>
+
+      <div class="mt-10 flex items-center gap-6" data-reveal>
+        <button
+          type="button"
+          title="Demo de portafolio — botón no funcional"
+          class="inline-flex items-center bg-ink hover:bg-clay text-paper font-medium px-7 py-3.5 text-sm rounded-full transition-colors cursor-pointer"
+        >
+          Conversemos de tu proyecto
+        </button>
+        <a href="#proyectos" class="text-sm text-ink-soft hover:text-ink transition-colors underline underline-offset-4 decoration-ink/30">
+          Ver trabajo reciente
+        </a>
+      </div>
+
+      <div class="mt-16 grid grid-cols-3 max-w-md border-t border-ink/12 pt-6">
+        {stats.map((s, i) => (
+          <div class={i > 0 ? 'border-l border-ink/12 pl-5' : ''} data-reveal data-reveal-delay={i * 80}>
+            <div class="font-display text-2xl sm:text-3xl text-ink">{s.value}</div>
+            <div class="text-xs text-ink-soft mt-1">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="lg:col-span-5 lg:pl-6 lg:border-l border-ink/12">
+      <span class="text-xs font-mono-label text-ink-soft block mb-6" data-reveal>TRABAJO RECIENTE</span>
+      <ul>
+        {recentWork.map((w, i) => (
+          <li class="group flex items-baseline justify-between gap-4 py-4 border-b border-ink/12" data-reveal data-reveal-delay={i * 70}>
+            <div class="flex items-baseline gap-4 min-w-0">
+              <span class="text-xs text-ink-soft/60 font-mono-label shrink-0">{w.year}</span>
+              <span class="font-display text-lg sm:text-xl text-ink truncate group-hover:text-clay transition-colors">{w.name}</span>
+            </div>
+            <span class="text-xs text-ink-soft shrink-0">{w.type}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,142 @@
+<div class="usuarios-header">
+  <div>
+    <h1 class="page-title">Gestión de Roles</h1>
+    <p class="page-subtitle">Configura los perfiles de acceso y permisos del sistema.</p>
+  </div>
+  <button class="btn-primary" (click)="abrirPanelNuevo()">+ Nuevo Rol</button>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre del Rol</th>
+        <th>Usuarios Activos</th>
+        <th style="text-align: right">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (rol of roles(); track rol.id) {
+        <tr (click)="abrirPanelEdicion(rol)">
+          <td>
+            <div class="user-info">
+              <div class="user-avatar" style="background: var(--accent-light, #e0f2fe); color: var(--accent, #1a659e);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="user-name">{{ rol.nombre }}</p>
+                <p class="user-email">Perfil de acceso estándar</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="badge" [class.badge-rol]="contarUsuarios(rol.id) > 0" [style.background]="contarUsuarios(rol.id) === 0 ? '#f1f5f9' : ''" [style.color]="contarUsuarios(rol.id) === 0 ? '#94a3b8' : ''">
+              {{ contarUsuarios(rol.id) }} usuario(s)
+            </span>
+          </td>
+          <td style="text-align: right">
+            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+              <button class="btn-icon" title="Gestionar Permisos" (click)="abrirPanelPermisos(rol, $event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </button>
+              <button class="btn-icon suspend" title="Eliminar Rol" (click)="eliminarRol(rol, $event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-muted)">
+            No hay roles registrados.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Slide-over Panel Principal (Crear/Editar) -->
+<div class="slideover-backdrop" [class.open]="panelAbierto()">
+  <div class="slideover-panel">
+    <div class="panel-header">
+      <h2>{{ modoEdicion() ? 'Editar Rol' : 'Nuevo Rol' }}</h2>
+      <button class="btn-close" (click)="cerrarPanel()">&times;</button>
+    </div>
+    <div class="panel-body">
+      @if (errorMessage()) {
+        <div class="alert-error">{{ errorMessage() }}</div>
+      }
+      <form [formGroup]="rolForm" (ngSubmit)="guardar()" id="rolForm">
+        <div class="form-group">
+          <label class="form-label">Nombre del Rol</label>
+          <input type="text" formControlName="nombre" class="form-control" placeholder="Ej. Odontólogo">
+          @if (rolForm.get('nombre')?.invalid && rolForm.get('nombre')?.touched) {
+            <span class="invalid-feedback">El nombre es requerido (mín. 3 caracteres).</span>
+          }
+        </div>
+      </form>
+    </div>
+    <div class="panel-footer">
+      <button type="button" class="btn-secondary" (click)="cerrarPanel()">Cancelar</button>
+      <button type="submit" form="rolForm" class="btn-primary">Guardar Rol</button>
+    </div>
+  </div>
+</div>
+
+<!-- Slide-over Secundario (Gestionar Permisos) -->
+<div class="slideover-backdrop" [class.open]="panelPermisosAbierto()">
+  <div class="slideover-panel" style="max-width: 480px;">
+    
+    <div class="panel-header">
+      <div>
+        <h2 style="margin: 0; font-size: 1.15rem; color: var(--text-dark);">Matriz de Accesos</h2>
+        <p style="margin: 0.2rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">
+          Rol: <strong>{{ rolActualPermisos()?.nombre }}</strong>
+        </p>
+      </div>
+      <button class="btn-close" (click)="cerrarPanelPermisos()">&times;</button>
+    </div>
+
+    <div class="panel-body">
+      @if (permisosErrorMessage()) {
+        <div class="alert-error">{{ permisosErrorMessage() }}</div>
+      }
+      
+      @if (rolActualPermisos()?.id === 1) {
+        <div class="alert-info" style="background: #eff6ff; color: #1d4ed8; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.85rem; border: 1px solid #bfdbfe;">
+          <strong>Bloqueo de Seguridad:</strong> El Superadministrador posee acceso irrestricto a todos los módulos. Estos permisos no pueden ser revocados.
+        </div>
+      }
+
+      <div class="permisos-list">
+        @for (modulo of modulosSistema; track modulo.id) {
+          <div class="permiso-item" (click)="togglePermiso(modulo.id)">
+            <div class="permiso-info">
+              <span class="permiso-title">{{ modulo.nombre }}</span>
+            </div>
+            
+            <!-- Toggle Switch (iOS style) -->
+            <div class="toggle-switch" 
+                 [class.active]="tienePermiso(modulo.id)"
+                 [class.disabled]="rolActualPermisos()?.id === 1">
+              <div class="toggle-knob"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="panel-footer">
+      <button type="button" class="btn-secondary" (click)="cerrarPanelPermisos()">Cancelar</button>
+      <button type="button" class="btn-primary" (click)="guardarPermisos()" [disabled]="rolActualPermisos()?.id === 1" [style.opacity]="rolActualPermisos()?.id === 1 ? '0.5' : '1'">Guardar Accesos</button>
+    </div>
+
+  </div>
+</div>

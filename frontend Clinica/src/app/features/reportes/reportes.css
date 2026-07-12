@@ -1,0 +1,94 @@
+.reportes-container { padding: 2rem; max-width: 1200px; margin: 0 auto; height: 100vh; overflow-y: auto; background: #f8fafc; }
+
+/* Header */
+.reportes-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1.5rem; }
+.header-titles h1 { font-size: 1.8rem; font-weight: 800; color: #0f172a; margin: 0 0 0.25rem 0; }
+.header-titles p { margin: 0; color: #64748b; font-size: 1rem; }
+
+.header-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.filtro-fechas { display: flex; align-items: center; gap: 1rem; background: white; padding: 0.5rem 1rem; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+.input-group { display: flex; align-items: center; gap: 0.5rem; }
+.input-group label { font-size: 0.85rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; }
+.input-group input { border: 1px solid #cbd5e1; border-radius: 6px; padding: 0.4rem 0.6rem; font-family: inherit; font-size: 0.9rem; color: #1e293b; background: #f8fafc; outline: none; }
+.input-group input:focus { border-color: #3b82f6; background: white; }
+
+/* Tabs */
+.reportes-tabs { display: flex; gap: 0.5rem; border-bottom: 1px solid #e2e8f0; margin-bottom: 2rem; }
+.tab-btn { background: transparent; border: none; padding: 1rem 1.5rem; font-size: 1rem; font-weight: 600; color: #64748b; cursor: pointer; position: relative; transition: 0.2s; }
+.tab-btn:hover { color: #0f172a; }
+.tab-btn.active { color: #2563eb; }
+.tab-btn.active::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 3px; background: #2563eb; border-radius: 3px 3px 0 0; }
+
+/* Content */
+.tab-content { animation: fade-in 0.3s ease-out; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* KPI Grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.kpi-card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: center; }
+.kpi-title { font-size: 0.9rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.kpi-value { font-size: 2.25rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 0.75rem; }
+.kpi-card.highlight { background: #0f172a; border-color: #0f172a; }
+.kpi-card.highlight .kpi-title { color: #94a3b8; }
+.kpi-card.highlight .kpi-value { color: white; }
+.kpi-card.success .kpi-value { color: #10b981; }
+.kpi-card.danger .kpi-value { color: #ef4444; }
+
+/* Tables */
+.tabla-container { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; overflow: hidden; }
+.report-table { width: 100%; border-collapse: collapse; }
+.report-table th { background: #f8fafc; padding: 1rem 1.5rem; text-align: left; font-size: 0.85rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e2e8f0; }
+.report-table td { padding: 1.25rem 1.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; color: #334155; }
+.report-table tbody tr:hover { background: #f8fafc; }
+.report-table .text-right { text-align: right; }
+.report-table .text-center { text-align: center; }
+
+/* Utils */
+.badge { font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 6px; }
+.badge.danger { background: #fee2e2; color: #b91c1c; }
+.text-muted { color: #94a3b8; }
+.empty-state { padding: 3rem !important; }
+
+/* Payment Methods and Cita States Badge Styling */
+.metodo-tag, .estado-tag {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metodo-efectivo { background: #dcfce7; color: #15803d; }
+.metodo-tarjeta { background: #dbeafe; color: #1d4ed8; }
+.metodo-qr { background: #ede9fe; color: #6d28d9; }
+
+.estado-programada { background: #eff6ff; color: #1d4ed8; }
+.estado-completada { background: #dcfce7; color: #15803d; }
+.estado-cancelada { background: #fee2e2; color: #b91c1c; }
+
+/* Buttons */
+button { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: inherit; font-size: 0.95rem; font-weight: 600; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; transition: 0.2s; border: none; }
+.btn-primary { background: #2563eb; color: white; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-secondary { background: white; color: #334155; border: 1px solid #cbd5e1; }
+.btn-secondary:hover { background: #f1f5f9; }
+
+/* Print Styles */
+.print-only { display: none; }
+@media print {
+  body { background: white; margin: 0; padding: 0; }
+  .reportes-container { padding: 0; height: auto; overflow: visible; background: white; }
+  .hide-on-print { display: none !important; }
+  .print-only { display: block; margin-bottom: 1.5rem; color: #0f172a; font-size: 1.5rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+  .kpi-grid { display: flex; gap: 1rem; margin-bottom: 2rem; }
+  .kpi-card { flex: 1; border: 1px solid #cbd5e1; box-shadow: none; padding: 1rem; break-inside: avoid; }
+  .kpi-card.highlight { background: white; border: 2px solid #0f172a; }
+  .kpi-card.highlight .kpi-title { color: #475569; }
+  .kpi-card.highlight .kpi-value { color: #0f172a; }
+  .tabla-container { box-shadow: none; border: 1px solid #cbd5e1; }
+  .report-table th { border-bottom: 2px solid #cbd5e1; color: #1e293b; }
+  .report-table td { border-bottom: 1px solid #e2e8f0; color: #0f172a; }
+  @page { size: landscape; margin: 1cm; }
+}

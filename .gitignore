@@ -1,0 +1,28 @@
+# Root-level safety net. Build-output folders (dist/, build/, .output/, etc.)
+# are intentionally NOT ignored here: portafolio-portal/public/* contains the
+# compiled demo builds, which must be tracked for the portfolio to work when
+# deployed. Each source project has its own .gitignore scoping those rules
+# correctly to its own root.
+
+node_modules/
+vendor/
+
+.env
+.env.local
+.env.*.local
+.env.backup
+.env.production
+!.env.example
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.DS_Store
+Thumbs.db
+
+.idea/
+*.suo
+*.sw?

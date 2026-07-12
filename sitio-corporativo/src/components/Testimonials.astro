@@ -1,0 +1,25 @@
+---
+const press = ['Revista Construir', 'Cámara Boliviana de la Construcción', 'ArchDiario Bolivia', 'Guía Urbana La Paz'];
+---
+
+<section class="max-w-7xl mx-auto px-5 sm:px-8 py-20 sm:py-28 border-b border-ink/12">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+    <div class="lg:col-span-4">
+      <span class="text-sm text-clay font-medium block mb-4" data-reveal>Un cliente</span>
+      <p class="text-ink-soft text-sm">Familia Quispe — Casa Illimani, 2024</p>
+    </div>
+    <div class="lg:col-span-8">
+      <p class="font-display text-2xl sm:text-3xl text-ink leading-snug" data-reveal>
+        &ldquo;Entregaron la casa dos semanas antes de lo pactado y sin sorpresas en el presupuesto.
+        Eso no es común en esta industria.&rdquo;
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-20 pt-10 border-t border-ink/12 flex flex-wrap items-center gap-x-10 gap-y-4" data-reveal>
+    <span class="text-xs font-mono-label text-ink-soft/50 shrink-0">MENCIONADOS EN</span>
+    {press.map((p) => (
+      <span class="text-sm text-ink-soft/70">{p}</span>
+    ))}
+  </div>
+</section>

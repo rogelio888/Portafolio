@@ -1,0 +1,58 @@
+---
+const info = [
+  { label: 'Oficina', value: 'Av. Ballivián 890, Calacoto, La Paz' },
+  { label: 'Horario', value: 'Lun – Vie · 9:00 – 18:00' },
+  { label: 'Teléfono', value: '+591 2 279 0000' },
+  { label: 'Correo', value: 'contacto@cantera-estudio.com' }
+];
+---
+
+<section id="contacto" class="max-w-7xl mx-auto px-5 sm:px-8 py-20 sm:py-28">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <div class="lg:col-span-5">
+      <span class="text-sm text-clay font-medium block mb-4" data-reveal>Contacto</span>
+      <h2 class="font-display text-4xl sm:text-5xl text-ink leading-[1.05] mb-10" data-reveal>
+        Cuéntanos qué vas a construir.
+      </h2>
+
+      <dl class="space-y-6">
+        {info.map((item, i) => (
+          <div data-reveal data-reveal-delay={i * 70}>
+            <dt class="text-xs text-ink-soft/60 mb-1">{item.label}</dt>
+            <dd class="text-ink text-sm">{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <div class="lg:col-span-7">
+      <form
+        class="border border-ink/15 rounded-2xl p-7 sm:p-9 space-y-5"
+        data-reveal
+        onsubmit="event.preventDefault()"
+      >
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <label class="block">
+            <span class="text-xs text-ink-soft block mb-2">Nombre</span>
+            <input type="text" placeholder="Tu nombre" class="w-full border border-ink/20 rounded-lg px-4 py-3 text-sm text-ink placeholder-ink-soft/40 bg-transparent focus:outline-none focus:border-clay" />
+          </label>
+          <label class="block">
+            <span class="text-xs text-ink-soft block mb-2">Correo</span>
+            <input type="email" placeholder="tucorreo@ejemplo.com" class="w-full border border-ink/20 rounded-lg px-4 py-3 text-sm text-ink placeholder-ink-soft/40 bg-transparent focus:outline-none focus:border-clay" />
+          </label>
+        </div>
+        <label class="block">
+          <span class="text-xs text-ink-soft block mb-2">Contanos sobre tu proyecto</span>
+          <textarea rows="4" placeholder="Terreno, tamaño aproximado, presupuesto referencial…" class="w-full border border-ink/20 rounded-lg px-4 py-3 text-sm text-ink placeholder-ink-soft/40 bg-transparent focus:outline-none focus:border-clay resize-none"></textarea>
+        </label>
+        <button
+          type="submit"
+          title="Demo de portafolio — formulario no funcional"
+          class="w-full sm:w-auto inline-flex items-center justify-center bg-ink hover:bg-clay text-paper font-medium px-8 py-3.5 text-sm rounded-full transition-colors cursor-pointer"
+        >
+          Enviar consulta
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

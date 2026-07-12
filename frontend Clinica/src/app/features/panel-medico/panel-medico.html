@@ -1,0 +1,127 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Mi Consultorio Digital</h1>
+    <p class="page-subtitle">Panel de atención y seguimiento de pacientes.</p>
+  </div>
+  
+  <div class="simulador-login">
+    <span class="simulador-label">Simulador de Login:</span>
+    <select class="form-control" [ngModel]="medicoLogueado()" (ngModelChange)="medicoLogueado.set(+$event)">
+      <option [value]="null">Seleccione un Médico</option>
+      @for (m of medicosActivos(); track m.id) {
+        <option [value]="m.id">Dr(a). {{ m.nombre }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+<div class="panel-workspace">
+  @if (mensajeEstado()) {
+    <div class="toast-notification" [class]="'toast-' + mensajeEstado()?.tipo">
+      {{ mensajeEstado()?.texto }}
+    </div>
+  }
+
+  @if (!medicoLogueado()) {
+    <div class="empty-state">
+      <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <h3>Bienvenido al Portal Médico</h3>
+      <p>Por favor inicie sesión (use el simulador superior) para ver sus pacientes citados para el día de hoy.</p>
+    </div>
+  } @else {
+    <div class="agenda-dia">
+      <div class="agenda-header">
+        <h2>Pacientes del Día</h2>
+        <span class="fecha-badge">{{ fechaHoy | date:'EEEE, dd MMMM yyyy' }}</span>
+      </div>
+
+      @if (citasDelDia().length === 0) {
+        <div class="empty-state small">
+          <p>No tiene pacientes programados para el día de hoy.</p>
+        </div>
+      } @else {
+        <div class="lista-pacientes">
+          @for (cita of citasDelDia(); track cita.id) {
+            <div class="paciente-card">
+              <div class="hora-col">
+                <strong>{{ cita.horaInicio }}</strong>
+                <span class="text-xs">{{ cita.horaFin }}</span>
+              </div>
+              <div class="info-col">
+                <div class="paciente-nombre">{{ getNombrePaciente(cita.pacienteId) }}</div>
+                <div class="cita-meta">
+                  <span class="badge" [class.badge-primary]="!cita.esControl" [class.badge-success]="cita.esControl">
+                    {{ cita.esControl ? 'Cita de Control' : 'Consulta Regular' }}
+                  </span>
+                  @if (cita.estado === 'Completada') {
+                    <span class="badge badge-gray">Atendido</span>
+                  }
+                </div>
+              </div>
+              <div class="acciones-col">
+                <button class="btn-outline-primary" (click)="abrirAgendamientoControl(cita)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="18"/><line x1="10" y1="16" x2="14" y2="16"/></svg>
+                  Agendar Control
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!-- OVERLAYS -->
+@if (panelControl) {
+  <div class="slideover-backdrop" (click)="cerrarPanelControl()"></div>
+}
+
+<!-- PANEL DE AGENDAMIENTO DE CONTROL (Para el Médico) -->
+<div class="slideover-panel" [class.open]="panelControl">
+  <div class="slideover-header">
+    <h2>Agendar Cita de Control</h2>
+    <button class="btn-close" (click)="cerrarPanelControl()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="slideover-body">
+    <div class="reserva-resumen">
+      <div class="resumen-item">
+        <span class="label">Paciente:</span>
+        <strong>{{ pacienteAControl?.nombre }}</strong>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>¿Para cuándo necesita el control?</label>
+      <input type="date" class="form-control" [ngModel]="fechaControl()" (ngModelChange)="fechaControl.set($event)">
+      <p class="help-text">El sistema le sugiere automáticamente 7 días después de hoy.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="section-title">Sus horarios disponibles el {{ fechaControl() | date:'dd/MM/yyyy' }}</h3>
+    
+    @if (sinHorarioControl()) {
+      <div class="alert-error">
+        No tiene horarios configurados o es feriado en esa fecha. Por favor seleccione otra.
+      </div>
+    } @else {
+      <div class="slots-grid-mini">
+        @for (turno of turnosControl(); track turno.horaInicio) {
+          @if (turno.disponible) {
+            <div class="slot-mini available" (click)="agendarControl(turno)">
+              {{ turno.horaInicio }}
+            </div>
+          } @else {
+            <div class="slot-mini booked">
+              {{ turno.horaInicio }}
+            </div>
+          }
+        }
+      </div>
+    }
+  </div>
+</div>

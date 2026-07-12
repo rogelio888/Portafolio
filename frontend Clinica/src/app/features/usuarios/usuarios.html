@@ -1,0 +1,138 @@
+<div class="usuarios-header">
+  <div>
+    <h1 class="page-title">Gestión de Usuarios</h1>
+    <p class="page-subtitle">Administra los accesos y roles del personal de la clínica.</p>
+  </div>
+  <button class="btn-primary" (click)="abrirPanelNuevo()">+ Nuevo Usuario</button>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Personal</th>
+        <th>Rol</th>
+        <th>Estado</th>
+        <th style="text-align: right">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (usuario of usuarios(); track usuario.id) {
+        <tr (click)="abrirPanelEdicion(usuario)">
+          <td>
+            <div class="user-info">
+              <div class="user-avatar">{{ usuario.nombre.charAt(0) }}</div>
+              <div>
+                <p class="user-name">{{ usuario.nombre }}</p>
+                <p class="user-email">{{ usuario.correo }}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="badge badge-rol">{{ rolService.obtenerNombreRol(usuario.rolId) }}</span>
+          </td>
+          <td>
+            <span class="badge" [class.badge-activo]="usuario.estado === 'Activo'" [class.badge-suspendido]="usuario.estado === 'Suspendido'">
+              {{ usuario.estado }}
+            </span>
+          </td>
+          <td style="text-align: right">
+            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+              @if (usuario.estado === 'Activo') {
+                <button class="btn-icon suspend" title="Suspender" (click)="cambiarEstado(usuario, $event)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/>
+                  </svg>
+                </button>
+              } @else {
+                <button class="btn-icon activate" title="Activar" (click)="cambiarEstado(usuario, $event)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </button>
+              }
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center; padding: 2rem; color: var(--text-muted)">
+            No hay usuarios registrados.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Slide-over Panel -->
+<div class="slideover-backdrop" [class.open]="panelAbierto()">
+  <div class="slideover-panel">
+    
+    <div class="panel-header">
+      <h2>{{ modoEdicion() ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+      <button class="btn-close" (click)="cerrarPanel()">&times;</button>
+    </div>
+
+    <div class="panel-body">
+      @if (errorMessage()) {
+        <div class="alert-error">{{ errorMessage() }}</div>
+      }
+
+      <form [formGroup]="usuarioForm" (ngSubmit)="guardar()" id="userForm">
+        
+        <div class="form-group">
+          <label class="form-label">Nombre Completo</label>
+          <input type="text" formControlName="nombre" class="form-control" placeholder="Ej. Dr. Juan Pérez">
+          @if (usuarioForm.get('nombre')?.invalid && usuarioForm.get('nombre')?.touched) {
+            <span class="invalid-feedback">El nombre es requerido (mín. 3 caracteres).</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Correo Institucional</label>
+          <input type="email" formControlName="correo" class="form-control" [class.is-invalid]="isEmailInvalid" placeholder="usuario@saludintegral.com">
+          @if (isEmailInvalid) {
+            <span class="invalid-feedback">Ingresa un correo electrónico válido.</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Rol del Sistema</label>
+          <select formControlName="rolId" class="form-select">
+            @for (rol of rolesDisponibles(); track rol.id) {
+              <option [value]="rol.id">{{ rol.nombre }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Estado de la Cuenta</label>
+          <select formControlName="estado" class="form-select">
+            @for (est of estadosDisponibles; track est) {
+              <option [value]="est">{{ est }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">{{ modoEdicion() ? 'Nueva Contraseña (Opcional)' : 'Contraseña Segura' }}</label>
+          <input type="password" formControlName="clave" class="form-control" [class.is-invalid]="isClaveInvalid" placeholder="Mínimo 8 caracteres, alfanumérica">
+          @if (isClaveInvalid) {
+            <span class="invalid-feedback">La contraseña debe tener al menos 8 caracteres, incluyendo letras y números.</span>
+          }
+          @if (modoEdicion()) {
+            <span style="font-size: 0.75rem; color: #64748b; margin-top: 0.35rem; display: block;">Déjalo en blanco para mantener la contraseña actual.</span>
+          }
+        </div>
+
+      </form>
+    </div>
+
+    <div class="panel-footer">
+      <button type="button" class="btn-secondary" (click)="cerrarPanel()">Cancelar</button>
+      <button type="submit" form="userForm" class="btn-primary">Guardar Usuario</button>
+    </div>
+
+  </div>
+</div>
