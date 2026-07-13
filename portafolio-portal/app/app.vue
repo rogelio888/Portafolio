@@ -78,12 +78,31 @@ onMounted(() => {
   isDark.value = document.documentElement.classList.contains('dark')
 })
 
-// Fecha de la propuesta impresa: se calcula solo en cliente para evitar
-// mismatches de hidratación (SSR y cliente pueden ejecutarse en instantes distintos)
 const printDate = ref('')
+const showMobileWarning = ref(false)
+const pendingDemoUrl = ref('')
+
 onMounted(() => {
   printDate.value = new Date().toLocaleDateString('es-ES')
 })
+
+const handleDemoClick = (url: string) => {
+  if (window.innerWidth < 768 && !sessionStorage.getItem('mobile_warning_dismissed')) {
+    pendingDemoUrl.value = url
+    showMobileWarning.value = true
+  } else {
+    window.open(url, '_blank')
+  }
+}
+
+const proceedToDemo = () => {
+  showMobileWarning.value = false
+  sessionStorage.setItem('mobile_warning_dismissed', 'true')
+  if (pendingDemoUrl.value) {
+    window.open(pendingDemoUrl.value, '_blank')
+    pendingDemoUrl.value = ''
+  }
+}
 
 // State variables
 const searchQuery = ref('')
@@ -801,6 +820,22 @@ const printProposal = () => {
     <div class="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-600/10 blur-[130px] animate-blob-2 -z-10 pointer-events-none"></div>
     <div class="absolute bottom-[10%] left-[20%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-[120px] animate-blob-3 -z-10 pointer-events-none"></div>
 
+    <!-- Mobile Warning Modal -->
+    <div v-if="showMobileWarning" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-2xl max-w-sm w-full animate-[fadeIn_0.3s_ease-out]">
+        <div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-full flex items-center justify-center mb-4 mx-auto">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        </div>
+        <h3 class="text-xl font-bold text-center text-slate-900 dark:text-white mb-2">Aviso de Experiencia</h3>
+        <p class="text-center text-slate-500 dark:text-slate-400 text-sm mb-6">
+          Para poder apreciar mejor cada una de las funcionalidades de nuestros sistemas, se aconseja visualizarlos desde una computadora.
+        </p>
+        <button @click="proceedToDemo" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-4 rounded-xl transition-colors">
+          Continuar a la Demo
+        </button>
+      </div>
+    </div>
+
     <!-- Floating Capsule Header Navigation -->
     <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl no-print">
       <header class="w-full rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl px-4 sm:px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.6)] flex items-center justify-between transition-all">
@@ -954,10 +989,10 @@ const printProposal = () => {
             <div class="flex justify-between"><span class="font-bold text-slate-600 dark:text-slate-500">Base de Datos:</span> <span class="text-indigo-600 dark:text-indigo-400 font-semibold">{{ project.databaseStack }}</span></div>
           </CardContent>
           <CardFooter class="border-t border-black/[0.05] dark:border-white/[0.04] bg-black/[0.015] dark:bg-slate-950/20 px-6 py-4 flex gap-2.5">
-            <a :href="project.demoUrl" target="_blank" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
+            <button @click="handleDemoClick(project.demoUrl)" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
               <span>Probar Demo</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            </a>
+            </button>
             <button
               v-if="project.relatedPlanId"
               @click="quoteFromProject(project)"
