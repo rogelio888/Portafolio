@@ -46,8 +46,20 @@ export const useAuthStore = defineStore('auth', {
         } else if (sessionStorage.getItem('user')) {
           sessionStorage.setItem('user', JSON.stringify(this.user));
         }
-      } catch (error) {
-        console.error('Error fetching user', error);
+      } catch (error: any) {
+        // Sesión inconsistente (ej. datos de demo reiniciados o localStorage
+        // de una visita anterior): la sesión guardada ya no es válida, así
+        // que se limpia en vez de dejar la app en un estado a medias.
+        if (error?.response?.status === 401) {
+          this.token = null;
+          this.user = null;
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
+        } else {
+          console.error('Error fetching user', error);
+        }
       }
     },
     async logout() {

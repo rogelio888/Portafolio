@@ -13,6 +13,9 @@ const logoUrl = `${import.meta.env.BASE_URL}logo-colegio.svg`;
 onMounted(async () => {
   if (authStore.userPermissions.length === 0 && authStore.isAuthenticated) {
     await authStore.fetchUser();
+    if (!authStore.isAuthenticated) {
+      router.push('/login');
+    }
   }
 });
 
