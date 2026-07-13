@@ -6,7 +6,17 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     head: {
-      htmlAttrs: { class: 'dark' },
+      htmlAttrs: { class: 'dark', lang: 'es' },
+      title: 'Portafolio Profesional Full-Stack | Demos Interactivas',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { hid: 'description', name: 'description', content: 'Portafolio de Desarrollo de Software a Medida. Explora demos funcionales de sistemas para farmacias, hoteles, clínicas y más.' },
+        { property: 'og:title', content: 'Portafolio Profesional Full-Stack | Desarrollo de Software' },
+        { property: 'og:description', content: 'Explora mis proyectos y sistemas funcionales (Farmacia, Hotel, Clínica). Desarrollados con Vue, Angular, React, Laravel y NestJS.' },
+        { property: 'og:type', content: 'website' },
+        { name: 'theme-color', content: '#7c3aed' }
+      ],
       script: [
         {
           innerHTML: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){}})();`,
