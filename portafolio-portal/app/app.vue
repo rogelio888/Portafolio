@@ -331,43 +331,6 @@ CREATE TABLE kardex_movements (
     }
   },
   {
-    name: 'Portal Hotelero & Reservas',
-    description: 'Gestión de habitaciones y huéspedes en tiempo real, control de reservas, check-in/out simplificado y estadísticas de ocupación.',
-    category: 'Sistemas Avanzados',
-    frontendStack: 'Vue 3 & Tailwind CSS',
-    backendStack: 'Laravel 12 & Eloquent',
-    databaseStack: 'Supabase (PostgreSQL)',
-    relatedPlanId: 7,
-    demoUrl: '/frontend-hotel/#/?reset=1',
-    thumbnail: '/screenshots/frontend-hotel.png',
-    githubUrl: 'https://github.com/rogel/hotel-vue-nestjs',
-    iconName: 'Building2',
-    architectureDetails: {
-      controllerCode: `// booking.service.ts (NestJS)
-@Injectable()
-export class BookingService {
-  constructor(
-    @InjectRepository(Booking) private bookingRepo: Repository<Booking>,
-  ) {}
-
-  async createBooking(dto: CreateBookingDto): Promise<Booking> {
-    const booking = this.bookingRepo.create(dto);
-    booking.status = BookingStatus.CONFIRMED;
-    return this.bookingRepo.save(booking);
-  }
-}`,
-      schemaDetails: `-- PostgreSQL room booking schema
-CREATE TABLE bookings (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    room_number VARCHAR(10) NOT NULL,
-    guest_name VARCHAR(100) NOT NULL,
-    check_in DATE NOT NULL,
-    check_out DATE NOT NULL,
-    status VARCHAR(20) DEFAULT 'CONFIRMED'
-);`
-    }
-  },
-  {
     name: 'Clínica Médica & Citas',
     description: 'Agenda para personal de salud, historiales médicos en la nube, fichas de pacientes y reserva online de turnos.',
     category: 'Sistemas Avanzados',
@@ -490,6 +453,43 @@ CREATE TABLE batches (
     crop_type VARCHAR(50) NOT NULL,
     weight_kg DECIMAL(10,2) NOT NULL,
     harvest_date DATE NOT NULL
+);`
+    }
+  },
+  {
+    name: 'Portal Hotelero & Reservas',
+    description: 'Gestión de habitaciones y huéspedes en tiempo real, control de reservas, check-in/out simplificado y estadísticas de ocupación.',
+    category: 'Sistemas Avanzados',
+    frontendStack: 'Vue 3 & Tailwind CSS',
+    backendStack: 'Laravel 12 & Eloquent',
+    databaseStack: 'Supabase (PostgreSQL)',
+    relatedPlanId: 7,
+    demoUrl: '/frontend-hotel/#/?reset=1',
+    thumbnail: '/screenshots/frontend-hotel.png',
+    githubUrl: 'https://github.com/rogel/hotel-vue-nestjs',
+    iconName: 'Building2',
+    architectureDetails: {
+      controllerCode: `// booking.service.ts (NestJS)
+@Injectable()
+export class BookingService {
+  constructor(
+    @InjectRepository(Booking) private bookingRepo: Repository<Booking>,
+  ) {}
+
+  async createBooking(dto: CreateBookingDto): Promise<Booking> {
+    const booking = this.bookingRepo.create(dto);
+    booking.status = BookingStatus.CONFIRMED;
+    return this.bookingRepo.save(booking);
+  }
+}`,
+      schemaDetails: `-- PostgreSQL room booking schema
+CREATE TABLE bookings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    room_number VARCHAR(10) NOT NULL,
+    guest_name VARCHAR(100) NOT NULL,
+    check_in DATE NOT NULL,
+    check_out DATE NOT NULL,
+    status VARCHAR(20) DEFAULT 'CONFIRMED'
 );`
     }
   },
