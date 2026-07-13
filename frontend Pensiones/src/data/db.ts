@@ -52,6 +52,7 @@ const KEYS = {
   cursos: 'pensiones_cursos', estudiantes: 'pensiones_estudiantes', periodos: 'pensiones_periodos',
   cuotas: 'pensiones_cuotas', pagos: 'pensiones_pagos', usuarios: 'pensiones_usuarios',
   roles: 'pensiones_roles', bitacora: 'pensiones_bitacora', seeded: 'pensiones_seeded_v1',
+  currentUserId: 'pensiones_current_user_id',
 };
 
 function load<T>(key: string, fallback: T): T {
@@ -90,7 +91,7 @@ let usuarios: Usuario[] = load(KEYS.usuarios, []);
 let roles: Rol[] = load(KEYS.roles, []);
 let bitacora: BitacoraEntry[] = load(KEYS.bitacora, []);
 
-let currentUserId: number | null = null;
+let currentUserId: number | null = load(KEYS.currentUserId, null);
 let currentActor: { name: string; role: string } | null = null;
 
 function persistAll() {
@@ -102,6 +103,7 @@ function persistAll() {
   save(KEYS.usuarios, usuarios);
   save(KEYS.roles, roles);
   save(KEYS.bitacora, bitacora);
+  save(KEYS.currentUserId, currentUserId);
   localStorage.setItem(KEYS.seeded, '1');
 }
 
