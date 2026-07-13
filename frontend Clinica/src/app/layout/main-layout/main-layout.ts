@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
@@ -85,6 +85,15 @@ const MENU_DATA: GrupoMenu[] = [
 export class MainLayout {
   private readonly router = inject(Router);
   public readonly auth = inject(AuthService);
+  public readonly isMobileMenuOpen = signal(false);
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen.update(v => !v);
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen.set(false);
+  }
 
   public get grupos(): GrupoMenu[] {
     const user = this.auth.usuario();

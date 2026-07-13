@@ -3,8 +3,9 @@
 <template>
   <aside
     :class="[
-      'fixed left-0 top-0 h-screen bg-gray-900 text-white transition-all duration-300 z-40',
-      isOpen ? 'w-64' : 'w-16'
+      'fixed md:static inset-y-0 left-0 h-screen bg-gray-900 text-white transition-all duration-300 ease-in-out z-50 shadow-2xl md:shadow-none',
+      isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+      isOpen ? 'w-64' : 'w-64 md:w-16'
     ]"
   >
     <!-- Logo -->
@@ -39,6 +40,7 @@
               :to="child.route"
               class="flex items-center px-8 py-2 hover:bg-gray-700 transition-colors"
               active-class="bg-blue-600"
+              @click="$emit('closeMobile')"
             >
               <span class="text-sm">{{ child.label }}</span>
             </router-link>
@@ -51,6 +53,7 @@
           :to="item.route"
           class="flex items-center px-4 py-3 hover:bg-gray-800 transition-colors"
           active-class="bg-blue-600"
+          @click="$emit('closeMobile')"
         >
           <span class="text-xl">{{ item.icon }}</span>
           <span v-if="isOpen" class="ml-3">{{ item.label }}</span>
@@ -65,10 +68,11 @@ import { ref, computed } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 
 const props = defineProps({
-  isOpen: Boolean
+  isOpen: Boolean,
+  isMobileOpen: Boolean
 });
 
-const emit = defineEmits(['toggle']);
+const emit = defineEmits(['toggle', 'closeMobile']);
 
 const authStore = useAuthStore();
 const openSubmenus = ref({});

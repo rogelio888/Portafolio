@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  Dumbbell, LogOut, ChevronDown, 
+import {
+  Dumbbell, LogOut, ChevronDown, Menu, X,
   LayoutDashboard, Users, Wallet, BarChart3, Settings,
   CalendarDays, UserPlus, CreditCard, ClipboardList,
   Shield, Activity, UserCog
@@ -11,6 +12,11 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   if (location.pathname === '/') return null;
 
@@ -133,23 +139,70 @@ const Navbar = () => {
           </div>
 
           {/* Usuario y Logout */}
-          <div className="flex items-center gap-4 shrink-0">
-            <div className="flex flex-col items-end">
+          <div className="flex items-center gap-3 md:gap-4 shrink-0">
+            <div className="hidden sm:flex flex-col items-end">
               <span className="text-sm font-bold text-white uppercase tracking-wider">{user?.name || 'Administrador'}</span>
               <span className="text-xs font-semibold text-blue-400 uppercase">{user?.role || 'Admin'}</span>
             </div>
-            <div className="h-10 w-px bg-gray-800 mx-2"></div>
-            <button 
+            <div className="hidden sm:block h-10 w-px bg-gray-800 mx-2"></div>
+            <button
               onClick={handleLogout}
               title="Cerrar Sesión"
               className="p-2.5 rounded-lg bg-[#2a2a2a] text-gray-400 hover:text-red-500 hover:bg-red-500/10 border border-[#333] hover:border-red-500/30 transition-all"
             >
               <LogOut size={20} />
             </button>
+            <button
+              onClick={() => setMobileMenuOpen((o) => !o)}
+              aria-label="Abrir menú"
+              className="md:hidden p-2.5 rounded-lg bg-[#2a2a2a] text-gray-400 hover:text-white border border-[#333] transition-all"
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
 
         </div>
       </div>
+
+      {/* Menú Móvil */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-[#2a2a2a] bg-[#181818] max-h-[calc(100vh-5rem)] overflow-y-auto">
+          <div className="px-4 py-3 space-y-4">
+            {navigation.map((category, index) => {
+              const CategoryIcon = category.icon;
+              return (
+                <div key={index}>
+                  <div className="flex items-center gap-2 px-2 py-1.5 text-gray-500 text-xs font-bold uppercase tracking-wide">
+                    <CategoryIcon size={14} />
+                    <span>{category.label}</span>
+                  </div>
+                  <div className="mt-1 space-y-0.5">
+                    {category.subItems.map((subItem, subIndex) => {
+                      const SubIcon = subItem.icon;
+                      const isActive = location.pathname === subItem.path;
+                      return (
+                        <Link
+                          key={subIndex}
+                          to={subItem.path}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={`flex items-center gap-3 px-3 py-3 rounded-md text-sm font-bold uppercase tracking-wide transition-colors
+                            ${isActive
+                              ? 'bg-blue-600/10 text-blue-500 border-l-4 border-blue-500'
+                              : 'text-gray-300 hover:bg-[#2a2a2a] hover:text-white border-l-4 border-transparent'
+                            }`}
+                        >
+                          <SubIcon size={18} />
+                          {subItem.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

@@ -2,12 +2,20 @@
 
 <template>
   <nav class="bg-white shadow-sm h-16 flex items-center justify-between px-6">
-    <!-- Botón toggle sidebar -->
+    <!-- Botón toggle sidebar (desktop: colapsa a riel) -->
     <button
       @click="$emit('toggleSidebar')"
-      class="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+      class="hidden md:inline-flex p-2 rounded-lg hover:bg-gray-100 transition-colors"
     >
       <span class="text-2xl">☰</span>
+    </button>
+
+    <!-- Botón menú móvil (drawer off-canvas) -->
+    <button
+      @click="$emit('openMobileMenu')"
+      class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
     </button>
 
     <!-- Info del usuario -->
@@ -108,7 +116,7 @@ import { useReservasStore } from '../../stores/reservas';
 import { useHabitacionesStore } from '../../stores/habitaciones';
 import axios from '../../axios';
 
-const emit = defineEmits(['toggleSidebar']);
+const emit = defineEmits(['toggleSidebar', 'openMobileMenu']);
 const router = useRouter();
 
 const authStore = useAuthStore();

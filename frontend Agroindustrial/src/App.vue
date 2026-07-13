@@ -3,8 +3,11 @@
     <router-view />
   </div>
   <div v-else class="h-screen flex overflow-hidden bg-agro-50 font-sans text-slate-800">
+    <!-- Mobile overlay -->
+    <div v-if="isMobileMenuOpen" @click="isMobileMenuOpen = false" class="fixed inset-0 bg-slate-900/50 z-40 md:hidden backdrop-blur-sm transition-opacity"></div>
+
     <!-- Sidebar Navigation -->
-    <aside class="w-64 h-full bg-agro-900 text-agro-100 flex flex-col shrink-0 border-r border-agro-800/50">
+    <aside :class="[isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0', 'fixed md:static inset-y-0 left-0 z-50 w-64 h-full bg-agro-900 text-agro-100 flex flex-col shrink-0 border-r border-agro-800/50 transition-transform duration-300 ease-in-out shadow-2xl md:shadow-none']">
       <!-- Sidebar Header -->
       <div class="h-16 flex items-center px-6 border-b border-agro-800/50 gap-3">
         <div class="w-8 h-8 rounded-lg bg-agro-500 flex items-center justify-center shadow-md shadow-agro-500/20">
@@ -144,10 +147,15 @@
     <!-- Main Content Area -->
     <div class="flex-1 flex flex-col overflow-hidden">
       <!-- Navbar / Top Header -->
-      <header class="h-16 bg-white border-b border-agro-100 px-6 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="text-xs bg-agro-100 text-agro-700 px-2.5 py-1 rounded-md font-semibold">Región Montero</span>
-          <span class="text-xs bg-earth-100 text-earth-600 px-2.5 py-1 rounded-md font-semibold">Santa Cruz</span>
+      <header class="h-16 bg-white border-b border-agro-100 px-4 md:px-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button @click="isMobileMenuOpen = true" class="md:hidden text-slate-500 hover:text-agro-700 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-agro-100 text-agro-700 px-2.5 py-1 rounded-md font-semibold">Región Montero</span>
+            <span class="text-xs bg-earth-100 text-earth-600 px-2.5 py-1 rounded-md font-semibold hidden sm:inline-flex">Santa Cruz</span>
+          </div>
         </div>
         
         <div class="flex items-center gap-4 text-xs">
@@ -193,6 +201,7 @@ import {
 const router = useRouter()
 const route = useRoute()
 const currentUser = ref({ name: 'Usuario', email: '', role: '', permissions: {} })
+const isMobileMenuOpen = ref(false)
 
 // Sincronizar datos de usuario y permisos
 const syncUser = async () => {
@@ -223,6 +232,9 @@ onMounted(syncUser)
 
 // Sincronizar en cada cambio de ruta para reflejar cambios inmediatos tras login/logout
 watch(() => route.path, syncUser)
+watch(() => route.path, () => {
+  isMobileMenuOpen.value = false
+})
 
 // Helper para validar permisos
 const hasPermission = (permissionKey) => {

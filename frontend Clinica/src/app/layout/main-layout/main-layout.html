@@ -1,6 +1,10 @@
 <div class="dashboard-layout">
+  @if (isMobileMenuOpen()) {
+    <div class="mobile-overlay" (click)="toggleMobileMenu()"></div>
+  }
+
   <!-- Sidebar Elegante -->
-  <aside class="sidebar">
+  <aside class="sidebar" [class.mobile-open]="isMobileMenuOpen()">
     <div class="sidebar-header">
       <div class="brand-icon">+</div>
       <div class="brand-title">Salud Integral</div>
@@ -11,7 +15,7 @@
         <div class="nav-label" style="margin-top: 1.5rem;">{{ grupo.titulo }}</div>
         <nav class="nav-menu">
           @for (item of grupo.items; track item.nombre) {
-            <a class="nav-item" [routerLink]="item.ruta" routerLinkActive="active">
+            <a class="nav-item" [routerLink]="item.ruta" routerLinkActive="active" (click)="closeMobileMenu()">
               <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 @switch (item.icono) {
                   @case ('config') { <path d="M10.3 2.5h3.4l.5 2.7a7.4 7.4 0 0 1 2 1.16l2.6-1 1.7 2.95-2.2 1.7c.1.4.1.8.1 1.3s0 .9-.1 1.3l2.2 1.7-1.7 2.95-2.6-1a7.4 7.4 0 0 1-2 1.16l-.5 2.7h-3.4l-.5-2.7a7.4 7.4 0 0 1-2-1.16l-2.6 1-1.7-2.95 2.2-1.7a6.7 6.7 0 0 1-.1-1.3c0-.45 0-.9.1-1.3l-2.2-1.7 1.7-2.95 2.6 1a7.4 7.4 0 0 1 2-1.16l.5-2.7Z" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.6"/> }
@@ -41,9 +45,14 @@
   <main class="main-content">
     <!-- Cabecera Superior (Glassmorphism) -->
     <header class="top-header">
-      <div class="header-greeting">
-        <h1>Panel Administrativo</h1>
-        <p>Sistema Web para la Clínica "Salud Integral"</p>
+      <div class="header-left">
+        <button class="mobile-menu-btn" (click)="toggleMobileMenu()" aria-label="Abrir menú">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="header-greeting">
+          <h1>Panel Administrativo</h1>
+          <p>Sistema Web para la Clínica "Salud Integral"</p>
+        </div>
       </div>
       <div class="user-profile" [attr.title]="getNombreCompleto()">
         {{ getInicial() }}
