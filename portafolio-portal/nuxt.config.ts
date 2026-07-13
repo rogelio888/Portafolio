@@ -11,7 +11,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'Portafolio de Desarrollo de Software a Medida. Explora demos funcionales de sistemas para farmacias, hoteles, clínicas y más.' },
+        { name: 'description', content: 'Portafolio de Desarrollo de Software a Medida. Explora demos funcionales de sistemas para farmacias, hoteles, clínicas y más.' },
         { property: 'og:title', content: 'Portafolio Profesional Full-Stack | Desarrollo de Software' },
         { property: 'og:description', content: 'Explora mis proyectos y sistemas funcionales (Farmacia, Hotel, Clínica). Desarrollados con Vue, Angular, React, Laravel y NestJS.' },
         { property: 'og:type', content: 'website' },
