@@ -324,7 +324,8 @@ onMounted(() => {
 
     <!-- Tabla de Morosos -->
     <div class="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden print:border-none print:shadow-none">
-      <table class="w-full text-left text-sm text-slate-600">
+      <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm text-slate-600 min-w-[720px] print:min-w-0">
         <thead class="bg-slate-50 border-b border-slate-200 text-[10px] uppercase font-bold text-slate-500">
           <tr>
             <th class="px-5 py-3">Estudiante (Código)</th>
@@ -372,6 +373,7 @@ onMounted(() => {
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
     </div>
 

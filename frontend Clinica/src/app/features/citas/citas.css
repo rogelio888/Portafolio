@@ -31,6 +31,11 @@
 .form-control:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
 .date-input { min-width: 200px; }
 
+@media (max-width: 767.98px) {
+  .agenda-toolbar { flex-direction: column; align-items: stretch; gap: 1rem; }
+  .date-input { min-width: 0; width: 100%; }
+}
+
 .agenda-workspace {
   background: white;
   border-radius: 16px;

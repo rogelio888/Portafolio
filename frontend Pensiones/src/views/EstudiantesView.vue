@@ -272,7 +272,8 @@ const imprimirFicha = () => {
       <!-- Tabla de Estudiantes -->
       <SkeletonLoader v-if="isLoading" :rows="5" />
       <div v-else class="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden">
-        <table class="w-full text-left text-sm text-slate-600">
+        <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600 min-w-[720px]">
           <thead class="bg-slate-50 border-b border-slate-200 text-xs uppercase font-bold text-slate-700">
             <tr>
               <th class="px-5 py-3">Código FA</th>
@@ -317,6 +318,7 @@ const imprimirFicha = () => {
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
 

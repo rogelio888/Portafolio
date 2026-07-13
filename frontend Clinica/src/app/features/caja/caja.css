@@ -18,6 +18,10 @@
 
 .caja-dashboard { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
 
+@media (max-width: 767.98px) {
+  .caja-dashboard { grid-template-columns: 1fr; }
+}
+
 .panel-cobros, .panel-resumen { background: white; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); overflow: hidden; }
 .panel-header { padding: 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; }
 .panel-header h2 { margin: 0; font-size: 1.1rem; font-weight: 700; color: #0f172a; }

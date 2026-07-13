@@ -141,6 +141,12 @@ input:checked + .slider:before { transform: translateX(20px); }
   grid-template-columns: 350px 1fr;
   gap: 2rem;
 }
+
+@media (max-width: 767.98px) {
+  .excepciones-layout {
+    grid-template-columns: 1fr;
+  }
+}
 .add-excepcion-panel {
   background: #f8fafc;
   padding: 1.5rem;

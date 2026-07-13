@@ -35,8 +35,8 @@
 .kpi-card.danger .kpi-value { color: #ef4444; }
 
 /* Tables */
-.tabla-container { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; overflow: hidden; }
-.report-table { width: 100%; border-collapse: collapse; }
+.tabla-container { background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; overflow-x: auto; }
+.report-table { width: 100%; min-width: 650px; border-collapse: collapse; }
 .report-table th { background: #f8fafc; padding: 1rem 1.5rem; text-align: left; font-size: 0.85rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e2e8f0; }
 .report-table td { padding: 1.25rem 1.5rem; border-bottom: 1px solid #f1f5f9; font-size: 0.95rem; color: #334155; }
 .report-table tbody tr:hover { background: #f8fafc; }

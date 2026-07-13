@@ -1,17 +1,17 @@
 <template>
   <div class="p-6">
     <h1 class="text-2xl font-bold mb-4">Mantenimientos</h1>
-    <div class="flex space-x-4 mb-4">
-      <select v-model="filtros.id_habitacion" class="border rounded p-2">
+    <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-4">
+      <select v-model="filtros.id_habitacion" class="border rounded p-2 w-full sm:w-auto">
         <option value="">Todas las habitaciones</option>
         <option v-for="hab in habitaciones" :key="hab.id" :value="hab.id">
           {{ hab.numero }} - {{ hab.hotel?.nombre || '' }}
         </option>
       </select>
-      <input type="date" v-model="filtros.fecha_inicio" class="border rounded p-2" placeholder="Fecha inicio" />
-      <input type="date" v-model="filtros.fecha_fin" class="border rounded p-2" placeholder="Fecha fin" />
-      <button @click="cargarMantenimientos" class="bg-blue-500 text-white px-4 py-2 rounded">Filtrar</button>
-      <router-link :to="{ name: 'MantenimientosCreate' }" class="bg-green-500 text-white px-4 py-2 rounded">Nuevo Mantenimiento</router-link>
+      <input type="date" v-model="filtros.fecha_inicio" class="border rounded p-2 w-full sm:w-auto" placeholder="Fecha inicio" />
+      <input type="date" v-model="filtros.fecha_fin" class="border rounded p-2 w-full sm:w-auto" placeholder="Fecha fin" />
+      <button @click="cargarMantenimientos" class="bg-blue-500 text-white px-4 py-2 rounded w-full sm:w-auto">Filtrar</button>
+      <router-link :to="{ name: 'MantenimientosCreate' }" class="bg-green-500 text-white px-4 py-2 rounded text-center w-full sm:w-auto">Nuevo Mantenimiento</router-link>
     </div>
     <Table
       :columns="columnas"

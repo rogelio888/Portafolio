@@ -57,8 +57,13 @@
   overflow: hidden;
 }
 
+.table-scroll {
+  overflow-x: auto;
+}
+
 table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
 }
 

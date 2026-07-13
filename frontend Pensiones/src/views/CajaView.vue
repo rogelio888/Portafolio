@@ -423,7 +423,8 @@ onMounted(() => {
         <svg class="animate-spin h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
       </div>
       <div v-else>
-        <table class="w-full text-left text-sm text-slate-600 mb-6">
+        <div class="overflow-x-auto mb-6">
+        <table class="w-full text-left text-sm text-slate-600 min-w-[600px]">
           <thead class="bg-slate-50 border-b border-slate-200 text-xs uppercase font-bold text-slate-700">
             <tr>
               <th class="px-4 py-3">Hora</th>
@@ -446,6 +447,7 @@ onMounted(() => {
             </tr>
           </tbody>
         </table>
+        </div>
 
         <div class="flex justify-end pt-4 border-t border-slate-100">
           <button @click="exportToPDFIngresos" :disabled="isExportingDiario" class="px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-bold rounded-sm transition-colors flex items-center justify-center gap-2 disabled:bg-slate-600">
@@ -500,7 +502,8 @@ onMounted(() => {
           <div class="bg-slate-50 border-b border-slate-200 p-4">
             <h4 class="font-bold text-slate-800">Estado de Cuenta</h4>
           </div>
-          <table class="w-full text-left text-sm text-slate-600">
+          <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-600 min-w-[560px]">
             <thead class="border-b border-slate-200 text-[10px] uppercase font-bold text-slate-500">
               <tr>
                 <th class="px-4 py-3 w-10 text-center">Sel</th>
@@ -555,6 +558,7 @@ onMounted(() => {
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 
