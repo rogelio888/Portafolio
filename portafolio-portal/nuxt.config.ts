@@ -48,18 +48,5 @@ export default defineNuxtConfig({
         'tailwind-merge'
       ]
     }
-  },
-  nitro: {
-    routeRules: {
-      '/frontend-farmacia': { redirect: '/frontend-farmacia/index.html' },
-      '/frontend-hotel': { redirect: '/frontend-hotel/index.html' },
-      '/frontend-clinica': { redirect: '/frontend-clinica/index.html' },
-      '/frontend-pensiones': { redirect: '/frontend-pensiones/index.html' },
-      '/frontend-gym': { redirect: '/frontend-gym/index.html' },
-      '/frontend-agroindustrial': { redirect: '/frontend-agroindustrial/index.html' },
-      '/landing-page': { redirect: '/landing-page/index.html' },
-      '/sitio-corporativo': { redirect: '/sitio-corporativo/index.html' },
-      '/blog-recetas': { redirect: '/blog-recetas/index.html' }
-    }
-  }
+
 })
