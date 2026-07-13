@@ -78,6 +78,13 @@ onMounted(() => {
   isDark.value = document.documentElement.classList.contains('dark')
 })
 
+// Fecha de la propuesta impresa: se calcula solo en cliente para evitar
+// mismatches de hidratación (SSR y cliente pueden ejecutarse en instantes distintos)
+const printDate = ref('')
+onMounted(() => {
+  printDate.value = new Date().toLocaleDateString('es-ES')
+})
+
 // State variables
 const searchQuery = ref('')
 const selectedCategory = ref('all')
@@ -1616,7 +1623,7 @@ const printProposal = () => {
         </div>
         <div class="text-right">
           <h2 class="text-sm font-extrabold text-violet-600 uppercase">Propuesta Comercial</h2>
-          <p class="text-[9px] text-slate-500 mt-1">Fecha: {{ new Date().toLocaleDateString('es-ES') }}</p>
+          <p class="text-[9px] text-slate-500 mt-1">Fecha: {{ printDate }}</p>
         </div>
       </div>
 
