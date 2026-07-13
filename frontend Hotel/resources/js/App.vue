@@ -4,6 +4,7 @@
   <div id="app">
     <router-view />
     <ApiSimConsole />
+    <ToastContainer />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import { onMounted } from 'vue';
 import { useAuthStore } from './stores/auth';
 import ApiSimConsole from './components/ApiSimConsole.vue';
+import ToastContainer from './components/ToastContainer.vue';
 
 const authStore = useAuthStore();
 

@@ -217,12 +217,12 @@ const guardarMontoCurso = async (ca: any) => {
 
     <template v-else>
       <!-- Cabecera de Configuración -->
-    <div class="bg-white p-6 border border-slate-200 rounded-sm shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
-      <div>
-        <div class="flex items-center gap-4 mb-2">
+    <div class="bg-white p-6 border border-slate-200 rounded-sm shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div class="w-full md:w-auto">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-3 sm:mb-2">
           <h2 class="text-xl font-bold text-slate-800">Gestión Escolar</h2>
           
-          <div class="flex gap-2 bg-slate-100 p-1 rounded-full overflow-x-auto max-w-[300px] hide-scrollbar">
+          <div class="flex gap-2 bg-slate-100 p-1 rounded-full overflow-x-auto w-max max-w-full sm:max-w-[300px] hide-scrollbar">
             <button 
               v-for="g in gestionesDisponibles" 
               :key="g.id" 
@@ -240,15 +240,15 @@ const guardarMontoCurso = async (ca: any) => {
         </div>
         <p class="text-sm text-slate-500">Configura las fechas límite de pago para los 10 meses de pensión.</p>
       </div>
-      <div class="flex gap-4 items-center">
-        <div class="text-right">
+      <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center w-full md:w-auto border-t border-slate-100 md:border-0 pt-4 md:pt-0">
+        <div class="text-left sm:text-right w-full sm:w-auto">
           <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Gestión a Aperturar</p>
-          <div class="flex items-center gap-2 mt-1">
+          <div class="flex items-center sm:justify-end gap-2 mt-1">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <input v-model="anioGestion" @input="actualizarAnioCuotas" type="number" class="text-2xl font-bold text-secondary bg-transparent border-b border-dashed border-slate-300 w-24 text-right focus:outline-none focus:border-secondary">
+            <input v-model="anioGestion" @input="actualizarAnioCuotas" type="number" class="text-2xl font-bold text-secondary bg-transparent border-b border-dashed border-slate-300 w-24 text-left sm:text-right focus:outline-none focus:border-secondary">
           </div>
         </div>
-        <button @click="guardarCambios" :disabled="isSaving" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-bold rounded-sm transition-colors disabled:opacity-50 flex items-center gap-2">
+        <button @click="guardarCambios" :disabled="isSaving" class="w-full sm:w-auto px-4 py-3 sm:py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-bold rounded-sm transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
           <span v-if="isSaving" class="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
           {{ isExistingPeriod ? 'Actualizar Gestión' : 'Aperturar Gestión' }}
         </button>
@@ -277,62 +277,69 @@ const guardarMontoCurso = async (ca: any) => {
         <h3 class="font-bold text-slate-700">Cronograma de Vencimientos {{ anioGestion }}</h3>
         <span class="text-xs font-medium bg-slate-200 text-slate-600 px-2 py-1 rounded-sm">10 Cuotas</span>
       </div>
-      <table class="w-full text-left border-collapse">
-        <thead>
-          <tr class="bg-slate-50 text-slate-400 text-xs uppercase tracking-wider">
-            <th class="px-6 py-4 font-semibold w-16">N°</th>
-            <th class="px-6 py-4 font-semibold">Concepto (Mes)</th>
-            <th class="px-6 py-4 font-semibold w-64">Fecha Límite (Vencimiento)</th>
-            <th class="px-6 py-4 font-semibold w-48">Estado Actual</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-slate-100">
-          <tr v-for="(cuota, index) in cuotas" :key="cuota.id" class="hover:bg-slate-50/50 transition-colors">
-            <td class="px-6 py-4">
-              <span class="text-slate-400 font-bold">{{ index + 1 }}</span>
-            </td>
-            <td class="px-6 py-4">
-              <p class="font-bold text-slate-700">{{ cuota.nombre }}</p>
-              <p class="text-xs text-slate-400 uppercase tracking-wider mt-0.5">Corresponde a {{ cuota.mes }}</p>
-            </td>
-            <td class="px-6 py-4">
-              <input v-model="cuota.vencimiento" @change="checkMora" type="date" class="w-full text-sm px-3 py-2 border border-slate-200 rounded-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary">
-            </td>
-            <td class="px-6 py-4">
-              <span v-if="cuota.mora" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-bold bg-rose-50 text-rose-600 border border-rose-100">
-                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Plazo Vencido
-              </span>
-              <span v-else class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-100">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> En Plazo
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="overflow-x-auto w-full">
+        <table class="w-full text-left border-collapse min-w-[700px]">
+          <thead>
+            <tr class="bg-slate-50 text-slate-400 text-xs uppercase tracking-wider">
+              <th class="px-6 py-4 font-semibold w-16">N°</th>
+              <th class="px-6 py-4 font-semibold">Concepto (Mes)</th>
+              <th class="px-6 py-4 font-semibold w-64">Fecha Límite (Vencimiento)</th>
+              <th class="px-6 py-4 font-semibold w-48">Estado Actual</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr v-for="(cuota, index) in cuotas" :key="cuota.id" class="hover:bg-slate-50/50 transition-colors">
+              <td class="px-6 py-4">
+                <span class="text-slate-400 font-bold">{{ index + 1 }}</span>
+              </td>
+              <td class="px-6 py-4">
+                <p class="font-bold text-slate-700">{{ cuota.nombre }}</p>
+                <p class="text-xs text-slate-400 uppercase tracking-wider mt-0.5">Corresponde a {{ cuota.mes }}</p>
+              </td>
+              <td class="px-6 py-4">
+                <input v-model="cuota.vencimiento" @change="checkMora" type="date" class="w-full text-sm px-3 py-2 border border-slate-200 rounded-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary">
+              </td>
+              <td class="px-6 py-4">
+                <span v-if="cuota.mora" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-bold bg-rose-50 text-rose-600 border border-rose-100">
+                  <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Plazo Vencido
+                </span>
+                <span v-else class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-100">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> En Plazo
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Tab 2: Configuración de Montos por Curso -->
     <div v-show="activeTab === 'pensiones'" class="bg-indigo-50 border border-indigo-100 p-4 rounded-b-sm flex flex-col gap-4 shadow-sm">
-      <div class="flex items-center gap-4">
-        <div class="bg-indigo-100 p-2 rounded-sm text-indigo-600 shrink-0">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+        <div class="flex items-start gap-3 flex-1">
+          <div class="bg-indigo-100 p-2 rounded-sm text-indigo-600 shrink-0 mt-1 lg:mt-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-indigo-900">Montos Mensuales por Curso</h3>
+            <p class="text-xs text-indigo-700 mt-1">Define la pensión mensual que pagará cada nivel. Puedes usar el botón para aplicar un monto global rápido a todos.</p>
+          </div>
         </div>
-        <div class="flex-1">
-          <h3 class="text-sm font-bold text-indigo-900">Montos Mensuales por Curso</h3>
-          <p class="text-xs text-indigo-700">Define la pensión mensual que pagará cada nivel. Puedes usar el botón para aplicar un monto global rápido a todos.</p>
-        </div>
-        <div class="flex items-center gap-2 bg-white p-2 rounded-sm border border-indigo-200">
-          <span class="text-xs font-bold text-slate-500">Monto Global: Bs.</span>
-          <input v-model="montoBaseGlobal" type="number" class="w-20 text-right text-sm px-2 py-1 rounded-sm border border-slate-200 focus:outline-none focus:border-indigo-500">
-          <button @click="courseAmounts.forEach(ca => ca.amount = montoBaseGlobal)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 text-xs font-bold rounded-sm transition-colors">
-            Aplicar a todos
-          </button>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white p-3 rounded-sm border border-indigo-200 w-full lg:w-auto shadow-sm">
+          <span class="text-xs font-bold text-slate-500 whitespace-nowrap hidden sm:inline">Monto Global: Bs.</span>
+          <span class="text-xs font-bold text-slate-500 sm:hidden">Monto Global a aplicar (Bs.):</span>
+          <div class="flex items-center gap-2">
+            <input v-model="montoBaseGlobal" type="number" class="w-full sm:w-24 text-right text-sm px-3 py-2 sm:py-1 rounded-sm border border-slate-200 focus:outline-none focus:border-indigo-500">
+            <button @click="courseAmounts.forEach(ca => ca.amount = montoBaseGlobal)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 sm:py-1 text-sm sm:text-xs font-bold rounded-sm transition-colors whitespace-nowrap flex-1 sm:flex-none">
+              Aplicar a todos
+            </button>
+          </div>
         </div>
       </div>
 
       <div class="bg-white border border-indigo-100 rounded-sm overflow-hidden mt-2">
-        <div class="max-h-[500px] overflow-y-auto">
-          <table class="w-full text-left text-sm relative">
+        <div class="max-h-[500px] overflow-y-auto overflow-x-auto w-full">
+          <table class="w-full text-left text-sm relative min-w-[400px]">
             <thead class="bg-indigo-50 text-indigo-900 text-xs sticky top-0 z-10 shadow-sm">
               <tr>
                 <th class="px-4 py-3 font-bold">Curso / Nivel</th>

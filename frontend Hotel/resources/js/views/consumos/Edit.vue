@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Editar Consumo</h1>
       <router-link
@@ -10,14 +10,14 @@
       </router-link>
     </div>
 
-    <div class="bg-white rounded-lg shadow p-6 max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow p-4 sm:p-6 max-w-2xl mx-auto">
       <div v-if="loading" class="text-center py-8">
         <p class="text-gray-500">Cargando información...</p>
       </div>
 
-      <form v-else @submit.prevent="guardar" class="space-y-6">
+      <form v-else @submit.prevent="guardar" class="space-y-4 sm:space-y-6">
         <!-- Información de solo lectura -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-gray-50 rounded-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 p-4 bg-gray-50 rounded-lg">
           <div>
             <label class="block text-sm font-medium text-gray-500">Reserva</label>
             <div class="mt-1 text-gray-900 font-medium">
@@ -39,7 +39,7 @@
         </div>
 
         <!-- Campos editables -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Fecha</label>
             <input
@@ -91,9 +91,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from '../../axios';
+
+const toast = useToastStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -130,7 +133,7 @@ const cargarConsumo = async () => {
     form.value.cantidad = consumo.value.cantidad;
   } catch (error) {
     console.error('Error al cargar consumo:', error);
-    alert('Error al cargar la información del consumo');
+    toast.error('Error al cargar la información del consumo');
     router.push('/consumos');
   } finally {
     loading.value = false;
@@ -141,11 +144,11 @@ const guardar = async () => {
   guardando.value = true;
   try {
     await axios.put(`/consumos/${route.params.id}`, form.value);
-    alert('Consumo actualizado exitosamente');
+    toast.success('Consumo actualizado exitosamente');
     router.push('/consumos');
   } catch (error) {
     console.error('Error al actualizar:', error);
-    alert(error.response?.data?.message || 'Error al actualizar el consumo');
+    toast.error(error.response?.data?.message || 'Error al actualizar el consumo');
   } finally {
     guardando.value = false;
   }

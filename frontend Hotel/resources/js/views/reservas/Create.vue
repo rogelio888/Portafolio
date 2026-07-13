@@ -12,30 +12,30 @@
     </div>
 
     <!-- Progress Steps -->
-    <div class="mb-8">
-      <div class="flex items-center justify-between max-w-4xl mx-auto">
+    <div class="mb-8 overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+      <div class="flex items-center justify-between min-w-max sm:min-w-0 max-w-4xl mx-auto">
         <div v-for="(step, index) in steps" :key="index" class="flex items-center">
           <div :class="[
-            'w-10 h-10 rounded-full flex items-center justify-center font-bold',
+            'w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-sm sm:text-base shrink-0',
             currentStep >= index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'
           ]">
             {{ index + 1 }}
           </div>
-          <span class="ml-2 text-sm font-medium" :class="currentStep >= index + 1 ? 'text-blue-600' : 'text-gray-500'">
+          <span class="ml-2 text-xs sm:text-sm font-medium whitespace-nowrap" :class="currentStep >= index + 1 ? 'text-blue-600' : 'text-gray-500'">
             {{ step }}
           </span>
-          <div v-if="index < steps.length - 1" class="w-24 h-1 mx-4 bg-gray-300"></div>
+          <div v-if="index < steps.length - 1" class="w-8 sm:w-24 h-1 mx-2 sm:mx-4 bg-gray-300 shrink-0"></div>
         </div>
       </div>
     </div>
 
     <!-- Formulario por pasos -->
-    <div class="bg-white rounded-lg shadow p-6 max-w-5xl mx-auto">
+    <div class="bg-white rounded-lg shadow p-4 sm:p-6 max-w-5xl mx-auto">
       <!-- PASO 1: Información básica -->
       <div v-show="currentStep === 1">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Paso 1: Información Básica</h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <!-- Hotel -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -153,7 +153,7 @@
 
         <div v-if="noches > 0" class="mt-4 p-4 bg-blue-50 rounded-lg">
           <p class="text-sm text-blue-800">
-            📅 Total de noches: <strong>{{ noches }}</strong>
+            <Icon name="calendar" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Total de noches: <strong>{{ noches }}</strong>
           </p>
         </div>
       </div>
@@ -163,14 +163,14 @@
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Paso 2: Seleccionar Habitaciones</h2>
 
         <Button @click="cargarHabitacionesDisponibles" :loading="cargandoHabitaciones" class="mb-4">
-          🔄 Cargar Habitaciones Disponibles
+          <Icon name="refresh-cw" class="w-4 h-4 inline-block mr-1" /> Cargar Habitaciones Disponibles
         </Button>
 
         <div v-if="!busquedaRealizada" class="text-center py-8 text-gray-500">
           Haz clic en el botón para cargar habitaciones disponibles
         </div>
         <div v-else-if="habitacionesDisponibles.length === 0" class="text-center py-8 text-red-500 bg-red-50 rounded-lg border border-red-100">
-          ❌ No hay habitaciones disponibles en este hotel para las fechas seleccionadas.
+          <Icon name="x" class="w-4 h-4 inline-block mr-1" /> No hay habitaciones disponibles en este hotel para las fechas seleccionadas.
         </div>
 
         <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -186,8 +186,8 @@
             ]"
           >
             <div class="flex items-center justify-between mb-2">
-              <h3 class="font-bold text-lg">🚪 {{ habitacion.numero }}</h3>
-              <span v-if="habitacionSeleccionada(habitacion.id)" class="text-blue-600 text-2xl">✓</span>
+              <h3 class="font-bold text-lg"><Icon name="log-out" class="w-4 h-4 inline-block mr-1" /> {{ habitacion.numero }}</h3>
+              <span v-if="habitacionSeleccionada(habitacion.id)" class="text-blue-600 text-2xl"><Icon name="check" class="w-4 h-4 inline-block mr-1" /></span>
             </div>
             <p class="text-sm text-gray-600">{{ habitacion.tipo?.nombre }}</p>
             <p class="text-sm text-gray-500">Capacidad: {{ habitacion.tipo?.capacidad }} personas</p>
@@ -199,7 +199,7 @@
 
         <div v-if="form.habitaciones.length > 0" class="mt-6 p-4 bg-green-50 rounded-lg">
           <p class="text-sm text-green-800">
-            ✓ <strong>{{ form.habitaciones.length }}</strong> habitación(es) seleccionada(s)
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" /> <strong>{{ form.habitaciones.length }}</strong> habitación(es) seleccionada(s)
           </p>
         </div>
       </div>
@@ -241,19 +241,19 @@
             :key="index"
             class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
           >
-            <span>👤 {{ getNombreHuesped(idHuesped) }}</span>
+            <span><Icon name="user" class="w-5 h-5 inline-block mr-2 text-gray-500" /> {{ getNombreHuesped(idHuesped) }}</span>
             <button
               @click="removerHuespedAdicional(index)"
               class="text-red-600 hover:text-red-800"
               title="Remover"
             >
-              ❌
+              <Icon name="x" class="w-4 h-4 inline-block mr-1" />
             </button>
           </div>
         </div>
 
         <div v-else class="text-center py-8 text-gray-400">
-          <p class="text-lg mb-2">👥</p>
+          <p class="text-lg mb-2"><Icon name="users" class="w-6 h-6 inline-block mr-2 text-gray-700" /></p>
           <p>No hay huéspedes adicionales agregados</p>
           <p class="text-sm mt-2">Puedes continuar sin agregar más huéspedes</p>
         </div>
@@ -263,10 +263,10 @@
       <div v-show="currentStep === 4">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Paso 4: Resumen de la Reserva</h2>
 
-        <div class="space-y-6">
+        <div class="space-y-4 sm:space-y-6">
           <!-- Info básica -->
           <div class="p-4 bg-gray-50 rounded-lg">
-            <h3 class="font-bold text-lg mb-3">📋 Información Básica</h3>
+            <h3 class="font-bold text-lg mb-3"><Icon name="clipboard-list" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Información Básica</h3>
             <div class="grid grid-cols-2 gap-3 text-sm">
               <div>
                 <span class="text-gray-600">Hotel:</span>
@@ -297,7 +297,7 @@
 
           <!-- Habitaciones -->
           <div class="p-4 bg-gray-50 rounded-lg">
-            <h3 class="font-bold text-lg mb-3">🏨 Habitaciones Seleccionadas ({{ form.habitaciones.length }})</h3>
+            <h3 class="font-bold text-lg mb-3"><Icon name="building" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Habitaciones Seleccionadas ({{ form.habitaciones.length }})</h3>
             <div class="space-y-2">
               <div
                 v-for="hab in form.habitaciones"
@@ -312,7 +312,7 @@
 
           <!-- Huéspedes adicionales -->
           <div v-if="form.huespedes_adicionales.length > 0" class="p-4 bg-gray-50 rounded-lg">
-            <h3 class="font-bold text-lg mb-3">👥 Huéspedes Adicionales ({{ form.huespedes_adicionales.length }})</h3>
+            <h3 class="font-bold text-lg mb-3"><Icon name="users" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Huéspedes Adicionales ({{ form.huespedes_adicionales.length }})</h3>
             <ul class="space-y-1">
               <li v-for="id in form.huespedes_adicionales" :key="id" class="text-sm">
                 • {{ getNombreHuesped(id) }}
@@ -321,7 +321,7 @@
           </div>
 
           <!-- Total -->
-          <div class="p-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white">
+          <div class="p-4 sm:p-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white">
             <div class="flex justify-between items-center">
               <div>
                 <p class="text-sm opacity-90">Total Estimado de la Reserva</p>
@@ -374,7 +374,7 @@
             @click="crearReserva"
             :loading="loading"
           >
-            ✓ Crear Reserva
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" /> Crear Reserva
           </Button>
         </div>
       </div>
@@ -442,6 +442,9 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
+
+const toast = useToastStore();
 // resources/js/views/reservas/Create.vue - SCRIPT SETUP
 
 import { ref, computed, onMounted } from 'vue';
@@ -554,7 +557,7 @@ const buscarHuespedPorCI = async () => {
     form.value.id_huesped = huesped.id;
     buscarCI.value = '';
   } catch (error) {
-    alert('Huésped no encontrado');
+    toast.warning('Huésped no encontrado');
   } finally {
     buscandoCI.value = false;
   }
@@ -562,7 +565,7 @@ const buscarHuespedPorCI = async () => {
 
 const cargarHabitacionesDisponibles = async () => {
   if (!form.value.id_hotel) {
-    alert('Selecciona un hotel primero');
+    toast.warning('Selecciona un hotel primero');
     return;
   }
 
@@ -573,7 +576,7 @@ const cargarHabitacionesDisponibles = async () => {
     busquedaRealizada.value = true; // Marcar como realizada
   } catch (error) {
     console.error(error);
-    alert('Error al cargar habitaciones');
+    toast.error('Error al cargar habitaciones');
   } finally {
     cargandoHabitaciones.value = false;
   }
@@ -611,7 +614,7 @@ const removerHuespedAdicional = (index) => {
 
 const guardarNuevoHuesped = async () => {
   if (!nuevoHuesped.value.nombre || !nuevoHuesped.value.apellido || !nuevoHuesped.value.ci) {
-    alert('Completa los campos obligatorios');
+    toast.warning('Completa los campos obligatorios');
     return;
   }
 
@@ -622,7 +625,7 @@ const guardarNuevoHuesped = async () => {
     modalNuevoHuesped.value = false;
     nuevoHuesped.value = { nombre: '', apellido: '', ci: '', telefono: '', email: '' };
   } catch (error) {
-    alert('Error al crear huésped');
+    toast.error('Error al crear huésped');
   } finally {
     guardandoHuesped.value = false;
   }
@@ -631,7 +634,7 @@ const guardarNuevoHuesped = async () => {
 const siguientePaso = () => {
   if (puedeAvanzar.value) {
     if (currentStep.value === 2 && form.value.habitaciones.length === 0) {
-      alert('Debes seleccionar al menos una habitación');
+      toast.warning('Debes seleccionar al menos una habitación');
       return;
     }
     currentStep.value++;

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Registrar Consumo</h1>
       <router-link
@@ -10,7 +10,7 @@
       </router-link>
     </div>
 
-    <form @submit.prevent="guardar" class="space-y-6 max-w-2xl bg-white p-6 rounded-lg shadow">
+    <form @submit.prevent="guardar" class="space-y-4 sm:space-y-6 max-w-2xl bg-white p-4 sm:p-6 rounded-lg shadow">
       <!-- Reserva -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Reserva <span class="text-red-500">*</span></label>
@@ -38,7 +38,7 @@
 
       <!-- Lógica para Servicios DIARIOS -->
       <div v-if="esServicioDiario && form.id_reserva" class="bg-blue-50 p-4 rounded-lg border border-blue-100">
-        <h3 class="font-medium text-blue-800 mb-3">📅 Seleccionar días para el servicio diario</h3>
+        <h3 class="font-medium text-blue-800 mb-3"><Icon name="calendar" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Seleccionar días para el servicio diario</h3>
         
         <div class="flex justify-end mb-2 space-x-2">
           <button type="button" @click="seleccionarTodosDias" class="text-xs text-blue-600 hover:underline">Seleccionar Todos</button>
@@ -97,9 +97,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from '../../axios';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const loading = ref(false);
@@ -213,7 +216,7 @@ const cargarDatos = async () => {
 
   } catch (e) {
     console.error(e);
-    alert('Error al cargar datos necesarios');
+    toast.error('Error al cargar datos necesarios');
   } finally {
     loadingReservas.value = false;
   }
@@ -233,11 +236,11 @@ const guardar = async () => {
     }
 
     await axios.post('/consumos', payload);
-    alert('Consumo(s) registrado(s) exitosamente');
+    toast.success('Consumo(s) registrado(s) exitosamente');
     router.push('/consumos');
   } catch (e) {
     console.error(e);
-    alert(e.response?.data?.message || 'Error al registrar consumo');
+    toast.error(e.response?.data?.message || 'Error al registrar consumo');
   } finally {
     loading.value = false;
   }

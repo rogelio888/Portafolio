@@ -171,6 +171,9 @@ export class Calendario {
   }
 
   // UI Y MODALES
+  public panelDia = false;
+  public diaSeleccionado: DiaCalendario | null = null;
+
   verDetalleCita(cita: Cita) {
     this.citaSeleccionada = cita;
     this.panelDetalle = true;
@@ -178,8 +181,20 @@ export class Calendario {
 
   cerrarPanel() {
     this.panelDetalle = false;
-    this.citaSeleccionada = null;
   }
+
+  verDetalleDia(dia: DiaCalendario) {
+    if (dia.citas.length > 0) {
+      this.diaSeleccionado = dia;
+      this.panelDia = true;
+    }
+  }
+
+  cerrarPanelDia() {
+    this.panelDia = false;
+    this.diaSeleccionado = null;
+  }
+
 
   getNombreMedico(id: number): string {
     const m = this.medicoService.medicos().find(x => x.id === id);

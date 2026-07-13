@@ -9,37 +9,37 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
       <StatCard
         title="Habitaciones Disponibles"
         :value="stats.habitaciones?.disponibles || 0"
-        icon="🏨"
+        icon="building"
         color="green"
       />
       <StatCard
         title="Habitaciones Ocupadas"
         :value="stats.habitaciones?.ocupadas || 0"
-        icon="🔑"
+        icon="key"
         color="blue"
       />
       <StatCard
         title="Reservas Activas"
         :value="stats.reservas?.activas || 0"
-        icon="📝"
+        icon="clipboard"
         color="yellow"
       />
       <StatCard
         title="Ingresos del Mes"
         :value="formatCurrency(stats.ingresos?.mes || 0)"
-        icon="💰"
+        icon="circle-dollar-sign"
         color="purple"
       />
     </div>
 
     <!-- Gráficos y tablas -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
       <!-- Reservas próximas -->
-      <div class="bg-white rounded-lg shadow p-6">
+      <div class="bg-white rounded-lg shadow p-4 sm:p-6">
         <h2 class="text-xl font-bold text-gray-800 mb-4">Reservas Próximas</h2>
         <div v-if="loading" class="text-center py-8">
           <p class="text-gray-500">Cargando...</p>
@@ -54,7 +54,7 @@
       </div>
 
       <!-- Ocupación -->
-      <div class="bg-white rounded-lg shadow p-6">
+      <div class="bg-white rounded-lg shadow p-4 sm:p-6">
         <h2 class="text-xl font-bold text-gray-800 mb-4">Tasa de Ocupación</h2>
         <div v-if="loading" class="text-center py-8">
           <p class="text-gray-500">Cargando...</p>

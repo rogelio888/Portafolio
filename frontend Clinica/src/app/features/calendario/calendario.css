@@ -39,12 +39,86 @@
 .body-mes { display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: minmax(120px, auto); flex: 1; background: #e2e8f0; gap: 1px; }
 
 @media (max-width: 767.98px) {
-  .grid-mes { min-width: 700px; }
-  .grid-semana { min-width: 700px; }
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .header-actions .form-control {
+    width: 100%;
+  }
+  .vista-selector {
+    justify-content: center;
+  }
+  .calendario-navegacion {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.75rem 0.5rem;
+    gap: 0.25rem;
+  }
+  .calendario-workspace {
+    min-height: auto;
+  }
+  .fecha-titulo {
+    order: -1;
+    flex: 1;
+    text-align: left;
+    font-size: 1.1rem;
+    margin: 0;
+    min-width: 0;
+  }
+  .btn-icon { padding: 0.25rem; }
+  .ml-4 { margin-left: 0; }
+  
+  /* Ajustes para que encaje como widget móvil */
+  .header-dias div { padding: 0.5rem 0; font-size: 0; overflow: hidden; }
+  .header-dias div:nth-child(1)::after { content: "L"; font-size: 0.75rem; }
+  .header-dias div:nth-child(2)::after { content: "M"; font-size: 0.75rem; }
+  .header-dias div:nth-child(3)::after { content: "M"; font-size: 0.75rem; }
+  .header-dias div:nth-child(4)::after { content: "J"; font-size: 0.75rem; }
+  .header-dias div:nth-child(5)::after { content: "V"; font-size: 0.75rem; }
+  .header-dias div:nth-child(6)::after { content: "S"; font-size: 0.75rem; }
+  .header-dias div:nth-child(7)::after { content: "D"; font-size: 0.75rem; }
+
+  .body-mes { grid-auto-rows: minmax(45px, 45px); } /* celdas cuadradas fijas */
+  .celda-dia { padding: 0.2rem; align-items: center; justify-content: flex-start; border-radius: 8px; margin: 2px; }
+  .celda-dia.tiene-citas { border: none; }
+  .numero-dia { font-size: 0.85rem; margin-bottom: 0.1rem; align-self: center; }
+  
+  /* Convertir citas en puntitos */
+  .citas-contenedor { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 3px; margin-top: 2px; }
+  .etiqueta-cita { width: 6px !important; height: 6px !important; padding: 0 !important; border-radius: 50% !important; font-size: 0 !important; color: transparent !important; min-height: 6px !important; background: #3b82f6 !important; border: none !important; pointer-events: none; }
+  .etiqueta-cita.estado-programada { background: #3b82f6 !important; }
+  .etiqueta-cita.estado-pendiente { background: #f59e0b !important; }
+  .etiqueta-cita.estado-completada { background: #10b981 !important; }
+  .etiqueta-cita.estado-cancelada { background: #ef4444 !important; }
+  .etiqueta-cita .hora { display: none !important; }
+  
+  /* Vista semanal móvil */
+  .header-dia-semana { padding: 0.5rem 0.1rem; font-size: 0; }
+  .header-dia-semana:nth-child(1)::after { content: "L"; font-size: 0.75rem; font-weight: 700; color: #64748b; }
+  .header-dia-semana:nth-child(2)::after { content: "M"; font-size: 0.75rem; font-weight: 700; color: #64748b; }
+  .header-dia-semana:nth-child(3)::after { content: "M"; font-size: 0.75rem; font-weight: 700; color: #64748b; }
+  .header-dia-semana:nth-child(4)::after { content: "J"; font-size: 0.75rem; font-weight: 700; color: #64748b; }
+  .header-dia-semana:nth-child(5)::after { content: "V"; font-size: 0.75rem; font-weight: 700; color: #64748b; }
+  .header-dia-semana:nth-child(6)::after { content: "S"; font-size: 0.75rem; font-weight: 700; color: #64748b; }
+  .header-dia-semana:nth-child(7)::after { content: "D"; font-size: 0.75rem; font-weight: 700; color: #64748b; }
+  .nombre-dia { display: none; }
+  .numero-dia-semana { font-size: 1rem; margin-top: 0.2rem; display: block; }
+  .tarjeta-cita { padding: 0.25rem; }
+  .hora-tarjeta { font-size: 0.65rem; }
+  .paciente-tarjeta { font-size: 0.7rem; }
 }
 
 .celda-dia { background: white; padding: 0.5rem; display: flex; flex-direction: column; transition: 0.2s; }
 .celda-dia:hover { background: #f8fafc; }
+.celda-dia.tiene-citas { background: #f0fdf4; cursor: pointer; border: 1px solid #dcfce7; }
+.celda-dia.tiene-citas:hover { background: #dcfce7; }
 .celda-dia.otro-mes { background: #fcfcfc; }
 .celda-dia.otro-mes .numero-dia { color: #cbd5e1; }
 .celda-dia.hoy .numero-dia { background: #3b82f6; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }

@@ -62,9 +62,9 @@ onMounted(() => {
   <div class="animate-fade-in max-w-6xl mx-auto space-y-6">
     
     <!-- Filtros de Búsqueda -->
-    <div class="bg-white p-5 border border-slate-200 rounded-sm shadow-sm flex flex-col md:flex-row gap-4 items-end">
+    <div class="bg-white p-5 border border-slate-200 rounded-sm shadow-sm flex flex-col md:flex-row gap-4 items-stretch md:items-end">
       
-      <div class="space-y-1.5 flex-1">
+      <div class="space-y-1.5 flex-1 w-full">
         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide">Buscar Usuario / Acción</label>
         <div class="relative w-full">
           <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -94,12 +94,14 @@ onMounted(() => {
     <div class="bg-white border border-slate-200 rounded-sm shadow-sm overflow-hidden relative">
       <!-- Indicador de solo lectura -->
       <div class="absolute top-0 right-0 bg-slate-100 text-slate-500 text-[10px] font-bold uppercase px-3 py-1 border-b border-l border-slate-200 rounded-bl-sm z-10 flex items-center gap-1">
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-        Registro Inalterable (Solo Lectura)
+        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        <span class="hidden sm:inline">Registro Inalterable (Solo Lectura)</span>
+        <span class="sm:hidden">Solo Lectura</span>
       </div>
 
-      <table class="w-full text-left text-sm text-slate-600 mt-2">
-        <thead class="bg-slate-50 border-b border-slate-200 text-xs uppercase font-bold text-slate-700">
+      <div class="overflow-x-auto w-full mt-7 sm:mt-2">
+        <table class="w-full text-left text-sm text-slate-600 min-w-[800px]">
+          <thead class="bg-slate-50 border-b border-slate-200 text-xs uppercase font-bold text-slate-700">
           <tr>
             <th class="px-6 py-4">Fecha y Hora</th>
             <th class="px-6 py-4">Usuario</th>
@@ -148,11 +150,12 @@ onMounted(() => {
             </td>
           </tr>
         </tbody>
-      </table>
+        </table>
+      </div>
       
       <!-- Paginación Real -->
-      <div class="bg-slate-50 border-t border-slate-200 p-4 flex items-center justify-between">
-        <p class="text-xs text-slate-500 font-medium">Mostrando página {{ currentPage }} de {{ lastPage }} ({{ total }} registros)</p>
+      <div class="bg-slate-50 border-t border-slate-200 p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-slate-500 font-medium text-center sm:text-left">Mostrando página {{ currentPage }} de {{ lastPage }} ({{ total }} registros)</p>
         <div class="flex gap-1" v-if="lastPage > 1">
           <button @click="fetchLogs(currentPage - 1)" :disabled="currentPage === 1" class="px-3 py-1 border border-slate-200 bg-white text-slate-600 disabled:text-slate-400 disabled:cursor-not-allowed hover:bg-slate-50 rounded-sm">Anterior</button>
           

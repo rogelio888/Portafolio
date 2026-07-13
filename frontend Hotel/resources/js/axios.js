@@ -27,6 +27,11 @@ function dispatch(method, pathname, body, params) {
   // --- Hoteles ---
   if (method === 'GET' && pathname === '/hoteles') return db.listHoteles(params);
   if (method === 'POST' && pathname === '/hoteles') return db.createHotel(body);
+  if ((m = pathname.match(/^\/hoteles\/(\d+)$/)) && method === 'GET') {
+    const h = db.listHoteles().data.find((x) => x.id === Number(m[1]));
+    if (!h) throw new ApiError(404, { success: false, message: 'Hotel no encontrado' });
+    return { success: true, data: h };
+  }
   if ((m = pathname.match(/^\/hoteles\/(\d+)\/dashboard$/)) && method === 'GET') return db.hotelDashboardData(Number(m[1]));
   if ((m = pathname.match(/^\/hoteles\/(\d+)$/)) && method === 'PUT') return db.updateHotel(Number(m[1]), body);
   if ((m = pathname.match(/^\/hoteles\/(\d+)$/)) && method === 'DELETE') return db.deleteHotel(Number(m[1]));
@@ -40,6 +45,11 @@ function dispatch(method, pathname, body, params) {
   // --- Tipos de habitación ---
   if (method === 'GET' && pathname === '/tipo-habitaciones') return db.listTipos(params);
   if (method === 'POST' && pathname === '/tipo-habitaciones') return db.createTipo(body);
+  if ((m = pathname.match(/^\/tipo-habitaciones\/(\d+)$/)) && method === 'GET') {
+    const t = db.listTipos().data.find((x) => x.id === Number(m[1]));
+    if (!t) throw new ApiError(404, { success: false, message: 'Tipo no encontrado' });
+    return { success: true, data: t };
+  }
   if ((m = pathname.match(/^\/tipo-habitaciones\/(\d+)$/)) && method === 'PUT') return db.updateTipo(Number(m[1]), body);
   if ((m = pathname.match(/^\/tipo-habitaciones\/(\d+)$/)) && method === 'DELETE') return db.deleteTipo(Number(m[1]));
 
@@ -47,6 +57,11 @@ function dispatch(method, pathname, body, params) {
   if (method === 'GET' && pathname === '/habitaciones-disponibles') return db.listHabitacionesDisponibles(params.id_hotel);
   if (method === 'GET' && pathname === '/habitaciones') return db.listHabitaciones(params);
   if (method === 'POST' && pathname === '/habitaciones') return db.createHabitacion(body);
+  if ((m = pathname.match(/^\/habitaciones\/(\d+)$/)) && method === 'GET') {
+    const h = db.listHabitaciones().data.find((x) => x.id === Number(m[1]));
+    if (!h) throw new ApiError(404, { success: false, message: 'Habitación no encontrada' });
+    return { success: true, data: h };
+  }
   if ((m = pathname.match(/^\/habitaciones\/(\d+)\/cambiar-estado$/)) && method === 'POST') return db.cambiarEstadoHabitacion(Number(m[1]), body?.estado);
   if ((m = pathname.match(/^\/habitaciones\/(\d+)$/)) && method === 'PUT') return db.updateHabitacion(Number(m[1]), body);
   if ((m = pathname.match(/^\/habitaciones\/(\d+)$/)) && method === 'DELETE') return db.deleteHabitacion(Number(m[1]));
@@ -55,6 +70,11 @@ function dispatch(method, pathname, body, params) {
   if (method === 'GET' && pathname === '/huespedes') return db.listHuespedes(params);
   if (method === 'POST' && pathname === '/huespedes') return db.createHuesped(body);
   if (method === 'POST' && pathname === '/huespedes/buscar-ci') return db.buscarHuespedPorCi(body?.ci);
+  if ((m = pathname.match(/^\/huespedes\/(\d+)$/)) && method === 'GET') {
+    const hue = db.listHuespedes({}).data.find((x) => x.id === Number(m[1]));
+    if (!hue) throw new ApiError(404, { success: false, message: 'Huésped no encontrado' });
+    return { success: true, data: hue };
+  }
   if ((m = pathname.match(/^\/huespedes\/(\d+)$/)) && method === 'PUT') return db.updateHuesped(Number(m[1]), body);
   if ((m = pathname.match(/^\/huespedes\/(\d+)$/)) && method === 'DELETE') return db.deleteHuesped(Number(m[1]));
 
@@ -73,6 +93,11 @@ function dispatch(method, pathname, body, params) {
   if (method === 'POST' && pathname === '/servicios') return db.createServicio(body);
   if ((m = pathname.match(/^\/servicios\/(\d+)\/calcular-precio$/)) && method === 'POST') {
     return { success: true, data: { precio_total: 0 } };
+  }
+  if ((m = pathname.match(/^\/servicios\/(\d+)$/)) && method === 'GET') {
+    const s = db.listServicios({}).data.find((x) => x.id === Number(m[1]));
+    if (!s) throw new ApiError(404, { success: false, message: 'Servicio no encontrado' });
+    return { success: true, data: s };
   }
   if ((m = pathname.match(/^\/servicios\/(\d+)$/)) && method === 'PUT') return db.updateServicio(Number(m[1]), body);
   if ((m = pathname.match(/^\/servicios\/(\d+)$/)) && method === 'DELETE') return db.deleteServicio(Number(m[1]));
@@ -95,6 +120,11 @@ function dispatch(method, pathname, body, params) {
   if (method === 'GET' && pathname === '/empleados') return db.listEmpleados(params);
   if (method === 'POST' && pathname === '/empleados') return db.createEmpleado(body);
   if ((m = pathname.match(/^\/empleados\/(\d+)\/permisos$/)) && method === 'GET') return db.permisosDeEmpleado(Number(m[1]));
+  if ((m = pathname.match(/^\/empleados\/(\d+)$/)) && method === 'GET') {
+    const e = db.listEmpleados({}).data.find((x) => x.id === Number(m[1]));
+    if (!e) throw new ApiError(404, { success: false, message: 'Empleado no encontrado' });
+    return { success: true, data: e };
+  }
   if ((m = pathname.match(/^\/empleados\/(\d+)$/)) && method === 'PUT') return db.updateEmpleado(Number(m[1]), body);
   if ((m = pathname.match(/^\/empleados\/(\d+)$/)) && method === 'DELETE') return db.deleteEmpleado(Number(m[1]));
 

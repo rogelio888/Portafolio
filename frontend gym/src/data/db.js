@@ -336,7 +336,7 @@ export function toggleUsuarioStatus(id) {
 // ---------- PLANES (Membresías) ----------
 export function getPlanes() {
   ensureLoaded();
-  return state.planes;
+  return [...state.planes];
 }
 
 export function getPlan(id) {

@@ -19,7 +19,42 @@
 .caja-dashboard { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
 
 @media (max-width: 767.98px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+  .simulador-login {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .simulador-login .form-control {
+    flex: 1;
+    min-width: 160px;
+  }
   .caja-dashboard { grid-template-columns: 1fr; }
+  
+  .cobro-card {
+    padding: 1rem 0.5rem;
+    gap: 0.5rem;
+  }
+  .hora-badge {
+    margin-right: 0.5rem;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.8rem;
+  }
+  .paciente-nombre {
+    font-size: 1rem;
+    word-break: break-word;
+  }
+  .meta-cobro {
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+  .btn-cobrar {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
 }
 
 .panel-cobros, .panel-resumen { background: white; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); overflow: hidden; }

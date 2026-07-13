@@ -85,13 +85,14 @@ const fetchReportes = async () => {
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <!-- Gráfico de Ingresos -->
-          <div class="lg:col-span-2 bg-white border border-slate-200 rounded-sm shadow-sm p-6">
+          <div class="lg:col-span-2 bg-white border border-slate-200 rounded-sm shadow-sm p-6 min-w-0">
             <h3 class="font-bold text-slate-800 mb-6 flex items-center gap-2">
               <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
               Evolución de Recaudación (Bs.)
             </h3>
             
-            <div class="h-64 flex items-end gap-4 sm:gap-8 justify-around pt-6 border-b border-slate-200 relative pb-2">
+            <div class="h-64 overflow-x-auto overflow-y-hidden">
+            <div class="h-full flex items-end gap-2 sm:gap-8 justify-around pt-6 border-b border-slate-200 relative pb-2 min-w-full">
               <!-- Grid lines -->
               <div class="absolute inset-0 flex flex-col justify-between pb-2 z-0">
                 <div class="border-t border-slate-100 w-full"></div>
@@ -99,17 +100,18 @@ const fetchReportes = async () => {
                 <div class="border-t border-slate-100 w-full"></div>
                 <div class="border-t border-slate-100 w-full"></div>
               </div>
-              
+
               <!-- Barras -->
-              <div v-for="data in chartData" :key="data.mes" class="relative z-10 flex flex-col justify-end items-center w-full h-full group">
+              <div v-for="data in chartData" :key="data.mes" class="relative z-10 flex flex-col justify-end items-center w-10 sm:w-20 h-full group shrink-0">
                 <div class="opacity-0 group-hover:opacity-100 absolute -top-8 bg-slate-800 text-white text-[10px] py-1 px-2 rounded-sm transition-opacity pointer-events-none whitespace-nowrap z-20">
                   Bs. {{ data.valor.toLocaleString() }}
                 </div>
-                <div class="w-12 sm:w-16 bg-primary rounded-t-sm transition-all duration-1000 ease-out relative overflow-hidden group-hover:bg-primary-dark cursor-default" :style="`height: ${data.porcentaje}%`">
+                <div class="w-8 sm:w-16 bg-primary rounded-t-sm transition-all duration-1000 ease-out relative overflow-hidden group-hover:bg-primary-dark cursor-default" :style="`height: ${data.porcentaje}%`">
                   <div class="absolute bottom-0 left-0 right-0 top-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
                 <span class="text-xs font-bold text-slate-500 mt-3 shrink-0">{{ data.mes }}</span>
               </div>
+            </div>
             </div>
           </div>
 

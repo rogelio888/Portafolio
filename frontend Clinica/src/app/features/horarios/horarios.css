@@ -143,8 +143,49 @@ input:checked + .slider:before { transform: translateX(20px); }
 }
 
 @media (max-width: 767.98px) {
+  .selector-panel {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .config-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+  .duracion-control {
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  .dias-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .tab-content {
+    padding: 1.5rem 1rem;
+  }
+  .tab-btn {
+    padding: 1rem 0.5rem;
+    flex: 1;
+    text-align: center;
+    font-size: 0.85rem;
+  }
   .excepciones-layout {
     grid-template-columns: 1fr;
+  }
+  .list-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .item-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .btn-icon.danger {
+    align-self: flex-end;
   }
 }
 .add-excepcion-panel {

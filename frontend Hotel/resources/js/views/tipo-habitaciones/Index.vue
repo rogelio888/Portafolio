@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Tipos de Habitaciones</h1>
@@ -48,7 +48,7 @@
               class="text-yellow-500 hover:text-yellow-600 p-1" 
               title="Editar"
             >
-              ✏️
+              <Icon name="pencil" class="w-4 h-4 inline-block" />
             </button>
             <button 
               v-if="authStore.hasPermission('eliminar_tipos_habitaciones')"
@@ -56,7 +56,7 @@
               class="text-red-500 hover:text-red-600 p-1" 
               title="Eliminar"
             >
-              🗑️
+              <Icon name="trash" class="w-4 h-4 inline-block" />
             </button>
           </div>
         </template>
@@ -66,11 +66,14 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
 import axios from '../../axios';
 import Table from '../../components/Table.vue';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -101,7 +104,7 @@ const cargarTipos = async () => {
     tipos.value = response.data.data;
   } catch (error) {
     console.error('Error al cargar tipos:', error);
-    alert('Error al cargar los tipos de habitaciones');
+    toast.error('Error al cargar los tipos de habitaciones');
   } finally {
     loading.value = false;
   }
@@ -112,17 +115,17 @@ const editarTipo = (tipo) => {
 };
 
 const eliminarTipo = async (tipo) => {
-  if (!confirm(`¿Estás seguro de eliminar el tipo "${tipo.nombre}"?`)) {
+  if (!await toast.confirm(`¿Estás seguro de eliminar el tipo "${tipo.nombre}"?`)) {
     return;
   }
 
   try {
     await axios.delete(`/tipo-habitaciones/${tipo.id}`);
-    alert('Tipo eliminado exitosamente');
+    toast.success('Tipo eliminado exitosamente');
     cargarTipos();
   } catch (error) {
     console.error('Error al eliminar tipo:', error);
-    alert(error.response?.data?.message || 'Error al eliminar el tipo');
+    toast.error(error.response?.data?.message || 'Error al eliminar el tipo');
   }
 };
 

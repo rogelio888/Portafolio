@@ -12,7 +12,7 @@
         v-if="authStore.hasPermission('crear_pisos')"
         @click="abrirModalCrear"
       >
-        ➕ Nuevo Piso
+        <Icon name="plus" class="w-4 h-4 inline-block mr-1" /> Nuevo Piso
       </Button>
     </div>
 
@@ -21,6 +21,7 @@
       :columns="columns"
       :data="pisosStore.pisos"
       :loading="pisosStore.loading"
+      :actions="authStore.hasPermission('editar_pisos') || authStore.hasPermission('eliminar_pisos')"
     >
       <template #cell-numero="{ item }">
         Piso {{ item.numero }}
@@ -47,7 +48,7 @@
             class="text-yellow-600 hover:text-yellow-800"
             title="Editar"
           >
-            ✏️
+            <Icon name="pencil" class="w-4 h-4 inline-block" />
           </button>
           <button
             v-if="authStore.hasPermission('eliminar_pisos')"
@@ -55,7 +56,7 @@
             class="text-red-600 hover:text-red-800"
             title="Eliminar"
           >
-            🗑️
+            <Icon name="trash" class="w-4 h-4 inline-block" />
           </button>
         </div>
       </template>
@@ -126,6 +127,7 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 import { usePisosStore } from '../../stores/pisos';
@@ -133,6 +135,8 @@ import { useHotelesStore } from '../../stores/hoteles';
 import Table from '../../components/Table.vue';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const authStore = useAuthStore();
 const pisosStore = usePisosStore();
@@ -200,7 +204,7 @@ const guardarPiso = async () => {
     modalForm.value = false;
     fetchPisos();
   } catch (error) {
-    alert(error.response?.data?.message || 'Error al guardar piso');
+    toast.error(error.response?.data?.message || 'Error al guardar piso');
   } finally {
     guardando.value = false;
   }
@@ -218,7 +222,7 @@ const eliminarPiso = async () => {
     modalEliminar.value = false;
     pisoSeleccionado.value = null;
   } catch (error) {
-    alert('Error al eliminar piso');
+    toast.error('Error al eliminar piso');
   } finally {
     eliminando.value = false;
   }

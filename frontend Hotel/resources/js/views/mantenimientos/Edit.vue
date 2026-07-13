@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 max-w-2xl mx-auto">
+  <div class="p-4 sm:p-6 max-w-2xl mx-auto">
     <h1 class="text-2xl font-bold mb-4">Editar Mantenimiento</h1>
     <form @submit.prevent="actualizarMantenimiento" class="space-y-4">
       <div>
@@ -39,9 +39,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from '../../axios';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -65,7 +68,7 @@ const cargarHabitaciones = async () => {
     habitaciones.value = response.data.data;
   } catch (e) {
     console.error('Error al cargar habitaciones', e);
-    alert('No se pudieron cargar las habitaciones');
+    toast.success('No se pudieron cargar las habitaciones');
   }
 };
 
@@ -79,23 +82,23 @@ const cargarMantenimiento = async () => {
     form.value.costo = data.costo;
   } catch (e) {
     console.error('Error al cargar mantenimiento', e);
-    alert('No se pudo cargar el mantenimiento');
+    toast.success('No se pudo cargar el mantenimiento');
     router.push('/mantenimientos');
   }
 };
 
 const actualizarMantenimiento = async () => {
   if (!puedeGuardar.value) {
-    alert('Complete los campos obligatorios');
+    toast.warning('Complete los campos obligatorios');
     return;
   }
   try {
     await axios.put(`/api/mantenimientos/${id}`, form.value);
-    alert('Mantenimiento actualizado');
+    toast.success('Mantenimiento actualizado');
     router.push('/mantenimientos');
   } catch (e) {
     console.error('Error al actualizar', e);
-    alert(e.response?.data?.message || 'Error al actualizar');
+    toast.error(e.response?.data?.message || 'Error al actualizar');
   }
 };
 

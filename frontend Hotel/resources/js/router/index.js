@@ -111,6 +111,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (to.query.reset) {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user');
+    const query = { ...to.query };
+    delete query.reset;
+    return next({ path: '/login', query });
+  }
+
   const token = localStorage.getItem('auth_token');
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
   if (requiresAuth && !token) {

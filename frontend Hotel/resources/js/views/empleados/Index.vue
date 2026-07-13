@@ -12,7 +12,7 @@
         v-if="authStore.hasPermission('crear_empleados')"
         @click="$router.push('/empleados/crear')"
       >
-        ➕ Nuevo Empleado
+        <Icon name="plus" class="w-4 h-4 inline-block mr-1" /> Nuevo Empleado
       </Button>
     </div>
 
@@ -67,6 +67,7 @@
       :columns="columns"
       :data="empleados"
       :loading="loading"
+      :actions="authStore.hasPermission('editar_empleados') || authStore.hasPermission('eliminar_empleados')"
     >
       <template #cell-nombre="{ item }">
         {{ item.nombre }} {{ item.apellido }}
@@ -106,7 +107,7 @@
             class="text-yellow-600 hover:text-yellow-800"
             title="Editar"
           >
-            ✏️
+            <Icon name="pencil" class="w-4 h-4 inline-block" />
           </button>
           <button
             v-if="authStore.hasPermission('eliminar_empleados')"
@@ -114,7 +115,7 @@
             class="text-red-600 hover:text-red-800"
             title="Inactivar"
           >
-            🗑️
+            <Icon name="trash" class="w-4 h-4 inline-block" />
           </button>
         </div>
       </template>
@@ -135,7 +136,7 @@
               :key="permiso.id"
               class="flex items-center p-2 bg-green-50 rounded text-sm"
             >
-              <span class="mr-2">✓</span>
+              <span class="mr-2"><Icon name="check" class="w-4 h-4 inline-block mr-1" /></span>
               <span>{{ permiso.descripcion }}</span>
             </div>
           </div>
@@ -162,6 +163,7 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
@@ -170,6 +172,8 @@ import axios from '../../axios';
 import Table from '../../components/Table.vue';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -232,7 +236,7 @@ const verPermisos = async (empleado) => {
       modalPermisos.value = true;
     }
   } catch (error) {
-    alert('Error al cargar permisos');
+    toast.error('Error al cargar permisos');
   }
 };
 
@@ -252,7 +256,7 @@ const eliminarEmpleado = async () => {
     modalEliminar.value = false;
     await fetchEmpleados();
   } catch (error) {
-    alert('Error al inactivar empleado');
+    toast.error('Error al inactivar empleado');
   } finally {
     eliminando.value = false;
   }

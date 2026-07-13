@@ -10,7 +10,7 @@
       </div>
       <!-- Todos pueden crear huéspedes -->
       <Button @click="$router.push('/huespedes/crear')">
-        ➕ Nuevo Huésped
+        <Icon name="plus" class="w-4 h-4 inline-block mr-1" /> Nuevo Huésped
       </Button>
     </div>
 
@@ -19,6 +19,7 @@
       :columns="columns"
       :data="huespedesStore.huespedes"
       :loading="huespedesStore.loading"
+      :actions="authStore.hasPermission('editar_huespedes') || authStore.hasPermission('eliminar_huespedes')"
     >
       <template #cell-nombre="{ item }">
         {{ item.nombre }} {{ item.apellido }}
@@ -41,7 +42,7 @@
             class="text-yellow-600 hover:text-yellow-800"
             title="Editar"
           >
-            ✏️
+            <Icon name="pencil" class="w-4 h-4 inline-block" />
           </button>
           
           <!-- Recepcionista puede solicitar autorización (si no tiene permiso) -->
@@ -60,7 +61,7 @@
             class="text-red-600 hover:text-red-800"
             title="Eliminar"
           >
-            🗑️
+            <Icon name="trash" class="w-4 h-4 inline-block" />
           </button>
         </div>
       </template>
@@ -108,6 +109,7 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
@@ -116,6 +118,8 @@ import Table from '../../components/Table.vue';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
 import axios from '../../axios';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -149,7 +153,7 @@ const solicitarAutorizacion = (huesped) => {
 
 const enviarSolicitud = async () => {
   if (!motivoSolicitud.value.trim()) {
-    alert('Por favor ingresa un motivo para la solicitud');
+    toast.success('Por favor ingresa un motivo para la solicitud');
     return;
   }
 
@@ -162,12 +166,12 @@ const enviarSolicitud = async () => {
       motivo: motivoSolicitud.value
     });
     
-    alert('Solicitud enviada correctamente. Un gerente o administrador la revisará pronto.');
+    toast.success('Solicitud enviada correctamente. Un gerente o administrador la revisará pronto.');
     modalAutorizacion.value = false;
     huespedSeleccionado.value = null;
     motivoSolicitud.value = '';
   } catch (error) {
-    alert('Error al enviar solicitud: ' + (error.response?.data?.message || 'Error desconocido'));
+    toast.error('Error al enviar solicitud: ' + (error.response?.data?.message || 'Error desconocido'));
   } finally {
     enviandoSolicitud.value = false;
   }
@@ -185,7 +189,7 @@ const eliminarHuesped = async () => {
     modalEliminar.value = false;
     huespedSeleccionado.value = null;
   } catch (error) {
-    alert('Error al eliminar huésped');
+    toast.error('Error al eliminar huésped');
   } finally {
     eliminando.value = false;
   }

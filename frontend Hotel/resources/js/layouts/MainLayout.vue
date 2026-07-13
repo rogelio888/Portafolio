@@ -1,7 +1,7 @@
 <!-- resources/js/layouts/MainLayout.vue -->
 
 <template>
-  <div class="min-h-screen bg-gray-100 flex">
+  <div class="min-h-screen bg-slate-50 flex">
     <!-- Mobile overlay -->
     <div v-if="isMobileMenuOpen" @click="isMobileMenuOpen = false" class="fixed inset-0 bg-slate-900/50 z-40 md:hidden backdrop-blur-sm transition-opacity"></div>
 
@@ -14,7 +14,7 @@
       <Navbar @toggleSidebar="toggleSidebar" @openMobileMenu="isMobileMenuOpen = true" />
 
       <!-- Page Content -->
-      <main class="p-6 flex-1 overflow-y-auto">
+      <main class="p-4 sm:p-6 lg:p-8 flex-1 overflow-y-auto">
         <router-view />
       </main>
     </div>

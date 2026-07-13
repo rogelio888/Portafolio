@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex items-center mb-6">
       <router-link to="/pagos" class="text-gray-600 hover:text-gray-800 mr-4">
         ← Volver
@@ -7,7 +7,7 @@
       <h1 class="text-2xl font-bold text-gray-800">Registrar Pago</h1>
     </div>
 
-    <div class="max-w-2xl bg-white rounded-lg shadow p-6">
+    <div class="max-w-2xl bg-white rounded-lg shadow p-4 sm:p-6">
       <form @submit.prevent="guardarPago">
         <!-- Selector de Reserva -->
         <div class="mb-4">
@@ -65,8 +65,8 @@
             <label
               v-for="tipo in tiposPago"
               :key="tipo.value"
-              class="flex items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition-all"
-              :class="form.tipo_pago === tipo.value ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'"
+              class="flex flex-col items-center justify-center p-3 border-2 rounded-lg cursor-pointer transition-all"
+              :class="form.tipo_pago === tipo.value ? 'border-blue-500 bg-blue-50 text-blue-600' : 'border-gray-300 hover:border-gray-400 text-gray-600'"
             >
               <input
                 type="radio"
@@ -75,6 +75,7 @@
                 class="sr-only"
                 required
               />
+              <Icon :name="tipo.icon" class="w-6 h-6 mb-1" />
               <span class="text-sm font-medium">{{ tipo.label }}</span>
             </label>
           </div>
@@ -138,9 +139,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from '../../axios';
+
+const toast = useToastStore();
 
 const router = useRouter();
 
@@ -162,9 +166,9 @@ const form = ref({
 });
 
 const tiposPago = [
-  { value: 'EFECTIVO', label: '💵 Efectivo' },
-  { value: 'TARJETA', label: '💳 Tarjeta' },
-  { value: 'TRANSFERENCIA', label: '🏦 Transferencia' }
+  { value: 'EFECTIVO', label: 'Efectivo', icon: 'banknote' },
+  { value: 'TARJETA', label: 'Tarjeta', icon: 'credit-card' },
+  { value: 'TRANSFERENCIA', label: 'Transferencia', icon: 'landmark' }
 ];
 
 const saldoPendiente = computed(() => {
@@ -192,7 +196,7 @@ const cargarReservas = async () => {
     );
   } catch (error) {
     console.error('Error al cargar reservas:', error);
-    alert('Error al cargar las reservas');
+    toast.error('Error al cargar las reservas');
   }
 };
 
@@ -211,23 +215,23 @@ const cargarDetallesReserva = async () => {
     totalPagado.value = parseFloat(pagosResponse.data.total_pagado || 0);
   } catch (error) {
     console.error('Error al cargar detalles de reserva:', error);
-    alert('Error al cargar los detalles de la reserva');
+    toast.error('Error al cargar los detalles de la reserva');
   }
 };
 
 const guardarPago = async () => {
   if (!puedeGuardar.value) {
-    alert('Por favor complete todos los campos correctamente');
+    toast.success('Por favor complete todos los campos correctamente');
     return;
   }
 
   try {
     await axios.post('/pagos', form.value);
-    alert('Pago registrado exitosamente');
+    toast.success('Pago registrado exitosamente');
     router.push('/pagos');
   } catch (error) {
     console.error('Error al guardar pago:', error);
-    alert(error.response?.data?.message || 'Error al registrar el pago');
+    toast.error(error.response?.data?.message || 'Error al registrar el pago');
   }
 };
 

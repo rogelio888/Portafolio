@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Pagos</h1>
       <router-link
@@ -165,7 +165,7 @@
 
     <!-- Modal de Anulación -->
     <div v-if="modalAnular.visible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+      <div class="bg-white rounded-lg p-4 sm:p-6 max-w-md w-full mx-4">
         <h3 class="text-lg font-bold text-gray-900 mb-4">Anular Pago</h3>
         <p class="text-sm text-gray-600 mb-4">
           ¿Está seguro que desea anular este pago de <strong>{{ formatCurrency(modalAnular.pago?.monto) }}</strong>?
@@ -201,10 +201,13 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from '../../axios';
 import Table from '../../components/Table.vue';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const loading = ref(false);
@@ -279,7 +282,7 @@ const cargarPagos = async (page = 1) => {
     calcularResumen();
   } catch (error) {
     console.error('Error al cargar pagos:', error);
-    alert('Error al cargar los pagos');
+    toast.error('Error al cargar los pagos');
   } finally {
     loading.value = false;
   }
@@ -352,7 +355,7 @@ const cerrarModalAnular = () => {
 
 const anularPago = async () => {
   if (modalAnular.value.motivo.length < 10) {
-    alert('El motivo debe tener al menos 10 caracteres');
+    toast.success('El motivo debe tener al menos 10 caracteres');
     return;
   }
 
@@ -361,18 +364,18 @@ const anularPago = async () => {
       motivo_anulacion: modalAnular.value.motivo
     });
     
-    alert('Pago anulado exitosamente');
+    toast.success('Pago anulado exitosamente');
     cerrarModalAnular();
     cargarPagos(pagination.value.current_page);
   } catch (error) {
     console.error('Error al anular pago:', error);
-    alert(error.response?.data?.message || 'Error al anular el pago');
+    toast.error(error.response?.data?.message || 'Error al anular el pago');
   }
 };
 
 const verMotivo = (pago) => {
   const fecha = formatDate(pago.fecha_anulacion);
-  alert(`Motivo de anulación:\n\n${pago.motivo_anulacion}\n\nFecha de anulación: ${fecha}`);
+  toast.success(`Motivo de anulación:\n\n${pago.motivo_anulacion}\n\nFecha de anulación: ${fecha}`);
 };
 
 const formatCurrency = (value) => {

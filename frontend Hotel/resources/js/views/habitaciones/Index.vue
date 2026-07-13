@@ -12,7 +12,7 @@
         v-if="authStore.hasPermission('crear_habitaciones')"
         @click="$router.push('/habitaciones/crear')"
       >
-        ➕ Nueva Habitación
+        <Icon name="plus" class="w-4 h-4 inline-block mr-1" /> Nueva Habitación
       </Button>
     </div>
 
@@ -65,7 +65,7 @@
 
         <div class="flex items-end">
           <Button variant="secondary" @click="limpiarFiltros" class="w-full">
-            🔄 Limpiar
+            <Icon name="refresh-cw" class="w-4 h-4 inline-block mr-1" /> Limpiar
           </Button>
         </div>
       </div>
@@ -100,6 +100,7 @@
       :columns="columns"
       :data="habitacionesStore.habitaciones"
       :loading="habitacionesStore.loading"
+      :actions="authStore.hasPermission('editar_habitaciones') || authStore.hasPermission('eliminar_habitaciones')"
     >
       <template #cell-hotel="{ item }">
         {{ item?.hotel?.nombre }}
@@ -134,7 +135,7 @@
             class="text-purple-600 hover:text-purple-800"
             title="Cambiar estado"
           >
-            🔄
+            <Icon name="refresh-cw" class="w-4 h-4 inline-block" />
           </button>
           <button
             v-if="authStore.hasPermission('editar_habitaciones')"
@@ -142,7 +143,7 @@
             class="text-yellow-600 hover:text-yellow-800"
             title="Editar"
           >
-            ✏️
+            <Icon name="pencil" class="w-4 h-4 inline-block" />
           </button>
           <button
             v-if="authStore.hasPermission('eliminar_habitaciones')"
@@ -150,7 +151,7 @@
             class="text-red-600 hover:text-red-800"
             title="Eliminar"
           >
-            🗑️
+            <Icon name="trash" class="w-4 h-4 inline-block" />
           </button>
         </div>
       </template>
@@ -196,6 +197,7 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
@@ -205,6 +207,8 @@ import axios from '../../axios';
 import Table from '../../components/Table.vue';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -295,7 +299,7 @@ const cambiarEstado = async () => {
     modalEstado.value = false;
     await fetchHabitaciones();
   } catch (error) {
-    alert('Error al cambiar estado');
+    toast.error('Error al cambiar estado');
   } finally {
     cambiandoEstado.value = false;
   }
@@ -313,7 +317,7 @@ const eliminarHabitacion = async () => {
     modalEliminar.value = false;
     await fetchHabitaciones();
   } catch (error) {
-    alert('Error al eliminar habitación');
+    toast.error('Error al eliminar habitación');
   } finally {
     eliminando.value = false;
   }

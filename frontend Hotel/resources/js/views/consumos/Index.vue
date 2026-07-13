@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Consumos</h1>
       <router-link
@@ -70,14 +70,14 @@
               class="text-blue-500 hover:text-blue-600 p-1"
               title="Editar"
             >
-              ✏️
+              <Icon name="pencil" class="w-4 h-4 inline-block" />
             </router-link>
              <button 
               @click.stop="eliminarConsumo(item)" 
               class="text-red-500 hover:text-red-600 p-1" 
               title="Eliminar"
             >
-              🗑️
+              <Icon name="trash" class="w-4 h-4 inline-block" />
             </button>
           </div>
           <div v-else-if="item" class="text-sm text-gray-400 italic">
@@ -113,9 +113,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import axios from '../../axios';
 import Table from '../../components/Table.vue';
+
+const toast = useToastStore();
 
 const consumos = ref([]);
 const loading = ref(false);
@@ -169,7 +172,7 @@ const cargarConsumos = async (page = 1) => {
     };
   } catch (error) {
     console.error('Error al cargar consumos:', error);
-    alert('Error al cargar los consumos');
+    toast.error('Error al cargar los consumos');
   } finally {
     loading.value = false;
   }
@@ -182,17 +185,17 @@ const cambiarPagina = (page) => {
 };
 
 const eliminarConsumo = async (consumo) => {
-  if (!confirm(`¿Estás seguro de eliminar este consumo?`)) {
+  if (!await toast.confirm(`¿Estás seguro de eliminar este consumo?`)) {
     return;
   }
 
   try {
     await axios.delete(`/consumos/${consumo.id}`);
-    alert('Consumo eliminado exitosamente');
+    toast.success('Consumo eliminado exitosamente');
     cargarConsumos();
   } catch (error) {
     console.error('Error al eliminar consumo:', error);
-    alert(error.response?.data?.message || 'Error al eliminar el consumo');
+    toast.error(error.response?.data?.message || 'Error al eliminar el consumo');
   }
 };
 

@@ -12,9 +12,9 @@
     </div>
 
     <!-- Formulario -->
-    <div class="bg-white rounded-lg shadow p-6 max-w-2xl">
+    <div class="bg-white rounded-lg shadow p-4 sm:p-6 max-w-2xl">
       <form @submit.prevent="handleSubmit">
-        <div class="space-y-6">
+        <div class="space-y-4 sm:space-y-6">
           <!-- Nombre -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">

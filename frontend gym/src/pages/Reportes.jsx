@@ -164,8 +164,8 @@ const Reportes = () => {
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={afluencia}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
-                      <XAxis dataKey="name" stroke="#888" tick={{fill: '#888'}} axisLine={false} tickLine={false} />
-                      <YAxis stroke="#888" tick={{fill: '#888'}} axisLine={false} tickLine={false} allowDecimals={false} />
+                      <XAxis dataKey="name" stroke="#888" tick={{fill: '#888', fontSize: 11}} tickFormatter={(val) => val.substring(0, 3)} interval={0} axisLine={false} tickLine={false} />
+                      <YAxis stroke="#888" tick={{fill: '#888', fontSize: 11}} axisLine={false} tickLine={false} allowDecimals={false} width={25} />
                       <Tooltip
                         contentStyle={{ backgroundColor: '#1e1e1e', borderColor: '#333', borderRadius: '12px', color: '#fff' }}
                         itemStyle={{ color: '#3b82f6', fontWeight: 'bold' }}
@@ -240,20 +240,21 @@ const Reportes = () => {
                 </div>
               </div>
 
-              <div className="lg:col-span-2 overflow-x-auto border border-[#2a2a2a] rounded-xl flex-1 h-full">
-                <div className="p-4 bg-[#2a2a2a] border-b border-[#333] flex items-center gap-4">
+              <div className="lg:col-span-2 border border-[#2a2a2a] rounded-xl flex flex-col flex-1 h-full overflow-hidden">
+                <div className="p-4 bg-[#2a2a2a] border-b border-[#333] flex flex-col md:flex-row items-stretch md:items-center gap-4">
                   <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
                     <input type="text" placeholder="Filtrar por nombre o estado..." className="w-full bg-[#1e1e1e] border border-[#444] text-white text-sm rounded-lg pl-9 pr-4 py-2 outline-none focus:border-blue-500" />
                   </div>
-                  <select className="bg-[#1e1e1e] border border-[#444] text-white text-sm rounded-lg px-4 py-2 outline-none focus:border-blue-500">
+                  <select className="w-full md:w-auto bg-[#1e1e1e] border border-[#444] text-white text-sm rounded-lg px-4 py-2 outline-none focus:border-blue-500">
                     <option value="todos">Todos los Estados</option>
                     <option value="activo">Activos</option>
                     <option value="por_vencer">Por Vencer</option>
                     <option value="vencido">Vencidos</option>
                   </select>
                 </div>
-                <table className="w-full text-left border-collapse">
+                <div className="overflow-x-auto w-full">
+                  <table className="w-full text-left border-collapse whitespace-nowrap min-w-[500px]">
                   <thead>
                     <tr className="bg-[#1a1a1a] text-gray-400 text-xs uppercase tracking-widest">
                       <th className="px-6 py-4 font-bold">Cliente</th>
@@ -269,7 +270,7 @@ const Reportes = () => {
                         <td className="px-6 py-4 text-gray-400">{client.phone}</td>
                         <td className="px-6 py-4 text-gray-400">{client.expiration}</td>
                         <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase ${
+                          <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase whitespace-nowrap ${
                             client.status === 'Activo' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
                             client.status === 'Por Vencer' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' :
                             'bg-red-500/10 text-red-400 border border-red-500/20'
@@ -282,6 +283,7 @@ const Reportes = () => {
                   </tbody>
                 </table>
               </div>
+            </div>
             </div>
           </div>
         )}

@@ -3,17 +3,19 @@
 <template>
   <div class="bg-white rounded-lg shadow overflow-hidden">
     <!-- Header con búsqueda y acciones -->
-    <div class="p-4 border-b border-gray-200 flex items-center justify-between">
-      <div class="flex items-center space-x-4">
+    <div class="p-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex items-center w-full sm:w-auto">
         <input
           v-if="searchable"
           v-model="searchQuery"
           type="text"
           placeholder="Buscar..."
-          class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          class="w-full sm:w-64 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
       </div>
-      <slot name="header-actions"></slot>
+      <div class="flex items-center justify-end w-full sm:w-auto">
+        <slot name="header-actions"></slot>
+      </div>
     </div>
 
     <!-- Table -->

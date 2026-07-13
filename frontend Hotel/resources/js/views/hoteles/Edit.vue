@@ -12,14 +12,14 @@
     </div>
 
     <!-- Loading -->
-    <div v-if="cargando" class="bg-white rounded-lg shadow p-6 text-center">
+    <div v-if="cargando" class="bg-white rounded-lg shadow p-4 sm:p-6 text-center">
       <p class="text-gray-500">Cargando...</p>
     </div>
 
     <!-- Formulario -->
-    <div v-else class="bg-white rounded-lg shadow p-6 max-w-2xl">
+    <div v-else class="bg-white rounded-lg shadow p-4 sm:p-6 max-w-2xl">
       <form @submit.prevent="handleSubmit">
-        <div class="space-y-6">
+        <div class="space-y-4 sm:space-y-6">
           <!-- Nombre -->
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">

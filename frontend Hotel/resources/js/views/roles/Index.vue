@@ -11,11 +11,11 @@
     </div>
 
     <!-- Lista de Roles -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       <div
         v-for="rol in roles"
         :key="rol.id"
-        class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
+        class="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-lg transition-shadow"
       >
         <div class="flex items-start justify-between mb-4">
           <div>
@@ -27,7 +27,7 @@
             class="text-blue-600 hover:text-blue-800"
             title="Gestionar permisos"
           >
-            ⚙️
+            <Icon name="settings" class="w-6 h-6 inline-block mr-2 text-gray-700" />
           </button>
         </div>
 
@@ -47,7 +47,7 @@
         </div>
 
         <!-- Permisos por Módulo -->
-        <div class="space-y-6 max-h-96 overflow-y-auto">
+        <div class="space-y-4 sm:space-y-6 max-h-96 overflow-y-auto">
           <div v-for="modulo in modulosAgrupados" :key="modulo.nombre">
             <h4 class="font-bold text-gray-800 mb-3 sticky top-0 bg-white py-2">
               {{ modulo.nombre }}
@@ -86,10 +86,13 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, computed, onMounted } from 'vue';
 import axios from '../../axios';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const roles = ref([]);
 const permisos = ref([]);
@@ -150,7 +153,7 @@ const abrirModalPermisos = async (rol) => {
       modalPermisos.value = true;
     }
   } catch (error) {
-    alert('Error al cargar rol');
+    toast.error('Error al cargar rol');
   }
 };
 
@@ -162,9 +165,9 @@ const guardarPermisos = async () => {
     });
     modalPermisos.value = false;
     await fetchRoles();
-    alert('Permisos actualizados exitosamente');
+    toast.success('Permisos actualizados exitosamente');
   } catch (error) {
-    alert('Error al guardar permisos');
+    toast.error('Error al guardar permisos');
   } finally {
     guardando.value = false;
   }

@@ -3,15 +3,15 @@
 <template>
   <aside
     :class="[
-      'fixed md:static inset-y-0 left-0 h-screen bg-gray-900 text-white transition-all duration-300 ease-in-out z-50 shadow-2xl md:shadow-none',
+      'fixed md:static inset-y-0 left-0 h-screen bg-slate-900/95 backdrop-blur-xl text-white transition-all duration-300 ease-in-out z-50 border-r border-white/5 shadow-2xl md:shadow-none',
       isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
       isOpen ? 'w-64' : 'w-64 md:w-16'
     ]"
   >
     <!-- Logo -->
-    <div class="flex items-center justify-center h-16 bg-gray-800 border-b border-gray-700">
-      <h1 v-if="isOpen" class="text-xl font-bold">Hotel System</h1>
-      <span v-else class="text-2xl">🏨</span>
+    <div class="flex items-center justify-center h-16 bg-slate-900/50 border-b border-white/10">
+      <h1 v-if="isOpen" class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Hotel System</h1>
+      <span v-else class="text-2xl"><Icon name="building" class="w-6 h-6 inline-block text-gray-300" /></span>
     </div>
 
     <!-- Menu Items with Scroll -->
@@ -24,7 +24,7 @@
             class="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-800 transition-colors"
           >
             <div class="flex items-center">
-              <span class="text-xl">{{ item.icon }}</span>
+              <Icon :name="item.icon" class="w-5 h-5 text-gray-400" />
               <span v-if="isOpen" class="ml-3">{{ item.label }}</span>
             </div>
             <span v-if="isOpen" class="text-sm">
@@ -33,13 +33,13 @@
           </button>
           
           <!-- Submenu -->
-          <div v-show="openSubmenus[item.name] && isOpen" class="bg-gray-800">
+          <div v-show="openSubmenus[item.name] && isOpen" class="bg-slate-900/50 pt-2 pb-1">
             <router-link
               v-for="child in item.children"
               :key="child.name"
               :to="child.route"
-              class="flex items-center px-8 py-2 hover:bg-gray-700 transition-colors"
-              active-class="bg-blue-600"
+              class="flex items-center px-8 py-2 hover:bg-slate-800 transition-all rounded-sm mx-2 mb-1"
+              active-class="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-md font-bold text-white"
               @click="$emit('closeMobile')"
             >
               <span class="text-sm">{{ child.label }}</span>
@@ -51,11 +51,11 @@
         <router-link
           v-else
           :to="item.route"
-          class="flex items-center px-4 py-3 hover:bg-gray-800 transition-colors"
-          active-class="bg-blue-600"
+          class="flex items-center px-4 py-3 hover:bg-slate-800 transition-all rounded-sm mx-2 mb-1"
+          active-class="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-md font-bold text-white"
           @click="$emit('closeMobile')"
         >
-          <span class="text-xl">{{ item.icon }}</span>
+          <Icon :name="item.icon" class="w-5 h-5 text-gray-400" />
           <span v-if="isOpen" class="ml-3">{{ item.label }}</span>
         </router-link>
       </div>
@@ -86,13 +86,13 @@ const menuItems = computed(() => {
     {
       name: 'dashboard',
       label: 'Dashboard',
-      icon: '📊',
+      icon: 'bar-chart-2',
       route: '/',
     },
     {
       name: 'hoteles',
       label: 'Hoteles',
-      icon: '🏨',
+      icon: 'building',
       children: [
         { name: 'hoteles-list', label: 'Ver Hoteles', route: '/hoteles' },
         { name: 'pisos-list', label: 'Pisos', route: '/pisos' },
@@ -103,7 +103,7 @@ const menuItems = computed(() => {
     {
       name: 'reservas',
       label: 'Reservas',
-      icon: '📝',
+      icon: 'clipboard',
       children: [
         { name: 'reservas-list', label: 'Ver Reservas', route: '/reservas' },
         { name: 'reservas-create', label: 'Nueva Reserva', route: '/reservas/crear' },
@@ -112,25 +112,25 @@ const menuItems = computed(() => {
     {
       name: 'huespedes',
       label: 'Huéspedes',
-      icon: '👤',
+      icon: 'user',
       route: '/huespedes',
     },
     {
       name: 'servicios',
       label: 'Servicios',
-      icon: '🧾',
+      icon: 'receipt',
       route: '/servicios',
     },
     {
       name: 'consumos',
       label: 'Consumos',
-      icon: '🛒',
+      icon: 'shopping-cart',
       route: '/consumos',
     },
     {
       name: 'pagos',
       label: 'Pagos',
-      icon: '💳',
+      icon: 'credit-card',
       route: '/pagos',
     },
   ];
@@ -141,37 +141,37 @@ const menuItems = computed(() => {
       {
         name: 'empleados',
         label: 'Empleados',
-        icon: '🧑‍💼',
+        icon: 'briefcase',
         route: '/empleados',
       },
       {
         name: 'roles',
         label: 'Roles',
-        icon: '🎭',
+        icon: 'shield',
         route: '/roles',
       },
       {
         name: 'mantenimientos',
         label: 'Mantenimientos',
-        icon: '🔧',
+        icon: 'wrench',
         route: '/mantenimientos',
       },
       {
         name: 'reportes',
         label: 'Reportes',
-        icon: '📈',
+        icon: 'trending-up',
         route: '/reportes',
       },
       {
         name: 'auditoria',
         label: 'Auditoría',
-        icon: '📜',
+        icon: 'history',
         route: '/auditoria',
       },
       {
         name: 'solicitudes',
         label: 'Solicitudes',
-        icon: '🔐',
+        icon: 'lock',
         route: '/solicitudes',
       }
     );

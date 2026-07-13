@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Editar Tipo de Habitación</h1>
       <router-link
@@ -52,9 +52,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import axios from '../../axios';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -88,7 +91,7 @@ const cargarTipo = async () => {
     };
   } catch (e) {
     console.error(e);
-    alert('Error al cargar el tipo de habitación');
+    toast.error('Error al cargar el tipo de habitación');
     router.push('/tipo-habitaciones');
   } finally {
     loading.value = false;
@@ -99,11 +102,11 @@ const actualizar = async () => {
   loading.value = true;
   try {
     await axios.put(`/tipo-habitaciones/${tipoId}`, form.value);
-    alert('Tipo de habitación actualizado exitosamente');
+    toast.success('Tipo de habitación actualizado exitosamente');
     router.push('/tipo-habitaciones');
   } catch (e) {
     console.error(e);
-    alert(e.response?.data?.message || 'Error al actualizar');
+    toast.error(e.response?.data?.message || 'Error al actualizar');
   } finally {
     loading.value = false;
   }

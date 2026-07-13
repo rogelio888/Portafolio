@@ -45,11 +45,11 @@
         </div>
         <div class="body-mes">
           @for (dia of diasMes(); track dia.fecha.toISOString()) {
-            <div class="celda-dia" [class.otro-mes]="dia.esOtroMes" [class.hoy]="dia.esHoy">
+            <div class="celda-dia" [class.otro-mes]="dia.esOtroMes" [class.hoy]="dia.esHoy" [class.tiene-citas]="dia.citas.length > 0" (click)="verDetalleDia(dia)">
               <div class="numero-dia">{{ dia.fecha | date:'d' }}</div>
               <div class="citas-contenedor">
                 @for (cita of dia.citas; track cita.id) {
-                  <div class="etiqueta-cita" [ngClass]="'estado-' + cita.estado.toLowerCase() + (cita.esControl ? ' es-control' : '')" (click)="verDetalleCita(cita)">
+                  <div class="etiqueta-cita" [ngClass]="'estado-' + cita.estado.toLowerCase() + (cita.esControl ? ' es-control' : '')" (click)="$event.stopPropagation(); verDetalleCita(cita)">
                     <span class="hora">{{ cita.horaInicio }}</span> {{ getNombrePaciente(cita.pacienteId) }}
                   </div>
                 }
@@ -159,6 +159,32 @@
         </div>
       }
 
+    </div>
+  </div>
+}
+
+<!-- MODAL DETALLES DEL DÍA -->
+@if (panelDia && diaSeleccionado) {
+  <div class="slideover-backdrop" (click)="cerrarPanelDia()"></div>
+  <div class="slideover-panel open">
+    <div class="slideover-header">
+      <h2>Agenda del {{ diaSeleccionado.fecha | date:'dd MMMM yyyy' }}</h2>
+      <button class="btn-close" (click)="cerrarPanelDia()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="slideover-body">
+      @for (cita of diaSeleccionado.citas; track cita.id) {
+        <div class="detalle-grupo mt-4 pb-4 border-b">
+          <div class="estado-banner" [ngClass]="'banner-' + cita.estado.toLowerCase() + (cita.esControl ? ' banner-control' : '')" style="margin-bottom: 0.5rem; padding: 0.2rem 0.5rem; font-size: 0.8rem; border-radius: 4px; display: inline-block;">
+            {{ cita.esControl ? 'Cita de Control' : 'Cita ' + cita.estado }}
+          </div>
+          <p class="detalle-valor grande">{{ getNombrePaciente(cita.pacienteId) }}</p>
+          <p class="detalle-valor">{{ getNombreMedico(cita.medicoId) }}</p>
+          <p class="detalle-valor destacado">{{ cita.horaInicio }} - {{ cita.horaFin }}</p>
+        </div>
+      }
     </div>
   </div>
 }

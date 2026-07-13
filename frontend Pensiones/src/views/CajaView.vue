@@ -400,7 +400,7 @@ onMounted(() => {
 
     <!-- Si no hay estudiante seleccionado: Mostrar Reporte Diario -->
     <div v-if="!selectedEstudiante && !isLoading" class="bg-white border border-slate-200 rounded-sm shadow-sm p-6 animate-fade-in">
-      <div class="flex justify-between items-center mb-6">
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
         <div>
           <h3 class="font-bold text-slate-800 text-lg">Reporte de Ingresos Diarios</h3>
           <div class="flex items-center gap-2 mt-1">
@@ -413,7 +413,7 @@ onMounted(() => {
             />
           </div>
         </div>
-        <div class="text-right">
+        <div class="text-left sm:text-right">
           <p class="text-xs uppercase tracking-widest font-bold text-slate-400">Total Recaudado Hoy</p>
           <p class="text-3xl font-mono font-bold text-emerald-600">Bs. {{ totalDiario.toFixed(2) }}</p>
         </div>
@@ -466,30 +466,30 @@ onMounted(() => {
     <div v-if="!isLoading && selectedEstudiante" class="grid lg:grid-cols-3 gap-8 items-start animate-fade-in-up">
       
       <!-- Lado Izquierdo: Datos y Estado de Cuenta -->
-      <div class="lg:col-span-2 space-y-6">
+      <div class="lg:col-span-2 space-y-6 min-w-0">
         
-        <div class="bg-white border border-slate-200 rounded-sm shadow-sm p-6 flex gap-6">
+        <div class="bg-white border border-slate-200 rounded-sm shadow-sm p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
           <div class="w-16 h-16 bg-slate-100 border border-slate-200 rounded-sm flex items-center justify-center text-slate-400 shrink-0">
              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
           </div>
-          <div class="flex-1">
-            <h3 class="text-xl font-bold text-slate-800">{{ selectedEstudiante.nombre }}</h3>
+          <div class="flex-1 w-full sm:w-auto">
+            <h3 class="text-xl font-bold text-slate-800 truncate">{{ selectedEstudiante.nombre }}</h3>
             <div class="grid grid-cols-2 gap-4 mt-3">
               <div>
                 <p class="text-[10px] uppercase font-bold text-slate-400">Código</p>
-                <p class="text-sm font-mono font-bold text-slate-700">{{ selectedEstudiante.codigo }}</p>
+                <p class="text-sm font-mono font-bold text-slate-700 truncate">{{ selectedEstudiante.codigo }}</p>
               </div>
               <div>
                 <p class="text-[10px] uppercase font-bold text-slate-400">Curso</p>
-                <p class="text-sm font-bold text-slate-700">{{ selectedEstudiante.curso }}</p>
+                <p class="text-sm font-bold text-slate-700 truncate">{{ selectedEstudiante.curso }}</p>
               </div>
             </div>
           </div>
-          <div class="flex flex-col justify-center shrink-0">
+          <div class="flex flex-col justify-center shrink-0 w-full sm:w-auto mt-2 sm:mt-0">
             <button 
               @click="exportarEstadoCuenta" 
               :disabled="isExportingEstado"
-              class="flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-primary border border-primary rounded-sm hover:bg-primary hover:text-white transition-colors"
+              class="flex items-center justify-center gap-2 px-3 py-2 sm:py-1.5 text-xs font-bold text-primary border border-primary rounded-sm hover:bg-primary hover:text-white transition-colors w-full sm:w-auto"
             >
               <svg v-if="isExportingEstado" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
               <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>

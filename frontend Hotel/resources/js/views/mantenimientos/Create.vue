@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 max-w-2xl mx-auto">
+  <div class="p-4 sm:p-6 max-w-2xl mx-auto">
     <h1 class="text-2xl font-bold mb-4">Nuevo Mantenimiento</h1>
     <form @submit.prevent="guardarMantenimiento" class="space-y-4">
       <div>
@@ -40,9 +40,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from '../../axios';
+
+const toast = useToastStore();
 
 const router = useRouter();
 
@@ -64,22 +67,22 @@ const cargarHabitaciones = async () => {
     habitaciones.value = response.data.data;
   } catch (e) {
     console.error('Error al cargar habitaciones', e);
-    alert('No se pudieron cargar las habitaciones');
+    toast.success('No se pudieron cargar las habitaciones');
   }
 };
 
 const guardarMantenimiento = async () => {
   if (!puedeGuardar.value) {
-    alert('Complete los campos obligatorios');
+    toast.warning('Complete los campos obligatorios');
     return;
   }
   try {
     await axios.post('/mantenimientos', form.value);
-    alert('Mantenimiento creado exitosamente');
+    toast.success('Mantenimiento creado exitosamente');
     router.push('/mantenimientos');
   } catch (e) {
     console.error('Error al guardar mantenimiento', e);
-    alert(e.response?.data?.message || 'Error al crear el mantenimiento');
+    toast.error(e.response?.data?.message || 'Error al crear el mantenimiento');
   }
 };
 

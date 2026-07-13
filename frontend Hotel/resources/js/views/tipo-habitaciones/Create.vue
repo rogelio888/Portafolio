@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Crear Tipo de Habitación</h1>
       <router-link
@@ -52,9 +52,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from '../../axios';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const loading = ref(false);
@@ -75,11 +78,11 @@ const guardar = async () => {
   loading.value = true;
   try {
     await axios.post('/tipo-habitaciones', form.value);
-    alert('Tipo de habitación creado exitosamente');
+    toast.success('Tipo de habitación creado exitosamente');
     router.push('/tipo-habitaciones');
   } catch (e) {
     console.error(e);
-    alert(e.response?.data?.message || 'Error al crear');
+    toast.error(e.response?.data?.message || 'Error al crear');
   } finally {
     loading.value = false;
   }

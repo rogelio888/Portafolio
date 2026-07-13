@@ -245,24 +245,24 @@ const imprimirFicha = () => {
 
     <!-- VISTA ESTUDIANTES -->
     <div v-if="activeTab === 'estudiantes'" class="space-y-4 animate-fade-in">
-      <div class="flex justify-between items-center bg-white p-4 border border-slate-200 rounded-sm shadow-sm">
-        <div class="flex items-center gap-2 w-1/2">
+      <div class="flex flex-col lg:flex-row justify-between lg:items-center bg-white p-4 border border-slate-200 rounded-sm shadow-sm gap-4">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full lg:w-3/5">
           <div class="relative w-full">
             <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             <input type="text" placeholder="Buscar por Nombre, CI o Código FA..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-sm text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary">
           </div>
-          <select class="px-3 py-2 border border-slate-300 rounded-sm text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary bg-white text-slate-600">
+          <select class="w-full sm:w-auto px-3 py-2 border border-slate-300 rounded-sm text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary bg-white text-slate-600">
             <option value="">Todos los cursos</option>
             <option value="1">1ro Primaria - A</option>
             <option value="2">5to Secundaria - A</option>
           </select>
         </div>
-        <div class="flex items-center gap-4">
-          <div class="flex bg-slate-100 p-1 rounded-sm border border-slate-200">
-            <button @click="estudiantesFiltro = 'Activos'" :class="['px-4 py-1.5 text-xs font-bold uppercase rounded-sm transition-colors', estudiantesFiltro === 'Activos' ? 'bg-white text-emerald-700 shadow-sm border border-emerald-200' : 'text-slate-500 hover:text-slate-700']">Activos</button>
-            <button @click="estudiantesFiltro = 'Retirados'" :class="['px-4 py-1.5 text-xs font-bold uppercase rounded-sm transition-colors', estudiantesFiltro === 'Retirados' ? 'bg-white text-rose-700 shadow-sm border border-rose-200' : 'text-slate-500 hover:text-slate-700']">Retirados</button>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto">
+          <div class="flex bg-slate-100 p-1 rounded-sm border border-slate-200 justify-center">
+            <button @click="estudiantesFiltro = 'Activos'" :class="['w-1/2 sm:w-auto px-4 py-1.5 text-xs font-bold uppercase rounded-sm transition-colors text-center', estudiantesFiltro === 'Activos' ? 'bg-white text-emerald-700 shadow-sm border border-emerald-200' : 'text-slate-500 hover:text-slate-700']">Activos</button>
+            <button @click="estudiantesFiltro = 'Retirados'" :class="['w-1/2 sm:w-auto px-4 py-1.5 text-xs font-bold uppercase rounded-sm transition-colors text-center', estudiantesFiltro === 'Retirados' ? 'bg-white text-rose-700 shadow-sm border border-rose-200' : 'text-slate-500 hover:text-slate-700']">Retirados</button>
           </div>
-          <button @click="abrirNuevoEstudiante" class="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-sm transition-colors text-sm flex items-center gap-2">
+          <button @click="abrirNuevoEstudiante" class="w-full sm:w-auto justify-center bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-sm transition-colors text-sm flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
             Inscribir Alumno
           </button>
@@ -324,7 +324,7 @@ const imprimirFicha = () => {
 
     <!-- VISTA CURSOS -->
     <div v-if="activeTab === 'cursos'" class="space-y-4 animate-fade-in">
-      <div class="flex justify-between items-center bg-white p-4 border border-slate-200 rounded-sm shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-4 border border-slate-200 rounded-sm shadow-sm gap-4">
         <h3 class="font-bold text-slate-800 flex items-center gap-2">
           <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
           Estructura Académica Actual
@@ -371,15 +371,15 @@ const imprimirFicha = () => {
           <div v-if="errorMessage" class="mb-6 p-4 bg-rose-50 border-l-4 border-rose-500 text-rose-700 text-sm font-medium rounded-r-sm">
             {{ errorMessage }}
           </div>
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-4">
               <h4 class="text-sm font-bold text-slate-800 border-b border-slate-200 pb-2">Datos del Estudiante</h4>
-              <div class="flex gap-4">
-                <div class="space-y-1.5 w-1/2">
+              <div class="flex flex-col sm:flex-row gap-4">
+                <div class="space-y-1.5 w-full sm:w-1/2">
                   <label class="block text-xs font-bold text-slate-600 uppercase">Nombres</label>
                   <input v-model="newEstudiante.first_name" type="text" class="w-full px-3 py-2 border border-slate-300 rounded-sm text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary">
                 </div>
-                <div class="space-y-1.5 w-1/2">
+                <div class="space-y-1.5 w-full sm:w-1/2">
                   <label class="block text-xs font-bold text-slate-600 uppercase">Apellidos</label>
                   <input v-model="newEstudiante.last_name" type="text" class="w-full px-3 py-2 border border-slate-300 rounded-sm text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary">
                 </div>
@@ -486,7 +486,7 @@ const imprimirFicha = () => {
           <div class="space-y-4">
             <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm">
               <h5 class="text-xs font-bold text-secondary uppercase tracking-widest mb-3">Información Académica</h5>
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <p class="text-[10px] text-slate-500 uppercase">Carnet de Identidad</p>
                   <p class="text-sm font-medium text-slate-800">{{ selectedEstudiante.ci }}</p>
@@ -500,7 +500,7 @@ const imprimirFicha = () => {
 
             <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm">
               <h5 class="text-xs font-bold text-primary uppercase tracking-widest mb-3">Datos del Apoderado</h5>
-              <div class="grid grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <p class="text-[10px] text-slate-500 uppercase">Nombre Completo</p>
                   <p class="text-sm font-medium text-slate-800">{{ selectedEstudiante.apoderado }}</p>
@@ -509,7 +509,7 @@ const imprimirFicha = () => {
                   <p class="text-[10px] text-slate-500 uppercase">Teléfono / Celular</p>
                   <p class="text-sm font-medium text-slate-800">{{ selectedEstudiante.celular }}</p>
                 </div>
-                <div class="col-span-2 mt-2 pt-2 border-t border-slate-200">
+                <div class="col-span-1 sm:col-span-2 mt-2 pt-2 border-t border-slate-200">
                   <p class="text-[10px] text-slate-500 uppercase">CI del Tutor</p>
                   <p class="text-sm font-medium text-slate-800">{{ selectedEstudiante.guardian_ci || 'No Registrado' }}</p>
                 </div>
@@ -540,7 +540,7 @@ const imprimirFicha = () => {
         </div>
         
         <div class="p-6">
-          <div class="max-h-96 overflow-y-auto border border-slate-200 rounded-sm mb-4">
+          <div class="max-h-96 overflow-auto border border-slate-200 rounded-sm mb-4">
             <table class="w-full text-left text-sm text-slate-600">
               <thead class="bg-slate-50 border-b border-slate-200 text-[10px] uppercase font-bold text-slate-500 sticky top-0">
                 <tr>

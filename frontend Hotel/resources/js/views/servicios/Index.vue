@@ -12,7 +12,7 @@
         v-if="authStore.hasPermission('crear_servicios')"
         @click="abrirModalCrear"
       >
-        ➕ Nuevo Servicio
+        <Icon name="plus" class="w-4 h-4 inline-block mr-1" /> Nuevo Servicio
       </Button>
     </div>
 
@@ -67,6 +67,7 @@
       :columns="columns"
       :data="serviciosStore.servicios"
       :loading="serviciosStore.loading"
+      :actions="authStore.hasPermission('editar_servicios') || authStore.hasPermission('eliminar_servicios')"
     >
       <template #cell-tipo="{ item }">
         <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
@@ -101,7 +102,7 @@
             class="text-yellow-600 hover:text-yellow-800"
             title="Editar"
           >
-            ✏️
+            <Icon name="pencil" class="w-4 h-4 inline-block" />
           </button>
           <button
             v-if="authStore.hasPermission('eliminar_servicios')"
@@ -109,7 +110,7 @@
             class="text-red-600 hover:text-red-800"
             title="Eliminar"
           >
-            🗑️
+            <Icon name="trash" class="w-4 h-4 inline-block" />
           </button>
         </div>
       </template>
@@ -207,16 +208,16 @@
         <p class="text-sm font-medium text-blue-800 mb-2">💡 Ejemplo de aplicación:</p>
         <ul class="text-xs text-blue-700 space-y-1">
           <li v-if="form.tipo === 'PERSONA' && form.frecuencia === 'DIARIO'">
-            ✓ Se cobrará por cada persona, cada día de la estadía
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" /> Se cobrará por cada persona, cada día de la estadía
           </li>
           <li v-else-if="form.tipo === 'HABITACION' && form.frecuencia === 'DIARIO'">
-            ✓ Se cobrará por cada habitación, cada día de la estadía
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" /> Se cobrará por cada habitación, cada día de la estadía
           </li>
           <li v-else-if="form.tipo === 'ESTANCIA' && form.frecuencia === 'UNICO'">
-            ✓ Se cobrará una sola vez por toda la estadía
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" /> Se cobrará una sola vez por toda la estadía
           </li>
           <li v-else-if="form.frecuencia === 'POR_USO'">
-            ✓ Se cobrará cada vez que se registre un consumo
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" /> Se cobrará cada vez que se registre un consumo
           </li>
         </ul>
       </div>
@@ -244,12 +245,15 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '../../stores/auth';
 import { useServiciosStore } from '../../stores/servicios';
 import Table from '../../components/Table.vue';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const authStore = useAuthStore();
 const serviciosStore = useServiciosStore();
@@ -335,7 +339,7 @@ const guardarServicio = async () => {
     cerrarModal();
     await fetchServicios();
   } catch (error) {
-    alert('Error al guardar servicio');
+    toast.error('Error al guardar servicio');
   } finally {
     guardando.value = false;
   }
@@ -353,7 +357,7 @@ const eliminarServicio = async () => {
     modalEliminar.value = false;
     await fetchServicios();
   } catch (error) {
-    alert(error.response?.data?.message || 'Error al eliminar servicio');
+    toast.error(error.response?.data?.message || 'Error al eliminar servicio');
   } finally {
     eliminando.value = false;
   }

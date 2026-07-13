@@ -7,7 +7,7 @@
       <button @click="$router.back()" class="text-blue-600 hover:text-blue-800 mb-4">
         ← Volver
       </button>
-      <div class="flex items-center justify-between">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 class="text-3xl font-bold text-gray-800">Detalle de Reserva #{{ reserva?.id }}</h1>
           <p class="text-gray-600 mt-1">Información completa de la reserva</p>
@@ -27,39 +27,39 @@
             @click="confirmarReserva"
             variant="success"
           >
-            ✓ Confirmar
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" /> Confirmar
           </Button>
           <Button
             v-if="reserva?.estado === 'CONFIRMADA'"
             @click="realizarCheckIn"
             variant="success"
           >
-            ✅ Check-in
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" /> Check-in
           </Button>
           <Button
             v-if="reserva?.estado === 'EN_PROCESO'"
             @click="realizarCheckOut"
             variant="warning"
           >
-            🚪 Check-out
+            <Icon name="log-out" class="w-4 h-4 inline-block mr-1" /> Check-out
           </Button>
         </div>
       </div>
     </div>
 
     <!-- Loading -->
-    <div v-if="loading" class="bg-white rounded-lg shadow p-6 text-center">
+    <div v-if="loading" class="bg-white rounded-lg shadow p-4 sm:p-6 text-center">
       <p class="text-gray-500">Cargando...</p>
     </div>
 
     <!-- Contenido -->
-    <div v-else-if="reserva" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div v-else-if="reserva" class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
       <!-- Columna Principal -->
-      <div class="lg:col-span-2 space-y-6">
+      <div class="lg:col-span-2 space-y-4 sm:space-y-6">
         <!-- Información General -->
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">📋 Información General</h2>
-          <div class="grid grid-cols-2 gap-4">
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4"><Icon name="clipboard-list" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Información General</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p class="text-sm text-gray-600">Hotel</p>
               <p class="font-medium">{{ reserva.hotel?.nombre }}</p>
@@ -88,9 +88,9 @@
         </div>
 
         <!-- Fechas y Estadía -->
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">📅 Fechas de Estadía</h2>
-          <div class="grid grid-cols-3 gap-4">
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4"><Icon name="calendar" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Fechas de Estadía</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="text-center p-4 bg-blue-50 rounded-lg">
               <p class="text-sm text-gray-600 mb-1">Check-in</p>
               <p class="text-lg font-bold text-blue-600">{{ formatDate(reserva.fecha_entrada) }}</p>
@@ -104,7 +104,7 @@
               <p class="text-lg font-bold text-green-600">{{ reserva.noches }}</p>
             </div>
           </div>
-          <div class="mt-4 grid grid-cols-2 gap-4">
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p class="text-sm text-gray-600">Adultos</p>
               <p class="font-medium">{{ reserva.adultos }}</p>
@@ -117,8 +117,8 @@
         </div>
 
         <!-- Habitaciones -->
-        <div class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">🏨 Habitaciones</h2>
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4"><Icon name="building" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Habitaciones</h2>
           <div class="space-y-3">
             <div
               v-for="habitacion in reserva.habitaciones"
@@ -138,15 +138,15 @@
         </div>
 
         <!-- Huéspedes Adicionales -->
-        <div v-if="reserva.huespedes_adicionales?.length > 0" class="bg-white rounded-lg shadow p-6">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">👥 Huéspedes Adicionales</h2>
+        <div v-if="reserva.huespedes_adicionales?.length > 0" class="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4"><Icon name="users" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Huéspedes Adicionales</h2>
           <div class="space-y-2">
             <div
               v-for="huesped in reserva.huespedes_adicionales"
               :key="huesped.id"
               class="flex items-center p-3 bg-gray-50 rounded-lg"
             >
-              <span class="mr-3">👤</span>
+              <span class="mr-3"><Icon name="user" class="w-5 h-5 inline-block mr-2 text-gray-500" /></span>
               <div>
                 <p class="font-medium">{{ huesped.nombre }} {{ huesped.apellido }}</p>
                 <p class="text-sm text-gray-600">CI: {{ huesped.ci }}</p>
@@ -156,9 +156,9 @@
         </div>
 
         <!-- Consumos -->
-        <div class="bg-white rounded-lg shadow p-6">
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6">
           <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-bold text-gray-800">🛒 Consumos</h2>
+            <h2 class="text-xl font-bold text-gray-800"><Icon name="shopping-cart" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Consumos</h2>
             <Button
               v-if="['CONFIRMADA', 'EN_PROCESO'].includes(reserva.estado)"
               @click="modalConsumo = true"
@@ -197,9 +197,9 @@
         </div>
 
         <!-- Pagos -->
-        <div class="bg-white rounded-lg shadow p-6">
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6">
           <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-bold text-gray-800">💳 Pagos</h2>
+            <h2 class="text-xl font-bold text-gray-800"><Icon name="credit-card" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Pagos</h2>
             <Button
               v-if="reserva.saldo > 0"
               @click="modalPago = true"
@@ -231,10 +231,10 @@
       </div>
 
       <!-- Columna Lateral - Resumen Financiero -->
-      <div class="space-y-6">
+      <div class="space-y-4 sm:space-y-6">
         <!-- Resumen de Costos -->
-        <div class="bg-white rounded-lg shadow p-6 sticky top-6">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">💰 Resumen Financiero</h2>
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6 sticky top-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4"><Icon name="circle-dollar-sign" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Resumen Financiero</h2>
           
           <div class="space-y-3">
             <div class="flex justify-between pb-3 border-b">
@@ -270,14 +270,14 @@
           <!-- Estado de Pago -->
           <div class="mt-6 p-4 rounded-lg" :class="reserva.saldo > 0 ? 'bg-red-50' : 'bg-green-50'">
             <p class="text-center font-medium" :class="reserva.saldo > 0 ? 'text-red-700' : 'text-green-700'">
-              {{ reserva.saldo > 0 ? '⚠️ Pago Pendiente' : '✓ Totalmente Pagado' }}
+              {{ reserva.saldo > 0 ? '⚠️ Pago Pendiente' : '<Icon name="check" class="w-4 h-4 inline-block mr-1" /> Totalmente Pagado' }}
             </p>
           </div>
         </div>
 
         <!-- Acciones Rápidas -->
-        <div class="bg-white rounded-lg shadow p-6">
-          <h3 class="font-bold text-gray-800 mb-3">⚡ Acciones Rápidas</h3>
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6">
+          <h3 class="font-bold text-gray-800 mb-3"><Icon name="zap" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Acciones Rápidas</h3>
           <div class="space-y-2">
             <Button
               v-if="['CONFIRMADA', 'EN_PROCESO'].includes(reserva.estado)"
@@ -285,7 +285,7 @@
               variant="secondary"
               class="w-full"
             >
-              🛒 Agregar Consumo
+              <Icon name="shopping-cart" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Agregar Consumo
             </Button>
             <Button
               v-if="reserva.saldo > 0"
@@ -293,7 +293,7 @@
               variant="success"
               class="w-full"
             >
-              💳 Registrar Pago
+              <Icon name="credit-card" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Registrar Pago
             </Button>
             <Button
               v-if="['PENDIENTE', 'CONFIRMADA'].includes(reserva.estado)"
@@ -301,7 +301,7 @@
               variant="danger"
               class="w-full"
             >
-              ❌ Cancelar Reserva
+              <Icon name="x" class="w-4 h-4 inline-block mr-1" /> Cancelar Reserva
             </Button>
           </div>
         </div>
@@ -326,7 +326,7 @@
 
         <!-- Lógica para Servicios DIARIOS -->
         <div v-if="esServicioDiario" class="bg-blue-50 p-4 rounded-lg border border-blue-100">
-          <h3 class="font-medium text-blue-800 mb-3">📅 Seleccionar días para el servicio diario</h3>
+          <h3 class="font-medium text-blue-800 mb-3"><Icon name="calendar" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Seleccionar días para el servicio diario</h3>
           
           <div class="flex justify-end mb-2 space-x-2">
             <button type="button" @click="seleccionarTodosDias" class="text-xs text-blue-600 hover:underline">Seleccionar Todos</button>
@@ -448,6 +448,7 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useReservasStore } from '../../stores/reservas';
@@ -455,6 +456,8 @@ import { useServiciosStore } from '../../stores/servicios';
 import axios from '../../axios';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -527,7 +530,7 @@ const fetchReserva = async () => {
   try {
     reserva.value = await reservasStore.fetchReserva(route.params.id);
   } catch (error) {
-    alert('Error al cargar reserva');
+    toast.error('Error al cargar reserva');
     router.push('/reservas');
   } finally {
     loading.value = false;
@@ -565,54 +568,54 @@ const confirmarReserva = async () => {
   try {
     await reservasStore.confirmarReserva(route.params.id);
     await fetchReserva();
-    alert('Reserva confirmada exitosamente');
+    toast.success('Reserva confirmada exitosamente');
   } catch (error) {
-    alert('Error al confirmar reserva');
+    toast.error('Error al confirmar reserva');
   }
 };
 
 const realizarCheckIn = async () => {
-  if (confirm('¿Realizar check-in ahora?')) {
+  if (await toast.confirm('¿Realizar check-in ahora?')) {
     try {
       await reservasStore.checkIn(route.params.id);
       await fetchReserva();
-      alert('Check-in realizado exitosamente');
+      toast.success('Check-in realizado exitosamente');
     } catch (error) {
-      alert('Error al realizar check-in');
+      toast.error('Error al realizar check-in');
     }
   }
 };
 
 const realizarCheckOut = async () => {
   if (reserva.value.saldo > 0) {
-    alert('No se puede hacer check-out. Hay saldo pendiente de pago.');
+    toast.warning('No se puede hacer check-out. Hay saldo pendiente de pago.');
     return;
   }
 
-  if (confirm('¿Realizar check-out ahora?')) {
+  if (await toast.confirm('¿Realizar check-out ahora?')) {
     try {
       await reservasStore.checkOut(route.params.id);
       await fetchReserva();
-      alert('Check-out realizado exitosamente');
+      toast.success('Check-out realizado exitosamente');
     } catch (error) {
-      alert(error.response?.data?.message || 'Error al realizar check-out');
+      toast.error(error.response?.data?.message || 'Error al realizar check-out');
     }
   }
 };
 
 const agregarConsumo = async () => {
   if (!formConsumo.value.id_servicio) {
-    alert('Selecciona un servicio');
+    toast.warning('Selecciona un servicio');
     return;
   }
 
   if (esServicioDiario.value && formConsumo.value.fechas.length === 0) {
-    alert('Selecciona al menos un día');
+    toast.warning('Selecciona al menos un día');
     return;
   }
 
   if (!esServicioDiario.value && !formConsumo.value.cantidad) {
-    alert('Ingresa la cantidad');
+    toast.success('Ingresa la cantidad');
     return;
   }
 
@@ -633,9 +636,9 @@ const agregarConsumo = async () => {
     await axios.post('/consumos', payload);
     cerrarModalConsumo();
     await fetchReserva();
-    alert('Consumo(s) registrado(s) exitosamente');
+    toast.success('Consumo(s) registrado(s) exitosamente');
   } catch (error) {
-    alert(error.response?.data?.message || 'Error al agregar consumo');
+    toast.error(error.response?.data?.message || 'Error al agregar consumo');
   } finally {
     guardandoConsumo.value = false;
   }
@@ -643,7 +646,7 @@ const agregarConsumo = async () => {
 
 const registrarPago = async () => {
   if (!formPago.value.tipo_pago || !formPago.value.monto) {
-    alert('Completa todos los campos');
+    toast.success('Completa todos los campos');
     return;
   }
 
@@ -657,9 +660,9 @@ const registrarPago = async () => {
     modalPago.value = false;
     await fetchReserva();
     formPago.value = { tipo_pago: '', monto: 0 };
-    alert('Pago registrado exitosamente');
+    toast.success('Pago registrado exitosamente');
   } catch (error) {
-    alert(error.response?.data?.message || 'Error al registrar pago');
+    toast.error(error.response?.data?.message || 'Error al registrar pago');
   } finally {
     guardandoPago.value = false;
   }
@@ -676,7 +679,7 @@ const cancelarReserva = async () => {
     modalCancelar.value = false;
     router.push('/reservas');
   } catch (error) {
-    alert('Error al cancelar reserva');
+    toast.error('Error al cancelar reserva');
   } finally {
     cancelando.value = false;
   }

@@ -1,13 +1,13 @@
 <!-- resources/js/components/layout/Navbar.vue -->
 
 <template>
-  <nav class="bg-white shadow-sm h-16 flex items-center justify-between px-6">
+  <nav class="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 h-16 flex items-center justify-between px-4 sm:px-6 z-30 sticky top-0">
     <!-- Botón toggle sidebar (desktop: colapsa a riel) -->
     <button
       @click="$emit('toggleSidebar')"
       class="hidden md:inline-flex p-2 rounded-lg hover:bg-gray-100 transition-colors"
     >
-      <span class="text-2xl">☰</span>
+      <Icon name="menu" class="w-6 h-6 text-gray-700" />
     </button>
 
     <!-- Botón menú móvil (drawer off-canvas) -->
@@ -27,7 +27,7 @@
           class="p-2 rounded-lg hover:bg-gray-100 relative transition-colors"
           :class="{ 'bg-gray-100': notificationsOpen }"
         >
-          <span class="text-xl">🔔</span>
+          <Icon name="bell" class="w-6 h-6 text-gray-700" />
           <span 
             v-if="hasNotifications" 
             class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"
@@ -56,7 +56,7 @@
                 @click="handleNotificationClick(notif)"
               >
                 <div class="flex items-start space-x-3">
-                  <span class="text-xl">{{ notif.icon }}</span>
+                  <Icon :name="notif.icon" class="w-6 h-6 mt-1 text-indigo-500" />
                   <div>
                     <p class="text-sm font-medium text-gray-800">{{ notif.title }}</p>
                     <p class="text-xs text-gray-500 mt-1">{{ notif.description }}</p>
@@ -74,7 +74,7 @@
           @click="toggleUserMenu"
           class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 transition-colors"
         >
-          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+          <div class="w-8 h-8 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-inner">
             {{ userInitials }}
           </div>
           <div class="text-left hidden md:block">
@@ -94,13 +94,13 @@
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             @click="userMenuOpen = false"
           >
-            👤 Mi Perfil
+            <Icon name="user" class="w-5 h-5 inline-block mr-2 text-gray-500" /> Mi Perfil
           </router-link>
           <button
             @click="handleLogout"
             class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
           >
-            🚪 Cerrar Sesión
+            <Icon name="log-out" class="w-4 h-4 inline-block mr-1" /> Cerrar Sesión
           </button>
         </div>
       </div>
@@ -114,6 +114,7 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
 import { useReservasStore } from '../../stores/reservas';
 import { useHabitacionesStore } from '../../stores/habitaciones';
+import { useToastStore } from '../../stores/toast';
 import axios from '../../axios';
 
 const emit = defineEmits(['toggleSidebar', 'openMobileMenu']);
@@ -122,6 +123,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 const reservasStore = useReservasStore();
 const habitacionesStore = useHabitacionesStore();
+const toast = useToastStore();
 
 const userMenuOpen = ref(false);
 const notificationsOpen = ref(false);
@@ -146,7 +148,7 @@ const notifications = computed(() => {
   if (solicitudesPendientes.value > 0 && (authStore.isAdmin() || authStore.user?.rol?.nombre === 'Gerente')) {
     list.push({
       type: 'solicitud',
-      icon: '🔐',
+      icon: 'lock',
       title: 'Solicitudes Pendientes',
       description: `Hay ${solicitudesPendientes.value} solicitud(es) de autorización`,
       route: '/solicitudes'
@@ -158,7 +160,7 @@ const notifications = computed(() => {
   if (pendientes > 0) {
     list.push({
       type: 'reserva',
-      icon: '📝',
+      icon: 'clipboard',
       title: 'Reservas Pendientes',
       description: `Tienes ${pendientes} reserva(s) esperando confirmación`,
       route: '/reservas'
@@ -170,7 +172,7 @@ const notifications = computed(() => {
   if (mantenimiento > 0) {
     list.push({
       type: 'mantenimiento',
-      icon: '🛠️',
+      icon: 'wrench',
       title: 'Mantenimiento',
       description: `${mantenimiento} habitación(es) en mantenimiento`,
       route: '/habitaciones'
@@ -200,7 +202,7 @@ const handleNotificationClick = (notif) => {
 };
 
 const handleLogout = async () => {
-  if (confirm('¿Estás seguro de cerrar sesión?')) {
+  if (await toast.confirm('¿Estás seguro de cerrar sesión?')) {
     await authStore.logout();
   }
 };

@@ -83,3 +83,32 @@
 .toast-exito { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
 .toast-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 .toast-info { background: #eff6ff; color: #1e3a8a; border: 1px solid #bfdbfe; }
+
+@media (max-width: 767.98px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+  .simulador-login {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .simulador-login .form-control {
+    flex: 1;
+    min-width: 160px;
+  }
+  .paciente-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.25rem 1rem;
+  }
+  .acciones-col {
+    text-align: left;
+  }
+  .acciones-col .btn-outline-primary {
+    width: 100%;
+    justify-content: center;
+  }
+}

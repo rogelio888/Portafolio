@@ -54,7 +54,7 @@
               <div class="info-cobro">
                 <div class="paciente-nombre">{{ getNombrePaciente(cita.pacienteId) }}</div>
                 <div class="meta-cobro">
-                  Dr(a). {{ getNombreMedico(cita.medicoId) }}
+                  {{ getNombreMedico(cita.medicoId) }}
                   @if (cita.esControl) {
                     <span class="control-tag">• Control</span>
                   }

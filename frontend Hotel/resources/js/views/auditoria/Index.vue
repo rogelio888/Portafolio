@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-800">Auditoría del Sistema</h1>
     </div>
@@ -55,6 +55,7 @@
         :columns="columnas"
         :data="auditorias"
         :loading="loading"
+        :actions="false"
       >
         <template #cell-user="{ item }">
           <div class="flex items-center">
@@ -125,11 +126,11 @@
     <!-- Modal Detalles -->
     <div v-if="modalDetalles.visible" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+        <div class="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
           <h3 class="text-lg font-bold text-gray-900">Detalles del Cambio</h3>
           <button @click="cerrarModal" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
         </div>
-        <div class="p-6">
+        <div class="p-4 sm:p-6">
           <div class="grid grid-cols-2 gap-4 mb-6">
             <div>
               <p class="text-sm text-gray-500">Usuario</p>
@@ -171,7 +172,7 @@
              </div>
           </div>
         </div>
-        <div class="p-6 border-t border-gray-200 flex justify-end">
+        <div class="p-4 sm:p-6 border-t border-gray-200 flex justify-end">
           <button @click="cerrarModal" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-800">
             Cerrar
           </button>

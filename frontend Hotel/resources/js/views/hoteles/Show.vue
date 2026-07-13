@@ -18,7 +18,7 @@
     </div>
 
     <!-- Loading -->
-    <div v-if="loading" class="bg-white rounded-lg shadow p-6 text-center">
+    <div v-if="loading" class="bg-white rounded-lg shadow p-4 sm:p-6 text-center">
       <p class="text-gray-500">Cargando...</p>
     </div>
 

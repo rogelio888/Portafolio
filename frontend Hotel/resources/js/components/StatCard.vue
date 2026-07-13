@@ -10,8 +10,8 @@
         <p class="text-sm text-gray-600 mb-1">{{ title }}</p>
         <p class="text-2xl font-bold text-gray-800">{{ value }}</p>
       </div>
-      <div :class="['text-4xl', iconColor]">
-        {{ icon }}
+      <div :class="['flex items-center justify-center p-3 rounded-full bg-opacity-20 w-14 h-14', iconColorBg, iconColor]">
+        <Icon v-if="icon" :name="icon" class="w-8 h-8" />
       </div>
     </div>
   </div>
@@ -50,5 +50,16 @@ const iconColor = computed(() => {
     purple: 'text-purple-500',
   };
   return colors[props.color] || colors.blue;
+});
+
+const iconColorBg = computed(() => {
+  const bgColors = {
+    blue: 'bg-blue-500',
+    green: 'bg-green-500',
+    yellow: 'bg-yellow-500',
+    red: 'bg-red-500',
+    purple: 'bg-purple-500',
+  };
+  return bgColors[props.color] || bgColors.blue;
 });
 </script>

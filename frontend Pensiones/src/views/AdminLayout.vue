@@ -127,20 +127,20 @@ const handleLogout = async () => {
       
       <!-- Header Superior Clásico -->
       <header class="h-16 px-4 md:px-8 flex items-center justify-between border-b border-slate-200 bg-white shadow-sm z-10 shrink-0 print:hidden">
-        <div class="flex items-center gap-3">
-          <button @click="isMobileMenuOpen = true" class="md:hidden text-slate-500 hover:text-secondary focus:outline-none">
+        <div class="flex items-center gap-3 min-w-0">
+          <button @click="isMobileMenuOpen = true" class="md:hidden text-slate-500 hover:text-secondary focus:outline-none shrink-0">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
           </button>
-          <h1 class="text-lg md:text-xl font-bold text-slate-800 capitalize">{{ route.name === 'admin' ? 'Resumen Financiero' : String(route.name).replace('admin-', '') }}</h1>
+          <h1 class="text-lg md:text-xl font-bold text-slate-800 capitalize truncate">{{ route.name === 'admin' ? 'Resumen Financiero' : String(route.name).replace('admin-', '') }}</h1>
         </div>
-        <div class="flex items-center gap-4">
-          <span class="text-sm font-medium text-slate-600">Gestión 2026</span>
-          <div class="h-5 w-px bg-slate-300"></div>
+        <div class="flex items-center gap-2 md:gap-4 shrink-0">
+          <span class="hidden md:block text-sm font-medium text-slate-600">Gestión 2026</span>
+          <div class="hidden md:block h-5 w-px bg-slate-300"></div>
           <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-sm bg-slate-200 flex items-center justify-center text-secondary font-bold text-xs uppercase">
+            <div class="w-8 h-8 rounded-sm bg-slate-200 flex items-center justify-center text-secondary font-bold text-xs uppercase shrink-0">
               {{ authStore.user?.name?.substring(0, 2) || 'US' }}
             </div>
-            <span class="text-sm font-medium text-slate-700">{{ authStore.user?.name || 'Usuario' }}</span>
+            <span class="hidden sm:block text-sm font-medium text-slate-700 truncate max-w-[120px] md:max-w-[200px]">{{ authStore.user?.name || 'Usuario' }}</span>
           </div>
         </div>
       </header>

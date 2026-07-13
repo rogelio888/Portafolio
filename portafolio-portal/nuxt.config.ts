@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   app: {
     head: {
       htmlAttrs: { class: 'dark' },
@@ -26,7 +26,18 @@ export default defineNuxtConfig({
   vite: {
     plugins: [
       tailwindcss()
-    ]
+    ],
+    optimizeDeps: {
+      include: [
+        '@lucide/vue',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        '@vueuse/motion',
+        'class-variance-authority',
+        'clsx',
+        'tailwind-merge'
+      ]
+    }
   },
   nitro: {
     routeRules: {

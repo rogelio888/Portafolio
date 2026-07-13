@@ -258,7 +258,7 @@ onMounted(() => {
           <p class="text-sm text-slate-500">Monitoreo de estudiantes con cuotas vencidas.</p>
         </div>
       </div>
-      <div class="flex gap-3 print:hidden">
+      <div class="flex flex-col sm:flex-row flex-wrap gap-3 w-full md:w-auto print:hidden">
         <select v-model="filterCurso" class="px-3 py-2 border border-slate-300 rounded-sm text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary bg-white text-slate-600">
           <option value="">Todos los cursos</option>
           <option value="1ro Primaria">1ro Primaria</option>
@@ -346,11 +346,11 @@ onMounted(() => {
               {{ m.curso }}
             </td>
             <td class="px-5 py-4 text-center">
-              <span class="px-2.5 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-sm">
+              <span class="px-2.5 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-sm whitespace-nowrap">
                 {{ m.cuotasMora }} meses
               </span>
             </td>
-            <td class="px-5 py-4 text-right font-mono font-bold text-rose-700">
+            <td class="px-5 py-4 text-right font-mono font-bold text-rose-700 whitespace-nowrap">
               Bs. {{ Number(m.montoDeuda).toFixed(2) }}
             </td>
             <td class="px-5 py-4">

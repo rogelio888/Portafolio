@@ -1,13 +1,13 @@
 {
-  "_Button-AgtSY3Ng.js": {
-    "file": "assets/Button-AgtSY3Ng.js",
+  "_Button-DQ1JQG5y.js": {
+    "file": "assets/Button-DQ1JQG5y.js",
     "name": "Button",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_Modal-B7Mg5LTC.js": {
-    "file": "assets/Modal-B7Mg5LTC.js",
+  "_Modal-BNrWsrtw.js": {
+    "file": "assets/Modal-BNrWsrtw.js",
     "name": "Modal",
     "imports": [
       "resources/js/app.js"
@@ -20,50 +20,36 @@
     "file": "assets/Modal-UuNZPOLX.css",
     "src": "_Modal-UuNZPOLX.css"
   },
-  "_Table-Cma2KXjz.js": {
-    "file": "assets/Table-Cma2KXjz.js",
+  "_Table-D6zp-Q-y.js": {
+    "file": "assets/Table-D6zp-Q-y.js",
     "name": "Table",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_habitaciones-BXYPAQ8z.js": {
-    "file": "assets/habitaciones-BXYPAQ8z.js",
-    "name": "habitaciones",
-    "imports": [
-      "resources/js/app.js"
-    ]
-  },
-  "_hoteles-Cj_n2tFk.js": {
-    "file": "assets/hoteles-Cj_n2tFk.js",
+  "_hoteles-B-hzdAaV.js": {
+    "file": "assets/hoteles-B-hzdAaV.js",
     "name": "hoteles",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_huespedes-CiUlC-eS.js": {
-    "file": "assets/huespedes-CiUlC-eS.js",
+  "_huespedes-C6m2FTbM.js": {
+    "file": "assets/huespedes-C6m2FTbM.js",
     "name": "huespedes",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_reservas-Cq-m4-rN.js": {
-    "file": "assets/reservas-Cq-m4-rN.js",
-    "name": "reservas",
-    "imports": [
-      "resources/js/app.js"
-    ]
-  },
-  "_servicios-D_Dy-RAM.js": {
-    "file": "assets/servicios-D_Dy-RAM.js",
+  "_servicios-D3tsqEjX.js": {
+    "file": "assets/servicios-D3tsqEjX.js",
     "name": "servicios",
     "imports": [
       "resources/js/app.js"
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-7iHdx4x7.css",
+    "file": "assets/app-BzIEQW1A.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -72,7 +58,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-DWQ7THlv.js",
+    "file": "assets/app-CIinQVVs.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -85,6 +71,8 @@
       "resources/js/views/hoteles/Show.vue",
       "resources/js/views/pisos/Index.vue",
       "resources/js/views/tipo-habitaciones/Index.vue",
+      "resources/js/views/tipo-habitaciones/Create.vue",
+      "resources/js/views/tipo-habitaciones/Edit.vue",
       "resources/js/views/habitaciones/Index.vue",
       "resources/js/views/habitaciones/Create.vue",
       "resources/js/views/habitaciones/Edit.vue",
@@ -96,23 +84,30 @@
       "resources/js/views/reservas/Show.vue",
       "resources/js/views/servicios/Index.vue",
       "resources/js/views/consumos/Index.vue",
+      "resources/js/views/consumos/Create.vue",
+      "resources/js/views/consumos/Edit.vue",
       "resources/js/views/pagos/Index.vue",
+      "resources/js/views/pagos/Create.vue",
       "resources/js/views/empleados/Index.vue",
       "resources/js/views/empleados/Create.vue",
+      "resources/js/views/empleados/Edit.vue",
       "resources/js/views/roles/Index.vue",
       "resources/js/views/mantenimientos/Index.vue",
+      "resources/js/views/mantenimientos/Create.vue",
+      "resources/js/views/mantenimientos/Edit.vue",
       "resources/js/views/reportes/Index.vue",
       "resources/js/views/auditoria/Index.vue",
+      "resources/js/views/solicitudes/Index.vue",
       "resources/js/views/profile/Profile.vue",
       "resources/js/views/NotFound.vue"
     ],
     "css": [
-      "assets/app-AvxEl2Ls.css",
-      "assets/app-7iHdx4x7.css"
+      "assets/app-B9N_foXV.css",
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/Dashboard.vue": {
-    "file": "assets/Dashboard-iPD7XtA_.js",
+    "file": "assets/Dashboard-CDcuMvbv.js",
     "name": "Dashboard",
     "src": "resources/js/views/Dashboard.vue",
     "isDynamicEntry": true,
@@ -120,11 +115,11 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/NotFound.vue": {
-    "file": "assets/NotFound-D3u-Rb6C.js",
+    "file": "assets/NotFound-hdHxdwlN.js",
     "name": "NotFound",
     "src": "resources/js/views/NotFound.vue",
     "isDynamicEntry": true,
@@ -132,23 +127,24 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/auditoria/Index.vue": {
-    "file": "assets/Index-NMbpZOJG.js",
+    "file": "assets/Index-BvC7Dx2s.js",
     "name": "Index",
     "src": "resources/js/views/auditoria/Index.vue",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/app.js"
+      "resources/js/app.js",
+      "_Table-D6zp-Q-y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/auth/Login.vue": {
-    "file": "assets/Login-C-8Tbk9a.js",
+    "file": "assets/Login-Cmo3ISgj.js",
     "name": "Login",
     "src": "resources/js/views/auth/Login.vue",
     "isDynamicEntry": true,
@@ -156,239 +152,314 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
-  "resources/js/views/consumos/Index.vue": {
-    "file": "assets/Index-8Yc5RhtE.js",
-    "name": "Index",
-    "src": "resources/js/views/consumos/Index.vue",
+  "resources/js/views/consumos/Create.vue": {
+    "file": "assets/Create-CkZD8lk2.js",
+    "name": "Create",
+    "src": "resources/js/views/consumos/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/consumos/Edit.vue": {
+    "file": "assets/Edit-B0B6NAeY.js",
+    "name": "Edit",
+    "src": "resources/js/views/consumos/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/consumos/Index.vue": {
+    "file": "assets/Index-iS-_3HqP.js",
+    "name": "Index",
+    "src": "resources/js/views/consumos/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_Table-D6zp-Q-y.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/empleados/Create.vue": {
-    "file": "assets/Create-DZyKHDE5.js",
+    "file": "assets/Create-nLqOqE1k.js",
     "name": "Create",
     "src": "resources/js/views/empleados/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Button-AgtSY3Ng.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Button-DQ1JQG5y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/empleados/Edit.vue": {
+    "file": "assets/Edit-7tn0iBNr.js",
+    "name": "Edit",
+    "src": "resources/js/views/empleados/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_hoteles-B-hzdAaV.js",
+      "_Button-DQ1JQG5y.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/empleados/Index.vue": {
-    "file": "assets/Index-Dh-5enyD.js",
+    "file": "assets/Index-DIHkzsNu.js",
     "name": "Index",
     "src": "resources/js/views/empleados/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Table-Cma2KXjz.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Table-D6zp-Q-y.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/habitaciones/Create.vue": {
-    "file": "assets/Create-C47qBXTk.js",
+    "file": "assets/Create-D2DcJHKD.js",
     "name": "Create",
     "src": "resources/js/views/habitaciones/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_habitaciones-BXYPAQ8z.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Button-AgtSY3Ng.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Button-DQ1JQG5y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/habitaciones/Edit.vue": {
-    "file": "assets/Edit-CYW1ZEcy.js",
+    "file": "assets/Edit-q03KSUQJ.js",
     "name": "Edit",
     "src": "resources/js/views/habitaciones/Edit.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_habitaciones-BXYPAQ8z.js",
-      "_Button-AgtSY3Ng.js"
+      "_Button-DQ1JQG5y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/habitaciones/Index.vue": {
-    "file": "assets/Index-CYOUoEyD.js",
+    "file": "assets/Index-CzT_DL28.js",
     "name": "Index",
     "src": "resources/js/views/habitaciones/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_habitaciones-BXYPAQ8z.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Table-Cma2KXjz.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Table-D6zp-Q-y.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/hoteles/Create.vue": {
-    "file": "assets/Create-IFWV2y5J.js",
+    "file": "assets/Create-DbQ90pLJ.js",
     "name": "Create",
     "src": "resources/js/views/hoteles/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Button-AgtSY3Ng.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Button-DQ1JQG5y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/hoteles/Edit.vue": {
-    "file": "assets/Edit-BPBv2zJg.js",
+    "file": "assets/Edit-CZVyNCLv.js",
     "name": "Edit",
     "src": "resources/js/views/hoteles/Edit.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Button-AgtSY3Ng.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Button-DQ1JQG5y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/hoteles/Index.vue": {
-    "file": "assets/Index-C2_6mw9f.js",
+    "file": "assets/Index-B3qVhpCC.js",
     "name": "Index",
     "src": "resources/js/views/hoteles/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Table-Cma2KXjz.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Table-D6zp-Q-y.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/hoteles/Show.vue": {
-    "file": "assets/Show-YA-Jc0oJ.js",
+    "file": "assets/Show-CAHj1FLb.js",
     "name": "Show",
     "src": "resources/js/views/hoteles/Show.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_hoteles-Cj_n2tFk.js"
+      "_hoteles-B-hzdAaV.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/huespedes/Create.vue": {
-    "file": "assets/Create-BLqfjlpL.js",
+    "file": "assets/Create-p3_sEp_G.js",
     "name": "Create",
     "src": "resources/js/views/huespedes/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_huespedes-CiUlC-eS.js",
-      "_Button-AgtSY3Ng.js"
+      "_huespedes-C6m2FTbM.js",
+      "_Button-DQ1JQG5y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/huespedes/Edit.vue": {
-    "file": "assets/Edit-C05msnHr.js",
+    "file": "assets/Edit-Cdag3l9G.js",
     "name": "Edit",
     "src": "resources/js/views/huespedes/Edit.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_huespedes-CiUlC-eS.js",
-      "_Button-AgtSY3Ng.js"
+      "_huespedes-C6m2FTbM.js",
+      "_Button-DQ1JQG5y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/huespedes/Index.vue": {
-    "file": "assets/Index-v0CbqluK.js",
+    "file": "assets/Index-yIssHcaf.js",
     "name": "Index",
     "src": "resources/js/views/huespedes/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_huespedes-CiUlC-eS.js",
-      "_Table-Cma2KXjz.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_huespedes-C6m2FTbM.js",
+      "_Table-D6zp-Q-y.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/mantenimientos/Create.vue": {
+    "file": "assets/Create-B7Visq2W.js",
+    "name": "Create",
+    "src": "resources/js/views/mantenimientos/Create.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/mantenimientos/Edit.vue": {
+    "file": "assets/Edit-Dem6aaz2.js",
+    "name": "Edit",
+    "src": "resources/js/views/mantenimientos/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/mantenimientos/Index.vue": {
-    "file": "assets/Index-yq3AqxNP.js",
+    "file": "assets/Index-f7F13BEy.js",
     "name": "Index",
     "src": "resources/js/views/mantenimientos/Index.vue",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/app.js"
+      "resources/js/app.js",
+      "_Table-D6zp-Q-y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
-  "resources/js/views/pagos/Index.vue": {
-    "file": "assets/Index-DNxo6Inl.js",
-    "name": "Index",
-    "src": "resources/js/views/pagos/Index.vue",
+  "resources/js/views/pagos/Create.vue": {
+    "file": "assets/Create-X6g-xaxI.js",
+    "name": "Create",
+    "src": "resources/js/views/pagos/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/pagos/Index.vue": {
+    "file": "assets/Index-BdicsRZq.js",
+    "name": "Index",
+    "src": "resources/js/views/pagos/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_Table-D6zp-Q-y.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/pisos/Index.vue": {
-    "file": "assets/Index-wClmd-IK.js",
+    "file": "assets/Index-Cx4K0Imi.js",
     "name": "Index",
     "src": "resources/js/views/pisos/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_Table-Cma2KXjz.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Table-D6zp-Q-y.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/profile/Profile.vue": {
-    "file": "assets/Profile-BombIbrR.js",
+    "file": "assets/Profile-JBQF4DQs.js",
     "name": "Profile",
     "src": "resources/js/views/profile/Profile.vue",
     "isDynamicEntry": true,
@@ -396,114 +467,148 @@
       "resources/js/app.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/reportes/Index.vue": {
-    "file": "assets/Index-DbTBmu5w.js",
+    "file": "assets/Index-9LRUKZSo.js",
     "name": "Index",
     "src": "resources/js/views/reportes/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Button-AgtSY3Ng.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Button-DQ1JQG5y.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/reservas/Create.vue": {
-    "file": "assets/Create-aWOiBtOc.js",
+    "file": "assets/Create-CgCz81-Z.js",
     "name": "Create",
     "src": "resources/js/views/reservas/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_reservas-Cq-m4-rN.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_huespedes-CiUlC-eS.js",
-      "_habitaciones-BXYPAQ8z.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_hoteles-B-hzdAaV.js",
+      "_huespedes-C6m2FTbM.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/reservas/Index.vue": {
-    "file": "assets/Index-lkJIBO7B.js",
+    "file": "assets/Index-HvHc_GDs.js",
     "name": "Index",
     "src": "resources/js/views/reservas/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_reservas-Cq-m4-rN.js",
-      "_hoteles-Cj_n2tFk.js",
-      "_Table-Cma2KXjz.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_hoteles-B-hzdAaV.js",
+      "_Table-D6zp-Q-y.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/reservas/Show.vue": {
-    "file": "assets/Show-DOlh__01.js",
+    "file": "assets/Show-CHzyeTtt.js",
     "name": "Show",
     "src": "resources/js/views/reservas/Show.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_reservas-Cq-m4-rN.js",
-      "_servicios-D_Dy-RAM.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_servicios-D3tsqEjX.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/roles/Index.vue": {
-    "file": "assets/Index-DolGHsLf.js",
+    "file": "assets/Index-E_o6Buic.js",
     "name": "Index",
     "src": "resources/js/views/roles/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
   "resources/js/views/servicios/Index.vue": {
-    "file": "assets/Index-B1xw1rOd.js",
+    "file": "assets/Index-CUM98Gs1.js",
     "name": "Index",
     "src": "resources/js/views/servicios/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_servicios-D_Dy-RAM.js",
-      "_Table-Cma2KXjz.js",
-      "_Button-AgtSY3Ng.js",
-      "_Modal-B7Mg5LTC.js"
+      "_servicios-D3tsqEjX.js",
+      "_Table-D6zp-Q-y.js",
+      "_Button-DQ1JQG5y.js",
+      "_Modal-BNrWsrtw.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
     ]
   },
-  "resources/js/views/tipo-habitaciones/Index.vue": {
-    "file": "assets/Index-UpwuHp8G.js",
+  "resources/js/views/solicitudes/Index.vue": {
+    "file": "assets/Index-CBAuMPXR.js",
     "name": "Index",
-    "src": "resources/js/views/tipo-habitaciones/Index.vue",
+    "src": "resources/js/views/solicitudes/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_Modal-BNrWsrtw.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/tipo-habitaciones/Create.vue": {
+    "file": "assets/Create-C1Hq_x--.js",
+    "name": "Create",
+    "src": "resources/js/views/tipo-habitaciones/Create.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ],
     "css": [
-      "assets/app-7iHdx4x7.css"
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/tipo-habitaciones/Edit.vue": {
+    "file": "assets/Edit-C9Lp0Ovg.js",
+    "name": "Edit",
+    "src": "resources/js/views/tipo-habitaciones/Edit.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
+    ]
+  },
+  "resources/js/views/tipo-habitaciones/Index.vue": {
+    "file": "assets/Index-D3W9HRmI.js",
+    "name": "Index",
+    "src": "resources/js/views/tipo-habitaciones/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_Table-D6zp-Q-y.js"
+    ],
+    "css": [
+      "assets/app-BzIEQW1A.css"
     ]
   }
 }

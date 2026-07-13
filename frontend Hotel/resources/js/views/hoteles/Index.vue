@@ -12,7 +12,7 @@
         v-if="authStore.hasPermission('crear_hoteles')"
         @click="$router.push('/hoteles/crear')"
       >
-        ➕ Nuevo Hotel
+        <Icon name="plus" class="w-4 h-4 inline-block mr-1" /> Nuevo Hotel
       </Button>
     </div>
 
@@ -40,6 +40,7 @@
       :columns="columns"
       :data="hotelesStore.hoteles"
       :loading="hotelesStore.loading"
+      :actions="authStore.hasPermission('editar_hoteles') || authStore.hasPermission('eliminar_hoteles')"
     >
       <template #cell-estado="{ item }">
         <span :class="[
@@ -59,7 +60,7 @@
             class="text-blue-600 hover:text-blue-800"
             title="Ver detalles"
           >
-            👁️
+            <Icon name="eye" class="w-4 h-4 inline-block" />
           </button>
           <button
             v-if="authStore.hasPermission('editar_hoteles')"
@@ -67,7 +68,7 @@
             class="text-yellow-600 hover:text-yellow-800"
             title="Editar"
           >
-            ✏️
+            <Icon name="pencil" class="w-4 h-4 inline-block" />
           </button>
           <button
             v-if="authStore.hasPermission('eliminar_hoteles')"
@@ -75,7 +76,7 @@
             class="text-red-600 hover:text-red-800"
             title="Eliminar"
           >
-            🗑️
+            <Icon name="trash" class="w-4 h-4 inline-block" />
           </button>
         </div>
       </template>
@@ -95,6 +96,7 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
@@ -102,6 +104,8 @@ import { useHotelesStore } from '../../stores/hoteles';
 import Table from '../../components/Table.vue';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -151,7 +155,7 @@ const eliminarHotel = async () => {
     modalEliminar.value = false;
     hotelSeleccionado.value = null;
   } catch (error) {
-    alert('Error al eliminar hotel');
+    toast.error('Error al eliminar hotel');
   } finally {
     eliminando.value = false;
   }

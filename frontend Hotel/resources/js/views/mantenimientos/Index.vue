@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <h1 class="text-2xl font-bold mb-4">Mantenimientos</h1>
     <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 mb-4">
       <select v-model="filtros.id_habitacion" class="border rounded p-2 w-full sm:w-auto">
@@ -37,16 +37,16 @@
         </span>
       </template>
 
-      <template #cell-acciones="{ item }">
+      <template #actions="{ item }">
         <div class="flex space-x-2 justify-end">
           <button @click="editarMantenimiento(item.id)" class="text-blue-500 hover:text-blue-600" title="Editar">
-            ✏️
+            <Icon name="pencil" class="w-4 h-4 inline-block" />
           </button>
           <button @click="eliminarMantenimiento(item.id)" class="text-red-500 hover:text-red-600" title="Eliminar">
-            🗑️
+            <Icon name="trash" class="w-4 h-4 inline-block" />
           </button>
           <button v-if="item.estado !== 'COMPLETADO'" @click="completarMantenimiento(item.id)" class="text-green-500 hover:text-green-600" title="Completar">
-            ✅
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" />
           </button>
         </div>
       </template>
@@ -55,10 +55,13 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from '../../axios';
 import Table from '../../components/Table.vue';
+
+const toast = useToastStore();
 
 const router = useRouter();
 
@@ -78,8 +81,7 @@ const columnas = [
   { key: 'descripcion', label: 'Descripción', sortable: true },
   { key: 'fecha', label: 'Fecha', sortable: true },
   { key: 'costo', label: 'Costo', sortable: true },
-  { key: 'estado', label: 'Estado', sortable: true },
-  { key: 'acciones', label: 'Acciones', sortable: false }
+  { key: 'estado', label: 'Estado', sortable: true }
 ];
 
 const cargarHabitaciones = async () => {
@@ -88,7 +90,7 @@ const cargarHabitaciones = async () => {
     habitaciones.value = response.data.data;
   } catch (e) {
     console.error('Error al cargar habitaciones', e);
-    alert('No se pudieron cargar las habitaciones');
+    toast.success('No se pudieron cargar las habitaciones');
   }
 };
 
@@ -103,7 +105,7 @@ const cargarMantenimientos = async () => {
     mantenimientos.value = response.data.data;
   } catch (e) {
     console.error('Error al cargar mantenimientos', e);
-    alert('Error al obtener los mantenimientos');
+    toast.error('Error al obtener los mantenimientos');
   } finally {
     loading.value = false;
   }
@@ -114,26 +116,26 @@ const editarMantenimiento = (id) => {
 };
 
 const eliminarMantenimiento = async (id) => {
-  if (!confirm('¿Eliminar este mantenimiento?')) return;
+  if (!await toast.confirm('¿Eliminar este mantenimiento?')) return;
   try {
     await axios.delete(`/api/mantenimientos/${id}`);
-    alert('Mantenimiento eliminado');
+    toast.success('Mantenimiento eliminado');
     cargarMantenimientos();
   } catch (e) {
     console.error('Error al eliminar', e);
-    alert('No se pudo eliminar');
+    toast.success('No se pudo eliminar');
   }
 };
 
 const completarMantenimiento = async (id) => {
-  if (!confirm('¿Marcar como completado?')) return;
+  if (!await toast.confirm('¿Marcar como completado?')) return;
   try {
     await axios.post(`/api/mantenimientos/${id}/completar`);
-    alert('Mantenimiento completado');
+    toast.success('Mantenimiento completado');
     cargarMantenimientos();
   } catch (e) {
     console.error('Error al completar', e);
-    alert('No se pudo completar');
+    toast.success('No se pudo completar');
   }
 };
 

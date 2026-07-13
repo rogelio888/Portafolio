@@ -3,10 +3,10 @@
     <div class="max-w-4xl mx-auto">
       <h1 class="text-2xl font-bold text-gray-800 mb-6">Mi Perfil</h1>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         <!-- Información del Usuario -->
         <div class="md:col-span-1">
-          <div class="bg-white rounded-lg shadow p-6">
+          <div class="bg-white rounded-lg shadow p-4 sm:p-6">
             <div class="flex flex-col items-center">
               <div class="h-24 w-24 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-3xl font-bold mb-4">
                 {{ userInitials }}
@@ -34,7 +34,7 @@
 
         <!-- Cambio de Contraseña -->
         <div class="md:col-span-2">
-          <div class="bg-white rounded-lg shadow p-6">
+          <div class="bg-white rounded-lg shadow p-4 sm:p-6">
             <h3 class="text-lg font-medium text-gray-800 mb-4">Cambiar Contraseña</h3>
             
             <form @submit.prevent="updatePassword">

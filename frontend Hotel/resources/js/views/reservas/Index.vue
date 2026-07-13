@@ -12,7 +12,7 @@
         v-if="authStore.hasPermission('crear_reservas')"
         @click="$router.push('/reservas/crear')"
       >
-        ➕ Nueva Reserva
+        <Icon name="plus" class="w-4 h-4 inline-block mr-1" /> Nueva Reserva
       </Button>
     </div>
 
@@ -61,7 +61,7 @@
 
         <div class="flex items-end">
           <Button variant="secondary" @click="limpiarFiltros" class="w-full">
-            🔄 Limpiar
+            <Icon name="refresh-cw" class="w-4 h-4 inline-block mr-1" /> Limpiar
           </Button>
         </div>
       </div>
@@ -72,6 +72,7 @@
       :columns="columns"
       :data="reservasStore.reservas"
       :loading="reservasStore.loading"
+      :actions="authStore.hasPermission('editar_reservas') || authStore.hasPermission('eliminar_reservas') || authStore.hasPermission('ver_reservas') || authStore.hasPermission('cancelar_reservas')"
     >
       <template #cell-huesped="{ item }">
         {{ item?.huesped?.nombre }} {{ item?.huesped?.apellido }}
@@ -83,8 +84,8 @@
 
       <template #cell-fechas="{ item }">
         <div class="text-sm">
-          <div>📅 {{ formatDate(item?.fecha_entrada) }}</div>
-          <div>📅 {{ formatDate(item?.fecha_salida) }}</div>
+          <div><Icon name="calendar" class="w-6 h-6 inline-block mr-2 text-gray-700" /> {{ formatDate(item?.fecha_entrada) }}</div>
+          <div><Icon name="calendar" class="w-6 h-6 inline-block mr-2 text-gray-700" /> {{ formatDate(item?.fecha_salida) }}</div>
         </div>
       </template>
 
@@ -108,7 +109,7 @@
             class="text-blue-600 hover:text-blue-800"
             title="Ver detalles"
           >
-            👁️
+            <Icon name="eye" class="w-4 h-4 inline-block" />
           </button>
           <button
             v-if="item?.estado === 'CONFIRMADA' && authStore.hasPermission('checkin')"
@@ -116,7 +117,7 @@
             class="text-green-600 hover:text-green-800"
             title="Check-in"
           >
-            ✅
+            <Icon name="check" class="w-4 h-4 inline-block mr-1" />
           </button>
           <button
             v-if="item?.estado === 'EN_PROCESO' && authStore.hasPermission('checkout')"
@@ -124,7 +125,7 @@
             class="text-purple-600 hover:text-purple-800"
             title="Check-out"
           >
-            🚪
+            <Icon name="log-out" class="w-4 h-4 inline-block mr-1" />
           </button>
           <button
             v-if="['PENDIENTE', 'CONFIRMADA'].includes(item?.estado) && authStore.hasPermission('cancelar_reservas')"
@@ -132,7 +133,7 @@
             class="text-red-600 hover:text-red-800"
             title="Cancelar"
           >
-            ❌
+            <Icon name="x" class="w-4 h-4 inline-block mr-1" />
           </button>
         </div>
       </template>
@@ -154,6 +155,7 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
@@ -162,6 +164,8 @@ import { useHotelesStore } from '../../stores/hoteles';
 import Table from '../../components/Table.vue';
 import Button from '../../components/Button.vue';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -209,25 +213,25 @@ const verReserva = (id) => {
 };
 
 const realizarCheckIn = async (reserva) => {
-  if (confirm(`¿Realizar check-in para ${reserva.huesped.nombre}?`)) {
+  if (await toast.confirm(`¿Realizar check-in para ${reserva.huesped.nombre}?`)) {
     try {
       await reservasStore.checkIn(reserva.id);
       await fetchReservas();
-      alert('Check-in realizado exitosamente');
+      toast.success('Check-in realizado exitosamente');
     } catch (error) {
-      alert('Error al realizar check-in');
+      toast.error('Error al realizar check-in');
     }
   }
 };
 
 const realizarCheckOut = async (reserva) => {
-  if (confirm(`¿Realizar check-out para ${reserva.huesped.nombre}?`)) {
+  if (await toast.confirm(`¿Realizar check-out para ${reserva.huesped.nombre}?`)) {
     try {
       await reservasStore.checkOut(reserva.id);
       await fetchReservas();
-      alert('Check-out realizado exitosamente');
+      toast.success('Check-out realizado exitosamente');
     } catch (error) {
-      alert(error.response?.data?.message || 'Error al realizar check-out');
+      toast.error(error.response?.data?.message || 'Error al realizar check-out');
     }
   }
 };
@@ -244,7 +248,7 @@ const cancelarReserva = async () => {
     modalCancelar.value = false;
     await fetchReservas();
   } catch (error) {
-    alert('Error al cancelar reserva');
+    toast.error('Error al cancelar reserva');
   } finally {
     cancelando.value = false;
   }

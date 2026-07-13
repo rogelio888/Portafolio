@@ -237,6 +237,13 @@
   .sidebar.mobile-open {
     transform: translateX(0);
   }
+
+  .top-header {
+    padding: 0 1.25rem;
+  }
+  .dashboard-body {
+    padding: 1.25rem;
+  }
 }
 
 .header-greeting h1 {

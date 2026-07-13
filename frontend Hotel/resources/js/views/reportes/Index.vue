@@ -9,7 +9,7 @@
     </div>
 
     <!-- Filtros Globales -->
-    <div class="bg-white rounded-lg shadow p-6 mb-6">
+    <div class="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
       <h3 class="font-bold text-lg mb-4">Filtros</h3>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
@@ -45,7 +45,7 @@
 
         <div class="flex items-end">
           <Button @click="aplicarFiltros" class="w-full">
-            📊 Generar Reportes
+            <Icon name="bar-chart-2" class="w-5 h-5 mr-2" /> Generar Reportes
           </Button>
         </div>
       </div>
@@ -53,20 +53,20 @@
 
     <!-- Tabs de Reportes -->
     <div class="bg-white rounded-lg shadow mb-6">
-      <div class="border-b border-gray-200">
-        <nav class="flex space-x-8 px-6" aria-label="Tabs">
+      <div class="border-b border-gray-200 overflow-x-auto">
+        <nav class="flex space-x-4 sm:space-x-8 px-4 sm:px-6 min-w-max" aria-label="Tabs">
           <button
             v-for="tab in tabs"
             :key="tab.id"
             @click="tabActivo = tab.id"
             :class="[
-              'py-4 px-1 border-b-2 font-medium text-sm transition-colors',
+              'py-4 px-1 border-b-2 font-medium text-sm transition-colors whitespace-nowrap',
               tabActivo === tab.id
                 ? 'border-blue-500 text-blue-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             ]"
           >
-            {{ tab.icon }} {{ tab.nombre }}
+            <Icon :name="tab.icon" class="w-5 h-5 mr-2 inline-block" /> {{ tab.nombre }}
           </button>
         </nav>
       </div>
@@ -76,8 +76,8 @@
     <div>
       <!-- Reporte de Reservas -->
       <div v-show="tabActivo === 'reservas'">
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-          <h3 class="text-xl font-bold text-gray-800 mb-4">📝 Reporte de Reservas</h3>
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4"><Icon name="clipboard-list" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Reporte de Reservas</h3>
           
           <div v-if="loadingReservas" class="text-center py-8">
             <p class="text-gray-500">Cargando...</p>
@@ -143,8 +143,8 @@
 
       <!-- Reporte de Ingresos -->
       <div v-show="tabActivo === 'ingresos'">
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-          <h3 class="text-xl font-bold text-gray-800 mb-4">💰 Reporte de Ingresos</h3>
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4"><Icon name="circle-dollar-sign" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Reporte de Ingresos</h3>
           
           <div v-if="loadingIngresos" class="text-center py-8">
             <p class="text-gray-500">Cargando...</p>
@@ -172,7 +172,7 @@
             </div>
 
             <!-- Total General -->
-            <div class="p-6 bg-gradient-to-r from-green-500 to-green-600 rounded-lg text-white mb-6">
+            <div class="p-4 sm:p-6 bg-gradient-to-r from-green-500 to-green-600 rounded-lg text-white mb-6">
               <p class="text-sm opacity-90 mb-1">Total General de Ingresos</p>
               <p class="text-4xl font-bold">{{ formatCurrency(reporteIngresos?.totales?.total_general || 0) }}</p>
             </div>
@@ -214,8 +214,8 @@
 
       <!-- Reporte de Ocupación -->
       <div v-show="tabActivo === 'ocupacion'">
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-          <h3 class="text-xl font-bold text-gray-800 mb-4">🏨 Reporte de Ocupación</h3>
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4"><Icon name="building" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Reporte de Ocupación</h3>
           
           <div v-if="loadingOcupacion" class="text-center py-8">
             <p class="text-gray-500">Cargando...</p>
@@ -251,7 +251,7 @@
             </div>
 
             <!-- Tasa de Ocupación -->
-            <div class="p-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white text-center">
+            <div class="p-4 sm:p-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg text-white text-center">
               <p class="text-lg opacity-90 mb-2">Tasa de Ocupación</p>
               <p class="text-6xl font-bold">{{ reporteOcupacion?.tasa_ocupacion || 0 }}%</p>
             </div>
@@ -261,14 +261,14 @@
 
       <!-- Reporte Consolidado -->
       <div v-show="tabActivo === 'consolidado'">
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-          <h3 class="text-xl font-bold text-gray-800 mb-4">📊 Reporte Consolidado</h3>
+        <div class="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4"><Icon name="bar-chart-2" class="w-6 h-6 inline-block mr-2 text-gray-700" /> Reporte Consolidado</h3>
           
           <div v-if="loadingConsolidado" class="text-center py-8">
             <p class="text-gray-500">Cargando...</p>
           </div>
 
-          <div v-else class="space-y-6">
+          <div v-else class="space-y-4 sm:space-y-6">
             <!-- Período -->
             <div class="p-4 bg-gray-50 rounded-lg">
               <p class="text-sm text-gray-600">Período del Reporte</p>
@@ -277,19 +277,19 @@
 
             <!-- Métricas Principales -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div class="bg-blue-50 rounded-lg p-6">
+              <div class="bg-blue-50 rounded-lg p-4 sm:p-6">
                 <p class="text-sm text-gray-600 mb-2">Total Reservas</p>
                 <p class="text-4xl font-bold text-blue-600">{{ reporteConsolidado?.data?.reservas || 0 }}</p>
               </div>
-              <div class="bg-green-50 rounded-lg p-6">
+              <div class="bg-green-50 rounded-lg p-4 sm:p-6">
                 <p class="text-sm text-gray-600 mb-2">Ingresos Totales</p>
                 <p class="text-2xl font-bold text-green-600">{{ formatCurrency(reporteConsolidado?.data?.ingresos_totales || 0) }}</p>
               </div>
-              <div class="bg-purple-50 rounded-lg p-6">
+              <div class="bg-purple-50 rounded-lg p-4 sm:p-6">
                 <p class="text-sm text-gray-600 mb-2">Consumos</p>
                 <p class="text-2xl font-bold text-purple-600">{{ formatCurrency(reporteConsolidado?.data?.ingresos_consumos || 0) }}</p>
               </div>
-              <div class="bg-indigo-50 rounded-lg p-6">
+              <div class="bg-indigo-50 rounded-lg p-4 sm:p-6">
                 <p class="text-sm text-gray-600 mb-2">Tasa Ocupación</p>
                 <p class="text-4xl font-bold text-indigo-600">{{ reporteConsolidado?.data?.tasa_ocupacion || 0 }}%</p>
               </div>
@@ -311,10 +311,10 @@ const hotelesStore = useHotelesStore();
 
 const tabActivo = ref('reservas');
 const tabs = [
-  { id: 'reservas', nombre: 'Reservas', icon: '📝' },
-  { id: 'ingresos', nombre: 'Ingresos', icon: '💰' },
-  { id: 'ocupacion', nombre: 'Ocupación', icon: '🏨' },
-  { id: 'consolidado', nombre: 'Consolidado', icon: '📊' },
+  { id: 'reservas', nombre: 'Reservas', icon: 'clipboard-list' },
+  { id: 'ingresos', nombre: 'Ingresos', icon: 'circle-dollar-sign' },
+  { id: 'ocupacion', nombre: 'Ocupación', icon: 'building' },
+  { id: 'consolidado', nombre: 'Consolidado', icon: 'bar-chart-2' },
 ];
 
 const filtros = ref({

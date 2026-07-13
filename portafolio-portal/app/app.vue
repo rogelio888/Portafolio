@@ -249,6 +249,25 @@ const techList = [
   }
 ]
 
+interface ProjectDemo {
+  name: string
+  description: string
+  category: string
+  frontendStack: string
+  backendStack: string
+  databaseStack: string
+  relatedPlanId: number
+  demoUrl: string
+  thumbnail: string
+  githubUrl: string
+  iconName: string
+  architectureDetails: {
+    controllerCode: string
+    schemaDetails: string
+    frontendLogic?: string
+  }
+}
+
 const projects = ref<ProjectDemo[]>([
   {
     name: 'Sistema de Farmacia',
@@ -300,7 +319,7 @@ CREATE TABLE kardex_movements (
     backendStack: 'Laravel 12 & Eloquent',
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 7,
-    demoUrl: '/frontend-hotel',
+    demoUrl: '/frontend-hotel/#/?reset=1',
     thumbnail: '/screenshots/frontend-hotel.png',
     githubUrl: 'https://github.com/rogel/hotel-vue-nestjs',
     iconName: 'Building2',

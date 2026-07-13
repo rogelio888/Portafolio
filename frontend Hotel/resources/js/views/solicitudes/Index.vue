@@ -1,7 +1,7 @@
 <!-- resources/js/views/solicitudes/Index.vue -->
 
 <template>
-  <div class="p-6">
+  <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-6">
       <div>
         <h1 class="text-2xl font-bold text-gray-800">Solicitudes de Autorización</h1>
@@ -53,7 +53,7 @@
       <div
         v-for="solicitud in solicitudesFiltradas"
         :key="solicitud.id"
-        class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow"
+        class="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-md transition-shadow"
       >
         <div class="flex items-start justify-between">
           <div class="flex-1">
@@ -106,7 +106,7 @@
               @click="abrirModalAprobar(solicitud)"
               class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors"
             >
-              ✓ Aprobar
+              <Icon name="check" class="w-4 h-4 inline-block mr-1" /> Aprobar
             </button>
             <button
               @click="abrirModalRechazar(solicitud)"
@@ -203,9 +203,12 @@
 </template>
 
 <script setup>
+import { useToastStore } from '../../stores/toast';
 import { ref, computed, onMounted } from 'vue';
 import axios from '../../axios';
 import Modal from '../../components/Modal.vue';
+
+const toast = useToastStore();
 
 const loading = ref(false);
 const solicitudes = ref([]);
@@ -234,7 +237,7 @@ const cargarSolicitudes = async () => {
     solicitudes.value = response.data.data;
   } catch (error) {
     console.error('Error cargando solicitudes:', error);
-    alert('Error al cargar solicitudes');
+    toast.error('Error al cargar solicitudes');
   } finally {
     loading.value = false;
   }
@@ -259,12 +262,12 @@ const aprobarSolicitud = async () => {
       comentario: comentario.value
     });
     
-    alert('Solicitud aprobada correctamente');
+    toast.success('Solicitud aprobada correctamente');
     modalAprobar.value = false;
     await cargarSolicitudes();
   } catch (error) {
     console.error('Error aprobando solicitud:', error);
-    alert('Error al aprobar solicitud: ' + (error.response?.data?.message || 'Error desconocido'));
+    toast.error('Error al aprobar solicitud: ' + (error.response?.data?.message || 'Error desconocido'));
   } finally {
     procesando.value = false;
   }
@@ -272,7 +275,7 @@ const aprobarSolicitud = async () => {
 
 const rechazarSolicitud = async () => {
   if (!comentario.value.trim()) {
-    alert('Debes ingresar un motivo para rechazar');
+    toast.warning('Debes ingresar un motivo para rechazar');
     return;
   }
 
@@ -282,12 +285,12 @@ const rechazarSolicitud = async () => {
       comentario: comentario.value
     });
     
-    alert('Solicitud rechazada');
+    toast.success('Solicitud rechazada');
     modalRechazar.value = false;
     await cargarSolicitudes();
   } catch (error) {
     console.error('Error rechazando solicitud:', error);
-    alert('Error al rechazar solicitud: ' + (error.response?.data?.message || 'Error desconocido'));
+    toast.error('Error al rechazar solicitud: ' + (error.response?.data?.message || 'Error desconocido'));
   } finally {
     procesando.value = false;
   }
