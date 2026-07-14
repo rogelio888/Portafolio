@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { class: 'dark', lang: 'es' },
       title: 'Portafolio Profesional Full-Stack | Demos Interactivas',
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
+      ],
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
