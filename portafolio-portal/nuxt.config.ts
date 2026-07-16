@@ -33,7 +33,8 @@ export default defineNuxtConfig({
     }
   },
   modules: [
-    'shadcn-nuxt'
+    'shadcn-nuxt',
+    '@vueuse/motion/nuxt'
   ],
   shadcn: {
     prefix: '',

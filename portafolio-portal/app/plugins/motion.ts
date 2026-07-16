@@ -1,5 +1,3 @@
-import { MotionPlugin } from '@vueuse/motion'
-
-export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(MotionPlugin)
+export default defineNuxtPlugin(() => {
+  // Empty plugin to prevent double initialization of MotionPlugin (managed by @vueuse/motion/nuxt module)
 })

@@ -819,8 +819,9 @@ const printProposal = () => {
 </script>
 
 <template>
-  <div class="min-h-screen text-foreground bg-background selection:bg-violet-500/30 selection:text-violet-900 dark:selection:text-violet-200 grid-pattern relative overflow-x-clip">
-    
+  <div class="min-h-screen text-foreground bg-transparent selection:bg-violet-500/30 selection:text-violet-900 dark:selection:text-violet-200 grid-pattern relative z-0 overflow-x-clip">
+    <StarfieldBackground />
+
     <!-- Background Moving Blobs (Aesthetic Glows) -->
     <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-violet-600/10 blur-[120px] animate-blob-1 -z-10 pointer-events-none"></div>
     <div class="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-600/10 blur-[130px] animate-blob-2 -z-10 pointer-events-none"></div>
@@ -881,7 +882,12 @@ const printProposal = () => {
           </nav>
 
           <!-- Theme Toggle -->
-          <button type="button" @click="toggleTheme" :aria-label="isDark ? 'Activar modo claro' : 'Activar modo oscuro'" class="w-9 h-9 shrink-0 rounded-xl border border-black/[0.05] dark:border-white/[0.05] bg-black/[0.01] dark:bg-white/[0.01] flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all cursor-pointer">
+          <button 
+            type="button" 
+            @click="toggleTheme" 
+            :aria-label="isDark ? 'Activar modo claro' : 'Activar modo oscuro'" 
+            class="w-9 h-9 shrink-0 rounded-xl border border-black/[0.05] dark:border-white/[0.05] bg-black/[0.01] dark:bg-white/[0.01] flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.03] hover:scale-110 active:scale-90 active:rotate-180 transition-all duration-300 cursor-pointer"
+          >
             <Sun v-if="isDark" class="w-4 h-4" />
             <Moon v-else class="w-4 h-4" />
           </button>
@@ -912,35 +918,43 @@ const printProposal = () => {
     </header>
 
     <!-- Epic Hero Section -->
-    <section v-motion-fade class="relative pt-36 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center no-print">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.03] dark:bg-white/[0.03] text-violet-600 dark:text-violet-400 text-xs font-bold tracking-wider uppercase mb-8 shadow-inner">
-        <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-ping"></span>
-        <span>PORTAFOLIO MULTI-FRAMEWORK &amp; COTIZADOR OFICIAL</span>
-      </div>
+    <section class="relative pt-36 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center no-print">
+      <ScrollReveal :delay="0">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.03] dark:bg-white/[0.03] text-violet-600 dark:text-violet-400 text-xs font-bold tracking-wider uppercase mb-8 shadow-inner">
+          <span class="w-1.5 h-1.5 rounded-full bg-violet-400 animate-ping"></span>
+          <span>PORTAFOLIO MULTI-FRAMEWORK &amp; COTIZADOR OFICIAL</span>
+        </div>
+      </ScrollReveal>
 
-      <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight max-w-5xl mx-auto leading-[0.95] text-slate-900 dark:text-white font-heading">
-        Desarrollo Web <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">Premium &amp; A Medida</span>
-      </h1>
+      <ScrollReveal :delay="150">
+        <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight max-w-5xl mx-auto leading-[0.95] text-slate-900 dark:text-white font-heading">
+          Desarrollo Web <span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">Premium &amp; A Medida</span>
+        </h1>
+      </ScrollReveal>
 
-      <p class="mt-8 text-base sm:text-lg text-slate-500 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-        Lleva tu negocio al siguiente nivel con una plataforma digital diseñada exclusivamente para ti. Atrae más clientes, proyecta máxima confianza y automatiza tus ventas o servicios con un sistema rápido, seguro y profesional. Explora nuestras demostraciones reales y calcula tu presupuesto al instante.
-      </p>
+      <ScrollReveal :delay="300">
+        <p class="mt-8 text-base sm:text-lg text-slate-500 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+          Lleva tu negocio al siguiente nivel con una plataforma digital diseñada exclusivamente para ti. Atrae más clientes, proyecta máxima confianza y automatiza tus ventas o servicios con un sistema rápido, seguro y profesional. Explora nuestras demostraciones reales y calcula tu presupuesto al instante.
+        </p>
+      </ScrollReveal>
 
       <!-- Glassmorphic Hero Stats Widget -->
-      <div class="mt-10 max-w-3xl mx-auto rounded-2xl border border-black/[0.05] dark:border-white/[0.05] bg-white/60 dark:bg-slate-950/40 backdrop-blur-md p-4 sm:p-5 grid grid-cols-3 gap-4 text-center divide-x divide-black/[0.06] dark:divide-white/[0.06]">
-        <div class="flex flex-col items-center">
-          <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">9 Demos</span>
-          <span class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">Sistemas en Vivo</span>
+      <ScrollReveal :delay="450">
+        <div class="mt-10 max-w-3xl mx-auto rounded-2xl border border-black/[0.05] dark:border-white/[0.05] bg-white/60 dark:bg-slate-950/40 backdrop-blur-md p-4 sm:p-5 grid grid-cols-3 gap-4 text-center divide-x divide-black/[0.06] dark:divide-white/[0.06]">
+          <div class="flex flex-col items-center">
+            <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">9 Demos</span>
+            <span class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">Sistemas en Vivo</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">SaaS/Venta</span>
+            <span class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">2 Modelos</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">WhatsApp</span>
+            <span class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">Cotizador Oficial</span>
+          </div>
         </div>
-        <div class="flex flex-col items-center">
-          <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-fuchsia-400 to-indigo-400 bg-clip-text text-transparent">SaaS/Venta</span>
-          <span class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">2 Modelos</span>
-        </div>
-        <div class="flex flex-col items-center">
-          <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">WhatsApp</span>
-          <span class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">Cotizador Oficial</span>
-        </div>
-      </div>
+      </ScrollReveal>
     </section>
 
     <!-- Infinite Auto-Scrolling Carousel (Tecnologías) -->
@@ -986,53 +1000,60 @@ const printProposal = () => {
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <Card v-for="project in projects" :key="project.name" class="bg-white/70 dark:bg-slate-950/40 border-black/[0.05] dark:border-white/[0.04] overflow-hidden hover:border-slate-300 dark:hover:border-slate-800 transition-all group flex flex-col justify-between glass-card-hover">
-          <div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-950 border-b border-black/[0.05] dark:border-white/[0.04]">
-            <img :src="project.thumbnail" :alt="`Vista previa de ${project.name}`" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-          </div>
-          <CardHeader class="pb-4">
-            <div class="flex justify-between items-center mb-4">
-              <Badge variant="secondary" class="bg-violet-50 dark:bg-slate-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-900/30 font-semibold px-2.5 py-1 text-[10px]">
-                {{ project.category }}
-              </Badge>
-              <!-- Elegant icon -->
-              <span class="w-8 h-8 rounded-lg bg-violet-50 dark:bg-slate-950 flex items-center justify-center border border-black/[0.05] dark:border-white/[0.04] text-violet-600 dark:text-violet-400">
-                <svg v-if="project.iconName === 'Activity'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2"></path></svg>
-                <svg v-else-if="project.iconName === 'Building2'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                <svg v-else-if="project.iconName === 'Heart'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                <svg v-else-if="project.iconName === 'GraduationCap'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
-                <svg v-else-if="project.iconName === 'Dumbbell'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                <svg v-else-if="project.iconName === 'Leaf'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <svg v-else-if="project.iconName === 'Flame'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
-                <svg v-else-if="project.iconName === 'Compass'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2.5"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.5 8.5l-2 5-5 2 2-5z"></path></svg>
-                <svg v-else-if="project.iconName === 'BookOpen'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-              </span>
+        <ScrollReveal 
+          v-for="(project, index) in projects" 
+          :key="project.name"
+          :delay="(index % 3) * 100"
+          class="flex"
+        >
+          <Card class="bg-white/70 dark:bg-slate-950/40 border-black/[0.05] dark:border-white/[0.04] overflow-hidden hover:border-slate-300 dark:hover:border-slate-800 transition-all group flex flex-col justify-between glass-card-hover w-full">
+            <div class="aspect-video w-full overflow-hidden bg-slate-100 dark:bg-slate-950 border-b border-black/[0.05] dark:border-white/[0.04]">
+              <img :src="project.thumbnail" :alt="`Vista previa de ${project.name}`" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" />
             </div>
-            <CardTitle class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors font-heading">{{ project.name }}</CardTitle>
-            <CardDescription class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mt-2.5">{{ project.description }}</CardDescription>
-          </CardHeader>
-          <CardContent class="pt-2 pb-6 text-xs space-y-2 text-slate-500 dark:text-slate-400 border-t border-black/[0.05] dark:border-white/[0.04]">
-            <div class="flex justify-between"><span class="font-bold text-slate-600 dark:text-slate-500">Frontend:</span> <span class="text-slate-700 dark:text-slate-300">{{ project.frontendStack }}</span></div>
-            <div class="flex justify-between"><span class="font-bold text-slate-600 dark:text-slate-500">Backend:</span> <span class="text-slate-700 dark:text-slate-300">{{ project.backendStack }}</span></div>
-            <div class="flex justify-between"><span class="font-bold text-slate-600 dark:text-slate-500">Base de Datos:</span> <span class="text-indigo-600 dark:text-indigo-400 font-semibold">{{ project.databaseStack }}</span></div>
-          </CardContent>
-          <CardFooter class="border-t border-black/[0.05] dark:border-white/[0.04] bg-black/[0.015] dark:bg-slate-950/20 px-6 py-4 flex gap-2.5">
-            <button @click="handleDemoClick(project.demoUrl)" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
-              <span>Probar Demo</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            </button>
-            <button
-              v-if="project.relatedPlanId"
-              @click="quoteFromProject(project)"
-              title="Cotizar un proyecto similar a este"
-              class="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] hover:border-violet-400/40 dark:hover:border-violet-500/40 hover:bg-slate-200 dark:hover:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-300 transition-all cursor-pointer"
-            >
-              <DollarSign class="w-3.5 h-3.5" />
-              <span>Cotizar</span>
-            </button>
-          </CardFooter>
-        </Card>
+            <CardHeader class="pb-4">
+              <div class="flex justify-between items-center mb-4">
+                <Badge variant="secondary" class="bg-violet-50 dark:bg-slate-950 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-900/30 font-semibold px-2.5 py-1 text-[10px]">
+                  {{ project.category }}
+                </Badge>
+                <!-- Elegant icon -->
+                <span class="w-8 h-8 rounded-lg bg-violet-50 dark:bg-slate-950 flex items-center justify-center border border-black/[0.05] dark:border-white/[0.04] text-violet-600 dark:text-violet-400">
+                  <svg v-if="project.iconName === 'Activity'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2"></path></svg>
+                  <svg v-else-if="project.iconName === 'Building2'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                  <svg v-else-if="project.iconName === 'Heart'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                  <svg v-else-if="project.iconName === 'GraduationCap'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+                  <svg v-else-if="project.iconName === 'Dumbbell'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                  <svg v-else-if="project.iconName === 'Leaf'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <svg v-else-if="project.iconName === 'Flame'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
+                  <svg v-else-if="project.iconName === 'Compass'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2.5"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.5 8.5l-2 5-5 2 2-5z"></path></svg>
+                  <svg v-else-if="project.iconName === 'BookOpen'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                  <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </span>
+              </div>
+              <CardTitle class="text-slate-900 dark:text-white text-lg font-bold group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors font-heading">{{ project.name }}</CardTitle>
+              <CardDescription class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mt-2.5">{{ project.description }}</CardDescription>
+            </CardHeader>
+            <CardContent class="pt-2 pb-6 text-xs space-y-2 text-slate-500 dark:text-slate-400 border-t border-black/[0.05] dark:border-white/[0.04]">
+              <div class="flex justify-between"><span class="font-bold text-slate-600 dark:text-slate-500">Frontend:</span> <span class="text-slate-700 dark:text-slate-300">{{ project.frontendStack }}</span></div>
+              <div class="flex justify-between"><span class="font-bold text-slate-600 dark:text-slate-500">Backend:</span> <span class="text-slate-700 dark:text-slate-300">{{ project.backendStack }}</span></div>
+              <div class="flex justify-between"><span class="font-bold text-slate-600 dark:text-slate-500">Base de Datos:</span> <span class="text-indigo-600 dark:text-indigo-400 font-semibold">{{ project.databaseStack }}</span></div>
+            </CardContent>
+            <CardFooter class="border-t border-black/[0.05] dark:border-white/[0.04] bg-black/[0.015] dark:bg-slate-950/20 px-6 py-4 flex gap-2.5 mt-auto">
+              <button @click="handleDemoClick(project.demoUrl)" class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
+                <span>Probar Demo</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </button>
+              <button
+                v-if="project.relatedPlanId"
+                @click="quoteFromProject(project)"
+                title="Cotizar un proyecto similar a este"
+                class="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-black/[0.06] dark:border-white/[0.06] hover:border-violet-400/40 dark:hover:border-violet-500/40 hover:bg-slate-200 dark:hover:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-300 transition-all cursor-pointer"
+              >
+                <DollarSign class="w-3.5 h-3.5" />
+                <span>Cotizar</span>
+              </button>
+            </CardFooter>
+          </Card>
+        </ScrollReveal>
       </div>
     </section>
 
@@ -1113,15 +1134,19 @@ const printProposal = () => {
             <p class="text-xs text-slate-500 mt-2">Intenta cambiar el término de búsqueda o limpia los filtros.</p>
           </div>
 
-          <div 
-            v-for="plan in filteredPlans" 
+          <ScrollReveal 
+            v-for="(plan, index) in filteredPlans" 
             :key="plan.id"
-            @click="selectPlan(plan)"
-            class="group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 border p-5 md:p-6"
-            :class="selectedPlan?.id === plan.id
-              ? 'bg-white/80 dark:bg-slate-950/60 border-violet-500/80 shadow-lg shadow-violet-500/5 ring-1 ring-violet-500/30'
-              : 'bg-black/[0.015] dark:bg-slate-950/20 border-black/[0.05] dark:border-white/[0.04] hover:border-slate-300 dark:hover:border-slate-800 hover:bg-white/60 dark:hover:bg-slate-950/40 shadow-sm'"
+            :delay="(index % 4) * 80"
+            class="w-full flex"
           >
+            <div 
+              @click="selectPlan(plan)"
+              class="group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 border p-5 md:p-6 hover:scale-[1.01] active:scale-[0.99] w-full"
+              :class="selectedPlan?.id === plan.id
+                ? 'bg-white/80 dark:bg-slate-950/60 border-violet-500/80 shadow-lg shadow-violet-500/5 ring-1 ring-violet-500/30'
+                : 'bg-black/[0.015] dark:bg-slate-950/20 border-black/[0.05] dark:border-white/[0.04] hover:border-slate-300 dark:hover:border-slate-800 hover:bg-white/60 dark:hover:bg-slate-950/40 shadow-sm'"
+            >
             <div class="flex flex-col md:flex-row gap-5 items-start">
 
               <!-- Plan Icon & Tag -->
@@ -1234,10 +1259,15 @@ const printProposal = () => {
               :class="selectedPlan?.id === plan.id ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-50'"
             ></div>
           </div>
-        </div>
+        </ScrollReveal>
+      </div>
 
         <!-- Right Side: Sticky Interactive Calculator (5 Columns) -->
-        <aside id="quote-calculator" class="lg:col-span-5 xl:col-span-4 sticky top-24 flex flex-col gap-6">
+        <ScrollReveal 
+          :delay="200"
+          class="lg:col-span-5 xl:col-span-4 sticky top-24 flex flex-col gap-6"
+        >
+          <aside id="quote-calculator" class="w-full">
           <div class="rounded-2xl bg-white/70 dark:bg-slate-950/40 border border-black/[0.06] dark:border-white/[0.06] p-5 md:p-6 backdrop-blur-md shadow-xl max-h-[calc(100vh-130px)] overflow-y-auto">
             <h3 class="text-base font-bold font-heading border-b border-black/[0.06] dark:border-white/[0.06] pb-3 flex items-center gap-2 text-slate-900 dark:text-white">
               <component :is="LucideIcons.Coins" class="w-5 h-5 text-violet-500" />
@@ -1571,6 +1601,7 @@ const printProposal = () => {
             </div>
           </div>
         </aside>
+      </ScrollReveal>
 
       </div>
     </section>
@@ -1643,38 +1674,41 @@ const printProposal = () => {
             Frontend (La Fachada Visual e Interactiva)
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div 
-              v-for="tech in techList.filter(t => t.category === 'frontend')" 
+            <ScrollReveal 
+              v-for="(tech, index) in techList.filter(t => t.category === 'frontend')" 
               :key="tech.name"
-              class="relative rounded-2xl p-5 bg-white/70 dark:bg-slate-950/40 border border-black/[0.05] dark:border-white/[0.04] hover:border-slate-300 dark:hover:border-slate-800 transition-all flex flex-col justify-between glass-card-hover group"
+              :delay="(index % 3) * 100"
+              class="flex"
             >
-              <div>
-                <!-- Brand icon and name -->
-                <div class="flex items-center gap-3.5 mb-4">
-                  <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-950 flex items-center justify-center border border-black/[0.06] dark:border-white/[0.05] shadow-inner shrink-0 group-hover:border-violet-500/30 transition-colors">
-                    <span class="w-6 h-6 flex items-center justify-center shrink-0" v-html="tech.svg"></span>
+              <div class="relative rounded-2xl p-5 bg-white/70 dark:bg-slate-950/40 border border-black/[0.05] dark:border-white/[0.04] hover:border-slate-300 dark:hover:border-slate-800 transition-all flex flex-col justify-between glass-card-hover group cursor-pointer hover:scale-[1.02] w-full">
+                <div>
+                  <!-- Brand icon and name -->
+                  <div class="flex items-center gap-3.5 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-950 flex items-center justify-center border border-black/[0.06] dark:border-white/[0.05] shadow-inner shrink-0 group-hover:border-violet-500/30 transition-colors">
+                      <span class="w-6 h-6 flex items-center justify-center shrink-0" v-html="tech.svg"></span>
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-tight">{{ tech.name }}</h4>
+                      <span class="text-[9px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wide bg-violet-500/5 px-2 py-0.5 rounded border border-violet-500/10 mt-1 inline-block">
+                        {{ tech.role }}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <h4 class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors leading-tight">{{ tech.name }}</h4>
-                    <span class="text-[9px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wide bg-violet-500/5 px-2 py-0.5 rounded border border-violet-500/10 mt-1 inline-block">
-                      {{ tech.role }}
-                    </span>
-                  </div>
-                </div>
 
-                <!-- Description lists -->
-                <div class="space-y-3.5 text-xs">
-                  <div>
-                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">¿Qué es en palabras sencillas?</span>
-                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed mt-1 font-medium">{{ tech.whatIs }}</p>
-                  </div>
-                  <div class="pt-3 border-t border-black/[0.04] dark:border-white/[0.03]">
-                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">¿Cómo beneficia a tu proyecto?</span>
-                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-1 font-semibold">{{ tech.whyUse }}</p>
+                  <!-- Description lists -->
+                  <div class="space-y-3.5 text-xs">
+                    <div>
+                      <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">¿Qué es en palabras sencillas?</span>
+                      <p class="text-slate-500 dark:text-slate-400 leading-relaxed mt-1 font-medium">{{ tech.whatIs }}</p>
+                    </div>
+                    <div class="pt-3 border-t border-black/[0.04] dark:border-white/[0.03]">
+                      <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">¿Cómo beneficia a tu proyecto?</span>
+                      <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-1 font-semibold">{{ tech.whyUse }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
 
@@ -1685,38 +1719,41 @@ const printProposal = () => {
             Backend y Bases de Datos (El Cerebro y Cajas Fuertes)
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div 
-              v-for="tech in techList.filter(t => t.category === 'backend')" 
+            <ScrollReveal 
+              v-for="(tech, index) in techList.filter(t => t.category === 'backend')" 
               :key="tech.name"
-              class="relative rounded-2xl p-5 bg-white/70 dark:bg-slate-950/40 border border-black/[0.05] dark:border-white/[0.04] hover:border-slate-300 dark:hover:border-slate-800 transition-all flex flex-col justify-between glass-card-hover group"
+              :delay="(index % 3) * 100"
+              class="flex"
             >
-              <div>
-                <!-- Brand icon and name -->
-                <div class="flex items-center gap-3.5 mb-4">
-                  <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-950 flex items-center justify-center border border-black/[0.06] dark:border-white/[0.05] shadow-inner shrink-0 group-hover:border-emerald-500/30 transition-colors">
-                    <span class="w-6 h-6 flex items-center justify-center shrink-0" v-html="tech.svg"></span>
+              <div class="relative rounded-2xl p-5 bg-white/70 dark:bg-slate-950/40 border border-black/[0.05] dark:border-white/[0.04] hover:border-slate-300 dark:hover:border-slate-800 transition-all flex flex-col justify-between glass-card-hover group cursor-pointer hover:scale-[1.02] w-full">
+                <div>
+                  <!-- Brand icon and name -->
+                  <div class="flex items-center gap-3.5 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-950 flex items-center justify-center border border-black/[0.06] dark:border-white/[0.05] shadow-inner shrink-0 group-hover:border-emerald-500/30 transition-colors">
+                      <span class="w-6 h-6 flex items-center justify-center shrink-0" v-html="tech.svg"></span>
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-tight">{{ tech.name }}</h4>
+                      <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide bg-emerald-500/5 px-2 py-0.5 rounded border border-emerald-500/10 mt-1 inline-block">
+                        {{ tech.role }}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <h4 class="text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-tight">{{ tech.name }}</h4>
-                    <span class="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide bg-emerald-500/5 px-2 py-0.5 rounded border border-emerald-500/10 mt-1 inline-block">
-                      {{ tech.role }}
-                    </span>
-                  </div>
-                </div>
 
-                <!-- Description lists -->
-                <div class="space-y-3.5 text-xs">
-                  <div>
-                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">¿Qué es en palabras sencillas?</span>
-                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed mt-1 font-medium">{{ tech.whatIs }}</p>
-                  </div>
-                  <div class="pt-3 border-t border-black/[0.04] dark:border-white/[0.03]">
-                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">¿Cómo beneficia a tu proyecto?</span>
-                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-1 font-semibold">{{ tech.whyUse }}</p>
+                  <!-- Description lists -->
+                  <div class="space-y-3.5 text-xs">
+                    <div>
+                      <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">¿Qué es en palabras sencillas?</span>
+                      <p class="text-slate-500 dark:text-slate-400 leading-relaxed mt-1 font-medium">{{ tech.whatIs }}</p>
+                    </div>
+                    <div class="pt-3 border-t border-black/[0.04] dark:border-white/[0.03]">
+                      <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">¿Cómo beneficia a tu proyecto?</span>
+                      <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-1 font-semibold">{{ tech.whyUse }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>
@@ -1726,7 +1763,7 @@ const printProposal = () => {
 <!-- Footer (No-print) -->
     <footer class="bg-white dark:bg-slate-950 border-t border-black/[0.04] dark:border-white/[0.04] py-12 px-4 no-print text-center text-slate-500 dark:text-slate-600 text-xs relative z-10">
       <p class="font-bold text-slate-600 dark:text-slate-400 mb-2">Desarrollo de Soluciones de Software Web Premium</p>
-      <p>&copy; 2026 Todos los derechos reservados. Lógica y diseño optimizados con Vue, Angular y React.</p>
+      <p>&copy; 2026 Todos los derechos reservados.</p>
     </footer>
 
     <!-- ========================================================================= -->
