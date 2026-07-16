@@ -104,7 +104,13 @@ const proceedToDemo = () => {
   }
 }
 
+const cancelDemo = () => {
+  showMobileWarning.value = false
+  pendingDemoUrl.value = ''
+}
+
 // State variables
+const isMobileMenuOpen = ref(false)
 const searchQuery = ref('')
 const selectedCategory = ref('all')
 const selectedPlan = ref<Plan | null>(plans[0] || null)
@@ -830,57 +836,80 @@ const printProposal = () => {
         <p class="text-center text-slate-500 dark:text-slate-400 text-sm mb-6">
           Para poder apreciar mejor cada una de las funcionalidades de nuestros sistemas, se aconseja visualizarlos desde una computadora.
         </p>
-        <button @click="proceedToDemo" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-4 rounded-xl transition-colors">
-          Continuar a la Demo
-        </button>
+        <div class="flex flex-col gap-2">
+          <button @click="proceedToDemo" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-4 rounded-xl transition-colors cursor-pointer text-sm">
+            Continuar a la Demo
+          </button>
+          <button @click="cancelDemo" class="w-full border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-500 dark:text-slate-400 font-bold py-2.5 px-4 rounded-xl transition-colors cursor-pointer text-xs">
+            Vuelvo más tarde
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Floating Capsule Header Navigation -->
-    <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl no-print">
-      <header class="w-full rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl px-4 sm:px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.6)] flex items-center justify-between transition-all">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-violet-500/10">
+    <!-- Fixed Full-Width Modern Header -->
+    <header class="fixed top-0 left-0 z-50 w-full border-b border-black/[0.05] dark:border-white/[0.05] bg-white/70 dark:bg-slate-950/70 backdrop-blur-md transition-all duration-300 no-print">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2.5 group select-none">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center font-bold text-white shadow-md shadow-violet-500/10 group-hover:scale-105 transition-transform duration-200">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
           </div>
           <div class="flex flex-col">
-            <span class="text-sm font-black tracking-tight text-slate-900 dark:text-white leading-none font-display">
+            <span class="text-xs font-black tracking-widest text-slate-900 dark:text-white uppercase leading-none font-display">
               PORTAFOLIO
             </span>
-            <span class="text-[8px] font-bold text-slate-500 tracking-widest uppercase mt-0.5">
-              FULL-STACK
+            <span class="text-[8px] font-bold text-slate-500 tracking-wider uppercase mt-0.5 leading-none">
+              SOFTWARE A MEDIDA
             </span>
           </div>
-        </div>
+        </a>
 
-        <nav class="hidden md:flex items-center gap-1 p-1 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.04]">
-          <a href="#showcase" class="px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-            Proyectos
-          </a>
-          <a href="#cotizador" class="px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-            Cotizador
-          </a>
-          <a href="#habilidades" class="px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-            Tecnologías
-          </a>
-        </nav>
+        <!-- Navigation and Theme Toggle (Right side) -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          <nav class="hidden md:flex items-center gap-1.5">
+            <a href="#showcase" class="px-3.5 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all">
+              Proyectos
+            </a>
+            <a href="#cotizador" class="px-3.5 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all">
+              Cotizador
+            </a>
+            <a href="#habilidades" class="px-3.5 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all">
+              Tecnologías
+            </a>
+          </nav>
 
-        <div class="flex items-center gap-2 sm:gap-3">
-          <button type="button" @click="toggleTheme" :aria-label="isDark ? 'Activar modo claro' : 'Activar modo oscuro'" class="w-9 h-9 shrink-0 rounded-xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.04] dark:border-white/[0.04] flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all cursor-pointer">
+          <!-- Theme Toggle -->
+          <button type="button" @click="toggleTheme" :aria-label="isDark ? 'Activar modo claro' : 'Activar modo oscuro'" class="w-9 h-9 shrink-0 rounded-xl border border-black/[0.05] dark:border-white/[0.05] bg-black/[0.01] dark:bg-white/[0.01] flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all cursor-pointer">
             <Sun v-if="isDark" class="w-4 h-4" />
             <Moon v-else class="w-4 h-4" />
           </button>
-          <a :href="whatsappUrl" target="_blank" class="relative group overflow-hidden px-4.5 h-9 rounded-xl bg-violet-600 hover:bg-violet-500 font-bold text-xs text-white flex items-center gap-1.5 shadow-lg shadow-violet-600/20 active:scale-[0.97] transition-all duration-300">
-            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-violet-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-            <svg class="w-3.5 h-3.5 relative z-10" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.458L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.805 1.453 5.461 0 9.905-4.444 9.908-9.91.002-2.647-1.026-5.136-2.894-7.006-1.868-1.87-4.359-2.9-7.009-2.901-5.468 0-9.911 4.444-9.914 9.91-.001 1.702.449 3.364 1.303 4.82L1.134 22.18l4.896-1.285z"/></svg>
-            <span class="relative z-10">Consultar</span>
-          </a>
+
+          <!-- Mobile Menu Toggle -->
+          <button type="button" @click="isMobileMenuOpen = !isMobileMenuOpen" class="md:hidden w-9 h-9 shrink-0 rounded-xl border border-black/[0.05] dark:border-white/[0.05] bg-black/[0.01] dark:bg-white/[0.01] flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-all cursor-pointer" :aria-label="isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'">
+            <svg v-if="!isMobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
         </div>
-      </header>
-    </div>
+
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div v-if="isMobileMenuOpen" class="md:hidden w-full border-t border-black/[0.05] dark:border-white/[0.05] bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg transition-all duration-300">
+        <nav class="flex flex-col p-4 space-y-2">
+          <a href="#showcase" @click="isMobileMenuOpen = false" class="px-4 py-3 text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all">
+            Proyectos
+          </a>
+          <a href="#cotizador" @click="isMobileMenuOpen = false" class="px-4 py-3 text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all">
+            Cotizador
+          </a>
+          <a href="#habilidades" @click="isMobileMenuOpen = false" class="px-4 py-3 text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-all">
+            Tecnologías
+          </a>
+        </nav>
+      </div>
+    </header>
 
     <!-- Epic Hero Section -->
     <section v-motion-fade class="relative pt-36 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center no-print">
@@ -894,7 +923,7 @@ const printProposal = () => {
       </h1>
 
       <p class="mt-8 text-base sm:text-lg text-slate-500 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-        Explora demostraciones interactivas 100% funcionales creadas con Vue, Angular y React. Examina la arquitectura de backend en Laravel/NestJS y calcula cotizaciones personalizadas.
+        Lleva tu negocio al siguiente nivel con una plataforma digital diseñada exclusivamente para ti. Atrae más clientes, proyecta máxima confianza y automatiza tus ventas o servicios con un sistema rápido, seguro y profesional. Explora nuestras demostraciones reales y calcula tu presupuesto al instante.
       </p>
 
       <!-- Glassmorphic Hero Stats Widget -->
@@ -1442,39 +1471,79 @@ const printProposal = () => {
 
               <!-- Calculator economic results output card -->
               <div v-if="calculatorResults" class="pt-4 border-t border-black/[0.05] dark:border-white/[0.04] space-y-4">
+                
+                <!-- BLOQUE 1: PAGO INICIAL / LANZAMIENTO -->
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 p-3.5 space-y-2.5">
+                  <div class="flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                    <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider">1. Inversión de Lanzamiento (Hoy)</span>
+                  </div>
+                  
+                  <div class="space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400">
+                    <div class="flex justify-between">
+                      <span>Desarrollo del software (Pago único):</span>
+                      <span class="font-semibold text-slate-700 dark:text-slate-300">
+                        ~${{ calculatorResults.initialDevMin }}
+                        <span v-if="selectedModel === 'sale' && selectedPlan.pricing.devMax"> - ~${{ calculatorResults.initialDevMax }}</span>
+                        USD
+                      </span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span v-if="selectedModel === 'sale'">Hosting inicial ({{ selectedHostingPeriod }} meses):</span>
+                      <span v-else>Suscripción inicial ({{ selectedHostingPeriod === 'annual' ? 'Anual' : 'Mensual' }}):</span>
+                      <span class="font-semibold text-slate-700 dark:text-slate-300">~${{ calculatorResults.hostingTotalUpfront.toFixed(2) }} USD</span>
+                    </div>
+                    <div v-if="selectedModel === 'sale' || (calculatorResults.domainCostReg > 0)" class="flex justify-between">
+                      <span>Dominio inicial (12 meses):</span>
+                      <span class="font-semibold text-slate-700 dark:text-slate-300">~${{ calculatorResults.domainCostReg.toFixed(2) }} USD</span>
+                    </div>
+                  </div>
 
-                <!-- initial Dev Dev/Setup investment -->
-                <div>
-                  <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Inversión Desarrollo (Pago Único Aprox.):</span>
-                  <span class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-                    ~${{ calculatorResults.initialDevMin }}
-                    <span v-if="selectedPlan.pricing.devMax"> – ~${{ calculatorResults.initialDevMax }}</span>
-                    <span v-else class="text-xs font-semibold text-slate-500 ml-1"> USD +</span>
-                    <span class="text-xs font-semibold text-slate-500 ml-1">USD (Aprox.)</span>
-                  </span>
+                  <div class="pt-2 border-t border-dashed border-slate-200 dark:border-slate-800 flex justify-between items-baseline">
+                    <span class="text-xs font-bold text-slate-900 dark:text-white">Pago Inicial Total:</span>
+                    <span class="text-xl font-black text-violet-600 dark:text-violet-400 tracking-tight">
+                      ~${{ (calculatorResults.initialDevMin + calculatorResults.hostingTotalUpfront + (selectedModel === 'sale' ? calculatorResults.domainCostReg : 0)).toFixed(2) }}
+                      <span v-if="selectedModel === 'sale' && selectedPlan.pricing.devMax"> - ~${{ (calculatorResults.initialDevMax + calculatorResults.hostingTotalUpfront + calculatorResults.domainCostReg).toFixed(2) }}</span>
+                      <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500 ml-0.5">USD</span>
+                    </span>
+                  </div>
                 </div>
 
-                <!-- Recurrent Cost summary Box -->
-                <div class="p-3.5 rounded-xl bg-violet-600/5 border border-violet-500/10 space-y-2">
-                  <div class="flex items-center justify-between">
-                    <span class="text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider">Recurrente Anual Estimado:</span>
-                    <span class="text-sm font-extrabold text-violet-600 dark:text-violet-400">~${{ (calculatorResults?.totalAnnualRecurring || 0).toFixed(2) }} USD/año</span>
+                <!-- BLOQUE 2: MANTENIMIENTO RECURRENTE (AÑO 2 EN ADELANTE) -->
+                <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 p-3.5 space-y-2.5">
+                  <div class="flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider">2. Costo de Mantenimiento (Año 2+)</span>
                   </div>
-                  <div class="text-[9px] text-slate-500 space-y-1 leading-snug">
+
+                  <div class="space-y-1.5 text-[11px] text-slate-500 dark:text-slate-400">
                     <div class="flex justify-between">
-                      <span v-if="selectedModel === 'sale'">Hosting ({{ selectedPlan.pricing.hostingRec }} - {{ selectedHostingPeriod }}m):</span>
-                      <span v-else>Alquiler SaaS ({{ selectedHostingPeriod === 'annual' ? 'Anual' : 'Mensual' }}):</span>
-                      <span>~${{ (calculatorResults?.hostingTotalUpfront || 0).toFixed(2) }} USD</span>
+                      <span v-if="selectedModel === 'sale'">Renovación de Hosting:</span>
+                      <span v-else>Suscripción Mensual Equivalente:</span>
+                      <span class="font-semibold text-slate-700 dark:text-slate-300">
+                        ~${{ selectedModel === 'sale' ? (calculatorResults.hostingRenewal * 12).toFixed(2) : calculatorResults.hostingAnnual.toFixed(2) }} USD/año
+                      </span>
                     </div>
-                    <div v-if="(calculatorResults?.domainCostAnnual || 0) > 0 || selectedModel === 'sale'" class="flex justify-between">
-                      <span v-if="selectedModel === 'sale'">Dominio ({{ selectedDomain }}):</span>
-                      <span v-else>Ajuste Dominio ({{ selectedDomain }}):</span>
-                      <span>~${{ (calculatorResults?.domainCostAnnual || 0) }} USD</span>
+                    <div v-if="selectedModel === 'sale' || calculatorResults.domainCostRenewal > 0" class="flex justify-between">
+                      <span>Renovación de Dominio (.com):</span>
+                      <span class="font-semibold text-slate-700 dark:text-slate-300">~${{ calculatorResults.domainCostRenewal.toFixed(2) }} USD/año</span>
                     </div>
                     <div v-if="includeMaintenance" class="flex justify-between">
-                      <span>Mantenimiento y Soporte ({{ maintenanceType === 'monthly' ? 'm' : 'a' }}):</span>
-                      <span>~${{ (calculatorResults?.maintenanceAnnual || 0) }} USD</span>
+                      <span>Soporte &amp; Actualizaciones:</span>
+                      <span class="font-semibold text-slate-700 dark:text-slate-300">~${{ calculatorResults.maintenanceAnnual.toFixed(2) }} USD/año</span>
                     </div>
+                  </div>
+
+                  <div class="pt-2 border-t border-dashed border-slate-200 dark:border-slate-800 flex justify-between items-baseline">
+                    <span class="text-xs font-bold text-slate-900 dark:text-white">Mantenimiento Anual:</span>
+                    <span class="text-base font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">
+                      ~${{ (
+                        (selectedModel === 'sale' ? calculatorResults.hostingRenewal * 12 : calculatorResults.hostingAnnual) +
+                        (selectedModel === 'sale' ? calculatorResults.domainCostRenewal : calculatorResults.domainCostRenewal) +
+                        (includeMaintenance ? calculatorResults.maintenanceAnnual : 0)
+                      ).toFixed(2) }}
+                      <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500 ml-0.5">USD/año</span>
+                    </span>
                   </div>
                 </div>
 
@@ -1561,7 +1630,7 @@ const printProposal = () => {
           Tecnologías y Cómo las Uso Para Tu Proyecto
         </h2>
         <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 max-w-3xl leading-relaxed">
-          Explicado de forma sencilla para que entiendas qué herramientas utilizo para hacer despegar tu negocio sin necesidad de ser programador.
+          Conoce las herramientas y estándares de la industria que utilizo para construir soluciones robustas, veloces y enfocadas en hacer crecer tu negocio.
         </p>
       </div>
 

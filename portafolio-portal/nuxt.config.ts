@@ -3,6 +3,10 @@ import tailwindcss from '@tailwindcss/vite'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
+  devServer: {
+    host: '127.0.0.1',
+    port: 3000
+  },
   devtools: { enabled: false },
   app: {
     head: {
@@ -14,9 +18,9 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Portafolio de Desarrollo de Software a Medida. Explora demos funcionales de sistemas para farmacias, hoteles, clínicas y más.' },
-        { property: 'og:title', content: 'Portafolio Profesional Full-Stack | Desarrollo de Software' },
-        { property: 'og:description', content: 'Explora mis proyectos y sistemas funcionales (Farmacia, Hotel, Clínica). Desarrollados con Vue, Angular, React, Laravel y NestJS.' },
+        { name: 'description', content: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, hoteles, clínicas y calcula tu cotización al instante.' },
+        { property: 'og:title', content: 'Desarrollo de Software y Sistemas Web a Medida | Portafolio' },
+        { property: 'og:description', content: 'Lleva tu negocio al siguiente nivel con plataformas digitales diseñadas exclusivamente para ti. Explora demostraciones reales de sistemas (Farmacia, Hotel, Clínica) y cotiza en línea.' },
         { property: 'og:type', content: 'website' },
         { name: 'theme-color', content: '#7c3aed' }
       ],
