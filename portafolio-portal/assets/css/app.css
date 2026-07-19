@@ -135,3 +135,28 @@
     }
   }
 }
+
+@media print {
+  * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+    visibility: visible !important;
+  }
+  body, html, #__nuxt, main, div {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .text-white, .text-slate-200, .dark\:text-white {
+    color: black !important;
+  }
+  .bg-slate-900, .bg-slate-950, .dark\:bg-slate-950, .dark\:bg-transparent {
+    background: transparent !important;
+  }
+}
