@@ -272,7 +272,7 @@ const printProposal = () => {
 
 <template>
 <section id="cotizador" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 border-t border-black/[0.04] dark:border-white/[0.04]">
-      <div class="mb-12">
+      <div class="mb-12 no-print">
         <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2 font-heading">
           <svg class="w-7 h-7 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
           Cotizador de Soluciones Web
@@ -281,7 +281,7 @@ const printProposal = () => {
       </div>
 
       <!-- Controls Row: Category and Search -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 no-print">
         <div class="flex flex-wrap gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-950 border border-black/[0.04] dark:border-white/[0.04] self-start md:self-auto">
           <button
             v-for="cat in categories"
@@ -320,7 +320,7 @@ const printProposal = () => {
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
         <!-- Left Side: Interactive Plans List (7 Columns) -->
-        <div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
+        <div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-6 no-print">
           <div v-if="filteredPlans.length === 0" class="text-center py-16 rounded-2xl border-2 border-dashed border-black/[0.04] dark:border-white/[0.04] p-8 bg-black/[0.015] dark:bg-slate-950/20">
             <component :is="LucideIcons.Search" class="w-12 h-12 mx-auto text-slate-400 dark:text-slate-600 mb-4" />
             <h3 class="text-lg font-bold text-slate-900 dark:text-white font-heading">No se encontraron soluciones</h3>
@@ -451,8 +451,8 @@ const printProposal = () => {
         </div>
 
         <!-- Right Side: Sticky Interactive Calculator (5 Columns) -->
-        <aside id="quote-calculator" class="lg:col-span-5 xl:col-span-4 sticky top-24 flex flex-col gap-6">
-          <div class="rounded-2xl bg-white/70 dark:bg-slate-950/40 border border-black/[0.06] dark:border-white/[0.06] p-5 md:p-6 backdrop-blur-md shadow-xl lg:max-h-[calc(100vh-130px)] lg:overflow-y-auto">
+        <aside id="quote-calculator" class="lg:col-span-5 xl:col-span-4 sticky top-24 flex flex-col gap-6 print:col-span-12 print:w-full">
+          <div class="rounded-2xl bg-white/70 dark:bg-slate-950/40 border border-black/[0.06] dark:border-white/[0.06] p-5 md:p-6 backdrop-blur-md shadow-xl lg:max-h-[calc(100vh-130px)] lg:overflow-y-auto print:max-h-none print:overflow-visible">
             <h3 class="text-base font-bold font-heading border-b border-black/[0.06] dark:border-white/[0.06] pb-3 flex items-center gap-2 text-slate-900 dark:text-white">
               <component :is="LucideIcons.Coins" class="w-5 h-5 text-violet-500" />
               <span>Cotizador de Soluciones</span>
