@@ -48,12 +48,12 @@ const customFeatureDescription = ref('')
 const originProjectName = ref<string | null>(null)
 
 // Track expanded plans for the "Ver más" toggle
-const expandedPlans = ref<Record<string, boolean>>({})
+const expandedPlans = ref<Record<string | number, boolean>>({})
 
-const togglePlanExpand = (id: string) => {
-  expandedPlans.value[id] = !expandedPlans.value[id]
+const togglePlanExpand = (id: string | number) => {
+  expandedPlans.value[String(id)] = !expandedPlans.value[String(id)]
 }
-const isPlanExpanded = (id: string) => !!expandedPlans.value[id]
+const isPlanExpanded = (id: string | number) => !!expandedPlans.value[String(id)]
 
 watch(selectedPlan, (newPlan) => {
   if (!newPlan) return
@@ -316,8 +316,109 @@ const printProposal = () => {
         </div>
       </div>
 
+      <!-- PRINT TEMPLATE (Formal PDF Quote) -->
+      <div class="hidden print:block w-full bg-white text-black font-sans max-w-4xl mx-auto py-4" v-if="selectedPlan && calculatorResults">
+        
+        <!-- Header -->
+        <div class="flex justify-between items-start border-b-2 border-slate-200 pb-4 mb-6">
+          <div>
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">COTIZACIÓN DE SERVICIOS WEB</h1>
+            <p class="text-xs text-slate-500 mt-1">Documento generado automáticamente</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-slate-500 mt-1 font-bold">Fecha: {{ new Date().toLocaleDateString() }}</p>
+          </div>
+        </div>
+
+        <!-- Plan Details -->
+        <div class="mb-6">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Detalles del Proyecto</h3>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+            <h4 class="text-xl font-bold text-slate-900 mb-1">{{ selectedPlan.shortName }}</h4>
+            <p class="text-xs text-slate-600 mb-3">{{ selectedPlan.description }}</p>
+            <div class="flex gap-8 text-xs">
+              <div><span class="font-bold text-slate-900">Modalidad:</span> {{ selectedModel === 'sale' ? 'Desarrollo a Medida (Propiedad Total)' : 'SaaS (Suscripción/Alquiler)' }}</div>
+              <div><span class="font-bold text-slate-900">Tiempo Estimado:</span> {{ selectedPlan.pricing.timeRaw }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Breakdown Table -->
+        <div class="mb-6">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Desglose de Inversión</h3>
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 text-slate-500">
+                <th class="py-2 font-semibold">Concepto</th>
+                <th class="py-2 font-semibold text-right">Costo Estimado (USD)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="py-2.5">
+                  <div class="font-bold text-slate-900">{{ selectedModel === 'sale' ? 'Desarrollo e Implementación Base' : 'Instalación y Setup Inicial' }}</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">Pago único al iniciar el proyecto.</div>
+                </td>
+                <td class="py-2.5 text-right font-bold text-slate-900">~${{ calculatorResults.initialDevMin }}</td>
+              </tr>
+              <tr v-if="customFeaturePrice > 0">
+                <td class="py-2.5">
+                  <div class="font-bold text-slate-900">Módulos Especiales (Adicional)</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">{{ customFeatureDescription || 'Funcionalidad personalizada' }}</div>
+                </td>
+                <td class="py-2.5 text-right font-bold text-slate-900">+${{ customFeaturePrice }}</td>
+              </tr>
+              <tr>
+                <td class="py-2.5">
+                  <div class="font-bold text-slate-900">Servicio de Hosting / Alojamiento</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">
+                    {{ selectedModel === 'sale' ? `${selectedPlan.pricing.hostingRec} (Periodo: ${selectedHostingPeriod === '1' ? '1 mes' : selectedHostingPeriod + ' meses'})` : `Suscripción SaaS (${selectedHostingPeriod === 'annual' ? 'Anual' : 'Mensual'})` }}
+                  </div>
+                </td>
+                <td class="py-2.5 text-right font-bold text-slate-900">~${{ calculatorResults.hostingTotalUpfront.toFixed(2) }}</td>
+              </tr>
+              <tr>
+                <td class="py-2.5">
+                  <div class="font-bold text-slate-900">Registro de Dominio ({{ selectedDomain }})</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">Costo inicial.</div>
+                </td>
+                <td class="py-2.5 text-right font-bold text-slate-900">{{ calculatorResults.domainCostReg > 0 ? `~$${calculatorResults.domainCostReg.toFixed(2)}` : 'Incluido' }}</td>
+              </tr>
+              <tr v-if="includeMaintenance">
+                <td class="py-2.5">
+                  <div class="font-bold text-slate-900">Soporte y Mantenimiento Premium</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">Suscripción {{ maintenanceType === 'monthly' ? 'Mensual' : 'Anual' }}.</div>
+                </td>
+                <td class="py-2.5 text-right font-bold text-slate-900">~${{ (maintenanceType === 'monthly' ? calculatorResults.maintenanceMonthly : calculatorResults.maintenanceAnnual).toFixed(2) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Totals -->
+        <div class="flex justify-end mb-4">
+          <div class="w-full sm:w-2/3 md:w-1/2 bg-violet-50 p-4 rounded-xl border border-violet-100">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-xs font-bold text-slate-700">Inversión Inicial Total:</span>
+              <span class="text-lg font-black text-violet-600">~${{ (calculatorResults.initialDevMin + calculatorResults.hostingTotalUpfront + calculatorResults.domainCostReg + (includeMaintenance && maintenanceType === 'monthly' ? calculatorResults.maintenanceMonthly : (includeMaintenance ? calculatorResults.maintenanceAnnual : 0))).toFixed(2) }} USD</span>
+            </div>
+            <div class="flex justify-between items-center border-t border-violet-200/50 pt-2 mt-2">
+              <span class="text-[10px] text-slate-500">Costo Recurrente Estimado:</span>
+              <span class="text-xs font-bold text-slate-700">~${{ calculatorResults.totalAnnualRecurring.toFixed(2) }} USD / año</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="mt-8 text-center text-[10px] text-slate-400">
+          <p>Esta es una estimación referencial basada en los requerimientos estándar. Los costos finales pueden variar ligeramente.</p>
+          <p class="mt-1">Para iniciar el proyecto o solicitar un análisis detallado, contáctanos indicando esta configuración.</p>
+        </div>
+
+      </div>
+
       <!-- Quoter Core Grid Layout -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start print:hidden">
 
         <!-- Left Side: Interactive Plans List (7 Columns) -->
         <div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-6 no-print">

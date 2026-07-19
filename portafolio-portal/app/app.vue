@@ -24,7 +24,7 @@ onMounted(() => {
     
     <StarfieldBackground v-if="isDark" />
     
-    <LayoutHeader />
+    <LayoutHeader class="no-print" />
     
     <main class="relative z-10">
       <SectionsHero />
@@ -33,7 +33,7 @@ onMounted(() => {
       <SectionsCotizador />
     </main>
 
-    <footer class="relative z-10 py-12 border-t border-slate-200 dark:border-slate-800 text-center bg-slate-50 dark:bg-slate-950">
+    <footer class="relative z-10 py-12 border-t border-slate-200 dark:border-slate-800 text-center bg-slate-50 dark:bg-slate-950 no-print">
       <div class="max-w-7xl mx-auto px-6">
         <p class="text-sm font-bold text-slate-500 dark:text-slate-400">
           © {{ new Date().getFullYear() }} Portafolio. Todos los derechos reservados.

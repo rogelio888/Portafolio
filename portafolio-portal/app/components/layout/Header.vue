@@ -25,7 +25,7 @@ onMounted(() => {
 <template>
   <header 
     :class="[
-      'fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b',
+      'fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b print:hidden',
       isScrolled 
         ? 'bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-black/[0.05] dark:border-white/[0.05] py-3 shadow-sm' 
         : 'bg-transparent border-transparent py-5'
