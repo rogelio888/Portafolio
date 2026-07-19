@@ -38,7 +38,7 @@ export default defineNuxtConfig({
     '@nuxtjs/sitemap'
   ],
   site: {
-    url: 'https://rogelio888portafolio.dpdns.org',
+    url: 'https://portafoliorogelio888.dpdns.org',
     name: 'Portafolio Profesional'
   },
   shadcn: {
