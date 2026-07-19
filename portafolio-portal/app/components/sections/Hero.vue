@@ -3,7 +3,7 @@ import { ArrowRight, Sparkles, Layers, Activity } from 'lucide-vue-next'
 </script>
 
 <template>
-  <section class="relative pt-40 pb-20 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto min-h-[90vh] flex items-center">
+  <section class="relative pt-40 pb-20 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto min-h-[90vh] flex items-center no-print">
     
     <!-- Decorative Ambient Glows -->
     <div class="absolute top-0 right-0 w-[50vw] h-[50vh] bg-violet-500/20 dark:bg-violet-600/20 blur-[150px] rounded-full mix-blend-multiply dark:mix-blend-screen pointer-events-none -z-10"></div>

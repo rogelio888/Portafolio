@@ -31,7 +31,7 @@ const proceedToDemo = () => {
 </script>
 
 <template>
-  <section id="showcase" class="relative max-w-7xl mx-auto px-6 lg:px-8 py-24">
+  <section id="showcase" class="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 no-print">
     <div class="mb-16 max-w-2xl">
       <h2 class="text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-4">
         Demos y <br/> <span class="text-violet-500">Casos de Éxito.</span>
