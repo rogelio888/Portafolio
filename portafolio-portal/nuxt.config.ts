@@ -34,8 +34,13 @@ export default defineNuxtConfig({
   },
   modules: [
     'shadcn-nuxt',
-    '@vueuse/motion/nuxt'
+    '@vueuse/motion/nuxt',
+    '@nuxtjs/sitemap'
   ],
+  site: {
+    url: 'https://rogelio888portafolio.dpdns.org',
+    name: 'Portafolio Profesional'
+  },
   shadcn: {
     prefix: '',
     componentDir: './app/components/ui'
