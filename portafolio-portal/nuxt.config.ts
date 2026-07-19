@@ -56,5 +56,8 @@ export default defineNuxtConfig({
         'tailwind-merge'
       ]
     }
+  },
+  nitro: {
+    compressPublicAssets: true
   }
 })
