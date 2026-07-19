@@ -271,7 +271,7 @@ const printProposal = () => {
 
 
 <template>
-<section id="cotizador" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 no-print border-t border-black/[0.04] dark:border-white/[0.04]">
+<section id="cotizador" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 border-t border-black/[0.04] dark:border-white/[0.04]">
       <div class="mb-12">
         <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2 font-heading">
           <svg class="w-7 h-7 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>

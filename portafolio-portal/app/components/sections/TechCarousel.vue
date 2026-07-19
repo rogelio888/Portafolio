@@ -3,7 +3,7 @@ import { techList } from '../../utils/siteData'
 </script>
 
 <template>
-  <section id="habilidades" class="w-full py-16 bg-transparent overflow-hidden relative no-print">
+  <section id="habilidades" class="w-full py-16 bg-transparent overflow-hidden relative">
     
     <div class="text-center mb-10 px-4">
       <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500 mb-2">Nuestro Stack Tecnológico</h2>
