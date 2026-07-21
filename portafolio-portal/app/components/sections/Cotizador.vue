@@ -39,7 +39,7 @@ const selectedPlan = ref<Plan | null>(null)
 // Model Selection ('sale' = Venta Completa, 'rent' = Alquiler SaaS)
 const selectedModel = ref('sale')
 
-const selectedHostingPeriod = ref('monthly') // Default matching 'sale' model
+const selectedHostingPeriod = ref('12') // Default matching Ctalogo (12 months)
 const selectedDomain = ref('.com') // '.com' or '.com.bo'
 const includeMaintenance = ref(false)
 const maintenanceType = ref('monthly') // 'monthly' or 'annual'
@@ -64,7 +64,7 @@ watch(selectedPlan, (newPlan) => {
 
 watch(selectedModel, (newModel) => {
   if (newModel === 'sale') {
-    selectedHostingPeriod.value = 'monthly'
+    selectedHostingPeriod.value = '12'
   } else {
     selectedHostingPeriod.value = 'annual'
   }
@@ -125,9 +125,12 @@ const calculatorResults = computed(() => {
     
     const rec = selectedPlan.value.pricing.hostingRec
     let baseHostingPrice = selectedPlan.value.pricing.hostingPrice
-    const periodKey = selectedHostingPeriod.value
     
-    let hostingTotalUpfront = baseHostingPrice
+    const parsedPeriod = parseInt(selectedHostingPeriod.value)
+    const periodMonths = isNaN(parsedPeriod) ? 12 : parsedPeriod
+    const periodKey = isNaN(parsedPeriod) ? '12' : selectedHostingPeriod.value
+    
+    let hostingTotalUpfront = baseHostingPrice * (periodKey === '1' ? 1 : periodMonths)
     let hostingRenewal = baseHostingPrice
     
     if (hostingRates[rec] && hostingRates[rec][periodKey]) {
@@ -138,10 +141,9 @@ const calculatorResults = computed(() => {
     
     let domainCostReg = 15
     let domainCostRenewal = 15
-    const domainRateInfo = domainRates[selectedDomain.value]
-    if (domainRateInfo) {
-      domainCostReg = domainRateInfo.reg
-      domainCostRenewal = domainRateInfo.renewal
+    if (domainRates[selectedDomain.value]) {
+      domainCostReg = domainRates[selectedDomain.value].reg
+      domainCostRenewal = domainRates[selectedDomain.value].renewal
     }
     
     const maintenanceMonthly = includeMaintenance.value && maintenanceType.value === 'monthly' ? 30 : 0
@@ -151,23 +153,13 @@ const calculatorResults = computed(() => {
 
     const initialDevMin = baseDevMin + extraDevCost
     const initialDevMax = baseDevMax + extraDevCost
-    
-    let hostingAnnualCost = 0;
-    if (periodKey === 'monthly') hostingAnnualCost = hostingRenewal * 12;
-    else if (periodKey === 'annual') hostingAnnualCost = hostingRenewal;
-    else if (periodKey === 'biannual') hostingAnnualCost = hostingRenewal / 2;
-    
+    const hostingAnnualCost = baseHostingPrice * 12
     const totalAnnualRecurring = domainCostRenewal + hostingAnnualCost + maintenanceAnnual
-    
-    const upfrontTotalMin = initialDevMin + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType.value === 'annual' ? maintenanceAnnual : 0)
-    const upfrontTotalMax = initialDevMax + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType.value === 'annual' ? maintenanceAnnual : 0)
 
     return {
       model: 'sale',
       initialDevMin,
       initialDevMax,
-      upfrontTotalMin,
-      upfrontTotalMax,
       domainCostReg,
       domainCostRenewal,
       domainCostAnnual: domainCostRenewal,
@@ -178,7 +170,7 @@ const calculatorResults = computed(() => {
       maintenanceMonthly,
       maintenanceAnnual,
       totalAnnualRecurring,
-      totalMonthlyRecurring: (periodKey === 'monthly' ? hostingRenewal : hostingRenewal / (periodKey === 'annual' ? 12 : 24)) + maintenanceMonthly
+      totalMonthlyRecurring: baseHostingPrice + maintenanceMonthly
     }
   } else {
     // SaaS Alquiler Model
@@ -197,7 +189,6 @@ const calculatorResults = computed(() => {
 
     const domainConfig = domainAdjustments[selectedDomain.value] || domainAdjustments['.com']
     const domainAdjustmentAnnual = domainConfig?.price ?? 0
-    const domainCostReg = domainAdjustmentAnnual
 
     const maintenanceMonthly = includeMaintenance.value && maintenanceType.value === 'monthly' ? 30 : 0
     const maintenanceAnnual = includeMaintenance.value 
@@ -209,15 +200,10 @@ const calculatorResults = computed(() => {
 
     const totalAnnualRecurring = hostingAnnualCost + domainAdjustmentAnnual + maintenanceAnnual
 
-    const upfrontTotalMin = initialDevMin + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType.value === 'annual' ? maintenanceAnnual : 0)
-    const upfrontTotalMax = initialDevMax + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType.value === 'annual' ? maintenanceAnnual : 0)
-
     return {
       model: 'rent',
       initialDevMin,
       initialDevMax,
-      upfrontTotalMin,
-      upfrontTotalMax,
       domainCostReg: domainAdjustmentAnnual,
       domainCostRenewal: domainAdjustmentAnnual,
       domainCostAnnual: domainAdjustmentAnnual,
@@ -246,18 +232,14 @@ const whatsappUrl = computed(() => {
   msg += `*Detalles de mi Cotización:*\n`
   
   if (calc.model === 'sale') {
-    let periodLabel = '1 mes'
-    if (selectedHostingPeriod.value === 'annual') periodLabel = '1 año'
-    if (selectedHostingPeriod.value === 'biannual') periodLabel = '2 años'
-
     msg += `* *Modalidad:* Venta Completa (Código Propio)\n`
-    msg += `* *Hosting recomendado:* ${selectedPlan.value.pricing.hostingRec} (${periodLabel})\n`
+    msg += `* *Hosting recomendado:* ${selectedPlan.value.pricing.hostingRec} (${selectedHostingPeriod.value === '1' ? '1 mes' : `${selectedHostingPeriod.value} meses`})\n`
     msg += `* *Costo Hosting:* $${calc.hostingMonthly.toFixed(2)} USD/mes (Inicial: $${calc.hostingTotalUpfront.toFixed(2)} USD)\n`
     msg += `* *Dominio seleccionado:* ${selectedDomain.value} (Registro: $${calc.domainCostReg.toFixed(2)} USD, Renovación: $${calc.domainCostRenewal.toFixed(2)} USD/año)\n`
   } else {
     msg += `* *Modalidad:* Alquiler del Sistema (SaaS)\n`
     msg += `* *Suscripción:* ${selectedHostingPeriod.value === 'annual' ? 'Anual' : 'Mensual'}\n`
-    msg += `* *Costo de Alquiler:* $${calc.hostingTotalUpfront.toFixed(2)} USD/${selectedHostingPeriod.value === 'annual' ? 'año' : 'mes'}\n`
+    msg += `* *Costo de Alquiler:* $${calc.hostingTotalUpfront.toFixed(2)} USD/${selectedHostingPeriod.value === 'annual' ? 'año' : 'mes'} (Aprox.)\n`
     msg += `* *Dominio seleccionado:* ${selectedDomain.value}${calc.domainCostReg > 0 ? ` (+ $${calc.domainCostReg.toFixed(2)} USD/año de ajuste)` : ' (Incluido)'}\n`
   }
   
@@ -270,11 +252,11 @@ const whatsappUrl = computed(() => {
   
   msg += `\n*Presupuesto Estimado:*\n`
   if (calc.model === 'sale') {
-    msg += `* *Inversión Total Inicial:* De $${calc.upfrontTotalMin}${selectedPlan.value.pricing.devMax ? ` a $${calc.upfrontTotalMax}` : ' en adelante'} USD\n`
-    msg += `* *Costo Recurrente (Hosting + Dominio):* $${calc.totalAnnualRecurring.toFixed(2)} USD/año\n\n`
+    msg += `* *Desarrollo Inicial (Pago Único Aprox.):* ~${calc.initialDevMin}${selectedPlan.value.pricing.devMax ? ` - ~${calc.initialDevMax}` : ' en adelante'} USD\n`
+    msg += `* *Costo Recurrente (Hosting + Dominio Aprox.):* ~${calc.totalAnnualRecurring.toFixed(2)} USD/año\n\n`
   } else {
-    msg += `* *Inversión Total Inicial:* De $${calc.upfrontTotalMin}${selectedPlan.value.pricing.devMax ? ` a $${calc.upfrontTotalMax}` : ' en adelante'} USD\n`
-    msg += `* *Costo Recurrente de Alquiler:* $${calc.totalAnnualRecurring.toFixed(2)} USD/año\n\n`
+    msg += `* *Costo Inicial de Instalación (Aprox.):* ~${calc.initialDevMin} USD\n`
+    msg += `* *Costo Recurrente de Alquiler (Aprox.):* ~${calc.totalAnnualRecurring.toFixed(2)} USD/año\n\n`
   }
   msg += `¿Podemos agendar una breve reunión para detallar los requerimientos?`
 
@@ -632,65 +614,38 @@ const printProposal = () => {
 
             <!-- Calculator Inputs Fields -->
             <div v-if="selectedPlan" class="mt-6 space-y-5">
-
               <!-- Hosting period button grid -->
               <div>
                 <div v-if="selectedModel === 'sale'">
-                  <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-200  uppercase tracking-widest mb-2 flex items-center justify-between">
-                    <span>Ciclo de Facturación (Hosting)</span>
-                    <span class="text-slate-500 dark:text-slate-200 dark:text-slate-600 dark:text-slate-300 font-semibold lowercase">Namecheap</span>
+                  <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 flex items-center justify-between">
+                    <span>Periodo Contrato Hosting</span>
+                    <span class="text-[10px] text-slate-400 font-normal">A mayor plazo, más descuento</span>
                   </label>
-                  <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-950 border border-black/[0.05] dark:border-white/[0.04]">
+                  <div class="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-950 border border-black/[0.05] dark:border-white/[0.04]">
                     <button
-                      @click="selectedHostingPeriod = 'monthly'"
+                      v-for="period in ['48', '24', '12', '1']"
+                      :key="period"
+                      @click="selectedHostingPeriod = period"
                       class="py-1.5 text-[10px] font-bold rounded-lg transition-all cursor-pointer text-center"
-                      :class="selectedHostingPeriod === 'monthly'
+                      :class="selectedHostingPeriod === period
                         ? 'bg-violet-600 text-white shadow-sm'
-                        : 'text-slate-500 dark:text-slate-200  hover:text-slate-900 dark:hover:text-white'"
+                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'"
                     >
-                      1 Mes
-                    </button>
-                    <button
-                      @click="selectedHostingPeriod = 'annual'"
-                      class="py-1.5 text-[10px] font-bold rounded-lg transition-all cursor-pointer flex flex-col items-center justify-center leading-tight"
-                      :class="selectedHostingPeriod === 'annual'
-                        ? 'bg-violet-600 text-white shadow-sm'
-                        : 'text-slate-500 dark:text-slate-200  hover:text-slate-900 dark:hover:text-white'"
-                    >
-                      <span>1 Año</span>
-                      <span class="text-[8px] uppercase tracking-wider" :class="selectedHostingPeriod === 'annual' ? 'text-emerald-300' : 'text-emerald-500'">Oferta</span>
-                    </button>
-                    <button
-                      @click="selectedHostingPeriod = 'biannual'"
-                      class="py-1.5 text-[10px] font-bold rounded-lg transition-all cursor-pointer flex flex-col items-center justify-center leading-tight"
-                      :class="selectedHostingPeriod === 'biannual'
-                        ? 'bg-violet-600 text-white shadow-sm'
-                        : 'text-slate-500 dark:text-slate-200  hover:text-slate-900 dark:hover:text-white'"
-                    >
-                      <span>2 Años</span>
-                      <span class="text-[8px] uppercase tracking-wider" :class="selectedHostingPeriod === 'biannual' ? 'text-yellow-300' : 'text-yellow-500'">Mejor Precio</span>
+                      {{ period === '1' ? '1 mes' : `${period} meses` }}
                     </button>
                   </div>
                   
-                  <div class="mt-4 p-4 rounded-xl bg-slate-100/50 dark:bg-slate-950/50 border border-black/[0.05] dark:border-white/[0.04] flex flex-col gap-2">
-                    <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-200 ">
-                      <span>Pago Inicial (Hosting):</span>
-                      <span class="font-bold text-violet-600 dark:text-violet-400 text-sm">${{ (calculatorResults?.hostingTotalUpfront || 0).toFixed(2) }}</span>
-                    </div>
-                    <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-200 ">
-                      <span>Precio Normal / Renovación:</span>
-                      <span class="font-bold text-slate-900 dark:text-white text-sm">${{ (calculatorResults?.hostingRenewal || 0).toFixed(2) }}<span class="text-xs font-normal"> / <span v-if="selectedHostingPeriod === 'monthly'">mes</span><span v-else-if="selectedHostingPeriod === 'annual'">año</span><span v-else>2 años</span></span></span>
-                    </div>
-                    
-                    <div v-if="calculatorResults?.hostingRenewal && calculatorResults?.hostingTotalUpfront && calculatorResults.hostingRenewal > calculatorResults.hostingTotalUpfront" 
-                         class="mt-2 py-2 px-3 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold text-center border border-emerald-500/20">
-                      Ahorras ${{ (calculatorResults.hostingRenewal - calculatorResults.hostingTotalUpfront).toFixed(2) }} ({{ Math.round(((calculatorResults.hostingRenewal - calculatorResults.hostingTotalUpfront) / calculatorResults.hostingRenewal) * 100) }}%) en el primer pago
-                    </div>
+                  <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                    <span>Hosting recomendado ({{ selectedPlan.pricing.hostingRec }}): <strong>~${{ (calculatorResults?.hostingMonthly || 0).toFixed(2) }} USD/mes</strong></span>
+                    <span>Pago inicial: <strong>~${{ (calculatorResults?.hostingTotalUpfront || 0).toFixed(2) }} USD</strong></span>
+                  </div>
+                  <div class="mt-1 text-[10px] text-slate-400 dark:text-slate-500">
+                    * Tarifa de renovación posterior: ~${{ (calculatorResults?.hostingRenewal || 0).toFixed(2) }} USD/mes
                   </div>
                 </div>
 
                 <div v-else>
-                  <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-200  uppercase tracking-widest mb-2">
+                  <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2">
                     <span>Plan Suscripción SaaS</span>
                   </label>
                   <div class="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-slate-950 border border-black/[0.05] dark:border-white/[0.04]">
@@ -701,13 +656,13 @@ const printProposal = () => {
                       class="py-2 text-[10px] font-bold rounded-lg transition-all cursor-pointer text-center"
                       :class="selectedHostingPeriod === key
                         ? 'bg-violet-600 text-white shadow-sm'
-                        : 'text-slate-500 dark:text-slate-200  hover:text-slate-900 dark:hover:text-white'"
+                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'"
                     >
                       {{ info.label }}
                     </button>
                   </div>
-                  <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-200  flex items-center justify-between leading-snug">
-                    <span>Alquiler &amp; Hosting: <strong>${{ (calculatorResults?.hostingTotalUpfront || 0).toFixed(2) }} USD / {{ selectedHostingPeriod === 'annual' ? 'año' : 'mes' }}</strong></span>
+                  <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between leading-snug">
+                    <span>Alquiler &amp; Hosting: <strong>~${{ (calculatorResults?.hostingTotalUpfront || 0).toFixed(2) }} USD / {{ selectedHostingPeriod === 'annual' ? 'año' : 'mes' }}</strong></span>
                   </div>
                 </div>
               </div>
@@ -715,9 +670,9 @@ const printProposal = () => {
               <!-- Domain Extensions grid -->
               <div>
                 <div v-if="selectedModel === 'sale'">
-                  <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-200  uppercase tracking-widest mb-2 flex items-center justify-between">
+                  <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 flex items-center justify-between">
                     <span>Extensión de Dominio</span>
-                    <span class="text-slate-500 dark:text-slate-200 dark:text-slate-600 dark:text-slate-300 font-semibold lowercase">Precios Namecheap</span>
+                    <span class="text-slate-400 font-semibold lowercase">Precios Namecheap</span>
                   </label>
                   <div class="grid grid-cols-3 gap-1.5">
                     <button
@@ -727,22 +682,22 @@ const printProposal = () => {
                       class="py-2 text-[11px] font-bold rounded-lg border transition-all cursor-pointer flex flex-col items-center justify-center"
                       :class="selectedDomain === ext
                         ? 'border-violet-600 bg-violet-600/10 text-violet-600 dark:text-violet-400 shadow-sm'
-                        : 'border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-200  hover:bg-slate-200 dark:hover:bg-slate-900'"
+                        : 'border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-900'"
                     >
                       <span>{{ ext }}</span>
-                      <span class="text-[9px] text-slate-500 dark:text-slate-200  font-semibold mt-0.5">~${{ info.reg.toFixed(0) }}</span>
+                      <span class="text-[9px] text-slate-400 dark:text-slate-500 font-semibold mt-0.5">~${{ info.reg.toFixed(2) }}</span>
                     </button>
                   </div>
-                  <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-200  flex items-center justify-between">
-                    <span>Registro (1er año): <strong>~${{ (calculatorResults?.domainCostReg || 0).toFixed(2) }} USD</strong></span>
-                    <span>Renovación: <strong>~${{ (calculatorResults?.domainCostRenewal || 0).toFixed(2) }} USD/año</strong></span>
+                  <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                    <span>Registro (1er año Aprox.): <strong>~${{ (calculatorResults?.domainCostReg || 0).toFixed(2) }} USD</strong></span>
+                    <span>Renovación (Aprox.): <strong>~${{ (calculatorResults?.domainCostRenewal || 0).toFixed(2) }} USD/año</strong></span>
                   </div>
                 </div>
 
                 <div v-else>
-                  <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-200  uppercase tracking-widest mb-2 flex items-center justify-between">
+                  <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2 flex items-center justify-between">
                     <span>Extensión de Dominio</span>
-                    <span class="text-slate-500 dark:text-slate-200 dark:text-slate-600 dark:text-slate-300 font-semibold lowercase">Incluidos en SaaS</span>
+                    <span class="text-slate-400 font-semibold lowercase">Incluidos en SaaS</span>
                   </label>
                   <div class="grid grid-cols-3 gap-1.5">
                     <button
@@ -752,16 +707,16 @@ const printProposal = () => {
                       class="py-2 text-[11px] font-bold rounded-lg border transition-all cursor-pointer flex flex-col items-center justify-center"
                       :class="selectedDomain === ext
                         ? 'border-violet-600 bg-violet-600/10 text-violet-600 dark:text-violet-400 shadow-sm'
-                        : 'border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-200  hover:bg-slate-200 dark:hover:bg-slate-900'"
+                        : 'border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-900'"
                     >
                       <span>{{ ext }}</span>
-                      <span class="text-[9px] text-slate-500 dark:text-slate-200  font-semibold mt-0.5">
-                        {{ info.price === 0 ? 'Incluido' : `+$${info.price.toFixed(0)}` }}
+                      <span class="text-[9px] text-slate-400 dark:text-slate-500 font-semibold mt-0.5">
+                        {{ info.price === 0 ? 'Incluido' : `+$${info.price.toFixed(0)}/año` }}
                       </span>
                     </button>
                   </div>
-                  <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-200 ">
-                    <span>Ajuste Dominio: <strong>{{ (calculatorResults?.domainCostReg || 0) > 0 ? `+~$${(calculatorResults?.domainCostReg || 0).toFixed(2)} USD/año` : '$0.00 USD (Incluido)' }}</strong></span>
+                  <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400">
+                    <span>Ajuste Dominio: <strong>{{ (calculatorResults?.domainCostReg || 0) > 0 ? `+~$${(calculatorResults?.domainCostReg || 0).toFixed(2)} USD/año (Aprox.)` : '$0.00 USD (Incluido)' }}</strong></span>
                   </div>
                 </div>
               </div>
@@ -774,7 +729,7 @@ const printProposal = () => {
                     v-model="includeMaintenance"
                     class="w-4 h-4 rounded text-violet-600 border-black/[0.08] dark:border-white/[0.08] bg-slate-100 dark:bg-slate-950 focus:ring-violet-500 cursor-pointer"
                   />
-                  <span class="text-[10px] font-bold text-slate-500 dark:text-slate-200  uppercase tracking-widest">Soporte y Mantenimiento</span>
+                  <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Soporte y Mantenimiento</span>
                 </label>
 
                 <div v-if="includeMaintenance" class="mt-3 p-3 rounded-lg bg-slate-100 dark:bg-slate-950 border border-black/[0.05] dark:border-white/[0.04] space-y-3">
@@ -784,21 +739,21 @@ const printProposal = () => {
                       class="py-1.5 text-[10px] font-bold rounded border transition-all cursor-pointer"
                       :class="maintenanceType === 'monthly'
                         ? 'border-violet-600 bg-violet-600/10 text-violet-600 dark:text-violet-400'
-                        : 'border-black/[0.05] dark:border-white/[0.04] bg-white/60 dark:bg-slate-900/40 text-slate-500 dark:text-slate-200 '"
+                        : 'border-black/[0.05] dark:border-white/[0.04] bg-white/60 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400'"
                     >
-                      Mensual (30 USD/m)
+                      Mensual (~30 USD/mes Aprox.)
                     </button>
                     <button
                       @click="maintenanceType = 'annual'"
                       class="py-1.5 text-[10px] font-bold rounded border transition-all cursor-pointer"
                       :class="maintenanceType === 'annual'
                         ? 'border-violet-600 bg-violet-600/10 text-violet-600 dark:text-violet-400'
-                        : 'border-black/[0.05] dark:border-white/[0.04] bg-white/60 dark:bg-slate-900/40 text-slate-500 dark:text-slate-200 '"
+                        : 'border-black/[0.05] dark:border-white/[0.04] bg-white/60 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400'"
                     >
-                      Anual (250 USD/año)
+                      Anual (~250 USD/año Aprox.)
                     </button>
                   </div>
-                  <p class="text-[9px] text-slate-500 dark:text-slate-200  leading-tight">
+                  <p class="text-[9px] text-slate-400 leading-tight">
                     Monitorea servidores, backups semanales, actualizaciones del framework y soporte prioritario de incidencias.
                   </p>
                 </div>
@@ -806,61 +761,64 @@ const printProposal = () => {
 
               <!-- Custom additions estimator -->
               <div class="border-t border-black/[0.05] dark:border-white/[0.04] pt-4 space-y-2">
-                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-200  uppercase tracking-widest">Agregar Módulo Especial</label>
+                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Agregar Módulo Especial</label>
                 <input
                   type="text"
                   v-model="customFeatureDescription"
                   placeholder="Ej. API Facturación Impuestos, Pasarela de Pago"
-                  class="w-full px-3 py-2 text-xs rounded-xl border border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-700  focus:outline-none focus:ring-1 focus:ring-violet-500 placeholder-slate-400 dark:placeholder-slate-400"
+                  class="w-full px-3 py-2 text-xs rounded-xl border border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-violet-500 placeholder-slate-400 dark:placeholder-slate-500"
                 />
                 <div class="flex items-center gap-2">
-                  <span class="text-xs text-slate-500 dark:text-slate-200 ">Costo:</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400">Presupuesto Extra:</span>
                   <div class="relative flex-1 max-w-[120px]">
-                    <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-xs text-slate-500 dark:text-slate-200 ">$</span>
+                    <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-xs text-slate-400">$</span>
                     <input
                       type="number"
                       v-model.number="customFeaturePrice"
                       min="0"
-                      class="w-full pl-6 pr-2 py-1.5 text-xs rounded-xl border border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-700  focus:outline-none focus:ring-1 focus:ring-violet-500"
+                      class="w-full pl-6 pr-2 py-1.5 text-xs rounded-xl border border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-violet-500"
                     />
                   </div>
-                  <span class="text-xs text-slate-500 dark:text-slate-200 ">USD</span>
+                  <span class="text-xs text-slate-400">USD</span>
                 </div>
               </div>
 
-              <!-- Calculator economic results output card -->
+              <!-- Calculator economic results output card (Exact Ctalogo Layout) -->
               <div v-if="calculatorResults" class="pt-4 border-t border-black/[0.05] dark:border-white/[0.04] space-y-4">
 
-                <!-- initial Dev Dev/Setup investment -->
+                <!-- 1. Desarrollo inicial (Onetime) -->
                 <div>
-                  <span class="text-[10px] font-bold text-slate-500 dark:text-slate-200  uppercase tracking-wider block">Inversión Total Inicial:</span>
-                  <span class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-                    <span class="text-lg font-bold text-slate-500 dark:text-slate-200 ">De</span> ${{ calculatorResults.upfrontTotalMin.toFixed(0) }}
-                    <span v-if="selectedPlan.pricing.devMax"> <span class="text-lg font-bold text-slate-500 dark:text-slate-200 ">a</span> ${{ calculatorResults.upfrontTotalMax.toFixed(0) }}</span>
-                    <span v-else class="text-xs font-semibold text-slate-500 dark:text-slate-200  ml-1"> USD en adelante</span>
+                  <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                    {{ selectedModel === 'sale' ? 'Inversión de Desarrollo (Pago Único Aprox.):' : 'Costo Inicial de Instalación (Aprox.):' }}
+                  </span>
+                  <span class="text-2xl font-black text-slate-950 dark:text-white tracking-tight">
+                    ~${{ calculatorResults.initialDevMin }}
+                    <span v-if="selectedPlan.pricing.devMax && selectedModel === 'sale'"> – ~${{ calculatorResults.initialDevMax }}</span>
+                    <span v-else-if="!selectedPlan.pricing.devMax && selectedModel === 'sale'" class="text-xs font-medium text-slate-400"> USD +</span>
+                    <span class="text-sm font-semibold text-slate-400 ml-1">USD (Aprox.)</span>
                   </span>
                 </div>
 
-                <!-- Recurrent Cost summary Box -->
-                <div class="p-3.5 rounded-xl bg-violet-600/5 border border-violet-500/10 space-y-2">
+                <!-- 2. Costo recurrente anual -->
+                <div class="p-3.5 rounded-xl bg-violet-600/10 border border-violet-500/20 space-y-2">
                   <div class="flex items-center justify-between">
-                    <span class="text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider">Recurrente Anual Estimado:</span>
-                    <span class="text-sm font-extrabold text-violet-600 dark:text-violet-400">${{ (calculatorResults?.totalAnnualRecurring || 0).toFixed(2) }} USD/año</span>
+                    <span class="text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider">Costo Recurrente Anual Estimado:</span>
+                    <span class="text-sm font-bold text-violet-600 dark:text-violet-400">~${{ calculatorResults.totalAnnualRecurring.toFixed(2) }} USD</span>
                   </div>
-                  <div class="text-[9px] text-slate-500 dark:text-slate-200  space-y-1 leading-snug">
+                  <div class="text-[10px] text-slate-500 dark:text-slate-400 space-y-1">
                     <div class="flex justify-between">
-                      <span v-if="selectedModel === 'sale'">Hosting ({{ selectedPlan.pricing.hostingRec }} - {{ selectedHostingPeriod === 'monthly' ? '1 Mes' : selectedHostingPeriod === 'annual' ? '1 Año' : '2 Años' }}):</span>
-                      <span v-else>Alquiler SaaS ({{ selectedHostingPeriod === 'annual' ? 'Anual' : 'Mensual' }}):</span>
-                      <span>~${{ (calculatorResults?.hostingTotalUpfront || 0).toFixed(2) }} USD</span>
+                      <span v-if="selectedModel === 'sale'">Hosting ({{ selectedPlan.pricing.hostingRec }} - {{ selectedHostingPeriod === '1' ? '1 mes' : `${selectedHostingPeriod}m` }}):</span>
+                      <span v-else>Alquiler de Sistema SaaS ({{ selectedHostingPeriod === 'annual' ? 'Anual' : 'Mensual' }}):</span>
+                      <span>~${{ calculatorResults.hostingTotalUpfront.toFixed(2) }} USD/{{ selectedHostingPeriod === 'annual' || selectedModel === 'sale' ? 'año' : 'mes' }}</span>
                     </div>
-                    <div v-if="(calculatorResults?.domainCostAnnual || 0) > 0 || selectedModel === 'sale'" class="flex justify-between">
+                    <div v-if="calculatorResults.domainCostAnnual > 0 || selectedModel === 'sale'" class="flex justify-between">
                       <span v-if="selectedModel === 'sale'">Dominio ({{ selectedDomain }}):</span>
                       <span v-else>Ajuste Dominio ({{ selectedDomain }}):</span>
-                      <span>~${{ (calculatorResults?.domainCostAnnual || 0) }} USD</span>
+                      <span>~${{ calculatorResults.domainCostAnnual }} USD/año</span>
                     </div>
                     <div v-if="includeMaintenance" class="flex justify-between">
-                      <span>Mantenimiento y Soporte ({{ maintenanceType === 'monthly' ? 'm' : 'a' }}):</span>
-                      <span>~${{ (calculatorResults?.maintenanceAnnual || 0) }} USD</span>
+                      <span>{{ selectedModel === 'sale' ? 'Soporte Técnico' : 'Soporte Premium' }} ({{ maintenanceType === 'monthly' ? 'mensual' : 'anual' }}):</span>
+                      <span>~${{ calculatorResults.maintenanceAnnual }} USD/año</span>
                     </div>
                   </div>
                 </div>
