@@ -24,6 +24,7 @@ export interface Plan {
   };
   category: 'basic' | 'medium' | 'advanced';
   icon: string;
+  reason: string;
   technologies?: {
     frontend: string;
     backend: string;
@@ -36,281 +37,150 @@ export const plans: Plan[] = [
     name: 'Plan 1 — Landing Page',
     shortName: 'Landing Page',
     description: 'Una Landing Page es una página web de una sola sección diseñada para captar clientes o promocionar un producto, servicio o evento. Su objetivo principal es convertir visitantes en clientes potenciales.',
-    idealFor: [
-      'Emprendedores',
-      'Negocios nuevos',
-      'Productos',
-      'Eventos',
-      'Campañas publicitarias',
-      'Restaurantes',
-      'Consultorios'
-    ],
-    includes: [
-      'Diseño personalizado',
-      'Información de la empresa',
-      'Galería de imágenes',
-      'Formulario de contacto',
-      'Botón de WhatsApp',
-      'Google Maps',
-      'Redes sociales'
-    ],
+    idealFor: ['Emprendedores', 'Negocios nuevos', 'Productos', 'Eventos', 'Campañas publicitarias'],
+    includes: ['Diseño personalizado', 'Información de la empresa', 'Galería de imágenes', 'Formulario de contacto', 'Botón de WhatsApp', 'Redes sociales'],
     pricing: {
-      devMin: 150,
-      devMax: 400,
-      devRaw: '150 – 400 USD',
-      hostingRec: 'Hostinger Single',
-      hostingPrice: 1.79,
-      hostingRaw: '1,79 USD/mes',
+      devMin: 300,
+      devMax: 800,
+      devRaw: 'De $300 a $800',
+      hostingRec: 'Stellar',
+      hostingPrice: 5.15,
+      hostingRaw: '5,15 USD/mes',
       domainRaw: '10 – 18 USD/año',
       domainPrice: 15,
-      timeRaw: '3 a 7 días'
+      timeRaw: '1 a 2 semanas'
     },
     category: 'basic',
-    icon: 'Compass'
+    icon: 'Layout',
+    reason: 'Al ser una sola página informativa y sin bases de datos, los recursos básicos y los 20 GB SSD son perfectos y económicos.'
   },
   {
     id: 2,
     name: 'Plan 2 — Sitio Web Corporativo',
     shortName: 'Sitio Web Corporativo',
-    description: 'Página web institucional para presentar una empresa o negocio en Internet. Incluye varias secciones con información detallada sobre la organización.',
-    idealFor: [
-      'Empresas',
-      'Constructoras',
-      'Clínicas',
-      'Hoteles',
-      'Instituciones educativas',
-      'Estudios jurídicos'
-    ],
-    includes: [
-      'Inicio',
-      'Nosotros',
-      'Servicios',
-      'Galería',
-      'Contacto',
-      'Formularios',
-      'Google Maps',
-      'WhatsApp',
-      'Panel básico de administración (opcional)'
-    ],
+    description: 'Sitios institucionales estándar con múltiples secciones diseñados para dar presencia profesional y credibilidad a tu empresa en internet.',
+    idealFor: ['Pymes', 'Empresas de servicios', 'Consultoras', 'Agencias'],
+    includes: ['Múltiples páginas internas', 'Diseño corporativo', 'Formulario avanzado', 'Integración con Google Maps', 'Enlaces a redes sociales'],
     pricing: {
-      devMin: 350,
-      devMax: 900,
-      devRaw: '350 – 900 USD',
-      hostingRec: 'Hostinger Premium',
-      hostingPrice: 2.99,
-      hostingRaw: '2,99 USD/mes',
+      devMin: 800,
+      devMax: 2000,
+      devRaw: 'De $800 a $2.000',
+      hostingRec: 'Stellar',
+      hostingPrice: 5.15,
+      hostingRaw: '5,15 USD/mes',
       domainRaw: '10 – 18 USD/año',
       domainPrice: 15,
-      timeRaw: '1 a 3 semanas'
+      timeRaw: '2 a 4 semanas'
     },
     category: 'medium',
-    icon: 'Building'
+    icon: 'Building2',
+    reason: 'Sitios institucionales estándar con información estática. No consumen muchos recursos ni requieren bases de datos pesadas.'
   },
   {
     id: 3,
     name: 'Plan 3 — Portafolio Profesional',
     shortName: 'Portafolio Profesional',
-    description: 'Sitio web diseñado para mostrar proyectos, experiencia profesional y trabajos realizados.',
-    idealFor: [
-      'Arquitectos',
-      'Diseñadores',
-      'Fotógrafos',
-      'Ingenieros',
-      'Programadores',
-      'Freelancers'
-    ],
-    includes: [
-      'Presentación personal',
-      'Proyectos',
-      'Currículum',
-      'Contacto',
-      'Redes sociales'
-    ],
+    description: 'Un espacio personal y creativo diseñado para mostrar tu trabajo, proyectos, habilidades y currículum vitae de una manera visualmente atractiva.',
+    idealFor: ['Diseñadores', 'Fotógrafos', 'Arquitectos', 'Freelancers', 'Artistas'],
+    includes: ['Galería de proyectos', 'Filtros por categoría', 'Sección "Sobre mí"', 'Descarga de CV', 'Formulario de contacto'],
     pricing: {
-      devMin: 200,
-      devMax: 500,
-      devRaw: '200 – 500 USD',
-      hostingRec: 'Hostinger Single',
-      hostingPrice: 1.79,
-      hostingRaw: '1,79 USD/mes',
+      devMin: 500,
+      devMax: 1200,
+      devRaw: 'De $500 a $1.200',
+      hostingRec: 'Stellar',
+      hostingPrice: 5.15,
+      hostingRaw: '5,15 USD/mes',
       domainRaw: '10 – 18 USD/año',
       domainPrice: 15,
-      timeRaw: '3 a 7 días'
+      timeRaw: '2 a 3 semanas'
     },
     category: 'basic',
-    icon: 'Briefcase'
+    icon: 'Briefcase',
+    reason: 'El límite base de almacenamiento y tráfico cubre sobradamente las galerías de fotos o currículums de profesionales independientes.'
   },
   {
     id: 4,
     name: 'Plan 4 — Blog',
     shortName: 'Blog',
-    description: 'Página web enfocada en publicar noticias, artículos o contenido de manera periódica.',
-    idealFor: [
-      'Revistas',
-      'Noticias',
-      'Empresas',
-      'Educación'
-    ],
-    includes: [
-      'Publicaciones',
-      'Categorías',
-      'Buscador',
-      'Comentarios (opcional)'
-    ],
+    description: 'Plataforma dinámica centrada en la publicación constante de artículos, noticias o contenido multimedia, ideal para crear una comunidad y monetizar.',
+    idealFor: ['Creadores de contenido', 'Periodistas', 'Aficionados', 'Revistas digitales'],
+    includes: ['Gestor de contenidos (CMS)', 'Categorías y etiquetas', 'Sistema de comentarios', 'Botones para compartir', 'Buscador interno'],
     pricing: {
-      devMin: 400,
-      devMax: 900,
-      devRaw: '400 – 900 USD',
-      hostingRec: 'Hostinger Premium',
-      hostingPrice: 2.99,
-      hostingRaw: '2,99 USD/mes',
-      domainRaw: '10 – 18 USD/año',
-      domainPrice: 15,
-      timeRaw: '1 a 2 semanas'
-    },
-    category: 'medium',
-    icon: 'BookOpen'
-  },
-  {
-    id: 5,
-    name: 'Plan 5 — Catálogo de Productos',
-    shortName: 'Catálogo de Productos',
-    description: 'Permite mostrar productos o servicios de manera organizada, sin realizar ventas en línea.',
-    idealFor: [
-      'Tiendas',
-      'Farmacias',
-      'Ferreterías',
-      'Distribuidores'
-    ],
-    includes: [
-      'Categorías',
-      'Buscador',
-      'Filtros',
-      'Galería',
-      'Contacto'
-    ],
-    pricing: {
-      devMin: 500,
-      devMax: 1200,
-      devRaw: '500 – 1.200 USD',
-      hostingRec: 'Hostinger Premium',
-      hostingPrice: 2.99,
-      hostingRaw: '2,99 USD/mes',
+      devMin: 600,
+      devMax: 1500,
+      devRaw: 'De $600 a $1.500',
+      hostingRec: 'Stellar Plus',
+      hostingPrice: 6.90,
+      hostingRaw: '6,90 USD/mes',
       domainRaw: '10 – 18 USD/año',
       domainPrice: 15,
       timeRaw: '2 a 3 semanas'
     },
     category: 'medium',
-    icon: 'ShoppingBag'
+    icon: 'BookOpen',
+    reason: 'Los artículos, imágenes y comentarios se acumulan con el tiempo. El espacio SSD ilimitado de este plan garantiza que el sitio nunca se quede sin memoria.'
+  },
+  {
+    id: 5,
+    name: 'Plan 5 — Catálogo de Productos',
+    shortName: 'Catálogo de Productos',
+    description: 'Un sitio web para exhibir todos tus productos con descripciones detalladas y fotos, similar a una tienda pero sin pasarela de pagos en línea.',
+    idealFor: ['Mayoristas', 'Distribuidores', 'Fabricantes', 'Tiendas físicas'],
+    includes: ['Fichas de producto detalladas', 'Categorías de productos', 'Buscador con filtros', 'Botón de cotizar', 'Galería optimizada'],
+    pricing: {
+      devMin: 1000,
+      devMax: 3000,
+      devRaw: 'De $1.000 a $3.000',
+      hostingRec: 'Stellar Plus',
+      hostingPrice: 6.90,
+      hostingRaw: '6,90 USD/mes',
+      domainRaw: '10 – 18 USD/año',
+      domainPrice: 15,
+      timeRaw: '3 a 5 semanas'
+    },
+    category: 'medium',
+    icon: 'Package',
+    reason: 'Un catálogo requiere cargar cientos o miles de fotos de alta calidad. El espacio ilimitado (Unmetered SSD) es vital para no limitar a tu cliente.'
   },
   {
     id: 6,
-    name: 'Plan 6 — Tienda Virtual (Catálogo + Carrito a WhatsApp)',
+    name: 'Plan 6 — Tienda Virtual',
     shortName: 'Tienda Virtual',
-    description: 'Sitio web con catálogo de productos y carrito de compras, donde el pedido finaliza enviando un mensaje detallado directamente al WhatsApp del vendedor para concretar la compra.',
-    idealFor: [
-      'Comercios locales',
-      'Tiendas de ropa y calzado',
-      'Emprendedores de venta directa',
-      'Distribuidoras minoristas'
-    ],
-    includes: [
-      'Catálogo completo de productos',
-      'Carrito de compras interactivo',
-      'Finalización de pedido vía WhatsApp',
-      'Gestión de inventario y stock',
-      'Gestión de pedidos en panel',
-      'Panel administrativo completo'
-    ],
+    description: 'Una plataforma de comercio electrónico (E-commerce) que te permite vender productos por internet gestionando pedidos a través de WhatsApp o pasarelas de pago.',
+    idealFor: ['Retail', 'Marcas de ropa', 'Tiendas de tecnología', 'Negocios locales'],
+    includes: ['Carrito de compras', 'Catálogo de productos', 'Checkout avanzado', 'Gestión de inventario básico', 'Panel de administración'],
     pricing: {
-      devMin: 900,
-      devMax: 2500,
-      devRaw: '900 – 2.500 USD',
-      hostingRec: 'Hostinger Premium',
-      hostingPrice: 2.99,
-      hostingRaw: '2,99 USD/mes',
+      devMin: 2000,
+      devMax: 5000,
+      devRaw: 'De $2.000 a $5.000',
+      hostingRec: 'Stellar Plus',
+      hostingPrice: 6.90,
+      hostingRaw: '6,90 USD/mes',
       domainRaw: '10 – 18 USD/año',
       domainPrice: 15,
-      timeRaw: '3 a 8 semanas'
+      timeRaw: '4 a 8 semanas'
     },
     category: 'advanced',
-    icon: 'ShoppingCart'
+    icon: 'ShoppingCart',
+    reason: 'Maneja inventario y pedidos. Los Auto-backups (copias de seguridad automáticas) incluidos en este plan son obligatorios para no perder la configuración de productos ante cualquier error.'
   },
   {
     id: 7,
     name: 'Plan 7 — Sistema Web Personalizado',
-    shortName: 'Sistema Web Personalizado',
-    description: 'Aplicación web desarrollada completamente a medida según las necesidades del cliente. A diferencia de una página web informativa, permite gestionar información, automatizar procesos y controlar la operación diaria de un negocio.',
-    idealFor: [
-      'Sistema Hotelero',
-      'Sistema Escolar',
-      'Sistema para Farmacias',
-      'Sistema Médico',
-      'Sistema de Inventario',
-      'Sistema Contable',
-      'Sistema de Facturación',
-      'Sistema de Recursos Humanos'
-    ],
-    includes: [
-      'Inicio de sesión',
-      'Roles y permisos avanzados',
-      'Panel administrativo central',
-      'Reportes en tiempo real',
-      'Base de datos dedicada',
-      'Exportación PDF y Excel',
-      'Notificaciones automáticas',
-      'API integrada',
-      'Módulos personalizados'
-    ],
+    shortName: 'Sistema Web',
+    description: 'Aplicación web a medida diseñada para resolver necesidades específicas de tu negocio, con lógica de programación compleja e interacción de múltiples usuarios.',
+    idealFor: ['Colegios', 'Clínicas', 'Startups', 'Inmobiliarias'],
+    includes: ['Roles de usuario', 'Bases de datos relacionales', 'Panel administrativo', 'Generación de reportes', 'Lógica de negocio a medida'],
     pricing: {
-      devMin: 1500,
-      devMax: null,
-      devRaw: '1.500 USD en adelante',
-      hostingRec: 'Hostinger Business',
-      hostingPrice: 4.39,
-      hostingRaw: '4,39 USD/mes',
+      devMin: 4000,
+      devMax: 15000,
+      devRaw: 'De $4.000 a $15.000',
+      hostingRec: 'Stellar Business',
+      hostingPrice: 10.40,
+      hostingRaw: '10,40 USD/mes',
       domainRaw: '10 – 18 USD/año',
       domainPrice: 15,
-      timeRaw: '1 a 6 meses'
-    },
-    saas: {
-      setupFee: 300,
-      monthlyPrice: 50,
-      setupRaw: '300 USD',
-      monthlyRaw: '50 USD/mes'
-    },
-    category: 'advanced',
-    icon: 'Cpu'
-  },
-  {
-    id: 8,
-    name: 'Plan 8 — CRM',
-    shortName: 'CRM',
-    description: 'Sistema para administrar clientes, ventas, cotizaciones, oportunidades de negocio y seguimiento comercial.',
-    idealFor: [
-      'Empresas de ventas',
-      'Inmobiliarias',
-      'Distribuidores',
-      'Agencias comerciales'
-    ],
-    includes: [
-      'Gestión de clientes (leads)',
-      'Cotizaciones dinámicas',
-      'Registro de ventas',
-      'Seguimiento y embudo de conversión',
-      'Reportes de rendimiento',
-      'Dashboard estadístico'
-    ],
-    pricing: {
-      devMin: 2000,
-      devMax: 6000,
-      devRaw: '2.000 – 6.000 USD',
-      hostingRec: 'Hostinger Business',
-      hostingPrice: 4.39,
-      hostingRaw: '4,39 USD/mes',
-      domainRaw: '10 – 18 USD/año',
-      domainPrice: 15,
-      timeRaw: '2 a 5 meses'
+      timeRaw: '2 a 4 meses'
     },
     saas: {
       setupFee: 400,
@@ -319,47 +189,64 @@ export const plans: Plan[] = [
       monthlyRaw: '60 USD/mes'
     },
     category: 'advanced',
-    icon: 'Users'
+    icon: 'Settings',
+    reason: 'Sistemas médicos, colegios o farmacias requieren estabilidad 24/7 y PostgreSQL. Este plan da el doble de capacidad de procesamiento (600,000 inodes) para evitar que el sistema colapse.'
+  },
+  {
+    id: 8,
+    name: 'Plan 8 — CRM',
+    shortName: 'CRM',
+    description: 'Sistema para gestionar las relaciones con tus clientes, hacer seguimiento a ventas, prospectos y automatizar tus procesos de marketing.',
+    idealFor: ['Equipos de ventas', 'Agencias de marketing', 'Call centers', 'B2B'],
+    includes: ['Gestión de leads', 'Embudo de ventas', 'Historial de interacciones', 'Calendario y recordatorios', 'Reportes de rendimiento'],
+    pricing: {
+      devMin: 5000,
+      devMax: 20000,
+      devRaw: 'De $5.000 a $20.000',
+      hostingRec: 'Stellar Business',
+      hostingPrice: 10.40,
+      hostingRaw: '10,40 USD/mes',
+      domainRaw: '10 – 18 USD/año',
+      domainPrice: 15,
+      timeRaw: '2 a 4 meses'
+    },
+    saas: {
+      setupFee: 600,
+      monthlyPrice: 80,
+      setupRaw: '600 USD',
+      monthlyRaw: '80 USD/mes'
+    },
+    category: 'advanced',
+    icon: 'Users',
+    reason: 'Gestiona embudos de venta, cotizaciones y datos personales de clientes. Requiere máxima privacidad, por lo que la suite Imunify360 Security que incluye este plan es innegociable contra hackeos.'
   },
   {
     id: 9,
     name: 'Plan 9 — ERP',
     shortName: 'ERP',
-    description: 'Sistema integral que centraliza y automatiza los procesos principales de una empresa, como inventario, compras, ventas, recursos humanos, contabilidad y producción.',
-    idealFor: [
-      'Empresas medianas/grandes',
-      'Negocios con múltiples sucursales',
-      'Empresas de producción'
-    ],
-    includes: [
-      'Inventario y almacenes',
-      'Gestión de compras',
-      'Gestión de ventas y facturación',
-      'Recursos humanos (RRHH)',
-      'Reportes consolidados',
-      'Dashboard integral',
-      'Múltiples sucursales',
-      'Roles y permisos avanzados'
-    ],
+    description: 'Software robusto que integra y automatiza las principales operaciones de una empresa: contabilidad, recursos humanos, inventario y más.',
+    idealFor: ['Medianas y grandes empresas', 'Corporaciones', 'Franquicias', 'Industrias'],
+    includes: ['Módulos financieros', 'Gestión de RRHH', 'Control de inventario', 'Facturación y contabilidad', 'Dashboards en tiempo real'],
     pricing: {
-      devMin: 4000,
-      devMax: 15000,
-      devRaw: '4.000 – 15.000 USD',
-      hostingRec: 'VPS (según requerimiento)',
-      hostingPrice: 5.00,
-      hostingRaw: 'Desde 5 USD/mes',
+      devMin: 15000,
+      devMax: 40000,
+      devRaw: 'De $15.000 a $40.000',
+      hostingRec: 'Stellar Business',
+      hostingPrice: 10.40,
+      hostingRaw: '10,40 USD/mes',
       domainRaw: '10 – 18 USD/año',
       domainPrice: 15,
-      timeRaw: '4 a 10 meses'
+      timeRaw: '3 a 6 meses'
     },
     saas: {
-      setupFee: 800,
-      monthlyPrice: 120,
-      setupRaw: '800 USD',
-      monthlyRaw: '120 USD/mes'
+      setupFee: 1000,
+      monthlyPrice: 150,
+      setupRaw: '1000 USD',
+      monthlyRaw: '150 USD/mes'
     },
     category: 'advanced',
-    icon: 'Layers'
+    icon: 'BarChart',
+    reason: 'Al integrar recursos humanos, contabilidad e inventario de múltiples sucursales, es el sistema más pesado de todos. El Business es el único plan compartido que lo soportará.'
   }
 ];
 
@@ -419,29 +306,20 @@ export const domainAdjustments: Record<string, { price: number; label: string }>
 };
 
 export const hostingRates: Record<string, Record<string, { price: number; renewal: number; total: number }>> = {
-  'Hostinger Single': {
-    '48': { price: 1.79, renewal: 8.09, total: 85.92 },
-    '24': { price: 2.19, renewal: 8.59, total: 52.56 },
-    '12': { price: 2.99, renewal: 9.99, total: 35.88 },
-    '1': { price: 9.99, renewal: 9.99, total: 9.99 }
+  'Stellar': {
+    'monthly': { price: 5.15, renewal: 5.15, total: 5.15 },
+    'annual': { price: 2.00, renewal: 61.80, total: 24.00 },
+    'biannual': { price: 1.65, renewal: 123.60, total: 39.60 }
   },
-  'Hostinger Premium': {
-    '48': { price: 2.99, renewal: 11.49, total: 143.52 },
-    '24': { price: 3.49, renewal: 11.99, total: 83.76 },
-    '12': { price: 4.49, renewal: 13.99, total: 53.88 },
-    '1': { price: 13.99, renewal: 13.99, total: 13.99 }
+  'Stellar Plus': {
+    'monthly': { price: 6.90, renewal: 6.90, total: 6.90 },
+    'annual': { price: 2.61, renewal: 82.80, total: 31.32 },
+    'biannual': { price: 2.00, renewal: 165.60, total: 48.00 }
   },
-  'Hostinger Business': {
-    '48': { price: 4.39, renewal: 19.49, total: 210.72 },
-    '24': { price: 4.99, renewal: 20.99, total: 119.76 },
-    '12': { price: 5.99, renewal: 21.99, total: 71.88 },
-    '1': { price: 21.99, renewal: 21.99, total: 21.99 }
-  },
-  'VPS (según requerimiento)': {
-    '48': { price: 5.99, renewal: 7.99, total: 287.52 },
-    '24': { price: 6.99, renewal: 8.99, total: 167.76 },
-    '12': { price: 7.99, renewal: 9.99, total: 95.88 },
-    '1': { price: 11.99, renewal: 11.99, total: 11.99 }
+  'Stellar Business': {
+    'monthly': { price: 10.40, renewal: 10.40, total: 10.40 },
+    'annual': { price: 4.36, renewal: 124.80, total: 52.32 },
+    'biannual': { price: 3.92, renewal: 249.60, total: 94.08 }
   }
 };
 
@@ -453,3 +331,4 @@ export const domainRates: Record<string, { reg: number; renewal: number; label: 
   '.ai': { reg: 89.98, renewal: 89.98, label: '.ai (Namecheap)' },
   '.com.bo': { reg: 45.00, renewal: 45.00, label: '.com.bo (Bolivia)' }
 };
+
