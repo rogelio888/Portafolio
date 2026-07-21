@@ -1,10 +1,10 @@
 # Portafolio Portal — Hub Central (Nuxt 4)
 
-Este es el hub central del portafolio, construido con **Nuxt 4**, **Vue 3** y **Tailwind CSS**. Actúa como el portal unificado que sirve las demos interactivas de los proyectos, integra el cotizador interactivo de presupuestos con integración directa a WhatsApp, y presenta un diccionario visual de tecnologías.
+Este es el hub central del portafolio, construido con **Nuxt 4**, **Vue 3** y **Tailwind CSS**. Actúa como el portal unificado que sirve las demos interactivas de los 8 proyectos activos, integra el cotizador interactivo de presupuestos con integración directa a WhatsApp, y presenta un diccionario visual de tecnologías.
 
 ## 🚀 Características del Hub
 
-- **Catálogo Unificado:** Visualización de las demos técnicas con filtrado por categoría (Sistemas Avanzados, Sistemas Especiales, Landings, Corporativos, Blogs).
+- **Catálogo Unificado:** Visualización de las 8 demos técnicas con filtrado por categoría (Sistemas Avanzados, Sistemas Especiales, Landings).
 - **Consola de Simulación Backend:** Exposición de endpoints HTTP, controladores de referencia (Laravel/NestJS) y esquemas SQL.
 - **Cotizador de Proyectos:** Sistema interactivo que calcula presupuestos estimados según requerimientos y permite solicitar cotizaciones vía WhatsApp.
 - **Diccionario Tecnológico:** Explicación pedagógica de tecnologías (Vue, Nuxt, Angular, React, Supabase, Laravel, NestJS, etc.).

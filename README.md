@@ -1,8 +1,8 @@
 # Portafolio Full-Stack — Demos Interactivas & Showcase de Ingeniería
 
-Un repositorio monorepo unificado de **10 proyectos web full-stack**, construidos con diversas tecnologías de vanguardia (**Vue 3, Nuxt 4, Next.js 16, Angular 18, React, Astro, SvelteKit**) y diseñados para que cada demostración funcione **100% en el navegador** (`localStorage` / `IndexedDB` / mocks client-side), sin necesidad de instalar ni configurar servidores de backend o bases de datos locales.
+Un repositorio monorepo unificado de **8 proyectos web full-stack**, construidos con tecnologías de vanguardia (**Vue 3, Nuxt 4, Next.js 16, Angular 18, React**) y diseñados para que cada demostración funcione **100% en el navegador** (`localStorage` / `IndexedDB` / mocks client-side), sin necesidad de instalar ni configurar servidores de backend o bases de datos locales.
 
-El punto de entrada principal es **[`portafolio-portal/`](file:///c:/Users/rogel/OneDrive/Escritorio/Proyectos/Portafolio/portafolio-portal)**, una aplicación central desarrollada en **Nuxt 4** que actúa como hub interactivo: sirve las demos compiladas, incorpora un **cotizador dinámico de proyectos con envío a WhatsApp**, y despliega un diccionario de tecnologías explicadas en lenguaje simple para clientes y reclutadores.
+El punto de entrada principal es **[`portafolio-portal/`](file:///c:/Users/rogel/OneDrive/Escritorio/Proyectos/Portafolio/portafolio-portal)**, una aplicación central desarrollada en **Nuxt 4** que actúa como hub interactivo: sirve las 8 demos compiladas, incorpora un **cotizador dinámico de proyectos con envío a WhatsApp**, y despliega un diccionario de tecnologías explicadas en lenguaje simple para clientes y reclutadores.
 
 ---
 
@@ -19,8 +19,6 @@ Portafolio/
 ├── frontend Agroindustrial/   → Gestión de Flota Agroindustrial (Vue 3 & Tailwind CSS)
 ├── landing-page/               → "Cuervo Tattoo Club" — Landing interactiva (Nuxt 4 & Motion)
 ├── landing-chronos/            → "CHRONOS" — Wearable Neural & BCI Landing (Next.js 16 & Framer Motion)
-├── sitio-corporativo/          → "Cantera Estudio" — Sitio corporativo ultra rápido (Astro & Motion One)
-├── blog-recetas/               → "Sazón" — Blog de recetas (SvelteKit & Bits UI)
 └── Ctalogo/                    → Prototipo original del cotizador (precursor de portafolio-portal)
 ```
 
@@ -39,7 +37,7 @@ Portafolio/
 
 ---
 
-## 🚀 Catálogo de Proyectos
+## 🚀 Catálogo de Proyectos (8 Demos)
 
 | # | Proyecto | Stack Frontend | Arquitectura Backend (Referencia) | Base de Datos (Referencia) | Categoría |
 |---|---|---|---|---|---|
@@ -51,8 +49,6 @@ Portafolio/
 | 6 | [Gestión de Flota Agroindustrial](frontend%20Agroindustrial) | Vue 3 & Tailwind CSS | NestJS & TypeORM | PostgreSQL | Sistemas Especiales |
 | 7 | [Landing — Cuervo Tattoo Club](landing-page) | Nuxt 4 & Motion | Sitio estático | N/A | Landing Page |
 | 8 | [CHRONOS — Wearable Neural & BCI](landing-chronos) | Next.js 16 & Framer Motion | Sitio estático | N/A | Landing Page |
-| 9 | [Cantera Estudio](sitio-corporativo) | Astro & Motion One & Swiper | Sitio estático | N/A | Sitio Corporativo |
-| 10 | [Sazón — Blog de Recetas](blog-recetas) | SvelteKit & Bits UI | Sitio estático | N/A | Blog |
 
 > **Nota:** Todos los nombres de empresas, servicios y productos mostrados en los proyectos son ficticios y se utilizan exclusivamente con fines de demostración técnica y portafolio.
 
@@ -97,8 +93,8 @@ npm run dev
 
 ## 🛠️ Stack Tecnológico Unificado
 
-- **Frameworks Frontend:** Nuxt 4, Next.js 16, Vue 3, Angular 18, React, Astro, SvelteKit
-- **Estilos & UI:** Tailwind CSS v4, Bits UI, CSS Modules, Modern Glassmorphism & Custom Themes
+- **Frameworks Frontend:** Nuxt 4, Next.js 16, Vue 3, Angular 18, React
+- **Estilos & UI:** Tailwind CSS v4, CSS Modules, Modern Glassmorphism & Custom Themes
 - **Gestión de Estado:** Pinia, React Context, Angular Services & RxJS
 - **Animaciones & Interacción:** Framer Motion, Motion One, Swiper.js, Custom Scroll-Snap
 - **Ecosystem Backend & DB (Referencias de Producción):** Laravel 11/12 (Eloquent, Sanctum), NestJS (TypeORM, Prisma), Supabase Serverless, PostgreSQL, MySQL, SQL Server
