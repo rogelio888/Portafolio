@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { class: 'dark', lang: 'es' },
-      title: 'Portafolio Profesional Full-Stack | Demos Interactivas',
+      title: 'Rogelio - Desarrollador Full-Stack | Demos y Cotizador',
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
       ],
@@ -19,12 +19,24 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, hoteles, clínicas y calcula tu cotización al instante.' },
-        { property: 'og:title', content: 'Desarrollo de Software y Sistemas Web a Medida | Portafolio' },
-        { property: 'og:description', content: 'Lleva tu negocio al siguiente nivel con plataformas digitales diseñadas exclusivamente para ti. Explora demostraciones reales de sistemas (Farmacia, Hotel, Clínica) y cotiza en línea.' },
+        { property: 'og:site_name', content: 'Portafolio de Rogelio' },
+        { property: 'og:title', content: 'Rogelio - Desarrollador Full-Stack | Sistemas a Medida' },
+        { property: 'og:description', content: 'Lleva tu negocio al siguiente nivel con plataformas digitales diseñadas exclusivamente para ti. Explora demostraciones reales de sistemas y cotiza en línea.' },
         { property: 'og:type', content: 'website' },
         { name: 'theme-color', content: '#7c3aed' }
       ],
       script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Portafolio de Rogelio",
+            "alternateName": "Rogelio Full-Stack",
+            "url": "https://portafoliorogelio888.dpdns.org/"
+          }),
+          tagPosition: 'head'
+        },
         {
           innerHTML: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){}})();`,
           tagPosition: 'head'
@@ -39,7 +51,7 @@ export default defineNuxtConfig({
   ],
   site: {
     url: 'https://portafoliorogelio888.dpdns.org',
-    name: 'Portafolio Profesional'
+    name: 'Portafolio de Rogelio'
   },
   shadcn: {
     prefix: '',
