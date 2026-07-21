@@ -159,8 +159,8 @@ const calculatorResults = computed(() => {
     
     const totalAnnualRecurring = domainCostRenewal + hostingAnnualCost + maintenanceAnnual
     
-    const upfrontTotalMin = initialDevMin + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType === 'annual' ? maintenanceAnnual : 0)
-    const upfrontTotalMax = initialDevMax + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType === 'annual' ? maintenanceAnnual : 0)
+    const upfrontTotalMin = initialDevMin + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType.value === 'annual' ? maintenanceAnnual : 0)
+    const upfrontTotalMax = initialDevMax + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType.value === 'annual' ? maintenanceAnnual : 0)
 
     return {
       model: 'sale',
@@ -197,6 +197,7 @@ const calculatorResults = computed(() => {
 
     const domainConfig = domainAdjustments[selectedDomain.value] || domainAdjustments['.com']
     const domainAdjustmentAnnual = domainConfig?.price ?? 0
+    const domainCostReg = domainAdjustmentAnnual
 
     const maintenanceMonthly = includeMaintenance.value && maintenanceType.value === 'monthly' ? 30 : 0
     const maintenanceAnnual = includeMaintenance.value 
@@ -208,8 +209,8 @@ const calculatorResults = computed(() => {
 
     const totalAnnualRecurring = hostingAnnualCost + domainAdjustmentAnnual + maintenanceAnnual
 
-    const upfrontTotalMin = initialDevMin + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType === 'annual' ? maintenanceAnnual : 0)
-    const upfrontTotalMax = initialDevMax + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType === 'annual' ? maintenanceAnnual : 0)
+    const upfrontTotalMin = initialDevMin + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType.value === 'annual' ? maintenanceAnnual : 0)
+    const upfrontTotalMax = initialDevMax + hostingTotalUpfront + domainCostReg + maintenanceMonthly + (maintenanceType.value === 'annual' ? maintenanceAnnual : 0)
 
     return {
       model: 'rent',

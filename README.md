@@ -1,60 +1,68 @@
-# Portafolio Full-Stack — Demos Interactivas
+# Portafolio Full-Stack — Demos Interactivas & Showcase de Ingeniería
 
-Portafolio unificado de proyectos web full-stack, construido con múltiples frameworks
-(Vue, Nuxt, Angular, React, Astro, SvelteKit) y diseñado para que cada demo funcione
-**100% en el navegador**, sin necesidad de levantar un backend real ni una base de datos.
+Un repositorio monorepo unificado de **10 proyectos web full-stack**, construidos con diversas tecnologías de vanguardia (**Vue 3, Nuxt 4, Next.js 16, Angular 18, React, Astro, SvelteKit**) y diseñados para que cada demostración funcione **100% en el navegador** (`localStorage` / `IndexedDB` / mocks client-side), sin necesidad de instalar ni configurar servidores de backend o bases de datos locales.
 
-El punto de entrada es **`portafolio-portal/`**, un sitio Nuxt 4 que actúa como hub:
-muestra las 9 demos, un cotizador de proyectos, y una sección de tecnologías explicadas
-en lenguaje simple.
+El punto de entrada principal es **[`portafolio-portal/`](file:///c:/Users/rogel/OneDrive/Escritorio/Proyectos/Portafolio/portafolio-portal)**, una aplicación central desarrollada en **Nuxt 4** que actúa como hub interactivo: sirve las demos compiladas, incorpora un **cotizador dinámico de proyectos con envío a WhatsApp**, y despliega un diccionario de tecnologías explicadas en lenguaje simple para clientes y reclutadores.
 
-## Estructura del repositorio
+---
 
-```
+## 📁 Estructura del Repositorio
+
+```text
 Portafolio/
-├── portafolio-portal/        → Hub principal (Nuxt 4). Sirve las demos y el cotizador.
-├── frontend Farmacia/         → Sistema de Farmacia (Angular 18)
-├── frontend Hotel/            → Portal Hotelero & Reservas (Laravel 12 + Vue 3)
-├── frontend Clinica/          → Clínica Médica & Citas (Angular)
-├── frontend Pensiones/        → Control de Pensiones (Vue 3 + Pinia)
-├── frontend gym/               → Plataforma para Gimnasio (React)
-├── frontend Agroindustrial/   → Gestión de Flota Agroindustrial (Vue 3)
-├── landing-page/               → Landing "Cuervo Tattoo Club" (Nuxt 4 + Motion)
-├── sitio-corporativo/          → "Cantera Estudio" — sitio corporativo (Astro)
-├── blog-recetas/               → "Sazón" — blog de recetas (SvelteKit + Bits UI)
+├── portafolio-portal/        → Hub principal (Nuxt 4 + Tailwind CSS). Sirve las demos y el cotizador.
+├── frontend Farmacia/         → Sistema de Farmacia y KARDEX (Angular 18 & Tailwind CSS)
+├── frontend Hotel/            → Portal Hotelero & Reservas (Vue 3 & Tailwind CSS / Laravel 12)
+├── frontend Clinica/          → Clínica Médica & Citas (Angular & Tailwind CSS)
+├── frontend Pensiones/        → Control de Pensiones Escolares (Vue 3 & Pinia)
+├── frontend gym/               → Plataforma para Gimnasio con QR (React & Tailwind CSS)
+├── frontend Agroindustrial/   → Gestión de Flota Agroindustrial (Vue 3 & Tailwind CSS)
+├── landing-page/               → "Cuervo Tattoo Club" — Landing interactiva (Nuxt 4 & Motion)
+├── landing-chronos/            → "CHRONOS" — Wearable Neural & BCI Landing (Next.js 16 & Framer Motion)
+├── sitio-corporativo/          → "Cantera Estudio" — Sitio corporativo ultra rápido (Astro & Motion One)
+├── blog-recetas/               → "Sazón" — Blog de recetas (SvelteKit & Bits UI)
 └── Ctalogo/                    → Prototipo original del cotizador (precursor de portafolio-portal)
 ```
 
-## Cómo funcionan las demos
+---
 
-Cada demo simula su backend **enteramente en el cliente** (`localStorage`), para que
-cualquiera pueda clonar el repo y probarlas sin instalar PHP, Node en el servidor,
-ni una base de datos. Las columnas "Backend" y "Base de Datos" que ves en el portafolio
-describen la **arquitectura de referencia** (qué se usaría en producción), no una
-dependencia real para correr el demo.
+## ⚡ ¿Cómo funcionan las Demos?
 
-Varias demos incluyen además una **consola de simulación de API** flotante que muestra,
-en vivo, la petición HTTP, el código de backend equivalente y la respuesta simulada de
-cada acción — pensada para que se entienda cómo funcionaría con un backend real.
+1. **Simulación Client-Side 100% Funcional:**  
+   Cada aplicación simula la capa de persistencia de datos directamente en el cliente (usando `localStorage` y repositorios mockeados). Esto permite clonar el repositorio y explorar cualquier demo al instante sin instalar PHP, Node backend, Python, ni bases de datos MySQL/PostgreSQL.
+2. **Consola de Simulación de API Flotante:**  
+   Varias de las aplicaciones incluyen un panel lateral/inferior interactivo que expone la arquitectura backend de referencia. Al ejecutar cualquier acción en la interfaz (ej. crear un turno, registrar una venta en Kardex, o realizar una reserva):
+   - **HTTP Request:** Método y endpoint simulado (ej. `POST /api/kardex/movements`).
+   - **Backend Controller:** Código real del controlador (Laravel Eloquent o NestJS TypeORM/Prisma).
+   - **Database Query:** Consulta SQL o sentencia ORM equivalente ejecutada en producción.
+   - **JSON Response:** Estructura de respuesta devuelta al cliente.
 
-## Proyectos
+---
 
-| Proyecto | Stack (frontend) | Referencia de backend | Categoría |
-|---|---|---|---|
-| [Sistema de Farmacia](frontend%20Farmacia) | Angular 18 & Tailwind CSS | Laravel 11 & Eloquent | Sistemas Avanzados |
-| [Portal Hotelero & Reservas](frontend%20Hotel) | Vue 3 & Tailwind CSS | Laravel 12 & Eloquent | Sistemas Avanzados |
-| [Clínica Médica & Citas](frontend%20Clinica) | Angular & Tailwind CSS | NestJS & Prisma | Sistemas Avanzados |
-| [Control de Pensiones](frontend%20Pensiones) | Vue 3 & Pinia | Laravel 11 & Sanctum | Sistemas Avanzados |
-| [Plataforma para Gimnasio](frontend%20gym) | React & Tailwind CSS | Supabase Serverless | Sistemas Avanzados |
-| [Gestión de Flota Agroindustrial](frontend%20Agroindustrial) | Vue 3 & Tailwind CSS | NestJS & TypeORM | Sistemas Especiales |
-| [Landing — Cuervo Tattoo Club](landing-page) | Nuxt 4 & Motion | Sitio estático | Landing Page |
-| [Cantera Estudio](sitio-corporativo) | Astro & Motion One & Swiper | Sitio estático | Sitio Corporativo |
-| [Sazón — Blog de Recetas](blog-recetas) | SvelteKit & Bits UI | Sitio estático | Blog |
+## 🚀 Catálogo de Proyectos
 
-> Todos los nombres de empresas/marcas en las demos son ficticios — se usan solo con
-> fines de portafolio, sin ninguna relación con negocios reales.
+| # | Proyecto | Stack Frontend | Arquitectura Backend (Referencia) | Base de Datos (Referencia) | Categoría |
+|---|---|---|---|---|---|
+| 1 | [Sistema de Farmacia](frontend%20Farmacia) | Angular 18 & Tailwind CSS | Laravel 11 & Eloquent | MySQL / Supabase | Sistemas Avanzados |
+| 2 | [Portal Hotelero & Reservas](frontend%20Hotel) | Vue 3 & Tailwind CSS | Laravel 12 & Eloquent | PostgreSQL | Sistemas Avanzados |
+| 3 | [Clínica Médica & Citas](frontend%20Clinica) | Angular & Tailwind CSS | NestJS & Prisma | PostgreSQL / SQL Server | Sistemas Avanzados |
+| 4 | [Control de Pensiones](frontend%20Pensiones) | Vue 3 & Pinia | Laravel 11 & Sanctum | MySQL / PostgreSQL | Sistemas Avanzados |
+| 5 | [Plataforma para Gimnasio](frontend%20gym) | React & Tailwind CSS | Supabase Serverless | PostgreSQL (RLS) | Sistemas Avanzados |
+| 6 | [Gestión de Flota Agroindustrial](frontend%20Agroindustrial) | Vue 3 & Tailwind CSS | NestJS & TypeORM | PostgreSQL | Sistemas Especiales |
+| 7 | [Landing — Cuervo Tattoo Club](landing-page) | Nuxt 4 & Motion | Sitio estático | N/A | Landing Page |
+| 8 | [CHRONOS — Wearable Neural & BCI](landing-chronos) | Next.js 16 & Framer Motion | Sitio estático | N/A | Landing Page |
+| 9 | [Cantera Estudio](sitio-corporativo) | Astro & Motion One & Swiper | Sitio estático | N/A | Sitio Corporativo |
+| 10 | [Sazón — Blog de Recetas](blog-recetas) | SvelteKit & Bits UI | Sitio estático | N/A | Blog |
 
-## Cómo correr el portal principal
+> **Nota:** Todos los nombres de empresas, servicios y productos mostrados en los proyectos son ficticios y se utilizan exclusivamente con fines de demostración técnica y portafolio.
+
+---
+
+## 💻 Instrucciones de Ejecución
+
+### 1. Servidor Central del Portafolio (`portafolio-portal`)
+
+Para ejecutar la plataforma central que consolida todas las demos y el cotizador:
 
 ```bash
 cd portafolio-portal
@@ -62,28 +70,39 @@ npm install
 npm run dev
 ```
 
-Abrí `http://localhost:3000`. El portal sirve las demos ya compiladas como archivos
-estáticos desde `portafolio-portal/public/`, así que no hace falta levantar cada
-proyecto fuente por separado para navegarlas.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.  
+*El portal sirve las aplicaciones compiladas de forma estática desde `portafolio-portal/public/`, permitiendo navegar todas las demos sin tener que iniciar cada frontend por separado.*
 
-## Cómo correr un proyecto individual
+### 2. Proyectos Individuales (Entorno de Desarrollo)
 
-Cada carpeta es un proyecto independiente con su propio `package.json`:
+Cada subcarpeta es una aplicación autónoma con sus propios scripts de desarrollo:
 
 ```bash
-cd "frontend Farmacia"      # o cualquier otro proyecto
+# Ejemplo: Ejecutar el Sistema de Farmacia
+cd "frontend Farmacia"
 npm install
 npm run dev
 ```
 
-`frontend Hotel` es la única excepción: además del frontend Vue, incluye una app
-Laravel real (ver `frontend Hotel/README.md` e `INSTALL.md` para levantarla completa).
+```bash
+# Ejemplo: Ejecutar CHRONOS Landing (Next.js)
+cd landing-chronos
+npm install
+npm run dev
+```
 
-## Stack general del portafolio
-
-**Frontend:** Vue 3, Nuxt 4, Angular, React, Astro, SvelteKit, Tailwind CSS v4, Pinia, Vite, Motion One, Swiper, Bits UI, Lucide Icons
-**Arquitectura de referencia (backend/DB):** Laravel, NestJS, Supabase (PostgreSQL), MySQL, SQL Server
+> **Excepción Backend:** La carpeta [`frontend Hotel/`](file:///c:/Users/rogel/OneDrive/Escritorio/Proyectos/Portafolio/frontend%20Hotel) incluye adicionalmente la estructura de una aplicación Laravel 12 completa para quienes deseen probar el servidor real en entorno PHP (ver `frontend Hotel/README.md` e `INSTALL.md`).
 
 ---
 
-Portafolio personal — todos los proyectos son piezas de demostración técnica.
+## 🛠️ Stack Tecnológico Unificado
+
+- **Frameworks Frontend:** Nuxt 4, Next.js 16, Vue 3, Angular 18, React, Astro, SvelteKit
+- **Estilos & UI:** Tailwind CSS v4, Bits UI, CSS Modules, Modern Glassmorphism & Custom Themes
+- **Gestión de Estado:** Pinia, React Context, Angular Services & RxJS
+- **Animaciones & Interacción:** Framer Motion, Motion One, Swiper.js, Custom Scroll-Snap
+- **Ecosystem Backend & DB (Referencias de Producción):** Laravel 11/12 (Eloquent, Sanctum), NestJS (TypeORM, Prisma), Supabase Serverless, PostgreSQL, MySQL, SQL Server
+
+---
+
+Desarrollado como demostración técnica de capacidades Full-Stack y Arquitectura Frontend.
