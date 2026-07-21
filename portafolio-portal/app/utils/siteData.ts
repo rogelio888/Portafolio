@@ -341,7 +341,7 @@ CREATE TABLE batches (
     backendStack: 'Laravel 12 & Eloquent',
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 7,
-    demoUrl: '/frontend-hotel/#/?reset=1',
+    demoUrl: '/frontend-hotel/index.html#/?reset=1',
     thumbnail: '/screenshots/frontend-hotel.png',
     githubUrl: 'https://github.com/rogel/hotel-vue-nestjs',
     iconName: 'Building2',
