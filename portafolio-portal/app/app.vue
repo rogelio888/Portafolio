@@ -24,7 +24,7 @@ onMounted(() => {
     
     <StarfieldBackground v-if="isDark" />
     
-    <LayoutHeader class="no-print" />
+    <LayoutHeader />
     
     <main class="relative z-10">
       <SectionsHero />
