@@ -3,6 +3,12 @@ import tailwindcss from '@tailwindcss/vite'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
+  features: {
+    inlineStyles: true
+  },
+  experimental: {
+    inlineSSRStyles: true
+  },
   alias: {
     '#app-manifest': './app/mock-manifest.ts'
   },
@@ -69,6 +75,17 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss()
     ],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('@vueuse/motion')) {
+              return 'motion-vendor'
+            }
+          }
+        }
+      }
+    },
     optimizeDeps: {
       include: [
         '@lucide/vue',
