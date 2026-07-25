@@ -62,7 +62,10 @@ export default defineNuxtConfig({
     },
     display: 'swap',
     download: true,
-    inject: true
+    inject: true,
+    prefetch: false,
+    preconnect: false,
+    preload: true
   },
   site: {
     url: 'https://portafoliorogelio888.dpdns.org',

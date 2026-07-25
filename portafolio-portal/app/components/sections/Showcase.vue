@@ -54,6 +54,8 @@ const proceedToDemo = () => {
           <img 
             :src="project.thumbnail" 
             :alt="`Vista previa de ${project.name}`" 
+            width="640"
+            height="360"
             class="w-full h-full object-cover object-top transform group-hover:scale-105 group-hover:-translate-y-2 transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"
             loading="lazy" 
           />
