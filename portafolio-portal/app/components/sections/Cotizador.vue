@@ -906,7 +906,7 @@ const printProposal = () => {
                 <a 
                   :href="whatsappUrl" 
                   target="_blank"
-                  class="w-full flex items-center justify-center gap-2 py-3 px-4 font-bold text-xs text-white bg-emerald-600 hover:bg-emerald-500 active:scale-[0.97] rounded-xl transition-all shadow-lg shadow-emerald-950/20 cursor-pointer"
+                  class="w-full flex items-center justify-center gap-2 py-3 px-4 font-bold text-xs text-white bg-emerald-700 dark:bg-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-500 active:scale-[0.97] rounded-xl transition-all shadow-lg shadow-emerald-950/20 cursor-pointer"
                 >
                   <component :is="LucideIcons.MessageSquare" class="w-4 h-4 shrink-0" />
                   <span>Enviar Cotización a WhatsApp</span>
