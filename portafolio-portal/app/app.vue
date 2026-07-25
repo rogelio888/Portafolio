@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, defineAsyncComponent } from 'vue'
-import LayoutHeader from './components/layout/Header.vue'
-import SectionsHero from './components/sections/Hero.vue'
-
-const StarfieldBackground = defineAsyncComponent(() => import('./components/StarfieldBackground.vue'))
-const SectionsTechCarousel = defineAsyncComponent(() => import('./components/sections/TechCarousel.vue'))
-const SectionsShowcase = defineAsyncComponent(() => import('./components/sections/Showcase.vue'))
-const SectionsCotizador = defineAsyncComponent(() => import('./components/sections/Cotizador.vue'))
+import { onMounted, ref } from 'vue'
 
 const isDark = ref(true)
 
@@ -23,15 +16,15 @@ onMounted(() => {
 <template>
   <div class="min-h-screen bg-slate-50 dark:bg-transparent font-sans text-slate-900 dark:text-white transition-colors duration-300 selection:bg-violet-500/30 selection:text-violet-900 dark:selection:text-violet-100 overflow-clip w-full relative">
     
-    <StarfieldBackground v-if="isDark" />
+    <LazyStarfieldBackground v-if="isDark" />
     
     <LayoutHeader />
     
     <main class="relative z-10">
       <SectionsHero />
-      <SectionsTechCarousel />
-      <SectionsShowcase />
-      <SectionsCotizador />
+      <LazySectionsTechCarousel />
+      <LazySectionsShowcase />
+      <LazySectionsCotizador />
     </main>
 
     <footer class="relative z-10 py-12 border-t border-slate-200 dark:border-slate-800 text-center bg-slate-50 dark:bg-slate-950 no-print">
