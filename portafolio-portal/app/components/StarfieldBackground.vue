@@ -87,15 +87,30 @@ const setupStars = () => {
 }
 
 let tick = 0
-const drawStars = () => {
+let lastFrameTime = 0
+
+const drawStars = (timestamp = 0) => {
   if (!ctx || !canvas.value || document.hidden) {
     animationFrameId = requestAnimationFrame(drawStars)
     return
   }
-  ctx.clearRect(0, 0, width, height)
-  
-  tick += 0.5
+
   const isMobile = width < 768
+
+  // On mobile, draw a single static frame to save 2.2s CPU main-thread budget
+  if (isMobile && tick > 0) {
+    return
+  }
+
+  // Throttle animation frame rate to 30 FPS on desktop
+  if (!isMobile && timestamp - lastFrameTime < 33) {
+    animationFrameId = requestAnimationFrame(drawStars)
+    return
+  }
+  lastFrameTime = timestamp
+
+  ctx.clearRect(0, 0, width, height)
+  tick += 0.5
 
   stars.forEach(star => {
     // Parallax movement
@@ -115,7 +130,6 @@ const drawStars = () => {
     ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2)
     ctx.fillStyle = `rgba(${star.color}, ${star.opacity})`
     
-    // Add glow to near stars only on desktop to save GPU budget
     if (star.layer === 3 && !isMobile) {
       ctx.shadowBlur = 4
       ctx.shadowColor = `rgba(${star.color}, 0.8)`
@@ -126,7 +140,9 @@ const drawStars = () => {
     ctx.fill()
   })
 
-  animationFrameId = requestAnimationFrame(drawStars)
+  if (!isMobile) {
+    animationFrameId = requestAnimationFrame(drawStars)
+  }
 }
 
 let resizeTimeout = null
@@ -135,6 +151,7 @@ const onResize = () => {
   resizeTimeout = setTimeout(() => {
     resizeCanvas()
     setupStars()
+    drawStars()
   }, 200)
 }
 
@@ -143,7 +160,13 @@ onMounted(() => {
   ctx = canvas.value.getContext('2d')
   resizeCanvas()
   setupStars()
-  drawStars()
+  
+  // Defer animation loop start until main thread is idle
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => drawStars(), { timeout: 1000 })
+  } else {
+    setTimeout(() => drawStars(), 300)
+  }
   
   window.addEventListener('resize', onResize, { passive: true })
 })
