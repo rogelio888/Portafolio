@@ -75,10 +75,11 @@ const resizeCanvas = () => {
 const setupStars = () => {
   stars.length = 0
   const area = width * height
+  const isMobile = width < 768
   
-  const countLayer1 = Math.min(Math.floor(area / 8000), 100)
-  const countLayer2 = Math.min(Math.floor(area / 15000), 50)
-  const countLayer3 = Math.min(Math.floor(area / 30000), 25)
+  const countLayer1 = isMobile ? 12 : Math.min(Math.floor(area / 8000), 100)
+  const countLayer2 = isMobile ? 6 : Math.min(Math.floor(area / 15000), 50)
+  const countLayer3 = isMobile ? 3 : Math.min(Math.floor(area / 30000), 25)
 
   for (let i = 0; i < countLayer1; i++) stars.push(createStar(1))
   for (let i = 0; i < countLayer2; i++) stars.push(createStar(2))
