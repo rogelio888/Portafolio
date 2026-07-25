@@ -6,9 +6,6 @@ export default defineNuxtConfig({
   features: {
     inlineStyles: true
   },
-  experimental: {
-    inlineSSRStyles: true
-  },
   alias: {
     '#app-manifest': './app/mock-manifest.ts'
   },
@@ -79,7 +76,7 @@ export default defineNuxtConfig({
       rollupOptions: {
         output: {
           manualChunks(id) {
-            if (id.includes('@vueuse/motion')) {
+            if (id.includes('@vueuse') || id.includes('motion')) {
               return 'motion-vendor'
             }
           }
