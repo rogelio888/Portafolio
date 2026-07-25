@@ -6,7 +6,7 @@ import { techList } from '../../utils/siteData'
   <section id="habilidades" class="w-full py-16 bg-transparent overflow-hidden relative no-print">
     
     <div class="text-center mb-10 px-4">
-      <h2 class="text-xs font-black tracking-widest uppercase text-slate-400 dark:text-slate-500 mb-2">Nuestro Stack Tecnológico</h2>
+      <h2 class="text-xs font-black tracking-widest uppercase text-slate-500 dark:text-slate-300 mb-2">Nuestro Stack Tecnológico</h2>
       <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Herramientas de grado empresarial para máxima velocidad y seguridad.</p>
     </div>
     
@@ -43,7 +43,7 @@ import { techList } from '../../utils/siteData'
         <div 
           v-for="tech in techList" 
           :key="tech.name + '-dup'" 
-          tabindex="0"
+          tabindex="-1"
           class="group relative flex flex-col items-center justify-center gap-4 w-40 h-40 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-xl hover:shadow-violet-500/10 hover:-translate-y-2 focus:shadow-xl focus:shadow-violet-500/10 focus:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden focus:outline-none"
         >
           <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50 dark:to-slate-800/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

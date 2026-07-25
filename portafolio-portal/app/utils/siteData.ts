@@ -174,7 +174,7 @@ export const projects: ProjectDemo[] = [
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 7,
     demoUrl: '/frontend-farmacia/index.html',
-    thumbnail: '/screenshots/frontend-farmacia.png',
+    thumbnail: '/screenshots/frontend-farmacia.webp',
     githubUrl: 'https://github.com/rogel/farmacia-angular-laravel',
     iconName: 'Activity',
     architectureDetails: {
@@ -216,7 +216,7 @@ CREATE TABLE kardex_movements (
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 7,
     demoUrl: '/frontend-clinica/index.html',
-    thumbnail: '/screenshots/frontend-clinica.png',
+    thumbnail: '/screenshots/frontend-clinica.webp',
     githubUrl: 'https://github.com/rogel/clinica-react-nestjs',
     iconName: 'Heart',
     architectureDetails: {
@@ -251,7 +251,7 @@ CREATE TABLE Appointments (
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 7,
     demoUrl: '/frontend-pensiones/index.html',
-    thumbnail: '/screenshots/frontend-pensiones.png',
+    thumbnail: '/screenshots/frontend-pensiones.webp',
     githubUrl: 'https://github.com/rogel/pensiones-vue-laravel',
     iconName: 'GraduationCap',
     architectureDetails: {
@@ -284,7 +284,7 @@ CREATE TABLE payments (
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 8,
     demoUrl: '/frontend-gym/index.html',
-    thumbnail: '/screenshots/frontend-gym.png',
+    thumbnail: '/screenshots/frontend-gym.webp',
     githubUrl: 'https://github.com/rogel/gym-supabase',
     iconName: 'Dumbbell',
     architectureDetails: {
@@ -315,7 +315,7 @@ ALTER TABLE attendance ENABLE ROW LEVEL SECURITY;`
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 9,
     demoUrl: '/frontend-agroindustrial/index.html',
-    thumbnail: '/screenshots/frontend-agroindustrial.png',
+    thumbnail: '/screenshots/frontend-agroindustrial.webp',
     githubUrl: 'https://github.com/rogel/agro-vue-nestjs',
     iconName: 'Leaf',
     architectureDetails: {
@@ -342,7 +342,7 @@ CREATE TABLE batches (
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 7,
     demoUrl: '/frontend-hotel/index.html#/?reset=1',
-    thumbnail: '/screenshots/frontend-hotel.png',
+    thumbnail: '/screenshots/frontend-hotel.webp',
     githubUrl: 'https://github.com/rogel/hotel-vue-nestjs',
     iconName: 'Building2',
     architectureDetails: {
@@ -379,7 +379,7 @@ CREATE TABLE bookings (
     databaseStack: 'N/A',
     relatedPlanId: 1,
     demoUrl: '/landing-page/index.html',
-    thumbnail: '/screenshots/landing-page.png',
+    thumbnail: '/screenshots/landing-page.webp',
     githubUrl: 'https://github.com/rogel/landing-tattoo-nuxt',
     iconName: 'Flame',
     architectureDetails: {
@@ -398,7 +398,7 @@ CREATE TABLE bookings (
     databaseStack: 'N/A',
     relatedPlanId: 1,
     demoUrl: '/landing-chronos/index.html',
-    thumbnail: '/screenshots/landing-chronos-final.png',
+    thumbnail: '/screenshots/landing-chronos-final.webp',
     githubUrl: 'https://github.com/rogel/chronos-landing-next',
     iconName: 'Cpu',
     architectureDetails: {

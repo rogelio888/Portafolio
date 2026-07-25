@@ -3,6 +3,10 @@ import tailwindcss from '@tailwindcss/vite'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
+  sourcemap: {
+    client: true,
+    server: false
+  },
   devServer: {
     host: '127.0.0.1',
     port: 3000
@@ -47,8 +51,19 @@ export default defineNuxtConfig({
   modules: [
     'shadcn-nuxt',
     '@vueuse/motion/nuxt',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/google-fonts'
   ],
+  // @ts-ignore - google-fonts module config
+  googleFonts: {
+    families: {
+      Inter: [400, 500, 600, 700, 800, 900],
+      Outfit: [400, 500, 600, 700, 800, 900]
+    },
+    display: 'swap',
+    download: true,
+    inject: true
+  },
   site: {
     url: 'https://portafoliorogelio888.dpdns.org',
     name: 'Portafolio de Rogelio'
@@ -65,8 +80,6 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: [
         '@lucide/vue',
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
         '@vueuse/motion',
         'class-variance-authority',
         'clsx',

@@ -306,6 +306,7 @@ const printProposal = () => {
           <input
             v-model="searchQuery"
             type="text"
+            aria-label="Buscar proyectos por tecnología o tipo"
             placeholder="Buscar por tecnología o tipo (tienda, blog, etc)..."
             class="w-full pl-10 pr-10 py-2.5 text-xs rounded-xl border border-black/[0.06] dark:border-white/[0.06] bg-white dark:bg-slate-950/60 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-violet-500 transition-all placeholder-slate-400 dark:placeholder-slate-600"
           />
@@ -715,7 +716,7 @@ const printProposal = () => {
                         : 'border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-900'"
                     >
                       <span>{{ ext }}</span>
-                      <span class="text-[9px] text-slate-400 dark:text-slate-500 font-semibold mt-0.5">~${{ info.reg.toFixed(2) }}</span>
+                      <span class="text-[9px] text-slate-500 dark:text-slate-300 font-semibold mt-0.5">~${{ info.reg.toFixed(2) }}</span>
                     </button>
                   </div>
                   <div class="mt-2 text-[10px] text-slate-500 dark:text-slate-400 flex items-center justify-between">
@@ -740,7 +741,7 @@ const printProposal = () => {
                         : 'border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-900'"
                     >
                       <span>{{ ext }}</span>
-                      <span class="text-[9px] text-slate-400 dark:text-slate-500 font-semibold mt-0.5">
+                      <span class="text-[9px] text-slate-500 dark:text-slate-300 font-semibold mt-0.5">
                         {{ info.price === 0 ? 'Incluido' : `+$${info.price.toFixed(0)}/año` }}
                       </span>
                     </button>
@@ -791,21 +792,25 @@ const printProposal = () => {
 
               <!-- Custom additions estimator -->
               <div class="border-t border-black/[0.05] dark:border-white/[0.04] pt-4 space-y-2">
-                <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest font-heading">Agregar Módulo Especial</label>
+                <label for="custom-module-desc" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest font-heading">Agregar Módulo Especial</label>
                 <input
+                  id="custom-module-desc"
                   type="text"
                   v-model="customFeatureDescription"
+                  aria-label="Nombre o descripción del módulo especial"
                   placeholder="Ej. API Facturación Impuestos, Pasarela de Pago"
                   class="w-full px-3 py-2 text-xs rounded-xl border border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-violet-500 placeholder-slate-400 dark:placeholder-slate-500"
                 />
                 <div class="flex items-center gap-2">
-                  <span class="text-xs text-slate-500 dark:text-slate-400">Presupuesto Extra:</span>
+                  <label for="custom-module-price" class="text-xs text-slate-500 dark:text-slate-400">Presupuesto Extra:</label>
                   <div class="relative flex-1 max-w-[120px]">
                     <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-xs text-slate-400">$</span>
                     <input
+                      id="custom-module-price"
                       type="number"
                       v-model.number="customFeaturePrice"
                       min="0"
+                      aria-label="Presupuesto extra en dólares"
                       class="w-full pl-6 pr-2 py-1.5 text-xs rounded-xl border border-black/[0.05] dark:border-white/[0.04] bg-slate-100 dark:bg-slate-950 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-violet-500"
                     />
                   </div>
@@ -843,7 +848,7 @@ const printProposal = () => {
 
                 <!-- 📋 SECONDARY ACCORDEON / DESGLOSE SECUNDARIO (Detalle elegante) -->
                 <div class="p-3.5 rounded-xl bg-slate-100/80 dark:bg-slate-950/60 border border-black/[0.05] dark:border-white/[0.05] space-y-2">
-                  <span class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-heading">
+                  <span class="text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-wider block font-heading">
                     Desglose del 1er Pago (Inicial):
                   </span>
                   
@@ -870,7 +875,7 @@ const printProposal = () => {
                 <!-- 🔄 RECURRENT COST FOOTER: Renovaciones posteriores -->
                 <div class="p-3.5 rounded-xl bg-slate-900/5 dark:bg-slate-950/80 border border-slate-500/10 space-y-2.5">
                   <div class="space-y-1">
-                    <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block font-heading">
+                    <span class="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider block font-heading">
                       Renovación Recurrente ({{ selectedHostingPeriod === 'monthly' ? 'Mensual' : selectedHostingPeriod === 'annual' ? 'Año 2+' : 'Años 3+' }}):
                     </span>
                     <div class="text-base font-extrabold text-violet-600 dark:text-violet-400 font-heading">

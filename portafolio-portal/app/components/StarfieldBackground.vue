@@ -87,10 +87,14 @@ const setupStars = () => {
 
 let tick = 0
 const drawStars = () => {
-  if (!ctx || !canvas.value) return
+  if (!ctx || !canvas.value || document.hidden) {
+    animationFrameId = requestAnimationFrame(drawStars)
+    return
+  }
   ctx.clearRect(0, 0, width, height)
   
   tick += 0.5
+  const isMobile = width < 768
 
   stars.forEach(star => {
     // Parallax movement
@@ -110,9 +114,9 @@ const drawStars = () => {
     ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2)
     ctx.fillStyle = `rgba(${star.color}, ${star.opacity})`
     
-    // Add glow to near stars
-    if (star.layer === 3) {
-      ctx.shadowBlur = 6
+    // Add glow to near stars only on desktop to save GPU budget
+    if (star.layer === 3 && !isMobile) {
+      ctx.shadowBlur = 4
       ctx.shadowColor = `rgba(${star.color}, 0.8)`
     } else {
       ctx.shadowBlur = 0
@@ -124,6 +128,15 @@ const drawStars = () => {
   animationFrameId = requestAnimationFrame(drawStars)
 }
 
+let resizeTimeout = null
+const onResize = () => {
+  if (resizeTimeout) clearTimeout(resizeTimeout)
+  resizeTimeout = setTimeout(() => {
+    resizeCanvas()
+    setupStars()
+  }, 200)
+}
+
 onMounted(() => {
   if (!canvas.value) return
   ctx = canvas.value.getContext('2d')
@@ -131,14 +144,12 @@ onMounted(() => {
   setupStars()
   drawStars()
   
-  window.addEventListener('resize', () => {
-    resizeCanvas()
-    setupStars()
-  })
+  window.addEventListener('resize', onResize, { passive: true })
 })
 
 onUnmounted(() => {
   if (animationFrameId) cancelAnimationFrame(animationFrameId)
-  window.removeEventListener('resize', resizeCanvas)
+  if (resizeTimeout) clearTimeout(resizeTimeout)
+  window.removeEventListener('resize', onResize)
 })
 </script>

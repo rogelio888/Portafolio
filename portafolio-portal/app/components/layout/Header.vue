@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Sun, Moon, Menu, X } from 'lucide-vue-next'
 
 const isDark = ref(true)
@@ -14,11 +14,25 @@ const toggleTheme = () => {
   } catch (e) {}
 }
 
+let ticking = false
+const handleScroll = () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      isScrolled.value = window.scrollY > 20
+      ticking = false
+    })
+    ticking = true
+  }
+}
+
 onMounted(() => {
   isDark.value = document.documentElement.classList.contains('dark')
-  window.addEventListener('scroll', () => {
-    isScrolled.value = window.scrollY > 20
-  })
+  handleScroll()
+  window.addEventListener('scroll', handleScroll, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
 })
 </script>
 
@@ -73,6 +87,7 @@ onMounted(() => {
           <!-- Theme Toggle -->
           <button 
             @click="toggleTheme" 
+            aria-label="Cambiar tema de color"
             class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors"
           >
             <Sun v-if="isDark" class="w-4 h-4" />
@@ -80,7 +95,11 @@ onMounted(() => {
           </button>
 
           <!-- Mobile/Tablet Menu Toggle -->
-          <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center text-slate-900 dark:text-white hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors">
+          <button 
+            @click="isMobileMenuOpen = !isMobileMenuOpen" 
+            :aria-label="isMobileMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
+            class="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center text-slate-900 dark:text-white hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors"
+          >
             <Menu v-if="!isMobileMenuOpen" class="w-5 h-5" />
             <X v-else class="w-5 h-5" />
           </button>

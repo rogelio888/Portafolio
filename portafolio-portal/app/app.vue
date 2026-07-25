@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import StarfieldBackground from './components/StarfieldBackground.vue'
+import { onMounted, ref, defineAsyncComponent } from 'vue'
 import LayoutHeader from './components/layout/Header.vue'
 import SectionsHero from './components/sections/Hero.vue'
-import SectionsTechCarousel from './components/sections/TechCarousel.vue'
-import SectionsShowcase from './components/sections/Showcase.vue'
-import SectionsCotizador from './components/sections/Cotizador.vue'
+
+const StarfieldBackground = defineAsyncComponent(() => import('./components/StarfieldBackground.vue'))
+const SectionsTechCarousel = defineAsyncComponent(() => import('./components/sections/TechCarousel.vue'))
+const SectionsShowcase = defineAsyncComponent(() => import('./components/sections/Showcase.vue'))
+const SectionsCotizador = defineAsyncComponent(() => import('./components/sections/Cotizador.vue'))
 
 const isDark = ref(true)
 
@@ -38,7 +39,7 @@ onMounted(() => {
         <p class="text-sm font-bold text-slate-500 dark:text-slate-400">
           © {{ new Date().getFullYear() }} Portafolio. Todos los derechos reservados.
         </p>
-        <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-2">
+        <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-2">
           Diseñado y desarrollado con estándares de calidad premium.
         </p>
       </div>
@@ -47,8 +48,6 @@ onMounted(() => {
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
-
 html {
   scroll-behavior: smooth;
 }
