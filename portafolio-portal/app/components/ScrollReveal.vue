@@ -27,12 +27,7 @@ const isVisible = ref(false)
 onMounted(() => {
   const observer = new IntersectionObserver(([entry]) => {
     if (entry.isIntersecting) {
-      // Force repaint to guarantee the initial opacity-0 state is registered by browser
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          isVisible.value = true
-        })
-      })
+      isVisible.value = true
       observer.disconnect()
     }
   }, {

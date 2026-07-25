@@ -644,7 +644,7 @@ const printProposal = () => {
                         : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'"
                     >
                       <span>1 Año</span>
-                      <span class="text-[8px] uppercase tracking-wider" :class="selectedHostingPeriod === 'annual' ? 'text-emerald-300' : 'text-emerald-500'">Oferta</span>
+                      <span class="text-[8px] uppercase tracking-wider" :class="selectedHostingPeriod === 'annual' ? 'text-white font-extrabold' : 'text-emerald-600 dark:text-emerald-400'">Oferta</span>
                     </button>
                     <button
                       @click="selectedHostingPeriod = 'biannual'"
@@ -654,7 +654,7 @@ const printProposal = () => {
                         : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'"
                     >
                       <span>2 Años</span>
-                      <span class="text-[8px] uppercase tracking-wider" :class="selectedHostingPeriod === 'biannual' ? 'text-yellow-300' : 'text-yellow-500'">Mejor Precio</span>
+                      <span class="text-[8px] uppercase tracking-wider" :class="selectedHostingPeriod === 'biannual' ? 'text-white font-extrabold' : 'text-amber-600 dark:text-amber-400'">Mejor Precio</span>
                     </button>
                   </div>
                   

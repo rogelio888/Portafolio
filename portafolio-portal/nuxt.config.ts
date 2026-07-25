@@ -65,7 +65,8 @@ export default defineNuxtConfig({
     inject: true,
     prefetch: false,
     preconnect: false,
-    preload: true
+    preload: false,
+    useStylesheet: false
   },
   site: {
     url: 'https://portafoliorogelio888.dpdns.org',
