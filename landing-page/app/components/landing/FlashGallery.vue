@@ -1,60 +1,207 @@
 <script setup lang="ts">
-const flashItems = [
-  { icon: 'dagger' as const, name: 'Puñal', price: 420, size: '8cm', rotate: -3 },
-  { icon: 'rose' as const, name: 'Rosa Negra', price: 550, size: '10cm', rotate: 2 },
-  { icon: 'star' as const, name: 'Estrella Náutica', price: 350, size: '6cm', rotate: -2 },
-  { icon: 'snake' as const, name: 'Serpiente', price: 680, size: '14cm', rotate: 3 },
-  { icon: 'anchor' as const, name: 'Ancla', price: 400, size: '9cm', rotate: -1 },
-  { icon: 'swallow' as const, name: 'Golondrina', price: 320, size: '7cm', rotate: 2 },
-  { icon: 'lightning' as const, name: 'Rayo', price: 280, size: '5cm', rotate: -4 },
-  { icon: 'eye' as const, name: 'Ojo', price: 460, size: '8cm', rotate: 1 },
-  { icon: 'raven' as const, name: 'Cuervo', price: 720, size: '15cm', rotate: -2 }
-]
+import { ref, computed } from 'vue';
+
+const emit = defineEmits(['openBooking']);
+
+interface GalleryItem {
+  id: string;
+  title: string;
+  category: 'Línea Fina' | 'Realismo Oscuro' | 'Micro-Realismo' | 'Ilustrativo';
+  artist: string;
+  image: string;
+  description: string;
+  placement: string;
+}
+
+const selectedCategory = ref<string>('Todos');
+const activeItem = ref<GalleryItem | null>(null);
+
+const categories = ['Todos', 'Línea Fina', 'Realismo Oscuro', 'Micro-Realismo', 'Ilustrativo'];
+
+const galleryItems: GalleryItem[] = [
+  {
+    id: '1',
+    title: 'Astrolabio Astronómico y Constelación',
+    category: 'Línea Fina',
+    artist: 'Elena Vance',
+    image: '/assets/tattoos/astrolabe.png',
+    description: 'Grabado geométrico de aguja única con coordenadas celestes microscópicas.',
+    placement: 'Antebrazo Interior',
+  },
+  {
+    id: '2',
+    title: 'Cuervo Anatómico en Claroscuro',
+    category: 'Realismo Oscuro',
+    artist: 'Kaelen Dark',
+    image: '/assets/tattoos/raven.png',
+    description: 'Sombras profundas de blackwork con textura fotorrealista de plumaje denso.',
+    placement: 'Hombro y Costillas',
+  },
+  {
+    id: '3',
+    title: 'Helecho Botánico y Zarcillos Delicados',
+    category: 'Micro-Realismo',
+    artist: 'Sora Lin',
+    image: '/assets/tattoos/botanical.png',
+    description: 'Trazo orgánico ingrávido esculpido siguiendo la anatomía natural de la espalda.',
+    placement: 'Columna y Espalda',
+  },
+  {
+    id: '4',
+    title: 'Serpiente Mitológica y Corona Floral',
+    category: 'Ilustrativo',
+    artist: 'Elena Vance',
+    image: '/assets/tattoos/serpent.png',
+    description: 'Pieza de manga personalizada que fusiona arte ilustrativo oscuro con trazos de precisión.',
+    placement: 'Manga Completa',
+  },
+  {
+    id: '5',
+    title: 'Geometría Sagrada y Anillo Solar',
+    category: 'Línea Fina',
+    artist: 'Sora Lin',
+    image: '/assets/tattoos/geometry.png',
+    description: 'Micro-simetría de círculos concéntricos grabados mediante técnica de aguja ultra-fina.',
+    placement: 'Muslo Exterior',
+  },
+  {
+    id: '6',
+    title: 'Arco Catedralicio y Silueta Gótica',
+    category: 'Realismo Oscuro',
+    artist: 'Kaelen Dark',
+    image: '/assets/tattoos/arch.png',
+    description: 'Arquitectura en claroscuro de tonalidades profundas inspirada en arcos medievales.',
+    placement: 'Espalda Superior',
+  },
+];
+
+const filteredItems = computed(() => {
+  if (selectedCategory.value === 'Todos') return galleryItems;
+  return galleryItems.filter((item) => item.category === selectedCategory.value);
+});
 </script>
 
 <template>
-  <section id="flash" class="relative py-28 sm:py-36 px-5 sm:px-10 border-b border-paper/10">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-wrap items-end justify-between gap-6 mb-16">
+  <section id="galeria" class="relative min-h-screen w-full bg-black py-28 px-6 md:px-16 lg:px-20 text-white select-none">
+    <!-- Background Accent Grid -->
+    <div class="absolute inset-0 tattoo-grid-bg opacity-30 pointer-events-none" />
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
-          <span class="font-mono-label text-xs text-blood block mb-8">03 — FLASH SHEET</span>
-          <h2 class="font-display text-[10vw] sm:text-[6vw] lg:text-[4vw] leading-[0.95]">
-            DISEÑOS<br>DISPONIBLES
+          <div class="text-xs font-mono-label text-white/70 tracking-widest uppercase mb-3 flex items-center gap-2">
+            <UIcon name="i-lucide-sparkles" class="w-4 h-4 text-white" />
+            <span>// Galería de Flash & Portafolio Exclusivo</span>
+          </div>
+          <h2 class="font-display italic text-4xl md:text-6xl lg:text-7xl leading-none text-white tracking-tight">
+            GRABADO EN LA ETERNIDAD
           </h2>
         </div>
-        <p class="font-sans text-paper/50 text-sm max-w-xs">
-          Piezas únicas, se tatúan una sola vez. Cuando se van, se van para siempre.
-        </p>
+
+        <!-- Filter Pills -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button
+            v-for="cat in categories"
+            :key="cat"
+            type="button"
+            @click="selectedCategory = cat"
+            class="liquid-glass px-5 py-2.5 rounded-full text-xs font-mono-label transition-all cursor-pointer"
+            :class="selectedCategory === cat ? 'border-2 border-white bg-white/25 text-white font-bold shadow-lg shadow-white/10 scale-105' : 'text-white/70 hover:text-white hover:bg-white/10 border border-white/10'"
+          >
+            {{ cat }}
+          </button>
+        </div>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
-        <Motion
-          v-for="(item, i) in flashItems"
-          :key="item.name"
-          data-cursor-hover
-          :initial="{ opacity: 0, y: 24 }"
-          :while-in-view="{ opacity: 1, y: 0 }"
-          :viewport="{ once: true }"
-          :transition="{ duration: 0.5, delay: (i % 3) * 0.08 }"
-          :while-hover="{ rotate: 0, scale: 1.03 }"
-          :style="{ rotate: `${item.rotate}deg` }"
-          class="group relative aspect-[3/4] border border-paper/15 bg-ink-1 card-texture p-5 flex flex-col justify-between transition-colors hover:border-blood/60"
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          v-for="item in filteredItems"
+          :key="item.id"
+          @click="activeItem = item"
+          class="liquid-glass group rounded-[1.5rem] overflow-hidden border border-white/10 hover:border-white/40 transition-all duration-500 cursor-pointer flex flex-col justify-between"
         >
-          <div class="flex items-start justify-between font-mono-label text-[10px] text-paper/40">
-            <span>N.{{ String(i + 1).padStart(2, '0') }}</span>
-            <span>{{ item.size }}</span>
+          <!-- Image Container -->
+          <div class="relative aspect-[4/5] overflow-hidden bg-black">
+            <img
+              :src="item.image"
+              :alt="item.title"
+              class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+
+            <!-- Category Badge -->
+            <div class="absolute top-4 left-4 liquid-glass px-3 py-1 rounded-full text-[10px] font-mono-label text-white border border-white/20">
+              {{ item.category }}
+            </div>
           </div>
 
-          <div class="w-full aspect-square max-w-[60%] mx-auto text-paper/80 group-hover:text-blood transition-colors duration-500">
-            <FlashIcon :name="item.icon" />
+          <!-- Card Content -->
+          <div class="p-6">
+            <div class="text-[11px] font-mono-label text-white/50 uppercase tracking-widest mb-1">
+              {{ item.artist }} &bull; {{ item.placement }}
+            </div>
+            <h3 class="font-display italic text-xl text-white group-hover:text-white transition-colors leading-snug">
+              {{ item.title }}
+            </h3>
+            <p class="text-xs font-sans text-white/60 font-light mt-2 line-clamp-2">
+              {{ item.description }}
+            </p>
           </div>
-
-          <div class="text-center">
-            <h3 class="font-display text-lg sm:text-xl text-paper">{{ item.name }}</h3>
-            <span class="font-mono-label text-xs text-blood">Bs {{ item.price }}</span>
-          </div>
-        </Motion>
+        </div>
       </div>
     </div>
+
+    <!-- Image Detail Modal -->
+    <Transition
+      enter-active-class="transition duration-300 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition duration-200 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <div v-if="activeItem" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div @click="activeItem = null" class="absolute inset-0 bg-black/90 backdrop-blur-xl" />
+        <div class="relative z-10 w-full max-w-4xl liquid-glass-strong rounded-[2rem] p-6 md:p-8 border border-white/20 shadow-2xl flex flex-col md:flex-row gap-8 overflow-hidden">
+          <button
+            @click="activeItem = null"
+            class="absolute top-4 right-4 liquid-glass h-9 w-9 rounded-full flex items-center justify-center text-white/70 hover:text-white border border-white/20 z-20 cursor-pointer"
+          >
+            <UIcon name="i-lucide-x" class="w-5 h-5" />
+          </button>
+
+          <div class="w-full md:w-1/2 aspect-square rounded-2xl overflow-hidden border border-white/10 bg-black">
+            <img :src="activeItem.image" :alt="activeItem.title" class="w-full h-full object-cover" />
+          </div>
+
+          <div class="w-full md:w-1/2 flex flex-col justify-between py-2 text-white">
+            <div>
+              <span class="liquid-glass px-3 py-1 rounded-full text-xs font-mono-label text-white/80 border border-white/10">
+                {{ activeItem.category }}
+              </span>
+              <h3 class="font-display italic text-3xl text-white mt-4 mb-2">
+                {{ activeItem.title }}
+              </h3>
+              <p class="text-sm font-mono-label text-white/60 mb-4">
+                Artista: <strong>{{ activeItem.artist }}</strong> &bull; Ubicación: {{ activeItem.placement }}
+              </p>
+              <p class="text-xs font-sans font-light text-white/80 leading-relaxed mb-6">
+                {{ activeItem.description }}
+              </p>
+            </div>
+
+            <button
+              @click="activeItem = null; emit('openBooking')"
+              class="w-full bg-white text-black font-mono-label text-xs font-bold py-3.5 rounded-full flex items-center justify-center gap-2 hover:bg-white/90 transition-colors cursor-pointer"
+            >
+              <span>SOLICITAR ESTE ESTILO</span>
+              <UIcon name="i-lucide-arrow-right" class="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </section>
 </template>

@@ -1,46 +1,120 @@
 <script setup lang="ts">
+const emit = defineEmits(['openBooking']);
+
 const artists = [
-  { initials: 'MR', name: 'Mara Rojas', specialty: 'Blackwork / Geometría', handle: '@mara.rojas.ink', icon: 'snake' as const },
-  { initials: 'DC', name: 'Dante Cuellar', specialty: 'Realismo / Retrato', handle: '@dante.tattoos', icon: 'eye' as const },
-  { initials: 'IZ', name: 'Ime Zambrana', specialty: 'Fine Line / Botánica', handle: '@ime.linework', icon: 'swallow' as const },
-  { initials: 'JQ', name: 'Joaquín Quispe', specialty: 'Neotradicional', handle: '@quispe.tattoo', icon: 'rose' as const }
-]
+  {
+    name: 'Elena Vance',
+    title: 'Maestra en Línea Fina y Micro-Realismo',
+    residency: 'Agenda Q3/Q4 2026',
+    bio: 'Pionera en geometría de aguja única y contornos botánicos ingrávidos. Formada en ateliers de Florencia y Tokio.',
+    styles: ['Aguja Única', 'Micro-Realismo', 'Geometría Botánica'],
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    instagram: '@elena.vance.ink',
+  },
+  {
+    name: 'Kaelen Dark',
+    title: 'Especialista en Realismo Oscuro y Blackwork',
+    residency: 'Últimos 6 Cupos',
+    bio: 'Maestro en iluminación de claroscuro, gradientes de sombras profundas en blackwork y composiciones góticas en mangas completas.',
+    styles: ['Realismo Oscuro', 'Claroscuro', 'Blackwork Anatómico'],
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+    instagram: '@kaelendark.tattoo',
+  },
+  {
+    name: 'Sora Lin',
+    title: 'Especialista en Arte Ilustrativo y Pincelada',
+    residency: 'Residencia Sept 2026',
+    bio: 'Fusiona la técnica tradicional de pincelada oriental con el trazo de alta precisión contemporáneo para obras narrativas en la piel.',
+    styles: ['Arte Ilustrativo', 'Pincelada', 'Mangas de Autor'],
+    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+    instagram: '@soralin.atelier',
+  },
+];
 </script>
 
 <template>
-  <section class="relative py-28 sm:py-36 px-5 sm:px-10 border-b border-paper/10 bg-ink-1">
-    <div class="max-w-6xl mx-auto">
-      <span class="font-mono-label text-xs text-blood block mb-8">04 — RESIDENTES</span>
-      <h2 class="font-display text-[10vw] sm:text-[6vw] lg:text-[4vw] leading-[0.95] mb-16">
-        QUIÉN<br>TE TATÚA
-      </h2>
+  <section id="artistas" class="relative min-h-screen w-full bg-black py-28 px-6 md:px-16 lg:px-20 text-white select-none">
+    <div class="max-w-7xl mx-auto">
+      <!-- Header -->
+      <div class="mb-16">
+        <div class="text-xs font-mono-label text-white/70 tracking-widest uppercase mb-3 flex items-center gap-2">
+          <UIcon name="i-lucide-sparkles" class="w-4 h-4 text-white" />
+          <span>// Atelier de Artistas Residentes</span>
+        </div>
+        <h2 class="font-display italic text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] tracking-tight text-white">
+          MAESTROS RESIDENTES
+        </h2>
+        <p class="mt-4 text-sm md:text-base text-white/80 font-sans font-light max-w-xl">
+          Cada artista residente aporta una filosofía estética propia, maestría en bioseguridad y años de trayectoria en ateliers internacionales.
+        </p>
+      </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-paper/15 border border-paper/15">
-        <Motion
-          v-for="(artist, i) in artists"
-          :key="artist.handle"
-          data-cursor-hover
-          :initial="{ opacity: 0, y: 24 }"
-          :while-in-view="{ opacity: 1, y: 0 }"
-          :viewport="{ once: true }"
-          :transition="{ duration: 0.5, delay: i * 0.1 }"
-          class="group relative bg-ink-1 p-6 sm:p-7 flex flex-col justify-between min-h-[300px] overflow-hidden"
+      <!-- Artists Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          v-for="artist in artists"
+          :key="artist.name"
+          class="liquid-glass rounded-[1.75rem] p-6 flex flex-col justify-between hover:bg-white/[0.04] transition-all group border border-white/10"
         >
-          <div class="absolute -right-4 -bottom-6 w-32 h-32 text-paper/[0.04] group-hover:text-blood/10 transition-colors duration-500">
-            <FlashIcon :name="artist.icon" />
+          <!-- Photo & Residency Badge -->
+          <div class="relative aspect-[4/5] rounded-[1.25rem] overflow-hidden mb-6 bg-white/5">
+            <img
+              :src="artist.image"
+              :alt="artist.name"
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+            />
+            <div class="absolute top-3 right-3 liquid-glass-strong rounded-full px-3 py-1 text-[10px] font-mono-label uppercase font-bold text-white border border-white/20">
+              {{ artist.residency }}
+            </div>
           </div>
 
-          <div class="relative z-10 flex items-center justify-between">
-            <span class="font-display text-4xl sm:text-5xl text-paper/15 group-hover:text-blood/40 transition-colors duration-500">{{ artist.initials }}</span>
-            <span class="font-mono-label text-[10px] text-paper/40">0{{ i + 1 }}</span>
+          <!-- Bio & Details -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display italic text-3xl text-white group-hover:translate-x-1 transition-transform">
+                {{ artist.name }}
+              </h3>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                class="text-white/60 hover:text-white transition-colors"
+              >
+                <UIcon name="i-lucide-instagram" class="w-5 h-5" />
+              </a>
+            </div>
+
+            <p class="text-xs font-mono-label text-white/60 tracking-wider uppercase font-semibold">
+              {{ artist.title }}
+            </p>
+
+            <p class="text-xs text-white/80 font-sans font-light leading-relaxed">
+              {{ artist.bio }}
+            </p>
+
+            <!-- Style Badges -->
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span
+                v-for="st in artist.styles"
+                :key="st"
+                class="liquid-glass px-2.5 py-1 rounded-full text-[10px] font-mono-label text-white/90 border border-white/10"
+              >
+                {{ st }}
+              </span>
+            </div>
           </div>
 
-          <div class="relative z-10">
-            <h3 class="font-display text-xl sm:text-2xl text-paper leading-tight">{{ artist.name }}</h3>
-            <p class="font-mono-label text-[10px] text-blood mt-2">{{ artist.specialty }}</p>
-            <p class="font-sans text-paper/40 text-xs mt-3 group-hover:text-paper/70 transition-colors">{{ artist.handle }}</p>
+          <!-- Action Button -->
+          <div class="pt-6 border-t border-white/10 mt-6">
+            <button
+              @click="emit('openBooking')"
+              class="w-full liquid-glass rounded-full py-3 text-xs font-mono-label font-bold text-white flex items-center justify-center gap-1.5 hover:bg-white hover:text-black transition-all border border-white/20 cursor-pointer"
+            >
+              <span>SOLICITAR CITA CON {{ artist.name.split(' ')[0].toUpperCase() }}</span>
+              <UIcon name="i-lucide-arrow-up-right" class="w-4 h-4" />
+            </button>
           </div>
-        </Motion>
+        </div>
       </div>
     </div>
   </section>
