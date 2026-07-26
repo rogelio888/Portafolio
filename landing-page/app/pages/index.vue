@@ -29,7 +29,7 @@ const closeBookingModal = () => {
 </script>
 
 <template>
-  <div class="bg-black text-white relative min-h-screen">
+  <div class="bg-black text-white relative min-h-screen overflow-x-hidden w-full max-w-full">
     <!-- Navbar -->
     <Navbar @open-booking="openBookingModal" />
 
@@ -42,7 +42,7 @@ const closeBookingModal = () => {
     </div>
 
     <!-- Main Content -->
-    <main>
+    <main class="overflow-x-hidden w-full max-w-full">
       <LandingHero @open-booking="openBookingModal" />
       <LandingProcess @open-booking="openBookingModal" />
       <LandingFlashGallery @open-booking="openBookingModal" />

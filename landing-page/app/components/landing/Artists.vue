@@ -33,45 +33,45 @@ const artists = [
 </script>
 
 <template>
-  <section id="artistas" class="relative min-h-screen w-full bg-black py-28 px-6 md:px-16 lg:px-20 text-white select-none">
+  <section id="artistas" class="relative min-h-screen w-full bg-black py-16 sm:py-28 px-4 sm:px-12 lg:px-20 text-white select-none">
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
-      <div class="mb-16">
-        <div class="text-xs font-mono-label text-white/70 tracking-widest uppercase mb-3 flex items-center gap-2">
-          <UIcon name="i-lucide-sparkles" class="w-4 h-4 text-white" />
+      <div class="mb-10 sm:mb-16">
+        <div class="text-[10px] sm:text-xs font-mono-label text-white/70 tracking-widest uppercase mb-2 flex items-center gap-2">
+          <UIcon name="i-lucide-sparkles" class="w-3.5 h-3.5 text-white" />
           <span>// Atelier de Artistas Residentes</span>
         </div>
-        <h2 class="font-display italic text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] tracking-tight text-white">
+        <h2 class="font-display italic text-4xl sm:text-7xl lg:text-[5.5rem] leading-[0.9] tracking-tight text-white">
           MAESTROS RESIDENTES
         </h2>
-        <p class="mt-4 text-sm md:text-base text-white/80 font-sans font-light max-w-xl">
+        <p class="mt-3 text-xs sm:text-sm md:text-base text-white/80 font-sans font-light max-w-xl">
           Cada artista residente aporta una filosofía estética propia, maestría en bioseguridad y años de trayectoria en ateliers internacionales.
         </p>
       </div>
 
       <!-- Artists Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
         <div
           v-for="artist in artists"
           :key="artist.name"
-          class="liquid-glass rounded-[1.75rem] p-6 flex flex-col justify-between hover:bg-white/[0.04] transition-all group border border-white/10"
+          class="liquid-glass rounded-[1.5rem] sm:rounded-[1.75rem] p-5 sm:p-6 flex flex-col justify-between hover:bg-white/[0.04] transition-all group border border-white/10"
         >
           <!-- Photo & Residency Badge -->
-          <div class="relative aspect-[4/5] rounded-[1.25rem] overflow-hidden mb-6 bg-white/5">
+          <div class="relative aspect-[4/5] rounded-xl sm:rounded-[1.25rem] overflow-hidden mb-5 sm:mb-6 bg-white/5">
             <img
               :src="artist.image"
               :alt="artist.name"
               class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
             />
-            <div class="absolute top-3 right-3 liquid-glass-strong rounded-full px-3 py-1 text-[10px] font-mono-label uppercase font-bold text-white border border-white/20">
+            <div class="absolute top-3 right-3 liquid-glass-strong rounded-full px-2.5 py-0.5 sm:px-3 sm:py-1 text-[9px] sm:text-[10px] font-mono-label uppercase font-bold text-white border border-white/20">
               {{ artist.residency }}
             </div>
           </div>
 
           <!-- Bio & Details -->
-          <div class="space-y-3">
+          <div class="space-y-2.5 sm:space-y-3">
             <div class="flex items-center justify-between">
-              <h3 class="font-display italic text-3xl text-white group-hover:translate-x-1 transition-transform">
+              <h3 class="font-display italic text-2xl sm:text-3xl text-white group-hover:translate-x-1 transition-transform">
                 {{ artist.name }}
               </h3>
               <a
@@ -80,11 +80,11 @@ const artists = [
                 rel="noreferrer"
                 class="text-white/60 hover:text-white transition-colors"
               >
-                <UIcon name="i-lucide-instagram" class="w-5 h-5" />
+                <UIcon name="i-lucide-instagram" class="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </div>
 
-            <p class="text-xs font-mono-label text-white/60 tracking-wider uppercase font-semibold">
+            <p class="text-[11px] sm:text-xs font-mono-label text-white/60 tracking-wider uppercase font-semibold">
               {{ artist.title }}
             </p>
 
@@ -93,11 +93,11 @@ const artists = [
             </p>
 
             <!-- Style Badges -->
-            <div class="flex flex-wrap gap-1.5 pt-2">
+            <div class="flex flex-wrap gap-1.5 pt-1.5">
               <span
                 v-for="st in artist.styles"
                 :key="st"
-                class="liquid-glass px-2.5 py-1 rounded-full text-[10px] font-mono-label text-white/90 border border-white/10"
+                class="liquid-glass px-2.5 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-mono-label text-white/90 border border-white/10"
               >
                 {{ st }}
               </span>
@@ -105,13 +105,13 @@ const artists = [
           </div>
 
           <!-- Action Button -->
-          <div class="pt-6 border-t border-white/10 mt-6">
+          <div class="pt-5 border-t border-white/10 mt-5 sm:mt-6">
             <button
               @click="emit('openBooking')"
-              class="w-full liquid-glass rounded-full py-3 text-xs font-mono-label font-bold text-white flex items-center justify-center gap-1.5 hover:bg-white hover:text-black transition-all border border-white/20 cursor-pointer"
+              class="w-full liquid-glass rounded-full py-2.5 sm:py-3 text-xs font-mono-label font-bold text-white flex items-center justify-center gap-1.5 hover:bg-white hover:text-black transition-all border border-white/20 cursor-pointer shadow-md active:scale-95"
             >
               <span>SOLICITAR CITA CON {{ artist.name.split(' ')[0].toUpperCase() }}</span>
-              <UIcon name="i-lucide-arrow-up-right" class="w-4 h-4" />
+              <UIcon name="i-lucide-arrow-up-right" class="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           </div>
         </div>
