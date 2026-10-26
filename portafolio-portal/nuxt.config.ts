@@ -21,17 +21,17 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { class: 'dark', lang: 'es' },
-      title: 'Rogelio - Desarrollador Full-Stack | Demos y Cotizador',
+      title: 'Rogelio - Desarrollador Full-Stack | Demos Interactivas',
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
       ],
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, hoteles, clínicas y calcula tu cotización al instante.' },
+        { name: 'description', content: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, clínicas, agroindustria y más.' },
         { property: 'og:site_name', content: 'Portafolio de Rogelio' },
         { property: 'og:title', content: 'Rogelio - Desarrollador Full-Stack | Sistemas a Medida' },
-        { property: 'og:description', content: 'Lleva tu negocio al siguiente nivel con plataformas digitales diseñadas exclusivamente para ti. Explora demostraciones reales de sistemas y cotiza en línea.' },
+        { property: 'og:description', content: 'Lleva tu negocio al siguiente nivel con plataformas digitales diseñadas exclusivamente para ti. Explora demostraciones interactivas de sistemas web.' },
         { property: 'og:type', content: 'website' },
         { name: 'theme-color', content: '#7c3aed' }
       ],

@@ -334,43 +334,6 @@ CREATE TABLE batches (
     }
   },
   {
-    name: 'Portal Hotelero & Reservas',
-    description: 'Gestión de habitaciones y huéspedes en tiempo real, control de reservas, check-in/out simplificado y estadísticas de ocupación.',
-    category: 'Sistemas Avanzados',
-    frontendStack: 'Vue 3 & Tailwind CSS',
-    backendStack: 'Laravel 12 & Eloquent',
-    databaseStack: 'Supabase (PostgreSQL)',
-    relatedPlanId: 7,
-    demoUrl: '/frontend-hotel/index.html#/?reset=1',
-    thumbnail: '/screenshots/frontend-hotel.webp',
-    githubUrl: 'https://github.com/rogel/hotel-vue-nestjs',
-    iconName: 'Building2',
-    architectureDetails: {
-      controllerCode: `// booking.service.ts (NestJS)
-@Injectable()
-export class BookingService {
-  constructor(
-    @InjectRepository(Booking) private bookingRepo: Repository<Booking>,
-  ) {}
-
-  async createBooking(dto: CreateBookingDto): Promise<Booking> {
-    const booking = this.bookingRepo.create(dto);
-    booking.status = BookingStatus.CONFIRMED;
-    return this.bookingRepo.save(booking);
-  }
-}`,
-      schemaDetails: `-- PostgreSQL room booking schema
-CREATE TABLE bookings (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    room_number VARCHAR(10) NOT NULL,
-    guest_name VARCHAR(100) NOT NULL,
-    check_in DATE NOT NULL,
-    check_out DATE NOT NULL,
-    status VARCHAR(20) DEFAULT 'CONFIRMED'
-);`
-    }
-  },
-  {
     name: 'Landing Page — Estudio de Tatuajes',
     description: 'Landing page de una sola página con identidad visual propia: cursor personalizado, animaciones de scroll, galería de diseños flash y tipografía editorial a gran escala.',
     category: 'Landing Page',

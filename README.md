@@ -1,8 +1,8 @@
 # Portafolio Full-Stack — Demos Interactivas & Showcase de Ingeniería
 
-Un repositorio monorepo unificado de **8 proyectos web full-stack**, construidos con tecnologías de vanguardia (**Vue 3, Nuxt 4, Next.js 16, Angular 18, React**) y diseñados para que cada demostración funcione **100% en el navegador** (`localStorage` / `IndexedDB` / mocks client-side), sin necesidad de instalar ni configurar servidores de backend o bases de datos locales.
+Un repositorio monorepo unificado de proyectos web full-stack, construidos con tecnologías de vanguardia (**Vue 3, Nuxt 4, Next.js 16, Angular 18, React**) y diseñados para que cada demostración funcione **100% en el navegador** (`localStorage` / `IndexedDB` / mocks client-side), sin necesidad de instalar ni configurar servidores de backend o bases de datos locales.
 
-El punto de entrada principal es **[`portafolio-portal/`](file:///c:/Users/rogel/OneDrive/Escritorio/Proyectos/Portafolio/portafolio-portal)**, una aplicación central desarrollada en **Nuxt 4** que actúa como hub interactivo: sirve las 8 demos compiladas, incorpora un **cotizador dinámico de proyectos con envío a WhatsApp**, y despliega un diccionario de tecnologías explicadas en lenguaje simple para clientes y reclutadores.
+El punto de entrada principal es **[`portafolio-portal/`](file:///c:/Users/Hinojosa/Desktop/Proyectos/Portafolio/portafolio-portal)**, una aplicación central desarrollada en **Nuxt 4** que actúa como hub interactivo: sirve las 7 demos compiladas y despliega un diccionario de tecnologías explicadas en lenguaje simple para clientes y reclutadores.
 
 ---
 
@@ -37,18 +37,17 @@ Portafolio/
 
 ---
 
-## 🚀 Catálogo de Proyectos (8 Demos)
+## 🚀 Catálogo de Proyectos (7 Demos Activas en el Portal)
 
 | # | Proyecto | Stack Frontend | Arquitectura Backend (Referencia) | Base de Datos (Referencia) | Categoría |
 |---|---|---|---|---|---|
 | 1 | [Sistema de Farmacia](frontend%20Farmacia) | Angular 18 & Tailwind CSS | Laravel 11 & Eloquent | MySQL / Supabase | Sistemas Avanzados |
-| 2 | [Portal Hotelero & Reservas](frontend%20Hotel) | Vue 3 & Tailwind CSS | Laravel 12 & Eloquent | PostgreSQL | Sistemas Avanzados |
-| 3 | [Clínica Médica & Citas](frontend%20Clinica) | Angular & Tailwind CSS | NestJS & Prisma | PostgreSQL / SQL Server | Sistemas Avanzados |
-| 4 | [Control de Pensiones](frontend%20Pensiones) | Vue 3 & Pinia | Laravel 11 & Sanctum | MySQL / PostgreSQL | Sistemas Avanzados |
-| 5 | [Plataforma para Gimnasio](frontend%20gym) | React & Tailwind CSS | Supabase Serverless | PostgreSQL (RLS) | Sistemas Avanzados |
-| 6 | [Gestión de Flota Agroindustrial](frontend%20Agroindustrial) | Vue 3 & Tailwind CSS | NestJS & TypeORM | PostgreSQL | Sistemas Especiales |
-| 7 | [Landing — Cuervo Tattoo Club](landing-page) | Nuxt 4 & Motion | Sitio estático | N/A | Landing Page |
-| 8 | [CHRONOS — Wearable Neural & BCI](landing-chronos) | Next.js 16 & Framer Motion | Sitio estático | N/A | Landing Page |
+| 2 | [Clínica Médica & Citas](frontend%20Clinica) | Angular & Tailwind CSS | NestJS & Prisma | PostgreSQL / SQL Server | Sistemas Avanzados |
+| 3 | [Control de Pensiones](frontend%20Pensiones) | Vue 3 & Pinia | Laravel 11 & Sanctum | MySQL / PostgreSQL | Sistemas Avanzados |
+| 4 | [Plataforma para Gimnasio](frontend%20gym) | React & Tailwind CSS | Supabase Serverless | PostgreSQL (RLS) | Sistemas Avanzados |
+| 5 | [Gestión de Flota Agroindustrial](frontend%20Agroindustrial) | Vue 3 & Tailwind CSS | NestJS & TypeORM | PostgreSQL | Sistemas Especiales |
+| 6 | [Landing — Cuervo Tattoo Club](landing-page) | Nuxt 4 & Motion | Sitio estático | N/A | Landing Page |
+| 7 | [CHRONOS — Wearable Neural & BCI](landing-chronos) | Next.js 16 & Framer Motion | Sitio estático | N/A | Landing Page |
 
 > **Nota:** Todos los nombres de empresas, servicios y productos mostrados en los proyectos son ficticios y se utilizan exclusivamente con fines de demostración técnica y portafolio.
 

@@ -69,9 +69,6 @@ onUnmounted(() => {
           <a href="#showcase" class="px-5 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-900 rounded-xl transition-all duration-300 shadow-sm opacity-80 hover:opacity-100">
             Proyectos
           </a>
-          <a href="#cotizador" class="px-5 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-900 rounded-xl transition-all duration-300 shadow-sm opacity-80 hover:opacity-100">
-            Cotizador
-          </a>
           <a href="#habilidades" class="px-5 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-900 rounded-xl transition-all duration-300 shadow-sm opacity-80 hover:opacity-100">
             Tecnologías
           </a>
@@ -114,7 +111,6 @@ onUnmounted(() => {
     >
       <nav class="flex flex-col items-center gap-6">
         <a href="#showcase" @click="isMobileMenuOpen = false" class="text-3xl font-black text-slate-900 dark:text-white hover:text-violet-500 transition-colors tracking-tight">Proyectos</a>
-        <a href="#cotizador" @click="isMobileMenuOpen = false" class="text-3xl font-black text-slate-900 dark:text-white hover:text-violet-500 transition-colors tracking-tight">Cotizador</a>
         <a href="#habilidades" @click="isMobileMenuOpen = false" class="text-3xl font-black text-slate-900 dark:text-white hover:text-violet-500 transition-colors tracking-tight">Tecnologías</a>
       </nav>
       <a href="https://wa.me/59168787985" target="_blank" @click="isMobileMenuOpen = false" class="mt-8 px-8 py-4 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold tracking-wide">

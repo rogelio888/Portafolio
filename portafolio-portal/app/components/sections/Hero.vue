@@ -19,7 +19,7 @@ const activeTab = ref<'speed' | 'security' | 'architecture'>('speed')
         
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 dark:bg-violet-500/15 border border-violet-500/25 text-violet-600 dark:text-violet-400 text-xs font-extrabold tracking-widest uppercase mb-5 lg:mb-6 shadow-sm">
           <Sparkles class="w-3.5 h-3.5" />
-          <span>Diseño a Medida &amp; Cotizador Interactivo</span>
+          <span>Diseño a Medida &amp; Arquitectura Web</span>
         </div>
 
         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-slate-900 dark:text-white leading-[0.95] mb-5 lg:mb-6 font-display">
@@ -28,7 +28,7 @@ const activeTab = ref<'speed' | 'security' | 'architecture'>('speed')
         </h1>
         
         <p class="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed mb-8 lg:mb-10 font-normal">
-          Transformamos ideas complejas en experiencias web premium. Desde sitios corporativos hasta sistemas SaaS interactivos. Evalúa nuestras demos y cotiza en tiempo real.
+          Transformamos ideas complejas en experiencias web premium. Desde sitios corporativos hasta sistemas SaaS interactivos. Evalúa el rendimiento de nuestras demos en tiempo real.
         </p>
 
         <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
@@ -36,8 +36,8 @@ const activeTab = ref<'speed' | 'security' | 'architecture'>('speed')
             Explorar Demos
             <ArrowRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
-          <a href="#cotizador" class="flex items-center justify-center h-13 sm:h-14 px-8 rounded-2xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-extrabold text-sm border-2 border-slate-200 dark:border-slate-800 hover:border-violet-500 dark:hover:border-violet-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-300 w-full sm:w-auto">
-            Calculadora de Precios
+          <a href="#habilidades" class="flex items-center justify-center h-13 sm:h-14 px-8 rounded-2xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-extrabold text-sm border-2 border-slate-200 dark:border-slate-800 hover:border-violet-500 dark:hover:border-violet-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-300 w-full sm:w-auto">
+            Stack &amp; Tecnologías
           </a>
         </div>
       </div>
@@ -148,8 +148,8 @@ const activeTab = ref<'speed' | 'security' | 'architecture'>('speed')
             <span class="flex items-center gap-1 text-slate-300">
               <CheckCircle2 class="w-3.5 h-3.5 text-violet-400" /> Código 100% Limpio y Escalable
             </span>
-            <a href="#cotizador" class="text-violet-400 hover:text-violet-300 font-extrabold transition-colors">
-              Probar Cotizador →
+            <a href="#showcase" class="text-violet-400 hover:text-violet-300 font-extrabold transition-colors">
+              Explorar Demos →
             </a>
           </div>
 

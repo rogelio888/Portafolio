@@ -1,12 +1,11 @@
 # Portafolio Portal — Hub Central (Nuxt 4)
 
-Este es el hub central del portafolio, construido con **Nuxt 4**, **Vue 3** y **Tailwind CSS**. Actúa como el portal unificado que sirve las demos interactivas de los 8 proyectos activos, integra el cotizador interactivo de presupuestos con integración directa a WhatsApp, y presenta un diccionario visual de tecnologías.
+Este es el hub central del portafolio, construido con **Nuxt 4**, **Vue 3** y **Tailwind CSS**. Actúa como el portal unificado que sirve las demos interactivas de los 7 proyectos activos y presenta un diccionario visual de tecnologías.
 
 ## 🚀 Características del Hub
 
-- **Catálogo Unificado:** Visualización de las 8 demos técnicas con filtrado por categoría (Sistemas Avanzados, Sistemas Especiales, Landings).
+- **Catálogo Unificado:** Visualización de las 7 demos técnicas con navegación optimizada por categoría (Sistemas Avanzados, Sistemas Especiales, Landings).
 - **Consola de Simulación Backend:** Exposición de endpoints HTTP, controladores de referencia (Laravel/NestJS) y esquemas SQL.
-- **Cotizador de Proyectos:** Sistema interactivo que calcula presupuestos estimados según requerimientos y permite solicitar cotizaciones vía WhatsApp.
 - **Diccionario Tecnológico:** Explicación pedagógica de tecnologías (Vue, Nuxt, Angular, React, Supabase, Laravel, NestJS, etc.).
 - **Diseño Responsive & Glassmorphism:** Interfaz adaptativa optimizada para dispositivos móviles y de escritorio.
 
@@ -15,14 +14,12 @@ Este es el hub central del portafolio, construido con **Nuxt 4**, **Vue 3** y **
 ```text
 portafolio-portal/
 ├── app/
-│   ├── components/       → Componentes reutilizables (Hero, Header, TechCarousel, Demos, Cotizador)
+│   ├── components/       → Componentes reutilizables (Hero, Header, TechCarousel, Showcase)
 │   ├── utils/
-│   │   ├── siteData.ts   → Definición de proyectos, stacks, consolas API y tecnologías
-│   │   └── plansData.ts  → Lógica y precios del cotizador
+│   │   └── siteData.ts   → Definición de proyectos, stacks, consolas API y tecnologías
 │   └── app.vue           → Punto de entrada de la aplicación
 ├── public/               → Archivos estáticos y builds compilados de las demos
 │   ├── frontend-farmacia/
-│   ├── frontend-hotel/
 │   ├── frontend-clinica/
 │   ├── frontend-pensiones/
 │   ├── frontend-gym/

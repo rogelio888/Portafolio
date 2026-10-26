@@ -24,7 +24,6 @@ onMounted(() => {
       <SectionsHero />
       <LazySectionsTechCarousel />
       <LazySectionsShowcase />
-      <LazySectionsCotizador />
     </main>
 
     <footer class="relative z-10 py-12 border-t border-slate-200 dark:border-slate-800 text-center bg-slate-50 dark:bg-slate-950 no-print">
