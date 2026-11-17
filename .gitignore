@@ -26,3 +26,7 @@ Thumbs.db
 .idea/
 *.suo
 *.sw?
+
+videos_promocionales/
+*.mp4
+

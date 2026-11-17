@@ -1,15 +1,52 @@
 import { defineStore } from 'pinia';
 import api from '../api/axios';
 
+function getStoredUser() {
+  const raw =
+    localStorage.getItem('pensiones_user') ||
+    sessionStorage.getItem('pensiones_user') ||
+    localStorage.getItem('user') ||
+    sessionStorage.getItem('user');
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object') {
+      // Validar que sea un usuario compatible con Pensiones (roles y permissions como arrays)
+      if (Array.isArray(parsed.permissions) && Array.isArray(parsed.roles)) {
+        return parsed;
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function getStoredToken(hasValidUser: boolean) {
+  const token =
+    localStorage.getItem('pensiones_token') ||
+    sessionStorage.getItem('pensiones_token');
+  if (token) return token;
+  // Solo reusar token genérico si el usuario pertenece al esquema de Pensiones
+  if (hasValidUser) {
+    return localStorage.getItem('token') || sessionStorage.getItem('token') || null;
+  }
+  return null;
+}
+
 export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    user: JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user') || 'null'),
-    token: localStorage.getItem('token') || sessionStorage.getItem('token') || null,
-  }),
+  state: () => {
+    const initialUser = getStoredUser();
+    const initialToken = getStoredToken(!!initialUser);
+    return {
+      user: initialUser,
+      token: initialToken,
+    };
+  },
   getters: {
-    isAuthenticated: (state) => !!state.token,
-    userRoles: (state) => state.user?.roles || [],
-    userPermissions: (state) => state.user?.permissions || [],
+    isAuthenticated: (state) => !!state.token && !!state.user,
+    userRoles: (state): string[] => (Array.isArray(state.user?.roles) ? state.user.roles : []),
+    userPermissions: (state): string[] => (Array.isArray(state.user?.permissions) ? state.user.permissions : []),
   },
   actions: {
     async login(email: string, password: string, rememberMe: boolean = false) {
@@ -22,10 +59,14 @@ export const useAuthStore = defineStore('auth', {
         const otherStorage = rememberMe ? sessionStorage : localStorage;
         
         if (this.token) {
+          storage.setItem('pensiones_token', this.token);
           storage.setItem('token', this.token);
+          otherStorage.removeItem('pensiones_token');
           otherStorage.removeItem('token');
         }
+        storage.setItem('pensiones_user', JSON.stringify(this.user));
         storage.setItem('user', JSON.stringify(this.user));
+        otherStorage.removeItem('pensiones_user');
         otherStorage.removeItem('user');
         
         return { success: true };
@@ -41,11 +82,9 @@ export const useAuthStore = defineStore('auth', {
       try {
         const response = await api.get('/user');
         this.user = response.data;
-        if (localStorage.getItem('user')) {
-          localStorage.setItem('user', JSON.stringify(this.user));
-        } else if (sessionStorage.getItem('user')) {
-          sessionStorage.setItem('user', JSON.stringify(this.user));
-        }
+        const storage = (localStorage.getItem('pensiones_token') || localStorage.getItem('token')) ? localStorage : sessionStorage;
+        storage.setItem('pensiones_user', JSON.stringify(this.user));
+        storage.setItem('user', JSON.stringify(this.user));
       } catch (error: any) {
         // Sesión inconsistente (ej. datos de demo reiniciados o localStorage
         // de una visita anterior): la sesión guardada ya no es válida, así
@@ -53,10 +92,10 @@ export const useAuthStore = defineStore('auth', {
         if (error?.response?.status === 401) {
           this.token = null;
           this.user = null;
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          sessionStorage.removeItem('token');
-          sessionStorage.removeItem('user');
+          localStorage.removeItem('pensiones_token');
+          localStorage.removeItem('pensiones_user');
+          sessionStorage.removeItem('pensiones_token');
+          sessionStorage.removeItem('pensiones_user');
         } else {
           console.error('Error fetching user', error);
         }
@@ -70,10 +109,10 @@ export const useAuthStore = defineStore('auth', {
       } finally {
         this.token = null;
         this.user = null;
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('user');
+        localStorage.removeItem('pensiones_token');
+        localStorage.removeItem('pensiones_user');
+        sessionStorage.removeItem('pensiones_token');
+        sessionStorage.removeItem('pensiones_user');
       }
     }
   }
