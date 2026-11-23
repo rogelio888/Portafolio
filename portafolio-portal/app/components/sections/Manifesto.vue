@@ -1,82 +1,84 @@
 <script setup lang="ts">
-import { ShieldCheck, Zap, Layers, Sparkles, Check } from 'lucide-vue-next'
+import { ShieldCheck, Zap, Layers, Cpu, CheckCircle } from 'lucide-vue-next'
 
-const principles = [
+const pillars = [
   {
     num: '01',
-    title: 'CERO PLANTILLAS NI CÓDIGO GENÉRICO',
-    desc: 'Cada interfaz se diseña desde la arquitectura hacia afuera. Evito los patrones prefabricados de IA para entregar identidades visuales memorables y estructuradas.',
-    icon: Sparkles,
-    tag: 'DIRECCIÓN DE ARTE'
+    title: 'Arquitectura Escalable',
+    desc: 'Estructuración modular de código con separación estricta de responsabilidades entre vistas, lógica de negocio y consumo de APIs.',
+    icon: Layers,
+    tag: 'Estructura'
   },
   {
     num: '02',
-    title: 'OFFLINE-FIRST & REACTIVIDAD LOCAL',
-    desc: 'Las aplicaciones gestionan estados locales eficientes (IndexedDB / Pinia / Supabase Cache). El usuario interactúa instantáneamente sin depender de la lentitud de red.',
+    title: 'Rendimiento y Velocidad',
+    desc: 'Tiempos de carga rápidos, optimización de bundles, compresión de imágenes WebP y minimización del tiempo de respuesta.',
     icon: Zap,
-    tag: 'LATENCIA CERO'
+    tag: 'Velocidad'
   },
   {
     num: '03',
-    title: 'MOTION DESIGN CON PROPÓSITO',
-    desc: 'Bajo los estándares de Emil Kowalski y Apple Design: transiciones bajo 300ms, resortes con amortiguación real y respuesta física táctil que nunca interrumpe el flujo.',
-    icon: Layers,
-    tag: 'SUB-300MS PHYSICS'
+    title: 'Persistencia y Tiempo Real',
+    desc: 'Bases de datos optimizadas con soporte para transacciones seguras, almacenamiento local para navegación instantánea y sincronización cloud.',
+    icon: Cpu,
+    tag: 'Datos'
   },
   {
     num: '04',
-    title: 'SEGURIDAD & ROBUSTEZ ENTERPRISE',
-    desc: 'Consultas parametrizadas, control estricto de roles (RBAC), validación en servidor y sanitización contra inyecciones XSS / SQLi.',
+    title: 'Seguridad y Control de Roles',
+    desc: 'Autenticación robusta, sesiones seguras, sanitización de entradas y permisos granulares según el perfil de cada usuario.',
     icon: ShieldCheck,
-    tag: 'ZERO-TRUST SECURITY'
+    tag: 'Seguridad'
   }
 ]
 </script>
 
 <template>
-  <section id="filosofia" class="max-w-[1440px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
+  <section id="enfoque" class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
     
-    <div class="mb-14 border-b border-neutral-800 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div class="mb-14 border-b border-slate-200/80 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
-        <div class="inline-flex items-center gap-2 text-[10px] font-mono text-[#ff5722] font-bold uppercase tracking-widest mb-1">
-          <span>CAPÍTULO 03</span>
-          <span class="text-neutral-600">//</span>
-          <span class="text-neutral-300">ESTÁNDARES DE INGENIERÍA</span>
+        <div class="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">
+          <span>Metodología</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-black text-white uppercase font-display tracking-tight">
-          Filosofía de Construcción
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-display">
+          Enfoque de Desarrollo
         </h2>
       </div>
-      <p class="text-xs font-mono text-neutral-400 max-w-sm">
-        Lo que diferencia un proyecto artesanal de calidad de una plantilla desechable.
+      <p class="text-xs sm:text-sm text-slate-500 max-w-sm">
+        Prácticas clave implementadas en cada proyecto para asegurar software robusto y fácil de mantener.
       </p>
     </div>
 
-    <!-- 4 Blueprint Cards in Asymmetrical Comic Grid -->
+    <!-- 4 Clean Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <div 
-        v-for="p in principles" 
+        v-for="p in pillars" 
         :key="p.num"
-        class="comic-panel p-6 bg-[#0c0e16] border border-neutral-700/80 shadow-ink flex flex-col justify-between"
+        class="studio-card p-6 bg-white border border-slate-200 flex flex-col justify-between shadow-xs"
       >
         <div>
-          <div class="flex items-center justify-between border-b border-neutral-800 pb-2.5 mb-4 font-mono text-[10px]">
-            <span class="text-[#ff5722] font-bold">{{ p.num }} // {{ p.tag }}</span>
-            <div class="w-1.5 h-1.5 bg-neutral-600"></div>
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <span class="text-xs font-bold text-blue-600">{{ p.num }}</span>
+            <span class="text-[11px] font-semibold text-slate-400 uppercase">{{ p.tag }}</span>
           </div>
 
-          <h3 class="text-lg font-black text-white uppercase font-display mb-3 leading-tight">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-4">
+            <component :is="p.icon" class="w-5 h-5" />
+          </div>
+
+          <h3 class="text-lg font-bold text-slate-900 font-display mb-2">
             {{ p.title }}
           </h3>
 
-          <p class="text-xs text-neutral-300 font-sans leading-relaxed">
+          <p class="text-xs text-slate-600 leading-relaxed">
             {{ p.desc }}
           </p>
         </div>
 
-        <div class="mt-6 pt-3 border-t border-neutral-800/80 flex items-center gap-1.5 text-[10px] font-mono text-emerald-400">
-          <Check class="w-3.5 h-3.5" />
-          <span>ESTÁNDAR ACTIVO</span>
+        <div class="mt-6 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-medium text-emerald-700">
+          <CheckCircle class="w-4 h-4 text-emerald-600" />
+          <span>Estándar en cada proyecto</span>
         </div>
       </div>
     </div>

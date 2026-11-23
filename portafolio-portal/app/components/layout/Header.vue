@@ -1,18 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-vue-next'
+import { Menu, X, ArrowUpRight } from 'lucide-vue-next'
 
-const isDark = ref(true)
 const isMobileMenuOpen = ref(false)
 const isScrolled = ref(false)
-
-const toggleTheme = () => {
-  isDark.value = !isDark.value
-  document.documentElement.classList.toggle('dark', isDark.value)
-  try {
-    localStorage.setItem('portfolio-theme', isDark.value ? 'dark' : 'light')
-  } catch (e) {}
-}
 
 let ticking = false
 const handleScroll = () => {
@@ -26,7 +17,6 @@ const handleScroll = () => {
 }
 
 onMounted(() => {
-  isDark.value = document.documentElement.classList.contains('dark')
   handleScroll()
   window.addEventListener('scroll', handleScroll, { passive: true })
 })
@@ -42,77 +32,67 @@ onUnmounted(() => {
       :class="[
         'fixed top-0 left-0 w-full z-50 transition-all duration-300 print:hidden',
         isScrolled 
-          ? 'bg-[#08090d]/90 backdrop-blur-md border-b border-neutral-800 py-2.5 shadow-ink' 
-          : 'bg-transparent border-b border-transparent py-4'
+          ? 'bg-white/90 backdrop-blur-md border-b border-slate-200/80 py-3 shadow-xs' 
+          : 'bg-transparent border-b border-transparent py-5'
       ]"
     >
-      <div class="max-w-[1440px] mx-auto px-6 lg:px-12 flex items-center justify-between">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between">
         
-        <!-- Brand Logo / Blueprint Title -->
+        <!-- Brand Logo -->
         <a href="#" class="group flex items-center gap-3 outline-none">
-          <div class="w-8 h-8 bg-[#ff5722] text-white flex items-center justify-center font-mono font-black text-xs shadow-ink">
+          <div class="w-9 h-9 bg-slate-900 text-white rounded-xl flex items-center justify-center font-mono font-bold text-xs shadow-xs transition-transform duration-300 group-hover:scale-95">
             R8
           </div>
-          <div class="flex flex-col font-mono">
-            <span class="text-xs font-black tracking-widest text-white uppercase leading-none">
-              ROGELIO // ARCH
+          <div class="flex flex-col">
+            <span class="text-sm font-bold tracking-tight text-slate-900 leading-none">
+              Rogelio
             </span>
-            <span class="text-[9px] font-bold text-neutral-400 tracking-wider uppercase mt-1 leading-none">
-              PORTAFOLIO DE SISTEMAS
+            <span class="text-[11px] font-medium text-slate-500 tracking-normal mt-1 leading-none">
+              Desarrollador Full-Stack
             </span>
           </div>
         </a>
 
-        <!-- Desktop Chapters Nav -->
-        <nav class="hidden md:flex items-center gap-1 bg-neutral-900/80 p-1 border border-neutral-800 text-[11px] font-mono shadow-ink">
-          <a href="#sistemas" class="px-3.5 py-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors uppercase tracking-wider font-semibold">
-            01. Sistemas
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80 text-xs font-semibold text-slate-600">
+          <a href="#proyectos" class="px-4 py-1.5 hover:text-slate-900 hover:bg-white rounded-full transition-all">
+            Proyectos
           </a>
-          <a href="#arsenal" class="px-3.5 py-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors uppercase tracking-wider font-semibold">
-            02. Arsenal
+          <a href="#tecnologias" class="px-4 py-1.5 hover:text-slate-900 hover:bg-white rounded-full transition-all">
+            Tecnologías
           </a>
-          <a href="#filosofia" class="px-3.5 py-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors uppercase tracking-wider font-semibold">
-            03. Filosofía
+          <a href="#enfoque" class="px-4 py-1.5 hover:text-slate-900 hover:bg-white rounded-full transition-all">
+            Enfoque
           </a>
-          <a href="#contacto" class="px-3.5 py-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors uppercase tracking-wider font-semibold">
-            04. Contacto
+          <a href="#contacto" class="px-4 py-1.5 hover:text-slate-900 hover:bg-white rounded-full transition-all">
+            Contacto
           </a>
         </nav>
 
-        <!-- Right Actions -->
+        <!-- Right Action Buttons -->
         <div class="flex items-center gap-3">
           
-          <!-- Availability Pill -->
-          <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 bg-neutral-900 border border-neutral-800 text-[10px] font-mono text-neutral-300">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>DISPONIBLE</span>
+          <!-- Availability Badge -->
+          <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 border border-emerald-200/60 rounded-full text-[11px] font-semibold text-emerald-700">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Disponible</span>
           </div>
 
-          <!-- WhatsApp Button -->
+          <!-- Contact WhatsApp Button -->
           <a 
             href="https://wa.me/59168787985" 
             target="_blank" 
-            class="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ff5722] text-white text-[11px] font-mono font-bold uppercase tracking-wider hover:bg-[#ff6f3d] active:translate-x-0.5 active:translate-y-0.5 transition-all shadow-ink-accent"
+            class="flex items-center gap-1.5 px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-full hover:bg-slate-800 active:scale-95 transition-all shadow-xs"
           >
-            <span>HABLEMOS</span>
+            <span>Hablemos</span>
             <ArrowUpRight class="w-3.5 h-3.5" />
           </a>
 
-          <!-- Theme Toggle -->
-          <button 
-            @click="toggleTheme" 
-            aria-label="Cambiar tema de color"
-            class="w-8 h-8 flex items-center justify-center border border-neutral-800 bg-neutral-900 text-neutral-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <Sun v-if="isDark" class="w-3.5 h-3.5" />
-            <Moon v-else class="w-3.5 h-3.5" />
-          </button>
-
-          <!-- Mobile Menu Toggle -->
+          <!-- Mobile Menu Button -->
           <button 
             @click="isMobileMenuOpen = !isMobileMenuOpen" 
             :aria-label="isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
-            class="md:hidden w-8 h-8 flex items-center justify-center border border-neutral-800 bg-neutral-900 text-white cursor-pointer"
+            class="md:hidden w-9 h-9 flex items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-800 cursor-pointer"
           >
             <Menu v-if="!isMobileMenuOpen" class="w-4 h-4" />
             <X v-else class="w-4 h-4" />
@@ -121,38 +101,38 @@ onUnmounted(() => {
 
       </div>
 
-      <!-- Mobile Dropdown Menu -->
+      <!-- Mobile Dropdown Navigation -->
       <div 
         v-if="isMobileMenuOpen" 
-        class="md:hidden border-b border-neutral-800 bg-[#08090d]/95 backdrop-blur-xl px-6 py-4 flex flex-col gap-2 font-mono text-xs uppercase"
+        class="md:hidden border-b border-slate-200 bg-white/95 backdrop-blur-xl px-6 py-4 flex flex-col gap-2 text-sm font-semibold text-slate-700"
       >
         <a 
-          href="#sistemas" 
+          href="#proyectos" 
           @click="isMobileMenuOpen = false"
-          class="py-2 text-neutral-300 hover:text-[#ff5722] border-b border-neutral-900"
+          class="py-2.5 hover:text-blue-600 border-b border-slate-100"
         >
-          01. Sistemas y Demos
+          Proyectos y Demos
         </a>
         <a 
-          href="#arsenal" 
+          href="#tecnologias" 
           @click="isMobileMenuOpen = false"
-          class="py-2 text-neutral-300 hover:text-[#ff5722] border-b border-neutral-900"
+          class="py-2.5 hover:text-blue-600 border-b border-slate-100"
         >
-          02. Arsenal Tecnológico
+          Tecnologías
         </a>
         <a 
-          href="#filosofia" 
+          href="#enfoque" 
           @click="isMobileMenuOpen = false"
-          class="py-2 text-neutral-300 hover:text-[#ff5722] border-b border-neutral-900"
+          class="py-2.5 hover:text-blue-600 border-b border-slate-100"
         >
-          03. Filosofía de Ingeniería
+          Enfoque de Trabajo
         </a>
         <a 
           href="#contacto" 
           @click="isMobileMenuOpen = false"
-          class="py-2 text-neutral-300 hover:text-[#ff5722]"
+          class="py-2.5 hover:text-blue-600"
         >
-          04. Contacto y Cotización
+          Contacto
         </a>
       </div>
     </header>

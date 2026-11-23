@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     head: {
-      htmlAttrs: { class: 'dark', lang: 'es' },
+      htmlAttrs: { lang: 'es' },
       title: 'Rogelio - Desarrollador Full-Stack | Demos Interactivas',
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
@@ -33,7 +33,7 @@ export default defineNuxtConfig({
         { property: 'og:title', content: 'Rogelio - Desarrollador Full-Stack | Sistemas a Medida' },
         { property: 'og:description', content: 'Lleva tu negocio al siguiente nivel con plataformas digitales diseñadas exclusivamente para ti. Explora demostraciones interactivas de sistemas web.' },
         { property: 'og:type', content: 'website' },
-        { name: 'theme-color', content: '#7c3aed' }
+        { name: 'theme-color', content: '#2563eb' }
       ],
       script: [
         {
@@ -45,10 +45,6 @@ export default defineNuxtConfig({
             "alternateName": "Rogelio Full-Stack",
             "url": "https://portafoliorogelio888.dpdns.org/"
           }),
-          tagPosition: 'head'
-        },
-        {
-          innerHTML: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='light'){document.documentElement.classList.remove('dark')}else{document.documentElement.classList.add('dark')}}catch(e){}})();`,
           tagPosition: 'head'
         }
       ]

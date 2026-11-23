@@ -25,9 +25,9 @@ onUnmounted(() => {
 // Scroll-driven physical compression of sticky Hero
 const heroStyle = computed(() => {
   const progress = Math.min(Math.max(scrollY.value / 600, 0), 1)
-  const scale = 1 - progress * 0.05 // Scales from 1.0 down to 0.95
-  const opacity = 1 - progress * 0.35 // Fades from 1.0 down to 0.65
-  const translateY = progress * -20 // Gentle upward push
+  const scale = 1 - progress * 0.04 // Scales from 1.0 down to 0.96
+  const opacity = 1 - progress * 0.25 // Fades from 1.0 down to 0.75
+  const translateY = progress * -15 // Gentle upward push
 
   return {
     transform: `scale(${scale}) translateY(${translateY}px)`,
@@ -38,60 +38,57 @@ const heroStyle = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#08090d] font-sans text-neutral-100 selection:bg-[#ff5722] selection:text-white w-full relative">
+  <div class="min-h-screen bg-[#f8fafc] font-sans text-slate-900 selection:bg-blue-600 selection:text-white w-full relative">
     
-    <!-- Background: Cyber-Manga Noir & Technical Blueprint Grid -->
-    <ComicBlueprintBackground />
+    <!-- Clean Architectural Background (Subtle Dots & Grid) -->
+    <StudioBackground />
     
-    <!-- Navigation Header / Reader Bar -->
+    <!-- Top Navigation Header -->
     <LayoutHeader />
     
     <main class="relative w-full">
       
-      <!-- STICKY HERO CONTAINER (z-index: 10 on desktop, natural flow on mobile) -->
-      <!-- Pinned to top on large screens, physically covered by the sheet on scroll -->
+      <!-- STICKY HERO CONTAINER -->
+      <!-- Pinned to top on desktop, will be physically covered by the projects sheet on scroll -->
       <div class="relative lg:sticky lg:top-0 min-h-screen lg:h-screen w-full z-10 flex flex-col justify-center overflow-hidden">
         <div :style="heroStyle" class="w-full h-full flex flex-col justify-center">
           <SectionsHero />
         </div>
       </div>
 
-      <!-- OVERLAPPING SHEET (z-index: 20) -->
-      <!-- Rises up and glides OVER the Hero like a physical graphic novel sheet -->
-      <div class="section-stack-sheet relative z-20 w-full overflow-hidden">
+      <!-- OVERLAPPING SHEET -->
+      <!-- Clean, crisp sheet that rises over the hero like turning a physical page -->
+      <div class="section-stack-sheet relative z-20 w-full bg-white overflow-hidden">
         
-        <!-- Subtle Halftone Texture inside Sheet -->
-        <div class="absolute inset-0 bg-halftone opacity-30 pointer-events-none"></div>
-
-        <!-- Sheet Top Accent Drag Bar Indicator -->
-        <div class="w-full flex justify-center pt-4 pb-2 relative z-10 pointer-events-none">
-          <div class="w-16 h-1 bg-neutral-700/80 rounded-full"></div>
+        <!-- Subtle Top Accent Drag Bar -->
+        <div class="w-full flex justify-center pt-5 pb-2 relative z-10 pointer-events-none">
+          <div class="w-12 h-1 bg-slate-200 rounded-full"></div>
         </div>
 
-        <!-- Chapter 01: Sistemas & Casos de Estudio -->
+        <!-- Section 1: Proyectos y Demos -->
         <SectionsShowcase />
 
-        <!-- Chapter 02: Arsenal de Tecnologías -->
+        <!-- Section 2: Stack de Tecnologías -->
         <SectionsTechCarousel />
 
-        <!-- Chapter 03: Filosofía & Estándares de Ingeniería -->
+        <!-- Section 3: Enfoque de Desarrollo -->
         <SectionsManifesto />
 
-        <!-- Chapter 04: Terminal de Contacto & Cotización -->
+        <!-- Section 4: Contacto y Cotizaciones -->
         <SectionsContactTerminal />
 
-        <!-- Dossier Footer -->
-        <footer class="relative z-10 py-12 border-t border-neutral-800 text-center bg-[#07080b] font-mono no-print">
-          <div class="max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+        <!-- Clean Footer -->
+        <footer class="relative z-10 py-10 border-t border-slate-200/80 text-center bg-slate-50 font-sans text-xs text-slate-500 no-print">
+          <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
-              <span class="w-2 h-2 bg-[#ff5722]"></span>
-              <span class="text-neutral-300 font-bold">ROGELIO PORTAFOLIO // 2026</span>
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+              <span class="text-slate-800 font-bold">Rogelio &bull; Portafolio de Software</span>
             </div>
             <p>
-              Arquitecturas web sin plantillas &bull; Diseñado con principios de novela gráfica y precisión técnica.
+              Desarrollo full-stack de sistemas web y aplicaciones interactivas.
             </p>
-            <div class="text-[10px] text-neutral-600">
-              [ NUXT 4 &bull; VUE 3 &bull; TAILWIND 4 ]
+            <div class="text-[11px] text-slate-400">
+              © {{ new Date().getFullYear() }} Todos los derechos reservados.
             </div>
           </div>
         </footer>
@@ -108,15 +105,14 @@ html {
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #08090d;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f8fafc;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
   font-family: 'Outfit', sans-serif;
 }
 
-/* Print optimizations */
 @media print {
   .no-print {
     display: none !important;

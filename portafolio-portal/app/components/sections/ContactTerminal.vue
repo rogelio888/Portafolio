@@ -1,82 +1,82 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Terminal, Send, ArrowUpRight, MessageSquare, Mail, MapPin, Clock } from 'lucide-vue-next'
-
-const projectType = ref('SaaS a Medida')
+import { MessageSquare, ArrowUpRight, MapPin, Clock, Mail, CheckCircle2 } from 'lucide-vue-next'
 </script>
 
 <template>
-  <section id="contacto" class="max-w-[1440px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
+  <section id="contacto" class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
     
-    <div class="comic-panel p-8 sm:p-12 bg-[#090a0f] border-2 border-neutral-700/80 shadow-ink">
+    <div class="studio-card p-8 sm:p-12 lg:p-16 bg-white border border-slate-200 shadow-md shadow-slate-100">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         
-        <!-- Left: Proposal & Statement -->
+        <!-- Left: Call to Action -->
         <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 text-[10px] font-mono text-[#ff5722] font-bold uppercase tracking-widest mb-3">
-            <span>CAPÍTULO 04</span>
-            <span class="text-neutral-600">//</span>
-            <span class="text-neutral-400">FIN DEL TOMO &bull; CONTACTO DIRECTO</span>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold mb-4">
+            <span>Contacto y Cotizaciones</span>
           </div>
 
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase font-display leading-[1.05] mb-4">
-            Construyamos tu próximo <br />
-            <span class="text-[#ff5722]">sistema a medida.</span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 font-display leading-[1.1] mb-4">
+            ¿Tienes un proyecto o <br />
+            <span class="text-blue-600">sistema en mente?</span>
           </h2>
 
-          <p class="text-sm sm:text-base text-neutral-300 font-sans leading-relaxed mb-6 max-w-xl">
-            ¿Tienes una clínica, empresa comercial, colegio o proyecto SaaS que necesita una plataforma robusta sin fallos? Conversemos directamente para evaluar alcance, presupuesto y arquitectura.
+          <p class="text-base text-slate-600 leading-relaxed mb-8 max-w-xl">
+            Si necesitas una plataforma web a medida para tu empresa, clínica o negocio, podemos coordinar una reunión rápida para evaluar alcance, presupuesto y arquitectura.
           </p>
 
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8">
             <a 
               href="https://wa.me/59168787985" 
               target="_blank"
-              class="flex items-center justify-center gap-2 px-8 py-4 bg-[#ff5722] text-white font-mono text-sm font-black uppercase tracking-wider hover:bg-[#ff6f3d] active:translate-x-0.5 active:translate-y-0.5 transition-all shadow-ink-accent"
+              class="flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-emerald-600 text-white font-semibold text-sm hover:bg-emerald-700 active:scale-95 transition-all shadow-xs"
             >
               <MessageSquare class="w-4 h-4" />
-              <span>ESCRIBIR POR WHATSAPP</span>
+              <span>Escribir por WhatsApp</span>
               <ArrowUpRight class="w-4 h-4" />
             </a>
           </div>
 
-          <div class="flex flex-wrap items-center gap-6 text-[11px] font-mono text-neutral-400">
+          <div class="flex flex-wrap items-center gap-6 text-xs text-slate-500 font-medium">
             <div class="flex items-center gap-1.5">
-              <MapPin class="w-3.5 h-3.5 text-[#06b6d4]" />
-              <span>Bolivia // Proyectos Globales</span>
+              <MapPin class="w-4 h-4 text-blue-600" />
+              <span>Santa Cruz, Bolivia (Remoto Global)</span>
             </div>
             <div class="flex items-center gap-1.5">
-              <Clock class="w-3.5 h-3.5 text-emerald-400" />
+              <Clock class="w-4 h-4 text-emerald-600" />
               <span>Respuesta en menos de 2 horas</span>
             </div>
           </div>
         </div>
 
-        <!-- Right: Interactive Terminal Simulation -->
-        <div class="lg:col-span-5 bg-neutral-950 border border-neutral-800 p-5 font-mono text-xs shadow-ink">
+        <!-- Right: Information Box -->
+        <div class="lg:col-span-5 bg-slate-50 rounded-2xl border border-slate-200/80 p-6 sm:p-8 space-y-4 text-xs">
           
-          <div class="flex items-center justify-between border-b border-neutral-800 pb-2 mb-3 text-[10px] text-neutral-500">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-red-500/80"></span>
-              <span class="w-2 h-2 rounded-full bg-yellow-500/80"></span>
-              <span class="w-2 h-2 rounded-full bg-emerald-500/80"></span>
-              <span class="ml-2 font-bold text-neutral-400">console://client-handshake</span>
-            </div>
-            <span>BASH 5.2</span>
+          <div class="text-xs font-bold text-slate-800 uppercase tracking-wider pb-3 border-b border-slate-200">
+            Resumen de Disponibilidad
           </div>
 
-          <div class="space-y-2 text-neutral-300 text-[11px] leading-relaxed">
-            <p class="text-neutral-500">$ rogelio --check-availability</p>
-            <p class="text-emerald-400">&gt; Estado: DISPONIBLE PARA NUEVAS PLATAFORMAS</p>
-            <p class="text-neutral-500 mt-2">$ rogelio --contact-info</p>
-            <p class="text-[#06b6d4]">&gt; WhatsApp: +591 68787985</p>
-            <p class="text-neutral-300">&gt; Especialidad: Sistemas Web a Medida, Nuxt, Laravel, Vue, Supabase</p>
-            
-            <div class="pt-3 border-t border-neutral-900 mt-3 flex items-center justify-between text-[10px]">
-              <span class="text-neutral-500">Listo para producción.</span>
-              <span class="text-[#ff5722] font-bold">2026 EDITION</span>
+          <div class="space-y-3 text-slate-600">
+            <div class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Desarrollo de sistemas web completos (Frontend + Backend)</span>
             </div>
+            <div class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Modernización y optimización de plataformas existentes</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Integración de bases de datos y pagos en línea</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Demos funcionales antes de iniciar producción</span>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-200 flex items-center justify-between text-slate-500 font-semibold">
+            <span>WhatsApp directo:</span>
+            <span class="text-slate-900 font-bold">+591 68787985</span>
           </div>
 
         </div>

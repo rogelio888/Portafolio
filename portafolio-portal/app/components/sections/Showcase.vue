@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { projects } from '../../utils/siteData'
 import * as LucideIcons from 'lucide-vue-next'
-import { ArrowUpRight, Code2, Database, Shield, Layers, Terminal, ExternalLink, Play, CheckCircle } from 'lucide-vue-next'
+import { ArrowUpRight, Code2, Layers, ExternalLink } from 'lucide-vue-next'
 
 const selectedArchProject = ref<any | null>(null)
 
@@ -18,115 +18,106 @@ const closeArchModal = () => {
   selectedArchProject.value = null
 }
 
-// Separate featured hero project (Clinica Medica) from the rest
 const featuredProject = projects.find(p => p.name.includes('Clínica')) || projects[0]
 const otherProjects = projects.filter(p => p !== featuredProject)
 </script>
 
 <template>
-  <section id="sistemas" class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
+  <section id="proyectos" class="relative max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
     
-    <!-- Chapter Header / Comic Registration Title -->
-    <div class="mb-16 border-b border-neutral-800 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <!-- Section Header -->
+    <div class="mb-14 border-b border-slate-200/80 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="max-w-2xl">
-        <div class="inline-flex items-center gap-2 px-2.5 py-1 bg-neutral-900 border border-neutral-800 text-[10px] font-mono text-[#ff5722] font-bold uppercase tracking-widest mb-3">
-          <span>CAPÍTULO 01</span>
-          <span class="text-neutral-600">//</span>
-          <span class="text-neutral-300">SISTEMAS &amp; ARQUITECTURAS</span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold mb-3">
+          <span>Proyectos y Demos Interactivas</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase font-display leading-[1.05]">
-          Casos de Estudio <br />
-          <span class="text-neutral-400 font-mono text-2xl sm:text-3xl font-normal lowercase">
-            // aplicaciones reales en producción
-          </span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-display">
+          Sistemas Web Desarrollados
         </h2>
+        <p class="text-base text-slate-600 mt-3 max-w-xl leading-relaxed">
+          Cada aplicación está lista para interactuar. Incluyen datos precargados para que puedas probar altas, bajas, cobros, citas y flujos operativos reales.
+        </p>
       </div>
 
-      <div class="text-neutral-400 text-xs font-mono max-w-sm leading-relaxed">
-        <p>
-          Cada sistema corre de forma autónoma con datos mock reactivos precargados. Puedes iniciar sesión, crear registros, emitir cobros y explorar flujos de punta a punta.
-        </p>
+      <div class="text-slate-500 text-xs font-medium max-w-xs leading-relaxed">
+        Demostraciones 100% funcionales en navegador con persistencia local instantánea.
       </div>
     </div>
 
-    <!-- Asymmetrical Graphic Novel Panels Layout -->
+    <!-- Projects Layout -->
     <div class="space-y-8">
       
-      <!-- FEATURE SPOTLIGHT PANEL (Full Width): Clínica Médica -->
+      <!-- Featured Project Spotlight: Clínica Médica -->
       <div 
         v-if="featuredProject" 
-        class="comic-panel p-6 sm:p-8 bg-[#0c0e16] border-2 border-neutral-700/80 shadow-ink"
+        class="studio-card p-6 sm:p-9 bg-white border border-slate-200 shadow-md shadow-slate-100"
       >
-        <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-6 font-mono text-[10px]">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 bg-[#ff5722]"></span>
-            <span class="font-bold text-white uppercase tracking-wider">PANEL PRINCIPAL // SPOTLIGHT</span>
-          </div>
-          <span class="text-[#06b6d4] uppercase font-bold tracking-widest">{{ featuredProject.category }}</span>
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-6 text-xs">
+          <span class="font-bold text-blue-600 uppercase tracking-wider">Proyecto Destacado</span>
+          <span class="text-slate-500 font-semibold">{{ featuredProject.category }}</span>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
-          <!-- Image Mockup Frame -->
-          <div class="lg:col-span-7 relative group overflow-hidden border border-neutral-800 bg-neutral-950 aspect-video">
+          <!-- Image Frame -->
+          <div class="lg:col-span-7 relative group overflow-hidden rounded-xl border border-slate-200/80 bg-slate-100 aspect-video shadow-xs">
             <img 
               :src="featuredProject.thumbnail" 
               :alt="featuredProject.name" 
-              class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-103"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             
-            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-neutral-300 bg-neutral-900/90 backdrop-blur-md px-3 py-1.5 border border-neutral-700">
-              <span class="text-emerald-400 font-bold">&bull; BASE DE DATOS MOCK LISTA</span>
-              <span class="text-neutral-400">{{ featuredProject.frontendStack }}</span>
+            <div class="absolute bottom-3 left-3 px-3 py-1 bg-white/95 backdrop-blur-sm rounded-lg text-xs font-semibold text-slate-800 shadow-xs border border-slate-200">
+              Demo con datos de prueba
             </div>
           </div>
 
-          <!-- Description & Technical Info -->
+          <!-- Content Column -->
           <div class="lg:col-span-5 flex flex-col justify-between h-full">
             <div>
-              <div class="flex items-center gap-2 mb-2">
-                <component :is="getIcon(featuredProject.iconName)" class="w-5 h-5 text-[#ff5722]" />
-                <h3 class="text-2xl sm:text-3xl font-black text-white uppercase font-display">
+              <div class="flex items-center gap-2 mb-3">
+                <component :is="getIcon(featuredProject.iconName)" class="w-5 h-5 text-blue-600" />
+                <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 font-display">
                   {{ featuredProject.name }}
                 </h3>
               </div>
 
-              <p class="text-sm text-neutral-300 font-sans leading-relaxed mb-6">
+              <p class="text-sm text-slate-600 leading-relaxed mb-6">
                 {{ featuredProject.description }}
               </p>
 
-              <!-- Stack Breakdown -->
-              <div class="grid grid-cols-2 gap-3 mb-6 font-mono text-[11px]">
-                <div class="p-2.5 bg-neutral-950 border border-neutral-800">
-                  <span class="text-[9px] text-neutral-500 block uppercase">FRONTEND</span>
-                  <span class="text-white font-bold">{{ featuredProject.frontendStack }}</span>
+              <!-- Technical Tags -->
+              <div class="grid grid-cols-2 gap-3 mb-6 text-xs">
+                <div class="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase block mb-0.5">Frontend</span>
+                  <span class="text-slate-800 font-bold">{{ featuredProject.frontendStack }}</span>
                 </div>
-                <div class="p-2.5 bg-neutral-950 border border-neutral-800">
-                  <span class="text-[9px] text-neutral-500 block uppercase">BACKEND / BD</span>
-                  <span class="text-[#06b6d4] font-bold">{{ featuredProject.databaseStack }}</span>
+                <div class="p-3 rounded-lg bg-slate-50 border border-slate-100">
+                  <span class="text-[10px] text-slate-400 font-semibold uppercase block mb-0.5">Backend / BD</span>
+                  <span class="text-blue-600 font-bold">{{ featuredProject.databaseStack }}</span>
                 </div>
               </div>
             </div>
 
-            <!-- Actions -->
-            <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-neutral-800">
+            <!-- Buttons -->
+            <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-100">
               <a 
                 :href="featuredProject.demoUrl" 
                 target="_blank"
-                class="flex items-center gap-2 px-5 py-2.5 bg-[#ff5722] text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#ff6f3d] transition-colors shadow-ink-accent"
+                class="flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 active:scale-95 transition-all shadow-xs"
               >
-                <span>PROBAR DEMO EN VIVO</span>
+                <span>Probar Demo en Vivo</span>
                 <ArrowUpRight class="w-3.5 h-3.5" />
               </a>
 
               <button 
                 @click="openArchModal(featuredProject)"
-                class="flex items-center gap-1.5 px-4 py-2.5 bg-neutral-900 border border-neutral-700 text-neutral-300 font-mono text-xs uppercase hover:text-white hover:border-[#06b6d4] transition-colors cursor-pointer"
+                class="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white border border-slate-200 text-slate-700 text-xs font-semibold hover:bg-slate-50 hover:text-slate-900 transition-colors cursor-pointer"
               >
-                <Code2 class="w-3.5 h-3.5 text-[#06b6d4]" />
-                <span>ARQUITECTURA</span>
+                <Code2 class="w-3.5 h-3.5 text-blue-600" />
+                <span>Especificaciones</span>
               </button>
             </div>
           </div>
@@ -134,58 +125,55 @@ const otherProjects = projects.filter(p => p !== featuredProject)
         </div>
       </div>
 
-      <!-- GRID OF OTHER BESPOKE SYSTEMS (2 Columns) -->
+      <!-- Other Projects Grid (2 Columns) -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
         <div 
-          v-for="(project, idx) in otherProjects" 
+          v-for="project in otherProjects" 
           :key="project.name"
-          class="comic-panel p-6 bg-[#0c0e16] border border-neutral-700/80 shadow-ink flex flex-col justify-between"
+          class="studio-card p-6 bg-white border border-slate-200 flex flex-col justify-between shadow-xs"
         >
           <div>
-            <div class="flex items-center justify-between border-b border-neutral-800 pb-2.5 mb-4 font-mono text-[10px]">
-              <span class="font-bold text-white uppercase tracking-wider">PANEL // CASO 0{{ idx + 2 }}</span>
-              <span class="text-[#06b6d4] font-bold uppercase">{{ project.category }}</span>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-4 text-xs">
+              <span class="font-semibold text-slate-500">{{ project.category }}</span>
+              <span class="text-blue-600 font-semibold">{{ project.frontendStack }}</span>
             </div>
 
-            <div class="relative overflow-hidden border border-neutral-800 bg-neutral-950 aspect-video mb-5 group">
+            <div class="relative overflow-hidden rounded-xl border border-slate-200/80 bg-slate-100 aspect-video mb-5 group">
               <img 
                 :src="project.thumbnail" 
                 :alt="project.name" 
-                class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-103"
                 loading="lazy"
               />
-              <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/80 font-mono text-[9px] text-neutral-300">
-                {{ project.frontendStack }}
-              </div>
             </div>
 
             <div class="flex items-center gap-2 mb-2">
-              <component :is="getIcon(project.iconName)" class="w-4 h-4 text-[#ff5722]" />
-              <h3 class="text-xl font-black text-white uppercase font-display">
+              <component :is="getIcon(project.iconName)" class="w-4 h-4 text-blue-600" />
+              <h3 class="text-xl font-bold text-slate-900 font-display">
                 {{ project.name }}
               </h3>
             </div>
 
-            <p class="text-xs sm:text-sm text-neutral-300 font-sans leading-relaxed mb-4">
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
               {{ project.description }}
             </p>
           </div>
 
-          <div class="pt-4 border-t border-neutral-800 flex items-center justify-between">
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
             <button 
               @click="openArchModal(project)"
-              class="text-[11px] font-mono text-neutral-400 hover:text-white flex items-center gap-1 cursor-pointer"
+              class="text-xs font-semibold text-slate-500 hover:text-blue-600 flex items-center gap-1 cursor-pointer transition-colors"
             >
-              <Code2 class="w-3.5 h-3.5 text-[#06b6d4]" />
-              <span>Ver Especificaciones</span>
+              <Code2 class="w-3.5 h-3.5 text-blue-600" />
+              <span>Ver Arquitectura</span>
             </button>
 
             <a 
               :href="project.demoUrl" 
               target="_blank"
-              class="flex items-center gap-1.5 px-4 py-2 bg-neutral-900 border border-neutral-700 text-white font-mono text-xs uppercase hover:border-[#ff5722] transition-colors"
+              class="flex items-center gap-1 px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors"
             >
-              <span>LANZAR DEMO</span>
+              <span>Lanzar Demo</span>
               <ArrowUpRight class="w-3.5 h-3.5" />
             </a>
           </div>
@@ -194,52 +182,48 @@ const otherProjects = projects.filter(p => p !== featuredProject)
 
     </div>
 
-    <!-- ARCHITECTURE / CODE MODAL (Bespoke Blueprint Drawer) -->
+    <!-- Architecture Modal -->
     <div 
       v-if="selectedArchProject" 
-      class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/50 backdrop-blur-sm"
       @click.self="closeArchModal"
     >
-      <div class="w-full max-w-3xl bg-[#090b10] border-2 border-[#ff5722] p-6 shadow-2xl relative font-mono text-xs">
+      <div class="w-full max-w-2xl bg-white rounded-2xl border border-slate-200 p-6 shadow-2xl relative font-sans text-xs">
         
-        <!-- Modal Top Bar -->
-        <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-[#06b6d4]"></span>
-            <span class="text-white font-bold uppercase tracking-wider">
-              BLUEPRINT: {{ selectedArchProject.name }}
+            <div class="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
+            <span class="text-slate-900 font-bold text-sm">
+              Detalles Técnicos: {{ selectedArchProject.name }}
             </span>
           </div>
           <button 
             @click="closeArchModal"
-            class="text-neutral-400 hover:text-white px-2 py-0.5 border border-neutral-700 text-xs cursor-pointer"
+            class="text-slate-400 hover:text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200 text-xs cursor-pointer"
           >
-            ✕ CERRAR
+            Cerrar
           </button>
         </div>
 
-        <!-- Architecture Content -->
-        <div class="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
-          
+        <div class="space-y-4 max-h-[65vh] overflow-y-auto pr-1">
           <div>
-            <span class="text-[#ff5722] font-bold block mb-1">// ESQUEMA DE BASE DE DATOS (DDL / SQL)</span>
-            <pre class="bg-neutral-950 p-4 border border-neutral-800 text-neutral-300 text-[11px] overflow-x-auto"><code>{{ selectedArchProject.architectureDetails.schemaDetails }}</code></pre>
+            <span class="text-slate-800 font-bold text-xs block mb-1.5">Esquema de Base de Datos</span>
+            <pre class="bg-slate-900 text-slate-100 p-4 rounded-xl text-[11px] font-mono overflow-x-auto leading-relaxed"><code>{{ selectedArchProject.architectureDetails.schemaDetails }}</code></pre>
           </div>
 
           <div>
-            <span class="text-[#06b6d4] font-bold block mb-1">// CONTROLADOR / LÓGICA DE SERVIDOR</span>
-            <pre class="bg-neutral-950 p-4 border border-neutral-800 text-neutral-300 text-[11px] overflow-x-auto"><code>{{ selectedArchProject.architectureDetails.controllerCode }}</code></pre>
+            <span class="text-slate-800 font-bold text-xs block mb-1.5">Lógica de Servidor / Controlador</span>
+            <pre class="bg-slate-900 text-slate-100 p-4 rounded-xl text-[11px] font-mono overflow-x-auto leading-relaxed"><code>{{ selectedArchProject.architectureDetails.controllerCode }}</code></pre>
           </div>
-
         </div>
 
-        <div class="mt-4 pt-3 border-t border-neutral-800 flex justify-end">
+        <div class="mt-5 pt-3 border-t border-slate-100 flex justify-end">
           <a 
             :href="selectedArchProject.demoUrl" 
             target="_blank"
-            class="px-4 py-2 bg-[#ff5722] text-white font-bold uppercase text-xs hover:bg-[#ff6f3d]"
+            class="px-4 py-2 rounded-full bg-blue-600 text-white font-semibold text-xs hover:bg-blue-700 transition-colors"
           >
-            ABRIR DEMO CORRESPONDIENTE &rarr;
+            Abrir Demo en Vivo &rarr;
           </a>
         </div>
 
