@@ -1,18 +1,90 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { ArrowDown, MessageSquare, Layers, Sparkles, CheckCircle2 } from 'lucide-vue-next'
+import { 
+  ArrowDown, 
+  MessageSquare, 
+  ArrowUpRight, 
+  Activity, 
+  GraduationCap, 
+  Tractor, 
+  Pill,
+  CheckCircle2,
+  ChevronRight
+} from 'lucide-vue-next'
 
 const scrollY = ref(0)
+const activeCardIndex = ref(0)
 let ticking = false
+
+const heroProjects = [
+  {
+    num: 'VIÑETA 01',
+    name: 'Clínica Médica & Citas',
+    category: 'Sistemas Web',
+    stack: 'Angular 18 & Supabase',
+    target: 'Clínicas privadas, policonsultorios y consultorios dentales',
+    tagline: 'Gestión integral de turnos, fichas clínicas y caja en recepción.',
+    highlights: [
+      'Agenda interactiva de citas con disponibilidad en tiempo real',
+      'Expediente clínico e historial de consultas por paciente',
+      'Caja registradora con arqueo diario y comprobantes'
+    ],
+    demoUrl: '/frontend-clinica/index.html'
+  },
+  {
+    num: 'VIÑETA 02',
+    name: 'Control de Pensiones',
+    category: 'Sistemas Web',
+    stack: 'Vue 3 & Laravel 11',
+    target: 'Colegios privados, institutos y centros educativos',
+    tagline: 'Portal de consulta para padres, cobro en ventanilla y control de deudas.',
+    highlights: [
+      'Consulta pública de mensualidades por código de estudiante',
+      'Panel de dirección con índice global de morosidad',
+      'Ventanilla de cobros en efectivo y QR con recibos'
+    ],
+    demoUrl: '/frontend-pensiones/index.html'
+  },
+  {
+    num: 'VIÑETA 03',
+    name: 'Telemetría Agroindustrial',
+    category: 'Sistemas Web',
+    stack: 'Vue 3 & NestJS',
+    target: 'Empresas agropecuarias, flotas de transporte y contratistas',
+    tagline: 'Monitoreo de tractores, horómetros y órdenes de mantenimiento.',
+    highlights: [
+      'Ficha técnica por equipo con horómetros y consumo',
+      'Órdenes de servicio y control de mecánicos externos',
+      'Historial de reparaciones y costos operativos por tractor'
+    ],
+    demoUrl: '/frontend-agroindustrial/index.html'
+  }
+]
 
 const handleScroll = () => {
   if (!ticking) {
     window.requestAnimationFrame(() => {
       scrollY.value = window.scrollY
+      // Fast cycling: updates card rapidly during the initial scroll
+      if (scrollY.value < 100) {
+        activeCardIndex.value = 0
+      } else if (scrollY.value < 220) {
+        activeCardIndex.value = 1
+      } else {
+        activeCardIndex.value = 2
+      }
       ticking = false
     })
     ticking = true
   }
+}
+
+const setActiveCard = (index: number) => {
+  activeCardIndex.value = index
+}
+
+const nextCard = () => {
+  activeCardIndex.value = (activeCardIndex.value + 1) % heroProjects.length
 }
 
 onMounted(() => {
@@ -23,43 +95,34 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-// Scroll progress from 0 to 600px
-const scrollProgress = computed(() => {
-  return Math.min(Math.max(scrollY.value / 500, 0), 1)
-})
-
-// 3D Scroll-Driven Transform for Comic Panel Deck
-const panel1Style = computed(() => {
-  const p = scrollProgress.value
-  const rotate = -3 + p * 8 // -3deg to 5deg
-  const x = p * 40
-  const y = p * -20
-  return {
-    transform: `rotate(${rotate}deg) translate(${x}px, ${y}px)`,
-    transition: 'transform 0.08s ease-out'
+// Fast physical positioning for the 3 cards
+const getCardStyle = (index: number) => {
+  const current = activeCardIndex.value
+  if (index === current) {
+    return {
+      zIndex: 30,
+      transform: 'translate(0px, 0px) rotate(0deg) scale(1)',
+      opacity: 1,
+      pointerEvents: 'auto' as const
+    }
+  } else if ((index === 0 && current === 1) || (index === 1 && current === 2) || (index === 2 && current === 0)) {
+    // Previous card (peeled back to the right)
+    return {
+      zIndex: 10,
+      transform: 'translate(28px, -18px) rotate(5deg) scale(0.94)',
+      opacity: 0.55,
+      pointerEvents: 'none' as const
+    }
+  } else {
+    // Next card (tucked slightly behind to the left)
+    return {
+      zIndex: 20,
+      transform: 'translate(-22px, 14px) rotate(-3.5deg) scale(0.96)',
+      opacity: 0.75,
+      pointerEvents: 'none' as const
+    }
   }
-})
-
-const panel2Style = computed(() => {
-  const p = scrollProgress.value
-  const rotate = 4 - p * 6 // 4deg to -2deg
-  const x = p * -30
-  const y = p * 30
-  return {
-    transform: `rotate(${rotate}deg) translate(${x}px, ${y}px)`,
-    transition: 'transform 0.08s ease-out'
-  }
-})
-
-const panel3Style = computed(() => {
-  const p = scrollProgress.value
-  const rotate = -1 + p * 4
-  const scale = 0.95 + p * 0.08
-  return {
-    transform: `rotate(${rotate}deg) scale(${scale})`,
-    transition: 'transform 0.08s ease-out'
-  }
-})
+}
 </script>
 
 <template>
@@ -67,7 +130,7 @@ const panel3Style = computed(() => {
     
     <div class="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center z-10">
       
-      <!-- Left Column: Typography & Comic Narrative -->
+      <!-- Left Column: Typography & Narrative -->
       <div class="lg:col-span-6 flex flex-col items-start text-left">
         
         <!-- Comic Narration Box -->
@@ -109,95 +172,116 @@ const panel3Style = computed(() => {
           </a>
         </div>
 
-        <!-- Business Target Badges -->
-        <div class="flex flex-wrap gap-2 pt-4 border-t-2 border-slate-900/10 w-full max-w-xl">
-          <span class="comic-pill">🏥 Clínicas &amp; Salud</span>
-          <span class="comic-pill">🎓 Colegios &amp; Pensiones</span>
-          <span class="comic-pill">🚜 Agroindustria &amp; Flota</span>
-          <span class="comic-pill">💊 Farmacias &amp; Stock</span>
+        <!-- Sector Badges (Zero emojis, clean Lucide vector icons) -->
+        <div class="flex flex-wrap gap-2 pt-4 border-t-2 border-slate-900/10 w-full max-w-xl text-xs font-bold text-slate-800">
+          <span class="comic-pill">
+            <Activity class="w-3.5 h-3.5 text-blue-600" />
+            <span>Clínicas &amp; Salud</span>
+          </span>
+          <span class="comic-pill">
+            <GraduationCap class="w-3.5 h-3.5 text-blue-600" />
+            <span>Colegios &amp; Educación</span>
+          </span>
+          <span class="comic-pill">
+            <Tractor class="w-3.5 h-3.5 text-blue-600" />
+            <span>Agroindustria &amp; Flota</span>
+          </span>
+          <span class="comic-pill">
+            <Pill class="w-3.5 h-3.5 text-blue-600" />
+            <span>Farmacias &amp; Stock</span>
+          </span>
         </div>
 
       </div>
 
-      <!-- Right Column: SCROLL-DRIVEN ANIMATED COMIC STORYBOARD DECK -->
-      <!-- Drives layered comic cards that fan out and reveal themselves directly on scroll -->
-      <div class="lg:col-span-6 relative w-full h-[460px] sm:h-[500px] flex items-center justify-center">
+      <!-- Right Column: Interactive Deck of Comic Cards -->
+      <div class="lg:col-span-6 relative w-full flex flex-col items-center justify-center">
         
-        <!-- Background Comic Action Lines / Halftone Bubble -->
-        <div class="absolute inset-0 bg-radial from-blue-100/60 via-slate-100/40 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+        <!-- Tab Selectors: Allows instant switching and shows current active card -->
+        <div class="w-full max-w-[430px] flex items-center justify-between gap-1.5 mb-4 z-40">
+          <button 
+            v-for="(p, idx) in heroProjects" 
+            :key="p.num"
+            @click="setActiveCard(idx)"
+            class="px-3 py-1.5 rounded-lg border-2 border-slate-900 text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer shadow-[2px_2px_0px_#0f172a]"
+            :class="activeCardIndex === idx ? 'bg-yellow-200 text-slate-900 translate-y-0.5 shadow-none' : 'bg-white text-slate-600 hover:bg-slate-100'"
+          >
+            {{ p.num }}
+          </button>
 
-        <!-- Scroll Dynamic Notice Tag -->
-        <div class="absolute -top-6 right-2 sm:right-6 comic-caption z-30">
-          <span>SCROLL DRIVE // VIÑETAS INTERACTIVAS</span>
+          <button 
+            @click="nextCard"
+            class="px-2.5 py-1.5 rounded-lg border-2 border-slate-900 bg-white text-[11px] font-black uppercase text-blue-700 hover:bg-blue-50 transition-colors flex items-center gap-1 shadow-[2px_2px_0px_#0f172a] cursor-pointer"
+            title="Ver siguiente viñeta"
+          >
+            <span>Siguiente</span>
+            <ChevronRight class="w-3.5 h-3.5" />
+          </button>
         </div>
 
-        <!-- PANEL 3 (Bottom Layer: AgroFlota) -->
-        <div 
-          :style="panel3Style"
-          class="absolute w-[85%] sm:w-[380px] h-[260px] comic-panel-flat p-4 bg-emerald-50 border-2 border-slate-900 shadow-[4px_4px_0px_#0f172a] flex flex-col justify-between"
-        >
-          <div class="flex items-center justify-between border-b-2 border-slate-900 pb-2">
-            <span class="comic-caption bg-emerald-200">VIÑETA 03</span>
-            <span class="text-xs font-black uppercase text-emerald-800">Telemetría Agroindustrial</span>
-          </div>
-          <div class="space-y-1 text-xs text-slate-800 font-medium">
-            <p class="font-bold text-slate-900">Control de maquinaria y órdenes de trabajo en tiempo real.</p>
-            <p class="text-[11px] text-slate-600">Para empresas agropecuarias, flotas de transporte y talleres.</p>
-          </div>
-          <div class="flex items-center justify-between text-xs font-bold pt-2 border-t border-slate-900/20 text-emerald-900">
-            <span>Vue 3 + NestJS</span>
-            <span class="text-blue-600">Demo Lista &rarr;</span>
-          </div>
-        </div>
+        <!-- Card Deck Container -->
+        <div class="relative w-full max-w-[430px] h-[360px] flex items-center justify-center">
+          
+          <div 
+            v-for="(p, idx) in heroProjects" 
+            :key="p.num"
+            :style="getCardStyle(idx)"
+            class="absolute inset-0 p-5 sm:p-6 bg-white border-2 border-slate-900 rounded-xl shadow-[6px_6px_0px_#0f172a] flex flex-col justify-between transition-all duration-300 ease-out"
+          >
+            <div>
+              <!-- Top bar -->
+              <div class="flex items-center justify-between border-b-2 border-slate-900 pb-2.5 mb-3.5">
+                <span class="comic-caption bg-yellow-200 text-[11px]">
+                  {{ p.num }}
+                </span>
+                <span class="text-xs font-black uppercase text-blue-700">
+                  {{ p.category }}
+                </span>
+              </div>
 
-        <!-- PANEL 2 (Middle Layer: Pensiones Escolares) -->
-        <div 
-          :style="panel2Style"
-          class="absolute w-[88%] sm:w-[400px] h-[280px] comic-panel-flat p-5 bg-amber-50 border-2 border-slate-900 shadow-[6px_6px_0px_#0f172a] flex flex-col justify-between z-10"
-        >
-          <div class="flex items-center justify-between border-b-2 border-slate-900 pb-2">
-            <span class="comic-caption bg-amber-200">VIÑETA 02</span>
-            <span class="text-xs font-black uppercase text-amber-900">Cobro de Pensiones</span>
-          </div>
-          <div class="space-y-1.5 text-xs text-slate-800 font-medium">
-            <p class="font-bold text-slate-900 text-sm">Emisión de recibos, control de mensualidades y deudas.</p>
-            <p class="text-[11px] text-slate-600">Para colegios, institutos y centros de formación continua.</p>
-          </div>
-          <div class="flex items-center justify-between text-xs font-bold pt-2 border-t border-slate-900/20 text-amber-900">
-            <span>Vue 3 + Laravel 11</span>
-            <span class="text-blue-600">Demo Lista &rarr;</span>
-          </div>
-        </div>
+              <!-- Title & Tagline -->
+              <h3 class="text-xl sm:text-2xl font-black text-slate-900 font-display leading-tight mb-1.5">
+                {{ p.name }}
+              </h3>
+              <p class="text-xs text-slate-600 font-medium leading-relaxed mb-3">
+                {{ p.tagline }}
+              </p>
 
-        <!-- PANEL 1 (Top Hero Layer: Clínica Médica) -->
-        <div 
-          :style="panel1Style"
-          class="absolute w-[92%] sm:w-[420px] h-[300px] comic-panel p-5 bg-white border-2 border-slate-900 shadow-[8px_8px_0px_#0f172a] flex flex-col justify-between z-20"
-        >
-          <div class="flex items-center justify-between border-b-2 border-slate-900 pb-2">
-            <span class="comic-caption">VIÑETA 01</span>
-            <span class="text-xs font-black uppercase text-blue-700">Clínica Médica &amp; Citas</span>
-          </div>
+              <!-- Target Audience -->
+              <div class="p-2.5 rounded-lg bg-blue-50/80 border border-blue-200 mb-3 text-[11px]">
+                <span class="font-black text-blue-900 block mb-0.5">Dirigido a:</span>
+                <span class="text-slate-700 font-medium leading-snug">{{ p.target }}</span>
+              </div>
 
-          <div class="space-y-2 text-xs text-slate-800 font-medium">
-            <h3 class="font-black text-slate-900 text-base leading-tight">
-              Gestión Integral de Consultorios y Pacientes
-            </h3>
-            <p class="text-slate-600 text-xs leading-relaxed">
-              Reserva de turnos en línea, fichas clínicas e historial médico digital sin esperas.
-            </p>
-            <div class="inline-block px-2.5 py-1 bg-blue-50 border border-blue-200 rounded text-[11px] font-bold text-blue-800">
-              Dirigido a: Clínicas, consultorios dentales y centros de salud
+              <!-- Feature Highlights -->
+              <div class="space-y-1.5">
+                <div 
+                  v-for="item in p.highlights" 
+                  :key="item"
+                  class="flex items-start gap-1.5 text-[11px] text-slate-700 font-medium"
+                >
+                  <CheckCircle2 class="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span class="leading-tight">{{ item }}</span>
+                </div>
+              </div>
             </div>
+
+            <!-- Card Bottom Bar -->
+            <div class="pt-3 border-t-2 border-slate-900 flex items-center justify-between text-xs font-bold">
+              <span class="text-slate-600 font-bold text-[11px]">{{ p.stack }}</span>
+              
+              <a 
+                :href="p.demoUrl" 
+                target="_blank"
+                class="comic-btn-primary px-3.5 py-1.5 text-[11px] font-black uppercase tracking-wider flex items-center gap-1"
+              >
+                <span>Probar Demo</span>
+                <ArrowUpRight class="w-3.5 h-3.5" />
+              </a>
+            </div>
+
           </div>
 
-          <div class="flex items-center justify-between text-xs font-bold pt-2 border-t-2 border-slate-900">
-            <span class="text-slate-700">Angular + Supabase</span>
-            <a href="#proyectos" class="text-blue-600 hover:underline flex items-center gap-1 font-black">
-              <span>Deslizar para explorar</span>
-              <span>&darr;</span>
-            </a>
-          </div>
         </div>
 
       </div>

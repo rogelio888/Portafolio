@@ -111,7 +111,7 @@ const closeModal = () => {
 
           <!-- Target Audience Box -->
           <div class="mb-3.5 p-3 rounded-lg bg-blue-50/70 border border-blue-200/80 text-xs">
-            <span class="font-black text-blue-900 block mb-0.5">🎯 Dirigido a:</span>
+            <span class="font-black text-blue-900 block mb-0.5">Dirigido a:</span>
             <span class="text-slate-700 font-medium leading-relaxed">{{ project.targetAudience }}</span>
           </div>
 
@@ -188,11 +188,11 @@ const closeModal = () => {
         <!-- Modal Scrollable Content -->
         <div class="space-y-5 max-h-[65vh] overflow-y-auto pr-1">
           
-          <!-- 1. A qué negocios está dirigido -->
+          <!-- 1. A qué sectores está dirigido -->
           <div class="p-4 rounded-xl bg-blue-50/70 border-2 border-slate-900 shadow-[3px_3px_0px_#0f172a]">
             <div class="flex items-center gap-2 text-blue-900 font-black text-xs uppercase mb-1.5">
               <Building2 class="w-4 h-4 text-blue-600" />
-              <span>¿A qué negocios está dirigido?</span>
+              <span>¿A qué sectores está dirigido?</span>
             </div>
             <p class="text-slate-700 text-xs sm:text-sm font-medium leading-relaxed">
               {{ selectedProject.targetAudience }}
@@ -231,7 +231,7 @@ const closeModal = () => {
           <!-- 4. Beneficio Comercial -->
           <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200">
             <span class="text-emerald-900 font-black text-xs uppercase block mb-1">
-              💡 Beneficio e Impacto en el Negocio:
+              Beneficio e Impacto en el Negocio:
             </span>
             <p class="text-slate-700 text-xs font-medium leading-relaxed">
               {{ selectedProject.businessBenefit }}

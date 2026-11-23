@@ -21,20 +21,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
-
-// Scroll-driven physical compression of sticky Hero
-const heroStyle = computed(() => {
-  const progress = Math.min(Math.max(scrollY.value / 600, 0), 1)
-  const scale = 1 - progress * 0.04 // Scales from 1.0 down to 0.96
-  const opacity = 1 - progress * 0.25 // Fades from 1.0 down to 0.75
-  const translateY = progress * -15 // Gentle upward push
-
-  return {
-    transform: `scale(${scale}) translateY(${translateY}px)`,
-    opacity: opacity,
-    transition: 'transform 0.05s ease-out, opacity 0.05s ease-out'
-  }
-})
 </script>
 
 <template>
@@ -48,16 +34,13 @@ const heroStyle = computed(() => {
     
     <main class="relative w-full">
       
-      <!-- STICKY HERO CONTAINER -->
-      <!-- Pinned to top on desktop, will be physically covered by the projects sheet on scroll -->
-      <div class="relative lg:sticky lg:top-0 min-h-screen lg:h-screen w-full z-10 flex flex-col justify-start lg:justify-center overflow-hidden">
-        <div :style="heroStyle" class="w-full h-full flex flex-col justify-start lg:justify-center">
-          <SectionsHero />
-        </div>
+      <!-- HERO SECTION -->
+      <div class="relative w-full z-10">
+        <SectionsHero />
       </div>
 
       <!-- OVERLAPPING COMIC SHEET -->
-      <!-- Crisp physical sheet with comic border and ink shadow that rises over the hero -->
+      <!-- Crisp physical sheet with comic border and ink shadow that introduces the project catalog -->
       <div class="comic-stack-sheet relative z-20 w-full overflow-hidden">
         
         <!-- Subtle Top Accent Drag Bar -->
