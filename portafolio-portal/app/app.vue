@@ -21,10 +21,24 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
+
+// Scroll-driven physical compression of Hero as the overlapping sheet covers it
+const heroStyle = computed(() => {
+  const progress = Math.min(Math.max((scrollY.value - 220) / 450, 0), 1)
+  const scale = 1 - progress * 0.04
+  const opacity = 1 - progress * 0.35
+  const translateY = progress * -20
+
+  return {
+    transform: `scale(${scale}) translateY(${translateY}px)`,
+    opacity: opacity,
+    transition: 'transform 0.06s ease-out, opacity 0.06s ease-out'
+  }
+})
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#f8fafc] font-sans text-slate-900 selection:bg-blue-600 selection:text-white w-full relative">
+  <div class="min-h-screen bg-[#faf9f6] font-sans text-slate-900 selection:bg-blue-600 selection:text-white w-full relative">
     
     <!-- Clean Architectural Background (Subtle Dots & Grid) -->
     <StudioBackground />
@@ -34,13 +48,18 @@ onUnmounted(() => {
     
     <main class="relative w-full">
       
-      <!-- HERO SECTION -->
-      <div class="relative w-full z-10">
-        <SectionsHero />
+      <!-- STICKY HERO SCROLL TRACK -->
+      <!-- Pinned in place for 125vh so the cards animate cleanly, then the sheet smoothly covers it -->
+      <div class="relative w-full z-10 lg:h-[125vh]">
+        <div class="lg:sticky lg:top-0 w-full lg:h-screen flex flex-col justify-start lg:justify-center overflow-hidden">
+          <div :style="heroStyle" class="w-full h-full flex flex-col justify-start lg:justify-center">
+            <SectionsHero />
+          </div>
+        </div>
       </div>
 
       <!-- OVERLAPPING COMIC SHEET -->
-      <!-- Crisp physical sheet with comic border and ink shadow that introduces the project catalog -->
+      <!-- Physical comic page with 3px solid ink border and shadow that rises over the hero -->
       <div class="comic-stack-sheet relative z-20 w-full overflow-hidden">
         
         <!-- Subtle Top Accent Drag Bar -->
