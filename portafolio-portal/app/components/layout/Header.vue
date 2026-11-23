@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { Sun, Moon, Menu, X } from 'lucide-vue-next'
+import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-vue-next'
 
 const isDark = ref(true)
 const isMobileMenuOpen = ref(false)
@@ -40,82 +40,121 @@ onUnmounted(() => {
   <div class="no-print">
     <header 
       :class="[
-        'fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b print:hidden',
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300 print:hidden',
         isScrolled 
-          ? 'bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-black/[0.05] dark:border-white/[0.05] py-3 shadow-sm' 
-          : 'bg-transparent border-transparent py-5'
+          ? 'bg-[#08090d]/90 backdrop-blur-md border-b border-neutral-800 py-2.5 shadow-ink' 
+          : 'bg-transparent border-b border-transparent py-4'
       ]"
     >
-      <div class="relative z-50 max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
+      <div class="max-w-[1440px] mx-auto px-6 lg:px-12 flex items-center justify-between">
         
-        <!-- Brand Logo -->
-        <a href="#" class="group flex items-center gap-3 relative z-10 outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-violet-500">
-          <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 overflow-hidden transition-transform duration-500 group-hover:scale-95 group-hover:-rotate-3">
-            <div class="absolute inset-0 bg-gradient-to-tr from-violet-600/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <!-- Brand Logo / Blueprint Title -->
+        <a href="#" class="group flex items-center gap-3 outline-none">
+          <div class="w-8 h-8 bg-[#ff5722] text-white flex items-center justify-center font-mono font-black text-xs shadow-ink">
+            R8
           </div>
-          <div class="flex flex-col">
-            <span class="text-sm font-black tracking-widest text-slate-900 dark:text-white uppercase leading-none font-display">
-              PORTAFOLIO
+          <div class="flex flex-col font-mono">
+            <span class="text-xs font-black tracking-widest text-white uppercase leading-none">
+              ROGELIO // ARCH
             </span>
-            <span class="text-[9px] font-bold text-violet-600 dark:text-violet-400 tracking-widest uppercase mt-1 leading-none">
-              Software Premium
+            <span class="text-[9px] font-bold text-neutral-400 tracking-wider uppercase mt-1 leading-none">
+              PORTAFOLIO DE SISTEMAS
             </span>
           </div>
         </a>
 
-        <!-- Desktop Nav (Activates on lg screens 1024px+) -->
-        <nav class="hidden lg:flex items-center gap-1 bg-black/[0.03] dark:bg-white/[0.03] p-1 rounded-2xl border border-black/[0.05] dark:border-white/[0.05]">
-          <a href="#showcase" class="px-5 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-900 rounded-xl transition-all duration-300 shadow-sm opacity-80 hover:opacity-100">
-            Proyectos
+        <!-- Desktop Chapters Nav -->
+        <nav class="hidden md:flex items-center gap-1 bg-neutral-900/80 p-1 border border-neutral-800 text-[11px] font-mono shadow-ink">
+          <a href="#sistemas" class="px-3.5 py-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors uppercase tracking-wider font-semibold">
+            01. Sistemas
           </a>
-          <a href="#habilidades" class="px-5 py-2 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-900 rounded-xl transition-all duration-300 shadow-sm opacity-80 hover:opacity-100">
-            Tecnologías
+          <a href="#arsenal" class="px-3.5 py-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors uppercase tracking-wider font-semibold">
+            02. Arsenal
+          </a>
+          <a href="#filosofia" class="px-3.5 py-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors uppercase tracking-wider font-semibold">
+            03. Filosofía
+          </a>
+          <a href="#contacto" class="px-3.5 py-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors uppercase tracking-wider font-semibold">
+            04. Contacto
           </a>
         </nav>
 
-        <!-- Actions -->
-        <div class="flex items-center gap-3 relative z-10">
-          <!-- Contact Button -->
-          <a href="https://wa.me/59168787985" target="_blank" class="hidden sm:flex items-center justify-center h-10 px-5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-bold tracking-wide hover:scale-105 active:scale-95 transition-transform duration-300 hover:shadow-lg hover:shadow-violet-500/20">
-            Hablemos
+        <!-- Right Actions -->
+        <div class="flex items-center gap-3">
+          
+          <!-- Availability Pill -->
+          <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 bg-neutral-900 border border-neutral-800 text-[10px] font-mono text-neutral-300">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>DISPONIBLE</span>
+          </div>
+
+          <!-- WhatsApp Button -->
+          <a 
+            href="https://wa.me/59168787985" 
+            target="_blank" 
+            class="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ff5722] text-white text-[11px] font-mono font-bold uppercase tracking-wider hover:bg-[#ff6f3d] active:translate-x-0.5 active:translate-y-0.5 transition-all shadow-ink-accent"
+          >
+            <span>HABLEMOS</span>
+            <ArrowUpRight class="w-3.5 h-3.5" />
           </a>
 
           <!-- Theme Toggle -->
           <button 
             @click="toggleTheme" 
             aria-label="Cambiar tema de color"
-            class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors"
+            class="w-8 h-8 flex items-center justify-center border border-neutral-800 bg-neutral-900 text-neutral-400 hover:text-white transition-colors cursor-pointer"
           >
-            <Sun v-if="isDark" class="w-4 h-4" />
-            <Moon v-else class="w-4 h-4" />
+            <Sun v-if="isDark" class="w-3.5 h-3.5" />
+            <Moon v-else class="w-3.5 h-3.5" />
           </button>
 
-          <!-- Mobile/Tablet Menu Toggle -->
+          <!-- Mobile Menu Toggle -->
           <button 
             @click="isMobileMenuOpen = !isMobileMenuOpen" 
-            :aria-label="isMobileMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
-            class="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center text-slate-900 dark:text-white hover:bg-black/[0.05] dark:hover:bg-white/[0.05] transition-colors"
+            :aria-label="isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
+            class="md:hidden w-8 h-8 flex items-center justify-center border border-neutral-800 bg-neutral-900 text-white cursor-pointer"
           >
-            <Menu v-if="!isMobileMenuOpen" class="w-5 h-5" />
-            <X v-else class="w-5 h-5" />
+            <Menu v-if="!isMobileMenuOpen" class="w-4 h-4" />
+            <X v-else class="w-4 h-4" />
           </button>
         </div>
+
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div 
+        v-if="isMobileMenuOpen" 
+        class="md:hidden border-b border-neutral-800 bg-[#08090d]/95 backdrop-blur-xl px-6 py-4 flex flex-col gap-2 font-mono text-xs uppercase"
+      >
+        <a 
+          href="#sistemas" 
+          @click="isMobileMenuOpen = false"
+          class="py-2 text-neutral-300 hover:text-[#ff5722] border-b border-neutral-900"
+        >
+          01. Sistemas y Demos
+        </a>
+        <a 
+          href="#arsenal" 
+          @click="isMobileMenuOpen = false"
+          class="py-2 text-neutral-300 hover:text-[#ff5722] border-b border-neutral-900"
+        >
+          02. Arsenal Tecnológico
+        </a>
+        <a 
+          href="#filosofia" 
+          @click="isMobileMenuOpen = false"
+          class="py-2 text-neutral-300 hover:text-[#ff5722] border-b border-neutral-900"
+        >
+          03. Filosofía de Ingeniería
+        </a>
+        <a 
+          href="#contacto" 
+          @click="isMobileMenuOpen = false"
+          class="py-2 text-neutral-300 hover:text-[#ff5722]"
+        >
+          04. Contacto y Cotización
+        </a>
       </div>
     </header>
-
-    <!-- Mobile Menu Overlay (Outside header to prevent backdrop-filter stacking context bugs) -->
-    <div 
-      class="fixed inset-0 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl z-40 transition-all duration-500 lg:hidden flex flex-col items-center justify-center gap-8"
-      :class="isMobileMenuOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'"
-    >
-      <nav class="flex flex-col items-center gap-6">
-        <a href="#showcase" @click="isMobileMenuOpen = false" class="text-3xl font-black text-slate-900 dark:text-white hover:text-violet-500 transition-colors tracking-tight">Proyectos</a>
-        <a href="#habilidades" @click="isMobileMenuOpen = false" class="text-3xl font-black text-slate-900 dark:text-white hover:text-violet-500 transition-colors tracking-tight">Tecnologías</a>
-      </nav>
-      <a href="https://wa.me/59168787985" target="_blank" @click="isMobileMenuOpen = false" class="mt-8 px-8 py-4 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold tracking-wide">
-        Hablemos por WhatsApp
-      </a>
-    </div>
   </div>
 </template>

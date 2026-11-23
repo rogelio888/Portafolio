@@ -1,162 +1,219 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ArrowRight, Sparkles, Activity, ShieldCheck, Zap, Code2, Server, CheckCircle2 } from 'lucide-vue-next'
+import { ArrowDownRight, Terminal, Cpu, Database, CheckCircle2, Shield, Zap, Code2, ExternalLink } from 'lucide-vue-next'
 
-const activeTab = ref<'speed' | 'security' | 'architecture'>('speed')
+const activeTab = ref<'specs' | 'architecture' | 'metrics'>('specs')
+
+const copySnippet = ref(false)
+const copySnippetText = () => {
+  navigator.clipboard?.writeText('npm run dev')
+  copySnippet.value = true
+  setTimeout(() => copySnippet.value = false, 2000)
+}
 </script>
 
 <template>
-  <section class="relative pt-28 sm:pt-36 lg:pt-40 pb-12 md:pb-16 lg:pb-24 px-6 sm:px-8 lg:px-12 max-w-[1400px] mx-auto min-h-0 lg:min-h-[80vh] flex items-center no-print">
+  <section class="relative w-full h-full min-h-0 lg:min-h-screen flex items-center justify-center px-6 sm:px-8 lg:px-12 pt-24 sm:pt-28 pb-12 lg:py-0 select-none">
     
-    <!-- Ambient Glow Backdrops -->
-    <div class="absolute top-0 right-0 w-[55vw] h-[55vh] bg-violet-600/20 dark:bg-violet-600/25 blur-[150px] rounded-full mix-blend-multiply dark:mix-blend-screen pointer-events-none -z-10"></div>
-    <div class="absolute bottom-0 left-[-10%] w-[45vw] h-[45vh] bg-fuchsia-600/20 dark:bg-fuchsia-600/25 blur-[130px] rounded-full mix-blend-multiply dark:mix-blend-screen pointer-events-none -z-10"></div>
-
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 w-full items-center">
+    <div class="w-full max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center z-10">
       
-      <!-- Left Column: Typography & CTAs -->
-      <div class="md:col-span-7 flex flex-col items-start text-left z-10">
+      <!-- Left Column: Typography, Narrative & High-Impact Callouts -->
+      <div class="lg:col-span-7 flex flex-col items-start text-left">
         
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 dark:bg-violet-500/15 border border-violet-500/25 text-violet-600 dark:text-violet-400 text-xs font-extrabold tracking-widest uppercase mb-5 lg:mb-6 shadow-sm">
-          <Sparkles class="w-3.5 h-3.5" />
-          <span>Diseño a Medida &amp; Arquitectura Web</span>
+        <!-- Graphic Novel Issue Header Tag -->
+        <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-none border border-neutral-700 bg-neutral-900/90 text-neutral-300 text-[10px] font-mono tracking-widest uppercase mb-4 sm:mb-5 shadow-ink">
+          <span class="w-2 h-2 bg-[#ff5722] inline-block animate-pulse"></span>
+          <span class="font-extrabold text-[#ff5722]">VOL. 2026</span>
+          <span class="text-neutral-500">//</span>
+          <span class="font-semibold text-neutral-200">DOSSIER DE INGENIERÍA & PRODUCTO</span>
         </div>
 
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight text-slate-900 dark:text-white leading-[0.95] mb-5 lg:mb-6 font-display">
-          Tu presencia <br />
-          <span class="bg-gradient-to-br from-violet-600 via-purple-500 to-fuchsia-500 dark:from-violet-400 dark:via-purple-300 dark:to-fuchsia-400 bg-clip-text text-transparent">digital elevada.</span>
+        <!-- Main Headline (Bespoke, Anti-AI Slop) -->
+        <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.05] mb-5 sm:mb-6 font-display uppercase">
+          Sistemas Web <br />
+          <span class="text-[#ff5722] underline decoration-neutral-800 decoration-4 underline-offset-8">
+            de Alto Rendimiento
+          </span>
+          <span class="block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-mono text-neutral-400 font-normal tracking-normal mt-2 lowercase text-left">
+            // código artesanal sin plantillas
+          </span>
         </h1>
         
-        <p class="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed mb-8 lg:mb-10 font-normal">
-          Transformamos ideas complejas en experiencias web premium. Desde sitios corporativos hasta sistemas SaaS interactivos. Evalúa el rendimiento de nuestras demos en tiempo real.
+        <!-- Subtitle / Value Proposition -->
+        <p class="text-sm sm:text-base lg:text-lg text-neutral-300 max-w-2xl leading-relaxed mb-8 font-sans font-normal border-l-2 border-[#ff5722] pl-4 bg-neutral-900/30 py-1">
+          Diseño y construyo aplicaciones web completas: plataformas clínicas, sistemas de cobro recurrente, telemetría de flota industrial y sitios corporativos. Interfaces reactivas con datos locales para que pruebes cada demo sin latencia.
         </p>
 
-        <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-          <a href="#showcase" class="group flex items-center justify-center gap-2.5 h-13 sm:h-14 px-8 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-extrabold text-sm hover:scale-105 active:scale-95 transition-all duration-300 w-full sm:w-auto shadow-xl shadow-slate-900/20 dark:shadow-white/10">
-            Explorar Demos
-            <ArrowRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        <!-- CTA Action Buttons with Ink Shadows -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-8">
+          <a 
+            href="#sistemas" 
+            class="group flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#ff5722] text-white font-mono text-xs font-black uppercase tracking-wider hover:bg-[#ff6f3d] active:translate-x-0.5 active:translate-y-0.5 transition-all shadow-ink-accent"
+          >
+            <span>[ ABRIR CAPÍTULO 01: DEMOS ]</span>
+            <ArrowDownRight class="w-4 h-4 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform" />
           </a>
-          <a href="#habilidades" class="flex items-center justify-center h-13 sm:h-14 px-8 rounded-2xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-extrabold text-sm border-2 border-slate-200 dark:border-slate-800 hover:border-violet-500 dark:hover:border-violet-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-300 w-full sm:w-auto">
-            Stack &amp; Tecnologías
+
+          <a 
+            href="https://wa.me/59168787985" 
+            target="_blank"
+            class="flex items-center justify-center gap-2 px-6 py-3.5 bg-neutral-900 text-neutral-200 border border-neutral-700 font-mono text-xs font-bold uppercase tracking-wider hover:border-[#06b6d4] hover:text-white transition-all shadow-ink"
+          >
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>WHATSAPP DIRECTO</span>
           </a>
         </div>
+
+        <!-- Bottom Technical Micro-Specs -->
+        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-neutral-800/80 w-full max-w-xl text-[10px] font-mono text-neutral-400">
+          <div>
+            <span class="text-neutral-500 block">ARQUITECTURA</span>
+            <span class="text-neutral-200 font-bold">Full-Stack SSR</span>
+          </div>
+          <div>
+            <span class="text-neutral-500 block">PERSISTENCIA</span>
+            <span class="text-neutral-200 font-bold">SQL & Offline Mock</span>
+          </div>
+          <div>
+            <span class="text-neutral-500 block">DESPLIEGUE</span>
+            <span class="text-neutral-200 font-bold">Edge Nuxt 4</span>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Right Column: Bespoke System Showcase Window (Unique, Non-Generic Architecture Composition) -->
-      <div class="md:col-span-5 relative w-full z-10 mt-6 md:mt-0">
+      <!-- Right Column: The Blueprint Engineering Frame (Comic Technical Panel) -->
+      <div class="lg:col-span-5 relative w-full">
         
-        <!-- Ambient Backdrop Neon Aura -->
-        <div class="absolute -inset-1.5 rounded-[32px] bg-gradient-to-tr from-violet-600 via-fuchsia-600 to-indigo-600 opacity-30 blur-2xl pointer-events-none"></div>
+        <!-- Registration Corner Marks -->
+        <div class="absolute -top-3 -left-3 w-4 h-4 border-t-2 border-l-2 border-[#ff5722] pointer-events-none z-20"></div>
+        <div class="absolute -bottom-3 -right-3 w-4 h-4 border-b-2 border-r-2 border-[#06b6d4] pointer-events-none z-20"></div>
 
-        <!-- Top Floating Status Pill -->
-        <div class="absolute -top-4 right-4 z-20 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 dark:bg-slate-950/95 backdrop-blur-xl border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase tracking-wider shadow-lg hover:scale-105 transition-transform duration-300">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          <span>Edge SSR Latencia: 12ms</span>
-        </div>
-
-        <!-- Main Bespoke Glass Card Container -->
-        <div class="relative w-full rounded-[28px] bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-2xl border border-violet-500/30 p-5 md:p-6 shadow-2xl shadow-violet-950/50 space-y-4">
+        <!-- The Comic Blueprint Container -->
+        <div class="comic-panel rounded-none p-5 sm:p-6 bg-[#0c0e15] border-2 border-neutral-700/80 shadow-ink">
           
-          <!-- Card Header & Active Project Identifier -->
-          <div class="flex items-center justify-between border-b border-slate-800/80 pb-3.5">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-violet-400">
-                <Code2 class="w-4 h-4" />
-              </div>
-              <div>
-                <div class="text-xs font-black text-white tracking-wide font-heading">SISTEMA WEB A MEDIDA</div>
-                <div class="text-[10px] text-slate-400 font-semibold">Arquitectura Enterprise Nuxt 4</div>
-              </div>
+          <!-- Top Window Bar with Comic Frame Coordinates -->
+          <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4 font-mono text-[10px]">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 bg-[#ff5722]"></span>
+              <span class="font-bold text-neutral-200 tracking-wider">FIG 01 // ESQUEMA DE PRODUCCIÓN</span>
             </div>
-            <span class="text-[9px] font-extrabold text-violet-400 bg-violet-500/10 border border-violet-500/20 px-2 py-0.5 rounded-md uppercase">PRO</span>
+            <span class="text-[#06b6d4] tracking-widest font-bold">LATENCIA: 12ms</span>
           </div>
 
-          <!-- Interactive Tab Selector -->
-          <div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 text-[10px] font-bold">
+          <!-- Interactive Tab Switcher -->
+          <div class="grid grid-cols-3 gap-1 bg-neutral-950 p-1 border border-neutral-800 mb-4 font-mono text-[10px]">
             <button 
-              @click="activeTab = 'speed'"
-              :class="activeTab === 'speed' ? 'bg-violet-600 text-white shadow-md' : 'text-slate-400 hover:text-white'"
-              class="py-1.5 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1"
+              @click="activeTab = 'specs'"
+              :class="activeTab === 'specs' ? 'bg-[#ff5722] text-white font-bold' : 'text-neutral-400 hover:text-neutral-200'"
+              class="py-1.5 px-2 transition-colors flex items-center justify-center gap-1.5 cursor-pointer uppercase"
             >
-              <Zap class="w-3 h-3" /> Velocidad
-            </button>
-            <button 
-              @click="activeTab = 'security'"
-              :class="activeTab === 'security' ? 'bg-violet-600 text-white shadow-md' : 'text-slate-400 hover:text-white'"
-              class="py-1.5 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1"
-            >
-              <ShieldCheck class="w-3 h-3" /> Seguridad
+              <Cpu class="w-3 h-3" />
+              <span>Specs</span>
             </button>
             <button 
               @click="activeTab = 'architecture'"
-              :class="activeTab === 'architecture' ? 'bg-violet-600 text-white shadow-md' : 'text-slate-400 hover:text-white'"
-              class="py-1.5 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1"
+              :class="activeTab === 'architecture' ? 'bg-[#ff5722] text-white font-bold' : 'text-neutral-400 hover:text-neutral-200'"
+              class="py-1.5 px-2 transition-colors flex items-center justify-center gap-1.5 cursor-pointer uppercase"
             >
-              <Server class="w-3 h-3" /> Stack
+              <Terminal class="w-3 h-3" />
+              <span>Arquitectura</span>
+            </button>
+            <button 
+              @click="activeTab = 'metrics'"
+              :class="activeTab === 'metrics' ? 'bg-[#ff5722] text-white font-bold' : 'text-neutral-400 hover:text-neutral-200'"
+              class="py-1.5 px-2 transition-colors flex items-center justify-center gap-1.5 cursor-pointer uppercase"
+            >
+              <Zap class="w-3 h-3" />
+              <span>Métricas</span>
             </button>
           </div>
 
-          <!-- Tab Content Panel -->
-          <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800/80 min-h-[110px] flex flex-col justify-center">
+          <!-- Dynamic Panel Content -->
+          <div class="min-h-[170px] bg-neutral-950/70 border border-neutral-800/80 p-4 font-mono text-xs">
             
-            <!-- Speed Tab -->
-            <div v-if="activeTab === 'speed'" class="space-y-2.5">
-              <div class="flex items-center justify-between text-xs font-bold text-slate-200">
-                <span class="flex items-center gap-1.5 text-slate-300">
-                  <Activity class="w-3.5 h-3.5 text-violet-400" /> Rendimiento Lighthouse
-                </span>
-                <span class="text-emerald-400 font-mono font-bold">100 / 100</span>
+            <!-- Tab 1: Specs -->
+            <div v-if="activeTab === 'specs'" class="space-y-2.5">
+              <div class="flex items-center justify-between text-neutral-300 text-[11px] pb-1 border-b border-neutral-900">
+                <span class="text-neutral-400">Motor Frontend:</span>
+                <span class="text-white font-bold">Nuxt 4 / Vue 3 / React</span>
               </div>
-              <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-emerald-400 w-full rounded-full animate-pulse"></div>
+              <div class="flex items-center justify-between text-neutral-300 text-[11px] pb-1 border-b border-neutral-900">
+                <span class="text-neutral-400">Bases de Datos:</span>
+                <span class="text-[#06b6d4] font-bold">Supabase PostgreSQL / SQL Server</span>
               </div>
-              <div class="flex justify-between text-[10px] text-slate-400 font-semibold pt-1">
-                <span>FCP: 0.3s</span>
-                <span>LCP: 0.7s</span>
-                <span>CLS: 0.00</span>
+              <div class="flex items-center justify-between text-neutral-300 text-[11px] pb-1 border-b border-neutral-900">
+                <span class="text-neutral-400">Seguridad:</span>
+                <span class="text-emerald-400 font-bold">Sanitización & Zero-Trust</span>
               </div>
-            </div>
-
-            <!-- Security Tab -->
-            <div v-else-if="activeTab === 'security'" class="space-y-2">
-              <div class="flex items-center justify-between text-xs font-bold text-slate-200">
-                <span class="text-violet-400 font-bold">Protección de Datos & Auth</span>
-                <span class="text-emerald-400 text-[10px] font-extrabold uppercase">Encriptado AES-256</span>
-              </div>
-              <div class="text-[11px] text-slate-300 space-y-1">
-                <div class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 text-emerald-400" /> Autenticación JWT / Sessions</div>
-                <div class="flex items-center gap-1.5"><CheckCircle2 class="w-3.5 h-3.5 text-emerald-400" /> Sanitización contra XSS & SQLi</div>
+              <div class="flex items-center justify-between text-neutral-300 text-[11px]">
+                <span class="text-neutral-400">Animación Física:</span>
+                <span class="text-[#ff5722] font-bold">Motion &lt; 300ms</span>
               </div>
             </div>
 
-            <!-- Architecture Tab -->
-            <div v-else class="grid grid-cols-2 gap-2 text-[11px]">
-              <div class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50">
-                <span class="text-[9px] font-extrabold text-slate-400 uppercase block">Frontend</span>
-                <span class="font-bold text-white">Nuxt 4 + Vue 3</span>
+            <!-- Tab 2: Architecture -->
+            <div v-else-if="activeTab === 'architecture'" class="space-y-2 text-[11px] text-neutral-300">
+              <div class="text-[10px] text-[#ff5722] font-bold uppercase tracking-wider">// FLUJO CLIENTE-SERVIDOR REACTIVO</div>
+              <p class="leading-relaxed text-neutral-400 text-[11px]">
+                Cada sistema funciona con persistencia bidireccional: si hay backend disponible sincroniza vía API REST / GraphQL; si se usa en modo demo, conmuta instantáneamente al mock local sin romper la experiencia.
+              </p>
+              <div class="flex items-center gap-2 pt-1 text-[10px] text-[#06b6d4]">
+                <Shield class="w-3 h-3" />
+                <span>Control de roles RBAC & Token Auth</span>
               </div>
-              <div class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50">
-                <span class="text-[9px] font-extrabold text-slate-400 uppercase block">Backend</span>
-                <span class="font-bold text-white">Laravel / Node API</span>
+            </div>
+
+            <!-- Tab 3: Metrics -->
+            <div v-else class="space-y-3">
+              <div>
+                <div class="flex justify-between text-[11px] mb-1 font-bold">
+                  <span class="text-neutral-300">Lighthouse Performance</span>
+                  <span class="text-emerald-400">100 / 100</span>
+                </div>
+                <div class="w-full h-1.5 bg-neutral-800">
+                  <div class="h-full bg-emerald-500 w-full"></div>
+                </div>
               </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-1 font-bold">
+                  <span class="text-neutral-300">Core Web Vitals (CLS & LCP)</span>
+                  <span class="text-[#06b6d4]">0.00 CLS &bull; 0.4s LCP</span>
+                </div>
+                <div class="w-full h-1.5 bg-neutral-800">
+                  <div class="h-full bg-[#06b6d4] w-full"></div>
+                </div>
+              </div>
+              <p class="text-[10px] text-neutral-500 pt-1">
+                Optimizado para carga instantánea en cualquier conexión móvil o de escritorio.
+              </p>
             </div>
 
           </div>
 
-          <!-- Bottom Guarantee Badge Pill -->
-          <div class="pt-1 flex items-center justify-between text-[10px] text-slate-400 font-semibold">
-            <span class="flex items-center gap-1 text-slate-300">
-              <CheckCircle2 class="w-3.5 h-3.5 text-violet-400" /> Código 100% Limpio y Escalable
+          <!-- Bottom Status Pill in Frame -->
+          <div class="mt-4 pt-3 border-t border-neutral-800 flex items-center justify-between text-[10px] font-mono">
+            <span class="text-neutral-400 flex items-center gap-1.5">
+              <CheckCircle2 class="w-3.5 h-3.5 text-emerald-400" />
+              <span>4 PLATAFORMAS LISTAS</span>
             </span>
-            <a href="#showcase" class="text-violet-400 hover:text-violet-300 font-extrabold transition-colors">
-              Explorar Demos →
+            <a href="#sistemas" class="text-[#ff5722] hover:underline font-bold flex items-center gap-1">
+              <span>VER CADA SISTEMA</span>
+              <span>&rarr;</span>
             </a>
           </div>
 
         </div>
 
       </div>
-      
+
     </div>
+
+    <!-- Scroll Indicator Bottom Anchor -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 text-neutral-500 text-[10px] font-mono tracking-widest uppercase pointer-events-none">
+      <span class="text-[#ff5722] animate-bounce">&darr;</span>
+      <span>DESLIZA PARA CUBRIR HERO // CAPÍTULO 01</span>
+    </div>
+
   </section>
 </template>

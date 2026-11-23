@@ -3,58 +3,72 @@ import { techList } from '../../utils/siteData'
 </script>
 
 <template>
-  <section id="habilidades" class="w-full py-16 bg-transparent overflow-hidden relative no-print">
+  <section id="arsenal" class="w-full py-16 bg-[#090b10] border-y border-neutral-800 overflow-hidden relative no-print select-none">
     
-    <div class="text-center mb-10 px-4">
-      <h2 class="text-xs font-black tracking-widest uppercase text-slate-500 dark:text-slate-300 mb-2">Nuestro Stack Tecnológico</h2>
-      <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Herramientas de grado empresarial para máxima velocidad y seguridad.</p>
+    <div class="max-w-[1440px] mx-auto px-6 lg:px-12 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 text-[10px] font-mono text-[#06b6d4] font-bold uppercase tracking-widest mb-1">
+          <span>CAPÍTULO 02</span>
+          <span class="text-neutral-600">//</span>
+          <span class="text-neutral-400">ARSENAL TÉCNICO</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-black text-white uppercase font-display tracking-tight">
+          Stack &amp; Herramientas de Grado Enterprise
+        </h2>
+      </div>
+      <p class="text-xs font-mono text-neutral-400 max-w-md">
+        Tecnologías seleccionadas por estabilidad, velocidad de render y soporte a largo plazo.
+      </p>
     </div>
     
-    <!-- Scrolling Track with CSS Mask for transparent edge fading -->
+    <!-- Scrolling Track with Technical Masks -->
     <div 
-      class="relative w-full flex select-none marquee-container" 
-      style="mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);"
+      class="relative w-full flex select-none marquee-container py-2" 
+      style="mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);"
     >
-      <div class="flex shrink-0 animate-marquee gap-6 min-w-full pr-6">
-        <!-- Copy 1 -->
+      <div class="flex shrink-0 animate-marquee gap-4 min-w-full pr-4">
         <div 
           v-for="tech in techList" 
           :key="tech.name" 
           tabindex="0"
-          class="group relative flex flex-col items-center justify-center gap-4 w-40 h-40 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-xl hover:shadow-violet-500/10 hover:-translate-y-2 focus:shadow-xl focus:shadow-violet-500/10 focus:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden focus:outline-none"
+          class="comic-panel p-4 w-48 h-36 flex flex-col justify-between bg-neutral-950 border border-neutral-800 hover:border-[#ff5722] transition-colors cursor-pointer"
         >
-          <!-- Hover Effect Background -->
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50 dark:to-slate-800/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          
-          <div class="w-10 h-10 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-110 group-focus:scale-110" v-html="tech.svg"></div>
-          <span class="text-sm font-bold text-slate-700 dark:text-slate-200 relative z-10">{{ tech.name }}</span>
-          
-          <!-- Tooltip overlay (Curtain Drop Effect) -->
-          <div class="absolute inset-0 bg-violet-600/95 dark:bg-violet-900/95 backdrop-blur-sm -translate-y-full group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center justify-center p-4 text-center z-20">
-            <div class="flex flex-col items-center justify-center translate-y-4 group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-500 delay-75">
-              <span class="text-xs font-bold text-white leading-snug">{{ tech.role }}</span>
-            </div>
+          <div class="flex items-center justify-between border-b border-neutral-800/80 pb-2">
+            <span class="text-[9px] font-mono font-bold uppercase text-neutral-500 tracking-wider">{{ tech.category }}</span>
+            <span class="w-1.5 h-1.5 bg-[#06b6d4]"></span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 shrink-0 flex items-center justify-center" v-html="tech.svg"></div>
+            <span class="text-sm font-black text-white font-mono">{{ tech.name }}</span>
+          </div>
+
+          <div class="text-[10px] font-mono text-neutral-400 line-clamp-2 leading-tight">
+            {{ tech.role }}
           </div>
         </div>
       </div>
 
       <!-- Copy 2 for seamless loop -->
-      <div class="flex shrink-0 animate-marquee gap-6 min-w-full pr-6" aria-hidden="true">
+      <div class="flex shrink-0 animate-marquee gap-4 min-w-full pr-4" aria-hidden="true">
         <div 
           v-for="tech in techList" 
           :key="tech.name + '-dup'" 
           tabindex="-1"
-          class="group relative flex flex-col items-center justify-center gap-4 w-40 h-40 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-xl hover:shadow-violet-500/10 hover:-translate-y-2 focus:shadow-xl focus:shadow-violet-500/10 focus:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden focus:outline-none"
+          class="comic-panel p-4 w-48 h-36 flex flex-col justify-between bg-neutral-950 border border-neutral-800 hover:border-[#ff5722] transition-colors cursor-pointer"
         >
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50 dark:to-slate-800/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          <div class="w-10 h-10 flex items-center justify-center relative z-10 transition-transform duration-500 group-hover:scale-110 group-focus:scale-110" v-html="tech.svg"></div>
-          <span class="text-sm font-bold text-slate-700 dark:text-slate-200 relative z-10">{{ tech.name }}</span>
-          
-          <!-- Tooltip overlay (Curtain Drop Effect) -->
-          <div class="absolute inset-0 bg-violet-600/95 dark:bg-violet-900/95 backdrop-blur-sm -translate-y-full group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center justify-center p-4 text-center z-20">
-            <div class="flex flex-col items-center justify-center translate-y-4 group-hover:translate-y-0 group-focus:translate-y-0 transition-transform duration-500 delay-75">
-              <span class="text-xs font-bold text-white leading-snug">{{ tech.role }}</span>
-            </div>
+          <div class="flex items-center justify-between border-b border-neutral-800/80 pb-2">
+            <span class="text-[9px] font-mono font-bold uppercase text-neutral-500 tracking-wider">{{ tech.category }}</span>
+            <span class="w-1.5 h-1.5 bg-[#06b6d4]"></span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 shrink-0 flex items-center justify-center" v-html="tech.svg"></div>
+            <span class="text-sm font-black text-white font-mono">{{ tech.name }}</span>
+          </div>
+
+          <div class="text-[10px] font-mono text-neutral-400 line-clamp-2 leading-tight">
+            {{ tech.role }}
           </div>
         </div>
       </div>

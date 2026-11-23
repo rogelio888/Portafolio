@@ -2,152 +2,249 @@
 import { ref } from 'vue'
 import { projects } from '../../utils/siteData'
 import * as LucideIcons from 'lucide-vue-next'
-import { ArrowRight, AlertTriangle } from 'lucide-vue-next'
+import { ArrowUpRight, Code2, Database, Shield, Layers, Terminal, ExternalLink, Play, CheckCircle } from 'lucide-vue-next'
 
-const selectedDemoUrl = ref('')
-const showWarningModal = ref(false)
+const selectedArchProject = ref<any | null>(null)
 
 const getIcon = (name: string) => {
-  return (LucideIcons as any)[name]
+  return (LucideIcons as any)[name] || Layers
 }
 
-const openWarningModal = (url: string) => {
-  // Mostrar modal solo en pantallas pequeñas (menor al breakpoint 'lg' de Tailwind: 1024px)
-  if (window.innerWidth < 1024) {
-    selectedDemoUrl.value = url
-    showWarningModal.value = true
-  } else {
-    // En PC, abrir directamente sin advertencia
-    window.open(url, '_blank')
-  }
+const openArchModal = (project: any) => {
+  selectedArchProject.value = project
 }
 
-const proceedToDemo = () => {
-  showWarningModal.value = false
-  if (selectedDemoUrl.value) {
-    window.open(selectedDemoUrl.value, '_blank')
-  }
+const closeArchModal = () => {
+  selectedArchProject.value = null
 }
+
+// Separate featured hero project (Clinica Medica) from the rest
+const featuredProject = projects.find(p => p.name.includes('Clínica')) || projects[0]
+const otherProjects = projects.filter(p => p !== featuredProject)
 </script>
 
 <template>
-  <section id="showcase" class="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 no-print">
-    <div class="mb-16 max-w-2xl">
-      <h2 class="text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1] mb-4">
-        Demos y <br/> <span class="text-violet-500">Casos de Éxito.</span>
-      </h2>
-      <p class="text-lg text-slate-500 dark:text-slate-400">
-        Aplicaciones y sistemas 100% interactivos corriendo con bases de datos locales en tu navegador para que pruebes su rendimiento sin esperas.
-      </p>
+  <section id="sistemas" class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
+    
+    <!-- Chapter Header / Comic Registration Title -->
+    <div class="mb-16 border-b border-neutral-800 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 bg-neutral-900 border border-neutral-800 text-[10px] font-mono text-[#ff5722] font-bold uppercase tracking-widest mb-3">
+          <span>CAPÍTULO 01</span>
+          <span class="text-neutral-600">//</span>
+          <span class="text-neutral-300">SISTEMAS &amp; ARQUITECTURAS</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase font-display leading-[1.05]">
+          Casos de Estudio <br />
+          <span class="text-neutral-400 font-mono text-2xl sm:text-3xl font-normal lowercase">
+            // aplicaciones reales en producción
+          </span>
+        </h2>
+      </div>
+
+      <div class="text-neutral-400 text-xs font-mono max-w-sm leading-relaxed">
+        <p>
+          Cada sistema corre de forma autónoma con datos mock reactivos precargados. Puedes iniciar sesión, crear registros, emitir cobros y explorar flujos de punta a punta.
+        </p>
+      </div>
     </div>
 
-    <!-- Premium Alternating Layout (Zig-Zag) -->
-    <div class="flex flex-col gap-24 lg:gap-32 mt-16">
+    <!-- Asymmetrical Graphic Novel Panels Layout -->
+    <div class="space-y-8">
+      
+      <!-- FEATURE SPOTLIGHT PANEL (Full Width): Clínica Médica -->
       <div 
-        v-for="(project, index) in projects" 
-        :key="project.name"
-        class="group relative flex flex-col lg:flex-row gap-8 lg:gap-16 items-center"
-        :class="index % 2 === 1 ? 'lg:flex-row-reverse' : ''"
+        v-if="featuredProject" 
+        class="comic-panel p-6 sm:p-8 bg-[#0c0e16] border-2 border-neutral-700/80 shadow-ink"
       >
-        <!-- Image Section (60%) -->
-        <div class="w-full lg:w-3/5 relative rounded-[2rem] lg:rounded-[3rem] overflow-hidden bg-slate-100 dark:bg-slate-900 aspect-video shadow-2xl shadow-slate-200/50 dark:shadow-black/50 group-hover:shadow-violet-500/10 transition-all duration-700">
-          <img 
-            :src="project.thumbnail" 
-            :alt="`Vista previa de ${project.name}`" 
-            width="640"
-            height="360"
-            class="w-full h-full object-cover object-top transform group-hover:scale-105 group-hover:-translate-y-2 transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"
-            loading="lazy" 
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          <!-- Floating Badge -->
-          <div class="absolute top-6 left-6 flex items-center gap-2 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200/50 dark:border-white/10 shadow-xl transform -translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-             <component :is="getIcon(project.iconName)" class="w-4 h-4 text-violet-600 dark:text-violet-400" />
-             <span class="text-[11px] font-bold text-slate-900 dark:text-white uppercase tracking-widest">{{ project.category }}</span>
+        <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-6 font-mono text-[10px]">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-[#ff5722]"></span>
+            <span class="font-bold text-white uppercase tracking-wider">PANEL PRINCIPAL // SPOTLIGHT</span>
           </div>
+          <span class="text-[#06b6d4] uppercase font-bold tracking-widest">{{ featuredProject.category }}</span>
         </div>
 
-        <!-- Text Section (40%) -->
-        <div class="w-full lg:w-2/5 flex flex-col justify-center">
-          <!-- Small category tag (visible when badge is hidden) -->
-          <div class="flex items-center gap-2 mb-4 lg:hidden">
-            <component :is="getIcon(project.iconName)" class="w-4 h-4 text-violet-500" />
-            <span class="text-[10px] font-bold text-violet-600 dark:text-violet-400 uppercase tracking-widest">{{ project.category }}</span>
-          </div>
-
-          <h3 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-6 leading-[1.1] tracking-tight">
-            {{ project.name }}
-          </h3>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed">
-            {{ project.description }}
-          </p>
-
-          <!-- Tech Stack -->
-          <div class="flex flex-wrap gap-6 mb-12">
-            <div class="flex flex-col gap-1 border-l-2 border-violet-500/50 dark:border-violet-500/30 pl-4">
-              <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Frontend</span>
-              <span class="text-sm font-bold text-slate-800 dark:text-slate-200">{{ project.frontendStack }}</span>
-            </div>
-            <div class="flex flex-col gap-1 border-l-2 border-violet-500/50 dark:border-violet-500/30 pl-4">
-              <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Backend</span>
-              <span class="text-sm font-bold text-slate-800 dark:text-slate-200">{{ project.backendStack }}</span>
+          <!-- Image Mockup Frame -->
+          <div class="lg:col-span-7 relative group overflow-hidden border border-neutral-800 bg-neutral-950 aspect-video">
+            <img 
+              :src="featuredProject.thumbnail" 
+              :alt="featuredProject.name" 
+              class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-mono text-neutral-300 bg-neutral-900/90 backdrop-blur-md px-3 py-1.5 border border-neutral-700">
+              <span class="text-emerald-400 font-bold">&bull; BASE DE DATOS MOCK LISTA</span>
+              <span class="text-neutral-400">{{ featuredProject.frontendStack }}</span>
             </div>
           </div>
 
-          <!-- Action Button -->
-          <div class="flex flex-wrap items-center gap-4">
+          <!-- Description & Technical Info -->
+          <div class="lg:col-span-5 flex flex-col justify-between h-full">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <component :is="getIcon(featuredProject.iconName)" class="w-5 h-5 text-[#ff5722]" />
+                <h3 class="text-2xl sm:text-3xl font-black text-white uppercase font-display">
+                  {{ featuredProject.name }}
+                </h3>
+              </div>
+
+              <p class="text-sm text-neutral-300 font-sans leading-relaxed mb-6">
+                {{ featuredProject.description }}
+              </p>
+
+              <!-- Stack Breakdown -->
+              <div class="grid grid-cols-2 gap-3 mb-6 font-mono text-[11px]">
+                <div class="p-2.5 bg-neutral-950 border border-neutral-800">
+                  <span class="text-[9px] text-neutral-500 block uppercase">FRONTEND</span>
+                  <span class="text-white font-bold">{{ featuredProject.frontendStack }}</span>
+                </div>
+                <div class="p-2.5 bg-neutral-950 border border-neutral-800">
+                  <span class="text-[9px] text-neutral-500 block uppercase">BACKEND / BD</span>
+                  <span class="text-[#06b6d4] font-bold">{{ featuredProject.databaseStack }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-wrap items-center gap-3 pt-4 border-t border-neutral-800">
+              <a 
+                :href="featuredProject.demoUrl" 
+                target="_blank"
+                class="flex items-center gap-2 px-5 py-2.5 bg-[#ff5722] text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#ff6f3d] transition-colors shadow-ink-accent"
+              >
+                <span>PROBAR DEMO EN VIVO</span>
+                <ArrowUpRight class="w-3.5 h-3.5" />
+              </a>
+
+              <button 
+                @click="openArchModal(featuredProject)"
+                class="flex items-center gap-1.5 px-4 py-2.5 bg-neutral-900 border border-neutral-700 text-neutral-300 font-mono text-xs uppercase hover:text-white hover:border-[#06b6d4] transition-colors cursor-pointer"
+              >
+                <Code2 class="w-3.5 h-3.5 text-[#06b6d4]" />
+                <span>ARQUITECTURA</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GRID OF OTHER BESPOKE SYSTEMS (2 Columns) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div 
+          v-for="(project, idx) in otherProjects" 
+          :key="project.name"
+          class="comic-panel p-6 bg-[#0c0e16] border border-neutral-700/80 shadow-ink flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-2.5 mb-4 font-mono text-[10px]">
+              <span class="font-bold text-white uppercase tracking-wider">PANEL // CASO 0{{ idx + 2 }}</span>
+              <span class="text-[#06b6d4] font-bold uppercase">{{ project.category }}</span>
+            </div>
+
+            <div class="relative overflow-hidden border border-neutral-800 bg-neutral-950 aspect-video mb-5 group">
+              <img 
+                :src="project.thumbnail" 
+                :alt="project.name" 
+                class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/80 font-mono text-[9px] text-neutral-300">
+                {{ project.frontendStack }}
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 mb-2">
+              <component :is="getIcon(project.iconName)" class="w-4 h-4 text-[#ff5722]" />
+              <h3 class="text-xl font-black text-white uppercase font-display">
+                {{ project.name }}
+              </h3>
+            </div>
+
+            <p class="text-xs sm:text-sm text-neutral-300 font-sans leading-relaxed mb-4">
+              {{ project.description }}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-neutral-800 flex items-center justify-between">
+            <button 
+              @click="openArchModal(project)"
+              class="text-[11px] font-mono text-neutral-400 hover:text-white flex items-center gap-1 cursor-pointer"
+            >
+              <Code2 class="w-3.5 h-3.5 text-[#06b6d4]" />
+              <span>Ver Especificaciones</span>
+            </button>
+
             <a 
               :href="project.demoUrl" 
-              @click.prevent="openWarningModal(project.demoUrl)"
-              class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:bg-violet-600 dark:hover:bg-violet-500 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl hover:shadow-violet-500/25 group/btn"
+              target="_blank"
+              class="flex items-center gap-1.5 px-4 py-2 bg-neutral-900 border border-neutral-700 text-white font-mono text-xs uppercase hover:border-[#ff5722] transition-colors"
             >
-              <span>Probar Demo Interactiva</span>
-              <ArrowRight class="w-5 h-5 transform group-hover/btn:translate-x-1 transition-transform duration-300" />
+              <span>LANZAR DEMO</span>
+              <ArrowUpRight class="w-3.5 h-3.5" />
             </a>
           </div>
         </div>
       </div>
+
     </div>
 
-    <!-- Custom Premium Warning Modal -->
+    <!-- ARCHITECTURE / CODE MODAL (Bespoke Blueprint Drawer) -->
     <div 
-      class="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-300"
-      :class="showWarningModal ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'"
+      v-if="selectedArchProject" 
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md"
+      @click.self="closeArchModal"
     >
-      <div 
-        class="absolute inset-0 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm transition-opacity duration-300"
-        @click="showWarningModal = false"
-      ></div>
-      <div 
-        class="relative w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-300"
-        :class="showWarningModal ? 'scale-100 translate-y-0' : 'scale-95 translate-y-8'"
-      >
-        <div class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-6">
-          <LucideIcons.AlertTriangle class="w-6 h-6" />
-        </div>
+      <div class="w-full max-w-3xl bg-[#090b10] border-2 border-[#ff5722] p-6 shadow-2xl relative font-mono text-xs">
         
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Recomendación de Visualización</h3>
-        <p class="text-sm text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
-          Para una experiencia óptima, te recomendamos visualizar estas demostraciones interactivas desde una computadora (PC o Laptop). Al ser sistemas completos y complejos, están optimizados para pantallas grandes.
-        </p>
-
-        <div class="flex flex-col-reverse sm:flex-row gap-3">
+        <!-- Modal Top Bar -->
+        <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-[#06b6d4]"></span>
+            <span class="text-white font-bold uppercase tracking-wider">
+              BLUEPRINT: {{ selectedArchProject.name }}
+            </span>
+          </div>
           <button 
-            @click="showWarningModal = false"
-            class="flex-1 px-4 py-3 rounded-xl font-bold text-sm text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            @click="closeArchModal"
+            class="text-neutral-400 hover:text-white px-2 py-0.5 border border-neutral-700 text-xs cursor-pointer"
           >
-            Cancelar
-          </button>
-          <button 
-            @click="proceedToDemo"
-            class="flex-1 px-4 py-3 rounded-xl font-bold text-sm text-white bg-violet-600 hover:bg-violet-500 transition-colors shadow-lg shadow-violet-500/20"
-          >
-            Continuar a la Demo
+            ✕ CERRAR
           </button>
         </div>
+
+        <!-- Architecture Content -->
+        <div class="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+          
+          <div>
+            <span class="text-[#ff5722] font-bold block mb-1">// ESQUEMA DE BASE DE DATOS (DDL / SQL)</span>
+            <pre class="bg-neutral-950 p-4 border border-neutral-800 text-neutral-300 text-[11px] overflow-x-auto"><code>{{ selectedArchProject.architectureDetails.schemaDetails }}</code></pre>
+          </div>
+
+          <div>
+            <span class="text-[#06b6d4] font-bold block mb-1">// CONTROLADOR / LÓGICA DE SERVIDOR</span>
+            <pre class="bg-neutral-950 p-4 border border-neutral-800 text-neutral-300 text-[11px] overflow-x-auto"><code>{{ selectedArchProject.architectureDetails.controllerCode }}</code></pre>
+          </div>
+
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-neutral-800 flex justify-end">
+          <a 
+            :href="selectedArchProject.demoUrl" 
+            target="_blank"
+            class="px-4 py-2 bg-[#ff5722] text-white font-bold uppercase text-xs hover:bg-[#ff6f3d]"
+          >
+            ABRIR DEMO CORRESPONDIENTE &rarr;
+          </a>
+        </div>
+
       </div>
     </div>
+
   </section>
 </template>
