@@ -242,25 +242,19 @@ const getCardStyle = (index: number) => {
               </div>
 
               <!-- Title & Tagline -->
-              <h3 class="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-display leading-tight mb-1">
+              <h3 class="text-lg sm:text-xl md:text-2xl font-black text-slate-900 font-display leading-tight mb-1.5">
                 {{ p.name }}
               </h3>
-              <p class="text-[11px] sm:text-xs text-slate-600 font-medium leading-relaxed mb-2.5">
+              <p class="text-xs text-slate-700 font-medium leading-relaxed mb-3">
                 {{ p.tagline }}
               </p>
 
-              <!-- Target Audience -->
-              <div class="p-2 sm:p-2.5 rounded-lg bg-blue-50/80 border border-blue-200 mb-2.5 text-[10px] sm:text-[11px]">
-                <span class="font-black text-blue-900 block mb-0.5">Dirigido a:</span>
-                <span class="text-slate-700 font-medium leading-snug line-clamp-2">{{ p.target }}</span>
-              </div>
-
-              <!-- Feature Highlights -->
-              <div class="space-y-1.5">
+              <!-- Feature Highlights (Directly visible, clean checks) -->
+              <div class="space-y-2 mb-3">
                 <div 
                   v-for="item in p.highlights" 
                   :key="item"
-                  class="flex items-start gap-1.5 text-[11px] sm:text-xs text-slate-700 font-medium"
+                  class="flex items-start gap-1.5 text-[11px] sm:text-xs text-slate-800 font-semibold"
                 >
                   <CheckCircle2 class="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                   <span class="leading-tight">{{ item }}</span>
