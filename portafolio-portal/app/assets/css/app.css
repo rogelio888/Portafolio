@@ -5,37 +5,22 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
 }
-
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Outfit', sans-serif;
   
-  --color-ring: #2563eb;
-  --color-border: #e2e8f0;
-  --color-background: #f8fafc;
+  --color-border: #0f172a;
+  --color-background: #faf9f6;
   --color-foreground: #0f172a;
 }
 
-/* Base Light Studio Theme */
-:root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --card-bg: #ffffff;
-  --card-border: #e2e8f0;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --text-muted: #64748b;
-  --scrollbar-track: #f1f5f9;
-  --scrollbar-thumb: #cbd5e1;
-}
-
+/* Light Paper Canvas */
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: #faf9f6;
+  color: #0f172a;
   font-family: var(--font-sans);
 }
 
@@ -43,69 +28,132 @@ h1, h2, h3, h4, h5, h6, .font-display {
   font-family: var(--font-heading);
 }
 
-/* Minimalist Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Comic Book / Historieta Tokens & Utilities */
+.comic-panel {
+  background-color: #ffffff;
+  border: 2px solid #0f172a;
+  box-shadow: 4px 4px 0px #0f172a;
+  border-radius: 0.75rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
+
+.comic-panel:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #0f172a;
 }
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
+
+.comic-panel-flat {
+  background-color: #ffffff;
+  border: 2px solid #0f172a;
+  box-shadow: 3px 3px 0px #0f172a;
+  border-radius: 0.75rem;
+}
+
+/* Comic Caption / Narration Box */
+.comic-caption {
+  background-color: #fef08a; /* Comic Yellow */
+  border: 2px solid #0f172a;
+  box-shadow: 2px 2px 0px #0f172a;
+  font-weight: 800;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Speech / Target Business Pill */
+.comic-pill {
+  background-color: #eff6ff; /* Soft Blue */
+  border: 1.5px solid #0f172a;
+  font-weight: 700;
+  color: #1e40af;
   border-radius: 9999px;
-  border: 2px solid var(--scrollbar-track);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
-/* Subtle Architectural Dot Pattern (Light Paper Feel) */
-.bg-studio-dots {
+/* Halftone Ben-Day Dot Matrix Pattern */
+.bg-comic-dots {
   background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
+  background-size: 18px 18px;
 }
 
-.bg-studio-grid {
+.bg-comic-grid {
   background-image: 
-    linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(to right, rgba(203, 213, 225, 0.45) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(203, 213, 225, 0.45) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
 }
 
-/* Clean Overlapping Sheet (Card Lift) */
-.section-stack-sheet {
+/* Comic Button with Tactile Press */
+.comic-btn-primary {
+  background-color: #0f172a;
+  color: #ffffff;
+  border: 2px solid #0f172a;
+  box-shadow: 3px 3px 0px #0f172a;
+  border-radius: 0.5rem;
+  font-weight: 800;
+  transition: all 0.15s ease;
+}
+
+.comic-btn-primary:hover {
+  background-color: #2563eb;
+  border-color: #0f172a;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #0f172a;
+}
+
+.comic-btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #0f172a;
+}
+
+.comic-btn-secondary {
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 2px solid #0f172a;
+  box-shadow: 3px 3px 0px #0f172a;
+  border-radius: 0.5rem;
+  font-weight: 800;
+  transition: all 0.15s ease;
+}
+
+.comic-btn-secondary:hover {
+  background-color: #f8fafc;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #0f172a;
+}
+
+.comic-btn-secondary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #0f172a;
+}
+
+/* Comic Book Overlapping Sheet */
+.comic-stack-sheet {
   position: relative;
   z-index: 20;
   margin-top: 0;
-  background-color: #ffffff;
-  border-top: 1px solid #e2e8f0;
+  background-color: #faf9f6;
+  border-top: 3px solid #0f172a;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
-  box-shadow: 0 -20px 40px -15px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 -15px 35px rgba(15, 23, 42, 0.12);
   transition: all 0.3s ease;
 }
 
 @media (min-width: 1024px) {
-  .section-stack-sheet {
+  .comic-stack-sheet {
     border-top-left-radius: 3rem;
     border-top-right-radius: 3rem;
-    box-shadow: 0 -25px 50px -20px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 -25px 45px rgba(15, 23, 42, 0.15);
   }
-}
-
-/* Clean Professional Cards */
-.studio-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 1rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.studio-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 12px 30px -10px rgba(15, 23, 42, 0.08);
-  transform: translateY(-2px);
 }
 
 /* Infinite Marquee */

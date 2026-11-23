@@ -1,205 +1,207 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ArrowDown, MessageSquare, Zap, ShieldCheck, Database, Layers, CheckCircle2, ArrowRight } from 'lucide-vue-next'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ArrowDown, MessageSquare, Layers, Sparkles, CheckCircle2 } from 'lucide-vue-next'
 
-const activeTab = ref<'overview' | 'security' | 'performance'>('overview')
+const scrollY = ref(0)
+let ticking = false
+
+const handleScroll = () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      scrollY.value = window.scrollY
+      ticking = false
+    })
+    ticking = true
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+
+// Scroll progress from 0 to 600px
+const scrollProgress = computed(() => {
+  return Math.min(Math.max(scrollY.value / 500, 0), 1)
+})
+
+// 3D Scroll-Driven Transform for Comic Panel Deck
+const panel1Style = computed(() => {
+  const p = scrollProgress.value
+  const rotate = -3 + p * 8 // -3deg to 5deg
+  const x = p * 40
+  const y = p * -20
+  return {
+    transform: `rotate(${rotate}deg) translate(${x}px, ${y}px)`,
+    transition: 'transform 0.08s ease-out'
+  }
+})
+
+const panel2Style = computed(() => {
+  const p = scrollProgress.value
+  const rotate = 4 - p * 6 // 4deg to -2deg
+  const x = p * -30
+  const y = p * 30
+  return {
+    transform: `rotate(${rotate}deg) translate(${x}px, ${y}px)`,
+    transition: 'transform 0.08s ease-out'
+  }
+})
+
+const panel3Style = computed(() => {
+  const p = scrollProgress.value
+  const rotate = -1 + p * 4
+  const scale = 0.95 + p * 0.08
+  return {
+    transform: `rotate(${rotate}deg) scale(${scale})`,
+    transition: 'transform 0.08s ease-out'
+  }
+})
 </script>
 
 <template>
-  <section class="relative w-full h-full min-h-0 lg:min-h-screen flex items-center justify-center px-6 sm:px-8 lg:px-12 pt-28 sm:pt-32 pb-16 lg:py-0 select-none">
+  <section class="relative w-full min-h-0 lg:min-h-screen flex items-center justify-center px-6 sm:px-8 lg:px-12 pt-28 sm:pt-32 lg:pt-28 pb-16 lg:pb-12 select-none">
     
     <div class="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center z-10">
       
-      <!-- Left Column: Typography & Presentation -->
-      <div class="lg:col-span-7 flex flex-col items-start text-left">
+      <!-- Left Column: Typography & Comic Narrative -->
+      <div class="lg:col-span-6 flex flex-col items-start text-left">
         
-        <!-- Clean Category Tag -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold mb-6">
-          <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-          <span>Desarrollo Full-Stack &amp; Sistemas Web</span>
+        <!-- Comic Narration Box -->
+        <div class="comic-caption mb-5">
+          <span>PORTAFOLIO DE SISTEMAS // CASOS REALES</span>
         </div>
 
         <!-- Main Headline -->
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.08] mb-6 font-display">
-          Desarrollo de Software y <br />
-          <span class="text-blue-600">Sistemas Web a Medida.</span>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.05] mb-5 font-display uppercase">
+          Desarrollo de <br />
+          <span class="text-blue-600 underline decoration-slate-900 decoration-4 underline-offset-8">
+            Software y Sistemas
+          </span> <br />
+          a Medida.
         </h1>
         
         <!-- Subtitle -->
-        <p class="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed mb-8 font-normal">
-          Diseño e implemento plataformas digitales completas: sistemas para clínicas de salud, control de pensiones y cobros recurrentes, telemetría industrial y aplicaciones interactivas. Cada proyecto cuenta con demostración en vivo funcional en el navegador.
+        <p class="text-base sm:text-lg text-slate-700 max-w-xl leading-relaxed mb-8 font-medium">
+          Diseño e implemento plataformas web completas para empresas, centros médicos y colegios. Cada sistema incluye base de datos interactiva en tu navegador para que pruebes los flujos de punta a punta.
         </p>
 
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto mb-10">
           <a 
             href="#proyectos" 
-            class="group flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 active:scale-95 transition-all shadow-xs"
+            class="comic-btn-primary px-7 py-3.5 text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2"
           >
             <span>Ver Demos y Proyectos</span>
-            <ArrowDown class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+            <ArrowDown class="w-4 h-4 animate-bounce" />
           </a>
 
           <a 
             href="https://wa.me/59168787985" 
             target="_blank"
-            class="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white text-slate-700 border border-slate-200 text-sm font-semibold hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 transition-all"
+            class="comic-btn-secondary px-6 py-3.5 text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2"
           >
             <MessageSquare class="w-4 h-4 text-emerald-600" />
-            <span>Contactar por WhatsApp</span>
+            <span>WhatsApp Directo</span>
           </a>
         </div>
 
-        <!-- Fast Feature Bullet Points -->
-        <div class="grid grid-cols-3 gap-6 pt-6 border-t border-slate-200/80 w-full max-w-xl text-xs text-slate-600">
-          <div>
-            <span class="text-slate-400 font-medium block text-[11px] mb-0.5">Frontend</span>
-            <span class="text-slate-800 font-semibold">Vue 3 / Nuxt / React</span>
-          </div>
-          <div>
-            <span class="text-slate-400 font-medium block text-[11px] mb-0.5">Backend</span>
-            <span class="text-slate-800 font-semibold">Laravel / NestJS / Node</span>
-          </div>
-          <div>
-            <span class="text-slate-400 font-medium block text-[11px] mb-0.5">Bases de Datos</span>
-            <span class="text-slate-800 font-semibold">PostgreSQL / Supabase</span>
-          </div>
+        <!-- Business Target Badges -->
+        <div class="flex flex-wrap gap-2 pt-4 border-t-2 border-slate-900/10 w-full max-w-xl">
+          <span class="comic-pill">🏥 Clínicas &amp; Salud</span>
+          <span class="comic-pill">🎓 Colegios &amp; Pensiones</span>
+          <span class="comic-pill">🚜 Agroindustria &amp; Flota</span>
+          <span class="comic-pill">💊 Farmacias &amp; Stock</span>
         </div>
 
       </div>
 
-      <!-- Right Column: Clean Interactive Architecture Card -->
-      <div class="lg:col-span-5 relative w-full">
+      <!-- Right Column: SCROLL-DRIVEN ANIMATED COMIC STORYBOARD DECK -->
+      <!-- Drives layered comic cards that fan out and reveal themselves directly on scroll -->
+      <div class="lg:col-span-6 relative w-full h-[460px] sm:h-[500px] flex items-center justify-center">
         
-        <div class="studio-card p-6 sm:p-7 bg-white border border-slate-200/90 shadow-lg shadow-slate-200/50">
-          
-          <!-- Card Header -->
-          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
-                <Layers class="w-4 h-4" />
-              </div>
-              <div>
-                <div class="text-xs font-bold text-slate-900 font-heading">Panel de Demostración</div>
-                <div class="text-[11px] text-slate-500 font-medium">Sistemas interactivos en tiempo real</div>
-              </div>
-            </div>
-            <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2.5 py-0.5 rounded-full">
-              Activo
-            </span>
+        <!-- Background Comic Action Lines / Halftone Bubble -->
+        <div class="absolute inset-0 bg-radial from-blue-100/60 via-slate-100/40 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+
+        <!-- Scroll Dynamic Notice Tag -->
+        <div class="absolute -top-6 right-2 sm:right-6 comic-caption z-30">
+          <span>SCROLL DRIVE // VIÑETAS INTERACTIVAS</span>
+        </div>
+
+        <!-- PANEL 3 (Bottom Layer: AgroFlota) -->
+        <div 
+          :style="panel3Style"
+          class="absolute w-[85%] sm:w-[380px] h-[260px] comic-panel-flat p-4 bg-emerald-50 border-2 border-slate-900 shadow-[4px_4px_0px_#0f172a] flex flex-col justify-between"
+        >
+          <div class="flex items-center justify-between border-b-2 border-slate-900 pb-2">
+            <span class="comic-caption bg-emerald-200">VIÑETA 03</span>
+            <span class="text-xs font-black uppercase text-emerald-800">Telemetría Agroindustrial</span>
+          </div>
+          <div class="space-y-1 text-xs text-slate-800 font-medium">
+            <p class="font-bold text-slate-900">Control de maquinaria y órdenes de trabajo en tiempo real.</p>
+            <p class="text-[11px] text-slate-600">Para empresas agropecuarias, flotas de transporte y talleres.</p>
+          </div>
+          <div class="flex items-center justify-between text-xs font-bold pt-2 border-t border-slate-900/20 text-emerald-900">
+            <span>Vue 3 + NestJS</span>
+            <span class="text-blue-600">Demo Lista &rarr;</span>
+          </div>
+        </div>
+
+        <!-- PANEL 2 (Middle Layer: Pensiones Escolares) -->
+        <div 
+          :style="panel2Style"
+          class="absolute w-[88%] sm:w-[400px] h-[280px] comic-panel-flat p-5 bg-amber-50 border-2 border-slate-900 shadow-[6px_6px_0px_#0f172a] flex flex-col justify-between z-10"
+        >
+          <div class="flex items-center justify-between border-b-2 border-slate-900 pb-2">
+            <span class="comic-caption bg-amber-200">VIÑETA 02</span>
+            <span class="text-xs font-black uppercase text-amber-900">Cobro de Pensiones</span>
+          </div>
+          <div class="space-y-1.5 text-xs text-slate-800 font-medium">
+            <p class="font-bold text-slate-900 text-sm">Emisión de recibos, control de mensualidades y deudas.</p>
+            <p class="text-[11px] text-slate-600">Para colegios, institutos y centros de formación continua.</p>
+          </div>
+          <div class="flex items-center justify-between text-xs font-bold pt-2 border-t border-slate-900/20 text-amber-900">
+            <span>Vue 3 + Laravel 11</span>
+            <span class="text-blue-600">Demo Lista &rarr;</span>
+          </div>
+        </div>
+
+        <!-- PANEL 1 (Top Hero Layer: Clínica Médica) -->
+        <div 
+          :style="panel1Style"
+          class="absolute w-[92%] sm:w-[420px] h-[300px] comic-panel p-5 bg-white border-2 border-slate-900 shadow-[8px_8px_0px_#0f172a] flex flex-col justify-between z-20"
+        >
+          <div class="flex items-center justify-between border-b-2 border-slate-900 pb-2">
+            <span class="comic-caption">VIÑETA 01</span>
+            <span class="text-xs font-black uppercase text-blue-700">Clínica Médica &amp; Citas</span>
           </div>
 
-          <!-- Interactive Tabs -->
-          <div class="grid grid-cols-3 gap-1 bg-slate-100/90 p-1 rounded-lg text-xs font-medium mb-5">
-            <button 
-              @click="activeTab = 'overview'"
-              :class="activeTab === 'overview' ? 'bg-white text-slate-900 shadow-xs font-semibold' : 'text-slate-500 hover:text-slate-800'"
-              class="py-1.5 rounded-md transition-all cursor-pointer"
-            >
-              General
-            </button>
-            <button 
-              @click="activeTab = 'security'"
-              :class="activeTab === 'security' ? 'bg-white text-slate-900 shadow-xs font-semibold' : 'text-slate-500 hover:text-slate-800'"
-              class="py-1.5 rounded-md transition-all cursor-pointer"
-            >
-              Seguridad
-            </button>
-            <button 
-              @click="activeTab = 'performance'"
-              :class="activeTab === 'performance' ? 'bg-white text-slate-900 shadow-xs font-semibold' : 'text-slate-500 hover:text-slate-800'"
-              class="py-1.5 rounded-md transition-all cursor-pointer"
-            >
-              Rendimiento
-            </button>
+          <div class="space-y-2 text-xs text-slate-800 font-medium">
+            <h3 class="font-black text-slate-900 text-base leading-tight">
+              Gestión Integral de Consultorios y Pacientes
+            </h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Reserva de turnos en línea, fichas clínicas e historial médico digital sin esperas.
+            </p>
+            <div class="inline-block px-2.5 py-1 bg-blue-50 border border-blue-200 rounded text-[11px] font-bold text-blue-800">
+              Dirigido a: Clínicas, consultorios dentales y centros de salud
+            </div>
           </div>
 
-          <!-- Tab Content -->
-          <div class="min-h-[160px] flex flex-col justify-center">
-            
-            <!-- Overview -->
-            <div v-if="activeTab === 'overview'" class="space-y-3 text-xs">
-              <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                <span class="text-slate-500">Persistencia de Datos:</span>
-                <span class="text-slate-800 font-semibold">Local Storage + Supabase</span>
-              </div>
-              <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                <span class="text-slate-500">Navegación:</span>
-                <span class="text-slate-800 font-semibold">Single-Page App (SPA)</span>
-              </div>
-              <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                <span class="text-slate-500">Modo Demo:</span>
-                <span class="text-blue-600 font-semibold">Autocompletado con 1 clic</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-500">Compatibilidad:</span>
-                <span class="text-slate-800 font-semibold">Escritorio, Tablet y Móvil</span>
-              </div>
-            </div>
-
-            <!-- Security -->
-            <div v-else-if="activeTab === 'security'" class="space-y-2.5 text-xs">
-              <div class="flex items-center gap-2 text-slate-800 font-semibold">
-                <ShieldCheck class="w-4 h-4 text-emerald-600" />
-                <span>Control de Acceso y Roles</span>
-              </div>
-              <p class="text-slate-600 leading-relaxed text-[11px]">
-                Validación de credenciales, protección de rutas y perfiles administrativos diferenciados para doctores, administradores y personal operativo.
-              </p>
-              <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-100 text-[11px] text-slate-600">
-                Autenticación segura por tokens y sesiones persistentes.
-              </div>
-            </div>
-
-            <!-- Performance -->
-            <div v-else class="space-y-3.5 text-xs">
-              <div>
-                <div class="flex justify-between text-[11px] font-semibold text-slate-700 mb-1">
-                  <span>Velocidad de Carga</span>
-                  <span class="text-emerald-600 font-bold">0.4 segundos</span>
-                </div>
-                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                  <div class="h-full bg-emerald-500 w-[96%] rounded-full"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between text-[11px] font-semibold text-slate-700 mb-1">
-                  <span>Rendimiento Lighthouse</span>
-                  <span class="text-blue-600 font-bold">98 / 100</span>
-                </div>
-                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                  <div class="h-full bg-blue-600 w-[98%] rounded-full"></div>
-                </div>
-              </div>
-              <p class="text-[11px] text-slate-500">
-                Optimizaciones de compresión, lazy loading y respuesta inmediata sin recargas de página.
-              </p>
-            </div>
-
-          </div>
-
-          <!-- Bottom Card Footer -->
-          <div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-            <span class="text-slate-500 font-medium flex items-center gap-1.5">
-              <CheckCircle2 class="w-3.5 h-3.5 text-emerald-600" />
-              <span>5 Demos operativas</span>
-            </span>
-            <a href="#proyectos" class="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-1 transition-colors">
-              <span>Probar sistemas</span>
-              <ArrowRight class="w-3.5 h-3.5" />
+          <div class="flex items-center justify-between text-xs font-bold pt-2 border-t-2 border-slate-900">
+            <span class="text-slate-700">Angular + Supabase</span>
+            <a href="#proyectos" class="text-blue-600 hover:underline flex items-center gap-1 font-black">
+              <span>Deslizar para explorar</span>
+              <span>&darr;</span>
             </a>
           </div>
-
         </div>
 
       </div>
 
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-1 text-slate-400 text-xs font-medium pointer-events-none">
-      <span>Desliza para ver proyectos</span>
-      <ArrowDown class="w-3.5 h-3.5 animate-bounce text-slate-500" />
     </div>
 
   </section>

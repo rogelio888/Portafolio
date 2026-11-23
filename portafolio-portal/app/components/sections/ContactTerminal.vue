@@ -1,34 +1,36 @@
 <script setup lang="ts">
-import { MessageSquare, ArrowUpRight, MapPin, Clock, Mail, CheckCircle2 } from 'lucide-vue-next'
+import { MessageSquare, ArrowUpRight, MapPin, Clock, CheckCircle2 } from 'lucide-vue-next'
 </script>
 
 <template>
   <section id="contacto" class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
     
-    <div class="studio-card p-8 sm:p-12 lg:p-16 bg-white border border-slate-200 shadow-md shadow-slate-100">
+    <div class="comic-panel p-8 sm:p-12 lg:p-16 bg-white">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         
         <!-- Left: Call to Action -->
         <div class="lg:col-span-7">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold mb-4">
-            <span>Contacto y Cotizaciones</span>
+          <div class="comic-caption mb-4">
+            <span>CAPÍTULO 04 // CONTACTO Y COORDINACIÓN</span>
           </div>
 
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 font-display leading-[1.1] mb-4">
-            ¿Tienes un proyecto o <br />
-            <span class="text-blue-600">sistema en mente?</span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display uppercase leading-tight mb-5">
+            ¿Tienes un proyecto o
+            <span class="text-blue-600 underline decoration-slate-900 decoration-4 underline-offset-6">
+              sistema en mente?
+            </span>
           </h2>
 
-          <p class="text-base text-slate-600 leading-relaxed mb-8 max-w-xl">
-            Si necesitas una plataforma web a medida para tu empresa, clínica o negocio, podemos coordinar una reunión rápida para evaluar alcance, presupuesto y arquitectura.
+          <p class="text-base text-slate-700 font-medium leading-relaxed mb-8 max-w-xl">
+            Si tu empresa, clínica o institución necesita una plataforma web a medida o modernizar herramientas existentes, podemos evaluar alcance, requerimientos y cronograma sin compromiso.
           </p>
 
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8">
             <a 
               href="https://wa.me/59168787985" 
               target="_blank"
-              class="flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-emerald-600 text-white font-semibold text-sm hover:bg-emerald-700 active:scale-95 transition-all shadow-xs"
+              class="comic-btn-primary px-8 py-4 text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700"
             >
               <MessageSquare class="w-4 h-4" />
               <span>Escribir por WhatsApp</span>
@@ -36,47 +38,47 @@ import { MessageSquare, ArrowUpRight, MapPin, Clock, Mail, CheckCircle2 } from '
             </a>
           </div>
 
-          <div class="flex flex-wrap items-center gap-6 text-xs text-slate-500 font-medium">
+          <div class="flex flex-wrap items-center gap-6 text-xs text-slate-600 font-bold">
             <div class="flex items-center gap-1.5">
               <MapPin class="w-4 h-4 text-blue-600" />
-              <span>Santa Cruz, Bolivia (Remoto Global)</span>
+              <span>Santa Cruz, Bolivia (Trabajo Remoto)</span>
             </div>
             <div class="flex items-center gap-1.5">
               <Clock class="w-4 h-4 text-emerald-600" />
-              <span>Respuesta en menos de 2 horas</span>
+              <span>Respuesta ágil</span>
             </div>
           </div>
         </div>
 
         <!-- Right: Information Box -->
-        <div class="lg:col-span-5 bg-slate-50 rounded-2xl border border-slate-200/80 p-6 sm:p-8 space-y-4 text-xs">
+        <div class="lg:col-span-5 bg-blue-50/60 rounded-2xl border-2 border-slate-900 p-6 sm:p-8 space-y-4 text-xs shadow-[4px_4px_0px_#0f172a]">
           
-          <div class="text-xs font-bold text-slate-800 uppercase tracking-wider pb-3 border-b border-slate-200">
-            Resumen de Disponibilidad
+          <div class="text-xs font-black text-slate-900 uppercase tracking-wider pb-3 border-b-2 border-slate-900">
+            Resumen de Disponibilidad &bull; Servicios
           </div>
 
-          <div class="space-y-3 text-slate-600">
-            <div class="flex items-center gap-2">
-              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+          <div class="space-y-3 text-slate-700 font-medium">
+            <div class="flex items-start gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
               <span>Desarrollo de sistemas web completos (Frontend + Backend)</span>
             </div>
-            <div class="flex items-center gap-2">
-              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Modernización y optimización de plataformas existentes</span>
+            <div class="flex items-start gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <span>Modernización e integración de bases de datos existentes</span>
             </div>
-            <div class="flex items-center gap-2">
-              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Integración de bases de datos y pagos en línea</span>
+            <div class="flex items-start gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <span>Control de citas, cobros recurrentes y KARDEX de inventario</span>
             </div>
-            <div class="flex items-center gap-2">
-              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Demos funcionales antes de iniciar producción</span>
+            <div class="flex items-start gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <span>Demos funcionales en navegador previas a la puesta en producción</span>
             </div>
           </div>
 
-          <div class="pt-4 border-t border-slate-200 flex items-center justify-between text-slate-500 font-semibold">
-            <span>WhatsApp directo:</span>
-            <span class="text-slate-900 font-bold">+591 68787985</span>
+          <div class="pt-4 border-t-2 border-slate-900 flex items-center justify-between text-slate-700 font-bold">
+            <span>Contacto directo:</span>
+            <span class="text-slate-900 font-black text-sm">+591 68787985</span>
           </div>
 
         </div>

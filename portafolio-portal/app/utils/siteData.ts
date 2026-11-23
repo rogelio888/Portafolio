@@ -2,6 +2,9 @@ export interface ProjectDemo {
   name: string
   description: string
   category: string
+  targetAudience: string
+  businessBenefit: string
+  highlights: string[]
   frontendStack: string
   backendStack: string
   databaseStack: string
@@ -10,11 +13,6 @@ export interface ProjectDemo {
   thumbnail: string
   githubUrl: string
   iconName: string
-  architectureDetails: {
-    controllerCode: string
-    schemaDetails: string
-    frontendLogic?: string
-  }
 }
 
 export const techList = [
@@ -166,86 +164,59 @@ export const techList = [
 
 export const projects: ProjectDemo[] = [
   {
-    name: 'Sistema de Farmacia',
-    description: 'Gestión de inventario y KARDEX automatizado, compras y facturación con prevención de lotes vencidos (FEFO) y control de stock.',
-    category: 'Sistemas Avanzados',
+    name: 'Sistema de Farmacia & KARDEX',
+    description: 'Gestión integral de inventario con control de lotes y fechas de vencimiento bajo método FEFO, punto de venta y arqueo diario.',
+    category: 'Sistemas Web',
+    targetAudience: 'Farmacias independientes, cadenas de boticas, distribuidoras médicas y laboratorios.',
+    businessBenefit: 'Elimina pérdidas por medicamentos vencidos, automatiza el cálculo de stock mínimo y agiliza las ventas en mostrador.',
+    highlights: [
+      'KARDEX automatizado con trazabilidad exacta de entradas, salidas y mermas',
+      'Semáforo preventivo de vencimientos (FEFO) para rotación óptima de producto',
+      'Punto de venta rápido con cálculo de cambio, descuentos y emisión de ticket',
+      'Buscador instantáneo por principio activo, marca y código de barras'
+    ],
     frontendStack: 'Angular 18 & Tailwind CSS',
-    backendStack: 'Laravel 11 & Eloquent',
+    backendStack: 'Laravel 11 (API REST)',
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 7,
     demoUrl: '/frontend-farmacia/index.html',
     thumbnail: '/screenshots/frontend-farmacia.webp',
     githubUrl: 'https://github.com/rogel/farmacia-angular-laravel',
-    iconName: 'Activity',
-    architectureDetails: {
-      controllerCode: `// ProductController.php (Laravel)
-public function store(StoreProductRequest $request)
-{
-    DB::beginTransaction();
-    try {
-        $product = Product::create($request->validated());
-        
-        // Log auto Kardex movement
-        Kardex::log($product->id, $request->stock, 'IN_INITIAL', 'Registro inicial');
-        
-        DB::commit();
-        return response()->json($product, 201);
-    } catch (\\Exception $e) {
-        DB::rollBack();
-        return response()->json(['error' => 'Error al crear producto'], 500);
-    }
-}`,
-      schemaDetails: `-- MySQL Kardex tracking schema
-CREATE TABLE kardex_movements (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL,
-    type ENUM('IN_PURCHASE', 'OUT_SALE', 'IN_INITIAL', 'ADJUSTMENT') NOT NULL,
-    notes TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(id)
-);`
-    }
+    iconName: 'Activity'
   },
   {
-    name: 'Clínica Médica & Citas',
-    description: 'Agenda para personal de salud, historiales médicos en la nube, fichas de pacientes y reserva online de turnos.',
-    category: 'Sistemas Avanzados',
-    frontendStack: 'Angular & Tailwind CSS',
-    backendStack: 'NestJS & Prisma',
+    name: 'Clínica Médica & Citas Online',
+    description: 'Plataforma médica para reserva de turnos, fichas clínicas digitales, control de doctores y caja registradora en recepción.',
+    category: 'Sistemas Web',
+    targetAudience: 'Clínicas privadas, policonsultorios, consultorios odontológicos y especialistas médicos.',
+    businessBenefit: 'Reduce el ausentismo de pacientes con turnos organizados por horario y médico, agilizando la atención en recepción.',
+    highlights: [
+      'Agenda interactiva de turnos médicos con disponibilidad en tiempo real',
+      'Expediente clínico digital con antecedentes, diagnósticos y recetas',
+      'Caja registradora para cobro de consultas, laboratorios y procedimientos',
+      'Directorio de médicos con especialidades, tarifas y asignación de consultorio'
+    ],
+    frontendStack: 'Angular 18 & Tailwind CSS',
+    backendStack: 'NestJS & TypeScript',
     databaseStack: 'Supabase (PostgreSQL)',
     relatedPlanId: 7,
     demoUrl: '/frontend-clinica/index.html',
     thumbnail: '/screenshots/frontend-clinica.webp',
     githubUrl: 'https://github.com/rogel/clinica-react-nestjs',
-    iconName: 'Heart',
-    architectureDetails: {
-      controllerCode: `// appointment.controller.ts (NestJS)
-@Post()
-async createAppointment(@Body() data: CreateAppointmentDto) {
-  return this.prisma.appointment.create({
-    data: {
-      patientId: data.patientId,
-      doctorId: data.doctorId,
-      scheduledAt: new Date(data.scheduledAt),
-      status: "PENDING"
-    }
-  });
-}`,
-      schemaDetails: `-- SQL Server Appointment Schema
-CREATE TABLE Appointments (
-    ID UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-    PatientID UNIQUEIDENTIFIER NOT NULL,
-    DoctorID UNIQUEIDENTIFIER NOT NULL,
-    ScheduledAt DATETIME2 NOT NULL,
-    Status NVARCHAR(50) DEFAULT 'PENDING'
-);`
-    }
+    iconName: 'Heart'
   },
   {
-    name: 'Control de Pensiones',
-    description: 'Cobros escolares recurrentes, control de pensiones mensuales, emisión de facturas y avisos automáticos de deudas pendientes.',
-    category: 'Sistemas Avanzados',
+    name: 'Control de Pensiones Escolares',
+    description: 'Sistema administrativo y financiero para colegios con portal de consulta para padres, cobro en caja y semáforo de morosidad.',
+    category: 'Sistemas Web',
+    targetAudience: 'Colegios privados, institutos técnicos, centros de formación continua y academias.',
+    businessBenefit: 'Disminuye la tasa de morosidad escolar permitiendo consultar deudas por código y cobrando cuotas en segundos.',
+    highlights: [
+      'Portal público de padres para consultar cuotas pagadas y pendientes por código',
+      'Panel de dirección con índice global de morosidad y metas de recaudación',
+      'Ventanilla de caja rápida con soporte para pagos en efectivo y QR',
+      'Emisión instantánea de recibo oficial y reporte descargable de morosos'
+    ],
     frontendStack: 'Vue 3 & Pinia',
     backendStack: 'Laravel 11 & Sanctum',
     databaseStack: 'Supabase (PostgreSQL)',
@@ -253,32 +224,20 @@ CREATE TABLE Appointments (
     demoUrl: '/frontend-pensiones/index.html',
     thumbnail: '/screenshots/frontend-pensiones.webp',
     githubUrl: 'https://github.com/rogel/pensiones-vue-laravel',
-    iconName: 'GraduationCap',
-    architectureDetails: {
-      controllerCode: `// PaymentController.php (Laravel)
-public function processPayment(Request $request) {
-    $payment = Payment::create([
-        'student_id' => $request->student_id,
-        'amount' => $request->amount,
-        'month' => $request->month,
-        'status' => 'PAID'
-    ]);
-    return response()->json($payment, 201);
-}`,
-      schemaDetails: `-- MySQL Pension payments
-CREATE TABLE payments (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    student_id INT NOT NULL,
-    amount DECIMAL(10,2) NOT NULL,
-    month VARCHAR(20) NOT NULL,
-    status VARCHAR(20) DEFAULT 'PAID'
-);`
-    }
+    iconName: 'GraduationCap'
   },
   {
-    name: 'Plataforma para Gimnasio',
-    description: 'Control de ingreso con QR para socios, automatización de membresías, rutinas y planes de entrenamiento y control de pagos.',
-    category: 'Sistemas Avanzados',
+    name: 'Plataforma para Gimnasio & QR',
+    description: 'Control de acceso de socios mediante código QR, suscripciones mensuales, seguimiento de planes y aforo en tiempo real.',
+    category: 'Sistemas Web',
+    targetAudience: 'Gimnasios, boxes de crossfit, centros de yoga, escuelas de artes marciales y clubes deportivos.',
+    businessBenefit: 'Impide el ingreso de socios con mensualidad vencida mediante validación QR y automatiza la renovación de planes.',
+    highlights: [
+      'Torniquete / escáner de QR para validar membresías activas al ingresar',
+      'Administración de socios con estado de pago, vencimiento y congelamiento',
+      'Catálogo de planes mensuales, trimestrales y rutinas de entrenamiento',
+      'Métricas de aforo en vivo para optimizar los horarios pico del gimnasio'
+    ],
     frontendStack: 'React & Tailwind CSS',
     backendStack: 'Supabase Serverless',
     databaseStack: 'Supabase (PostgreSQL)',
@@ -286,30 +245,20 @@ CREATE TABLE payments (
     demoUrl: '/frontend-gym/index.html',
     thumbnail: '/screenshots/frontend-gym.webp',
     githubUrl: 'https://github.com/rogel/gym-supabase',
-    iconName: 'Dumbbell',
-    architectureDetails: {
-      controllerCode: `// member-attendance.ts (Supabase JS Client)
-async function registerAttendance(memberId: string) {
-  const { data, error } = await supabase
-    .from('attendance')
-    .insert([
-      { member_id: memberId, attended_at: new Date().toISOString() }
-    ]);
-  return { data, error };
-}`,
-      schemaDetails: `-- PostgreSQL Supabase Row-Level Security
-CREATE TABLE attendance (
-    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-    member_id UUID REFERENCES members(id) ON DELETE CASCADE,
-    attended_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
-);
-ALTER TABLE attendance ENABLE ROW LEVEL SECURITY;`
-    }
+    iconName: 'Dumbbell'
   },
   {
     name: 'Gestión de Flota Agroindustrial',
-    description: 'Control de maquinaria agrícola, mecánicos externos, órdenes de trabajo, mantenimiento preventivo y reportes de gasto por equipo.',
-    category: 'Sistemas Especiales',
+    description: 'Monitoreo de maquinaria pesada y tractores agrícolas, asignación de órdenes de trabajo y control de mantenimiento de flota.',
+    category: 'Sistemas Web',
+    targetAudience: 'Empresas agropecuarias, ingenios azucareros, contratistas viales y flotas de transporte.',
+    businessBenefit: 'Previene fallas mecánicas costosas en plena campaña agrícola mediante mantenimiento programado por horómetro.',
+    highlights: [
+      'Ficha técnica por equipo con horómetros, estado de combustible y mecánico asignado',
+      'Órdenes de servicio preventivas y correctivas con detalle de repuestos',
+      'Historial de reparaciones con cálculo de costo operativo por tractor',
+      'Indicadores de disponibilidad de flota para planificación de siembra y cosecha'
+    ],
     frontendStack: 'Vue 3 & Tailwind CSS',
     backendStack: 'NestJS & TypeORM',
     databaseStack: 'Supabase (PostgreSQL)',
@@ -317,58 +266,48 @@ ALTER TABLE attendance ENABLE ROW LEVEL SECURITY;`
     demoUrl: '/frontend-agroindustrial/index.html',
     thumbnail: '/screenshots/frontend-agroindustrial.webp',
     githubUrl: 'https://github.com/rogel/agro-vue-nestjs',
-    iconName: 'Leaf',
-    architectureDetails: {
-      controllerCode: `// batch.controller.ts (NestJS)
-@Post('batch')
-async registerBatch(@Body() dto: CreateBatchDto) {
-  return this.batchService.create(dto);
-}`,
-      schemaDetails: `-- PostgreSQL Agro Batch
-CREATE TABLE batches (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    crop_type VARCHAR(50) NOT NULL,
-    weight_kg DECIMAL(10,2) NOT NULL,
-    harvest_date DATE NOT NULL
-);`
-    }
+    iconName: 'Leaf'
   },
   {
     name: 'Landing Page — Estudio de Tatuajes',
-    description: 'Landing page de una sola página con identidad visual propia: cursor personalizado, animaciones de scroll, galería de diseños flash y tipografía editorial a gran escala.',
-    category: 'Landing Page',
+    description: 'Diseño web editorial para estudio creativo con estética visual cinematográfica, cursor con física reactiva y galería flash.',
+    category: 'Landing Pages',
+    targetAudience: 'Estudios de tatuajes de autor, barberías premium, boutiques de diseño y estudios creativos.',
+    businessBenefit: 'Transmite autoridad artística y posicionamiento de alto valor para atraer clientes que buscan piezas exclusivas.',
+    highlights: [
+      'Cursor interactivo personalizado con respuesta física al movimiento',
+      'Galería de diseños flash con animaciones reveladas al hacer scroll',
+      'Composición tipográfica editorial de gran escala y alto contraste',
+      'Carga instantánea optimizada en Nuxt 4 para navegación fluida en móviles'
+    ],
     frontendStack: 'Nuxt 4 & Motion',
-    backendStack: 'Sitio estático (sin backend)',
-    databaseStack: 'N/A',
+    backendStack: 'Sitio estático ultra-rápido',
+    databaseStack: 'Sin base de datos requerida',
     relatedPlanId: 1,
     demoUrl: '/landing-page/index.html',
     thumbnail: '/screenshots/landing-page.webp',
     githubUrl: 'https://github.com/rogel/landing-tattoo-nuxt',
-    iconName: 'Flame',
-    architectureDetails: {
-      controllerCode: `// pages/index.vue (Nuxt 4)
-// Sitio 100% estático, prerenderizado en build.
-// Sin llamadas a API ni base de datos.`,
-      schemaDetails: `-- No aplica: landing sin persistencia de datos`
-    }
+    iconName: 'Flame'
   },
   {
     name: 'CHRONOS — Wearable Neural & BCI',
-    description: 'Landing page de alta gama con scroll horizontal slide-snap, consola de monitoreo neural interactiva, simulación de ritmos cerebrales y estrellas titilantes en el fondo.',
-    category: 'Landing Page',
+    description: 'Landing page tecnológica para presentación de dispositivo de interfaz cerebro-computadora con visualizador de ondas y slide-snap.',
+    category: 'Landing Pages',
+    targetAudience: 'Startups de neurotecnología, dispositivos bio-médicos y proyectos deep-tech.',
+    businessBenefit: 'Impacto visual inmediato para rondas de inversión y preventa comercial con simulación en tiempo real.',
+    highlights: [
+      'Navegación horizontal cinemática con efecto slide-snap por secciones',
+      'Simulador interactivo de ondas cerebrales (ritmos Delta, Alfa y Beta)',
+      'Consola de estado de electrodos y telemetría de señal neuronal',
+      'Efectos visuales de baja latencia ejecutados en Next.js con Framer Motion'
+    ],
     frontendStack: 'Next.js 16 & Framer Motion',
-    backendStack: 'Sitio estático (sin backend)',
-    databaseStack: 'N/A',
+    backendStack: 'Sitio estático SSR optimizado',
+    databaseStack: 'Sin base de datos requerida',
     relatedPlanId: 1,
     demoUrl: '/landing-chronos/index.html',
     thumbnail: '/screenshots/landing-chronos-final.webp',
     githubUrl: 'https://github.com/rogel/chronos-landing-next',
-    iconName: 'Cpu',
-    architectureDetails: {
-      controllerCode: `// src/app/page.tsx (Next.js 16)
-// Scroll horizontal slide-snap y animaciones.
-// Mapeo dinámico y simulación de ritmos delta/alfa/beta.`,
-      schemaDetails: `-- No aplica: landing sin persistencia de datos`
-    }
+    iconName: 'Cpu'
   }
 ]

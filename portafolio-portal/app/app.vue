@@ -50,19 +50,19 @@ const heroStyle = computed(() => {
       
       <!-- STICKY HERO CONTAINER -->
       <!-- Pinned to top on desktop, will be physically covered by the projects sheet on scroll -->
-      <div class="relative lg:sticky lg:top-0 min-h-screen lg:h-screen w-full z-10 flex flex-col justify-center overflow-hidden">
-        <div :style="heroStyle" class="w-full h-full flex flex-col justify-center">
+      <div class="relative lg:sticky lg:top-0 min-h-screen lg:h-screen w-full z-10 flex flex-col justify-start lg:justify-center overflow-hidden">
+        <div :style="heroStyle" class="w-full h-full flex flex-col justify-start lg:justify-center">
           <SectionsHero />
         </div>
       </div>
 
-      <!-- OVERLAPPING SHEET -->
-      <!-- Clean, crisp sheet that rises over the hero like turning a physical page -->
-      <div class="section-stack-sheet relative z-20 w-full bg-white overflow-hidden">
+      <!-- OVERLAPPING COMIC SHEET -->
+      <!-- Crisp physical sheet with comic border and ink shadow that rises over the hero -->
+      <div class="comic-stack-sheet relative z-20 w-full overflow-hidden">
         
         <!-- Subtle Top Accent Drag Bar -->
         <div class="w-full flex justify-center pt-5 pb-2 relative z-10 pointer-events-none">
-          <div class="w-12 h-1 bg-slate-200 rounded-full"></div>
+          <div class="w-16 h-1.5 bg-slate-900/20 rounded-full border border-slate-900/30"></div>
         </div>
 
         <!-- Section 1: Proyectos y Demos -->
