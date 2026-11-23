@@ -1,0 +1,521 @@
+{
+  "projectName": "perfumeria",
+  "title": "L'Atelier — Haute Parfumerie Suite",
+  "fps": 60,
+  "width": 1080,
+  "height": 1920,
+  "orientation": "vertical",
+  "endCardDurationInSeconds": 5.5,
+  "musicFile": "music/happy-beats.mp3",
+  "musicVolume": 0.12,
+  "scenes": [
+    {
+      "id": "scene_01",
+      "title": "Catálogo & Combos QR",
+      "badgeTitle": "1. Catálogo & Combos QR",
+      "narration": "Preparar perfumes al ojo te hace regalar esencia y perder ganancia en cada frasco. Mira cómo tus clientes arman sus combos desde el celular en segundos.",
+      "audioFile": "audio/perfumeria/scene_01.mp3",
+      "videoFile": "recordings/perfumeria/scene_01.mp4",
+      "durationInSeconds": 10.24,
+      "durationInFrames": 614,
+      "zoomFocus": {
+        "x": 500,
+        "y": 600,
+        "scale": 1
+      },
+      "words": [
+        {
+          "word": "Preparar",
+          "startSec": 0.1,
+          "endSec": 0.707
+        },
+        {
+          "word": "perfumes",
+          "startSec": 0.707,
+          "endSec": 1.314
+        },
+        {
+          "word": "al",
+          "startSec": 1.314,
+          "endSec": 1.465
+        },
+        {
+          "word": "ojo",
+          "startSec": 1.465,
+          "endSec": 1.693
+        },
+        {
+          "word": "te",
+          "startSec": 1.693,
+          "endSec": 1.845
+        },
+        {
+          "word": "hace",
+          "startSec": 1.845,
+          "endSec": 2.148
+        },
+        {
+          "word": "regalar",
+          "startSec": 2.148,
+          "endSec": 2.679
+        },
+        {
+          "word": "esencia",
+          "startSec": 2.679,
+          "endSec": 3.21
+        },
+        {
+          "word": "y",
+          "startSec": 3.21,
+          "endSec": 3.362
+        },
+        {
+          "word": "perder",
+          "startSec": 3.362,
+          "endSec": 3.817
+        },
+        {
+          "word": "ganancia",
+          "startSec": 3.817,
+          "endSec": 4.424
+        },
+        {
+          "word": "en",
+          "startSec": 4.424,
+          "endSec": 4.576
+        },
+        {
+          "word": "cada",
+          "startSec": 4.576,
+          "endSec": 4.879
+        },
+        {
+          "word": "frasco.",
+          "startSec": 4.879,
+          "endSec": 5.41
+        },
+        {
+          "word": "Mira",
+          "startSec": 5.36,
+          "endSec": 5.664
+        },
+        {
+          "word": "cómo",
+          "startSec": 5.664,
+          "endSec": 5.968
+        },
+        {
+          "word": "tus",
+          "startSec": 5.968,
+          "endSec": 6.197
+        },
+        {
+          "word": "clientes",
+          "startSec": 6.197,
+          "endSec": 6.805
+        },
+        {
+          "word": "arman",
+          "startSec": 6.805,
+          "endSec": 7.185
+        },
+        {
+          "word": "sus",
+          "startSec": 7.185,
+          "endSec": 7.413
+        },
+        {
+          "word": "combos",
+          "startSec": 7.413,
+          "endSec": 7.87
+        },
+        {
+          "word": "desde",
+          "startSec": 7.87,
+          "endSec": 8.25
+        },
+        {
+          "word": "el",
+          "startSec": 8.25,
+          "endSec": 8.402
+        },
+        {
+          "word": "celular",
+          "startSec": 8.402,
+          "endSec": 8.934
+        },
+        {
+          "word": "en",
+          "startSec": 8.934,
+          "endSec": 9.087
+        },
+        {
+          "word": "segundos.",
+          "startSec": 9.087,
+          "endSec": 9.771
+        }
+      ]
+    },
+    {
+      "id": "scene_02",
+      "title": "Ticket QR Instantáneo",
+      "badgeTitle": "2. Ticket QR Instantáneo",
+      "narration": "El sistema genera al instante un ticket con código QR listo para pasar por tienda o pedir por delivery sin hacer fila.",
+      "audioFile": "audio/perfumeria/scene_02.mp3",
+      "videoFile": "recordings/perfumeria/scene_02.mp4",
+      "durationInSeconds": 7.89,
+      "durationInFrames": 473,
+      "zoomFocus": {
+        "x": 500,
+        "y": 600,
+        "scale": 1
+      },
+      "words": [
+        {
+          "word": "El",
+          "startSec": 0.1,
+          "endSec": 0.251
+        },
+        {
+          "word": "sistema",
+          "startSec": 0.251,
+          "endSec": 0.779
+        },
+        {
+          "word": "genera",
+          "startSec": 0.779,
+          "endSec": 1.231
+        },
+        {
+          "word": "al",
+          "startSec": 1.231,
+          "endSec": 1.382
+        },
+        {
+          "word": "instante",
+          "startSec": 1.382,
+          "endSec": 1.985
+        },
+        {
+          "word": "un",
+          "startSec": 1.985,
+          "endSec": 2.136
+        },
+        {
+          "word": "ticket",
+          "startSec": 2.136,
+          "endSec": 2.588
+        },
+        {
+          "word": "con",
+          "startSec": 2.588,
+          "endSec": 2.814
+        },
+        {
+          "word": "código",
+          "startSec": 2.814,
+          "endSec": 3.267
+        },
+        {
+          "word": "QR",
+          "startSec": 3.267,
+          "endSec": 3.418
+        },
+        {
+          "word": "listo",
+          "startSec": 3.418,
+          "endSec": 3.795
+        },
+        {
+          "word": "para",
+          "startSec": 3.795,
+          "endSec": 4.096
+        },
+        {
+          "word": "pasar",
+          "startSec": 4.096,
+          "endSec": 4.473
+        },
+        {
+          "word": "por",
+          "startSec": 4.473,
+          "endSec": 4.699
+        },
+        {
+          "word": "tienda",
+          "startSec": 4.699,
+          "endSec": 5.152
+        },
+        {
+          "word": "o",
+          "startSec": 5.152,
+          "endSec": 5.302
+        },
+        {
+          "word": "pedir",
+          "startSec": 5.302,
+          "endSec": 5.679
+        },
+        {
+          "word": "por",
+          "startSec": 5.679,
+          "endSec": 5.906
+        },
+        {
+          "word": "delivery",
+          "startSec": 5.906,
+          "endSec": 6.509
+        },
+        {
+          "word": "sin",
+          "startSec": 6.509,
+          "endSec": 6.735
+        },
+        {
+          "word": "hacer",
+          "startSec": 6.735,
+          "endSec": 7.112
+        },
+        {
+          "word": "fila.",
+          "startSec": 7.112,
+          "endSec": 7.489
+        }
+      ]
+    },
+    {
+      "id": "scene_03",
+      "title": "Fórmula Exacta en ml",
+      "badgeTitle": "3. Fórmula Exacta en ml",
+      "narration": "En mostrador escaneas el código y ves la medida exacta en mililitros, descontando automáticamente tus tanques de esencia para cero desperdicios.",
+      "audioFile": "audio/perfumeria/scene_03.mp3",
+      "videoFile": "recordings/perfumeria/scene_03.mp4",
+      "durationInSeconds": 9.38,
+      "durationInFrames": 563,
+      "zoomFocus": {
+        "x": 500,
+        "y": 600,
+        "scale": 1
+      },
+      "words": [
+        {
+          "word": "En",
+          "startSec": 0.1,
+          "endSec": 0.242
+        },
+        {
+          "word": "mostrador",
+          "startSec": 0.242,
+          "endSec": 0.879
+        },
+        {
+          "word": "escaneas",
+          "startSec": 0.879,
+          "endSec": 1.446
+        },
+        {
+          "word": "el",
+          "startSec": 1.446,
+          "endSec": 1.588
+        },
+        {
+          "word": "código",
+          "startSec": 1.588,
+          "endSec": 2.013
+        },
+        {
+          "word": "y",
+          "startSec": 2.013,
+          "endSec": 2.155
+        },
+        {
+          "word": "ves",
+          "startSec": 2.155,
+          "endSec": 2.367
+        },
+        {
+          "word": "la",
+          "startSec": 2.367,
+          "endSec": 2.509
+        },
+        {
+          "word": "medida",
+          "startSec": 2.509,
+          "endSec": 2.934
+        },
+        {
+          "word": "exacta",
+          "startSec": 2.934,
+          "endSec": 3.359
+        },
+        {
+          "word": "en",
+          "startSec": 3.359,
+          "endSec": 3.501
+        },
+        {
+          "word": "mililitros,",
+          "startSec": 3.501,
+          "endSec": 4.28
+        },
+        {
+          "word": "descontando",
+          "startSec": 4.28,
+          "endSec": 5.059
+        },
+        {
+          "word": "automáticamente",
+          "startSec": 5.059,
+          "endSec": 6.122
+        },
+        {
+          "word": "tus",
+          "startSec": 6.122,
+          "endSec": 6.335
+        },
+        {
+          "word": "tanques",
+          "startSec": 6.335,
+          "endSec": 6.831
+        },
+        {
+          "word": "de",
+          "startSec": 6.831,
+          "endSec": 6.972
+        },
+        {
+          "word": "esencia",
+          "startSec": 6.972,
+          "endSec": 7.468
+        },
+        {
+          "word": "para",
+          "startSec": 7.468,
+          "endSec": 7.752
+        },
+        {
+          "word": "cero",
+          "startSec": 7.752,
+          "endSec": 8.035
+        },
+        {
+          "word": "desperdicios.",
+          "startSec": 8.035,
+          "endSec": 8.956
+        }
+      ]
+    },
+    {
+      "id": "scene_04",
+      "title": "Control Multisede",
+      "badgeTitle": "4. Control Multisede",
+      "narration": "Controla todas tus sucursales desde un solo lugar. Escríbeme al WhatsApp y te paso una prueba demo hoy mismo.",
+      "audioFile": "audio/perfumeria/scene_04.mp3",
+      "videoFile": "recordings/perfumeria/scene_04.mp4",
+      "durationInSeconds": 8.08,
+      "durationInFrames": 485,
+      "zoomFocus": {
+        "x": 500,
+        "y": 600,
+        "scale": 1
+      },
+      "words": [
+        {
+          "word": "Controla",
+          "startSec": 0.1,
+          "endSec": 0.777
+        },
+        {
+          "word": "todas",
+          "startSec": 0.777,
+          "endSec": 1.2
+        },
+        {
+          "word": "tus",
+          "startSec": 1.2,
+          "endSec": 1.454
+        },
+        {
+          "word": "sucursales",
+          "startSec": 1.454,
+          "endSec": 2.3
+        },
+        {
+          "word": "desde",
+          "startSec": 2.3,
+          "endSec": 2.723
+        },
+        {
+          "word": "un",
+          "startSec": 2.723,
+          "endSec": 2.893
+        },
+        {
+          "word": "solo",
+          "startSec": 2.893,
+          "endSec": 3.231
+        },
+        {
+          "word": "lugar.",
+          "startSec": 3.231,
+          "endSec": 3.739
+        },
+        {
+          "word": "Escríbeme",
+          "startSec": 3.689,
+          "endSec": 4.413
+        },
+        {
+          "word": "al",
+          "startSec": 4.413,
+          "endSec": 4.574
+        },
+        {
+          "word": "WhatsApp",
+          "startSec": 4.574,
+          "endSec": 5.218
+        },
+        {
+          "word": "y",
+          "startSec": 5.218,
+          "endSec": 5.379
+        },
+        {
+          "word": "te",
+          "startSec": 5.379,
+          "endSec": 5.54
+        },
+        {
+          "word": "paso",
+          "startSec": 5.54,
+          "endSec": 5.862
+        },
+        {
+          "word": "una",
+          "startSec": 5.862,
+          "endSec": 6.103
+        },
+        {
+          "word": "prueba",
+          "startSec": 6.103,
+          "endSec": 6.586
+        },
+        {
+          "word": "demo",
+          "startSec": 6.586,
+          "endSec": 6.908
+        },
+        {
+          "word": "hoy",
+          "startSec": 6.908,
+          "endSec": 7.149
+        },
+        {
+          "word": "mismo.",
+          "startSec": 7.149,
+          "endSec": 7.632
+        }
+      ]
+    }
+  ]
+}

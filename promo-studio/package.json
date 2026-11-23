@@ -1,0 +1,26 @@
+{
+  "name": "promo-studio",
+  "version": "1.0.0",
+  "description": "Estudio de producción determinista de videos demo con Remotion, Playwright y Edge-TTS",
+  "type": "module",
+  "scripts": {
+    "build:video": "node scripts/build-video.mjs",
+    "remotion:preview": "remotion preview src/index.ts",
+    "remotion:render": "remotion render src/index.ts",
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.218",
+    "@remotion/media-utils": "^4.0.218",
+    "@remotion/transitions": "^4.0.218",
+    "playwright": "^1.45.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.218"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "typescript": "^5.5.2"
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: playwright-mandatory-testing
-description: Regla obligatoria: Siempre consultar las skills de diseño y ejecutar Playwright para inspección visual ANTES de dar por terminado un cambio de frontend.
+description: "Regla obligatoria: Siempre consultar las skills de diseño y ejecutar Playwright para inspección visual ANTES de dar por terminado un cambio de frontend."
 ---
 
 # Inspección Visual Obligatoria con Playwright

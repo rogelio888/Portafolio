@@ -1,0 +1,42 @@
+{
+  "projectName": "perfumeria",
+  "composition": "TikTokDemo",
+  "orientation": "vertical",
+  "width": 1080,
+  "height": 1920,
+  "fps": 60,
+  "outputFilename": "tiktok_perfumeria.mp4",
+  "title": "L'Atelier — Haute Parfumerie Suite",
+  "baseUrl": "http://127.0.0.1:3000",
+  "endCardDurationInSeconds": 5.5,
+  "scenes": [
+    {
+      "id": "scene_01",
+      "title": "Catálogo & Combos QR",
+      "badgeTitle": "1. Catálogo & Combos QR",
+      "narration": "Preparar perfumes al ojo te hace regalar esencia y perder ganancia en cada frasco. Mira cómo tus clientes arman sus combos desde el celular en segundos.",
+      "zoomFocus": { "x": 500, "y": 600, "scale": 1.0 }
+    },
+    {
+      "id": "scene_02",
+      "title": "Ticket QR Instantáneo",
+      "badgeTitle": "2. Ticket QR Instantáneo",
+      "narration": "El sistema genera al instante un ticket con código QR listo para pasar por tienda o pedir por delivery sin hacer fila.",
+      "zoomFocus": { "x": 500, "y": 600, "scale": 1.0 }
+    },
+    {
+      "id": "scene_03",
+      "title": "Fórmula Exacta en ml",
+      "badgeTitle": "3. Fórmula Exacta en ml",
+      "narration": "En mostrador escaneas el código y ves la medida exacta en mililitros, descontando automáticamente tus tanques de esencia para cero desperdicios.",
+      "zoomFocus": { "x": 500, "y": 600, "scale": 1.0 }
+    },
+    {
+      "id": "scene_04",
+      "title": "Control Multisede",
+      "badgeTitle": "4. Control Multisede",
+      "narration": "Controla todas tus sucursales desde un solo lugar. Escríbeme al WhatsApp y te paso una prueba demo hoy mismo.",
+      "zoomFocus": { "x": 500, "y": 600, "scale": 1.0 }
+    }
+  ]
+}

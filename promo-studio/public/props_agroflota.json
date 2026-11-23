@@ -1,0 +1,68 @@
+{
+  "projectName": "agroflota",
+  "title": "Gestión de Flota y Maquinaria Agroindustrial — AgroFlota",
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "endCardDurationInSeconds": 6,
+  "musicFile": "music/happy-beats.mp3",
+  "musicVolume": 0.12,
+  "scenes": [
+    {
+      "id": "scene_01",
+      "title": "Acceso y Telemetría de la Flota",
+      "narration": "Este es AgroFlota, el sistema integral para el control de maquinaria y gestión operativa de flotas agrícolas. Desde su panel de control centralizado, supervisa en tiempo real los equipos activos en campo, unidades en taller externo y alertas críticas por horómetro de motor.",
+      "audioFile": "audio/agroflota/scene_01.mp3",
+      "videoFile": "recordings/agroflota/scene_01.mp4",
+      "durationInSeconds": 19.2,
+      "durationInFrames": 1152,
+      "zoomFocus": {
+        "x": 683,
+        "y": 384,
+        "scale": 1
+      }
+    },
+    {
+      "id": "scene_02",
+      "title": "Mantenimiento Preventivo por Horómetro",
+      "narration": "El sistema de semáforos monitorea las horas de motor de cada tractor y cosechadora. Detecta de inmediato los servicios vencidos por límite de horas de fábrica, permitiendo derivar el equipo a una orden de trabajo con un solo clic.",
+      "audioFile": "audio/agroflota/scene_02.mp3",
+      "videoFile": "recordings/agroflota/scene_02.mp4",
+      "durationInSeconds": 15.6,
+      "durationInFrames": 936,
+      "zoomFocus": {
+        "x": 683,
+        "y": 384,
+        "scale": 1
+      }
+    },
+    {
+      "id": "scene_03",
+      "title": "Control Integral de Órdenes de Trabajo",
+      "narration": "En el módulo de órdenes de trabajo se asignan los talleres y mecánicos especializados, desglosando los costos de repuestos originales y mano de obra para calcular en vivo el presupuesto total consolidado.",
+      "audioFile": "audio/agroflota/scene_03.mp3",
+      "videoFile": "recordings/agroflota/scene_03.mp4",
+      "durationInSeconds": 13.32,
+      "durationInFrames": 799,
+      "zoomFocus": {
+        "x": 683,
+        "y": 384,
+        "scale": 1
+      }
+    },
+    {
+      "id": "scene_04",
+      "title": "Reportes Financieros y Costo por Maquinaria",
+      "narration": "El análisis de costos por equipo evalúa la inversión acumulada entre mantenimiento preventivo y correctivo, proporcionando gráficos comparativos para optimizar la rentabilidad de cada activo en producción.",
+      "audioFile": "audio/agroflota/scene_04.mp3",
+      "videoFile": "recordings/agroflota/scene_04.mp4",
+      "durationInSeconds": 13.18,
+      "durationInFrames": 791,
+      "zoomFocus": {
+        "x": 683,
+        "y": 384,
+        "scale": 1
+      }
+    }
+  ]
+}

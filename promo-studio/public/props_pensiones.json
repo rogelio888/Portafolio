@@ -1,0 +1,68 @@
+{
+  "projectName": "pensiones",
+  "title": "Control de Pensiones Escolares — Colegio Central",
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "endCardDurationInSeconds": 6,
+  "musicFile": "music/happy-beats.mp3",
+  "musicVolume": 0.12,
+  "scenes": [
+    {
+      "id": "scene_01",
+      "title": "Portal de Consulta de Padres",
+      "narration": "Este es el Sistema Integral de Cobro y Control de Pensiones Escolares, una plataforma diseñada para automatizar la gestión financiera en colegios e institutos. Su portal público permite a las familias consultar deudas en tiempo real mediante el código del estudiante, verificando cuotas pendientes y comprobantes con total transparencia.",
+      "audioFile": "audio/pensiones/scene_01.mp3",
+      "videoFile": "recordings/pensiones/scene_01.mp4",
+      "durationInSeconds": 22.01,
+      "durationInFrames": 1321,
+      "zoomFocus": {
+        "x": 683,
+        "y": 384,
+        "scale": 1
+      }
+    },
+    {
+      "id": "scene_02",
+      "title": "Panel Administrativo y Estudiantes",
+      "narration": "Desde el panel directivo, la administración monitorea en tiempo real la recaudación mensual, los índices de morosidad y las operaciones del día, con control centralizado sobre la nómina de estudiantes matriculados.",
+      "audioFile": "audio/pensiones/scene_02.mp3",
+      "videoFile": "recordings/pensiones/scene_02.mp4",
+      "durationInSeconds": 14.38,
+      "durationInFrames": 863,
+      "zoomFocus": {
+        "x": 683,
+        "y": 384,
+        "scale": 1
+      }
+    },
+    {
+      "id": "scene_03",
+      "title": "Caja y Facturación en Ventanilla",
+      "narration": "El módulo de caja agiliza el cobro en ventanilla. Permite seleccionar cuotas a liquidar, calcular automáticamente el cambio en efectivo o procesar cobros por QR, emitiendo al instante el recibo oficial de pago.",
+      "audioFile": "audio/pensiones/scene_03.mp3",
+      "videoFile": "recordings/pensiones/scene_03.mp4",
+      "durationInSeconds": 15.22,
+      "durationInFrames": 913,
+      "zoomFocus": {
+        "x": 683,
+        "y": 384,
+        "scale": 1
+      }
+    },
+    {
+      "id": "scene_04",
+      "title": "Control de Morosos y Auditoría",
+      "narration": "Para una gestión preventiva, el sistema identifica a los tutores con mensualidades vencidas, permitiendo auditar el desglose de cada deuda y exportar reportes consolidados para el seguimiento financiero del colegio.",
+      "audioFile": "audio/pensiones/scene_04.mp3",
+      "videoFile": "recordings/pensiones/scene_04.mp4",
+      "durationInSeconds": 14.21,
+      "durationInFrames": 853,
+      "zoomFocus": {
+        "x": 683,
+        "y": 384,
+        "scale": 1
+      }
+    }
+  ]
+}

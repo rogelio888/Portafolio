@@ -1,0 +1,12 @@
+# Promo Studio Gitignore
+node_modules/
+.remotion/
+output/
+public/recordings/
+public/audio/
+*.mp4
+*.webm
+*.wav
+*.mp3
+.DS_Store
+Thumbs.db

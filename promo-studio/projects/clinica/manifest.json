@@ -1,0 +1,33 @@
+{
+  "projectName": "clinica",
+  "videoNumber": 1,
+  "outputFilename": "video_1_clinica.mp4",
+  "title": "Salud Integral — Gestión Clínica",
+  "baseUrl": "http://127.0.0.1:3000/frontend-clinica/index.html#/login",
+  "scenes": [
+    {
+      "id": "scene_01",
+      "title": "Acceso, Dashboard y Especialidades",
+      "narration": "Este es Salud Integral, el sistema de gestión hospitalaria y administración clínica diseñado para consultorios y centros médicos modernos. Centraliza el control de doctores activos, citas del día e ingresos en tiempo real, con catálogos de especialidades y asignación de horarios médicos.",
+      "zoomFocus": { "x": 683, "y": 384, "scale": 1.0 }
+    },
+    {
+      "id": "scene_02",
+      "title": "Registro de Paciente Nuevo",
+      "narration": "Registra pacientes nuevos en segundos con validación de documento de identidad y datos de contacto, manteniendo el expediente clínico digital siempre organizado y accesible.",
+      "zoomFocus": { "x": 683, "y": 384, "scale": 1.0 }
+    },
+    {
+      "id": "scene_03",
+      "title": "Agendamiento de Cita Médica",
+      "narration": "Organiza la agenda médica visualmente por especialista. Selecciona turnos libres al instante y agenda consultas vinculadas a tus pacientes con confirmación inmediata.",
+      "zoomFocus": { "x": 683, "y": 384, "scale": 1.0 }
+    },
+    {
+      "id": "scene_04",
+      "title": "Consultorio Digital, Caja y Reportes",
+      "narration": "Facilita la consulta diaria de los doctores en su consultorio digital, procesa cobros en caja con recibos detallados y supervisa el rendimiento e ingresos con reportes gerenciales.",
+      "zoomFocus": { "x": 683, "y": 384, "scale": 1.0 }
+    }
+  ]
+}

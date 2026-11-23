@@ -1,0 +1,33 @@
+{
+  "projectName": "landings",
+  "videoNumber": 4,
+  "outputFilename": "video_4_landings.mp4",
+  "title": "Landing Pages de Alta Conversión — Editorial & Futurista",
+  "baseUrl": "http://127.0.0.1:3000/landing-page/",
+  "scenes": [
+    {
+      "id": "scene_01",
+      "title": "Diseño Editorial y Portafolio de Autor",
+      "narration": "Desarrollamos páginas web y plataformas digitales a medida para marcas de alto impacto. Esta experiencia editorial para un estudio exclusivo de tatuajes combina tipografía refinada, composición asimétrica y una galería interactiva con filtrado dinámico en tiempo real.",
+      "zoomFocus": { "x": 683, "y": 384, "scale": 1.0 }
+    },
+    {
+      "id": "scene_02",
+      "title": "Embudo de Reserva y Cotización Dinámica",
+      "narration": "El embudo de conversión guía al cliente a través de un proceso fluido de tres pasos: selección de estilo anatómico, elección de artista residente y cálculo de dimensiones. La solicitud se consolida al instante, lista para enviarse directamente por WhatsApp sin fricción.",
+      "zoomFocus": { "x": 683, "y": 384, "scale": 1.0 }
+    },
+    {
+      "id": "scene_03",
+      "title": "Experiencia Inmersiva Futurista (Chronos)",
+      "narration": "Para productos de vanguardia como Chronos, la interfaz se convierte en una extensión tecnológica. La consola de monitoreo neural permite alternar entre ritmos delta, alfa y beta, visualizando frecuencias corticales y métricas bio-eléctricas con animaciones fluidas a sesenta cuadros por segundo.",
+      "zoomFocus": { "x": 683, "y": 384, "scale": 1.0 }
+    },
+    {
+      "id": "scene_04",
+      "title": "Ingeniería de Software y Dirección de Arte",
+      "narration": "Fusionamos ingeniería de software de alto rendimiento con una dirección de arte exclusiva. Creamos aplicaciones y plataformas digitales que no solo cautivan visualmente, sino que están optimizadas para convertir visitantes en clientes de alto valor.",
+      "zoomFocus": { "x": 683, "y": 384, "scale": 1.0 }
+    }
+  ]
+}

@@ -169,6 +169,7 @@ export class Citas {
     } else {
       this.panelReserva = false;
       this.turnoSeleccionado = null;
+      this.recargarGrilla();
     }
   }
 
@@ -212,8 +213,10 @@ export class Citas {
   }
 
   private recargarGrilla() {
-    // Forzamos la reactividad
-    this.fechaSeleccionada.set(this.fechaSeleccionada());
+    const medId = this.medicoSeleccionado();
+    if (medId) {
+      this.turnos.set(this.citaService.obtenerDisponibilidad(medId, this.fechaSeleccionada()));
+    }
   }
 
   // UTILIDADES UI
