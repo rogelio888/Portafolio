@@ -30,3 +30,10 @@ Thumbs.db
 videos_promocionales/
 *.mp4
 
+# Test artifacts
+mobile-audit/
+playwright-report/
+test-results/
+screenshots-audit/
+
+

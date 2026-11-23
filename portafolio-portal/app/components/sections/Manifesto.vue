@@ -34,14 +34,14 @@ const pillars = [
 </script>
 
 <template>
-  <section id="enfoque" class="max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-28 select-none">
+  <section id="enfoque" class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-16 sm:py-20 lg:py-28 select-none">
     
-    <div class="mb-14 border-b-2 border-slate-900 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div class="mb-10 sm:mb-14 border-b-2 border-slate-900 pb-6 sm:pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
-        <div class="comic-caption mb-2">
+        <div class="comic-caption mb-2 text-[10px] sm:text-xs">
           <span>CAPÍTULO 03 // METODOLOGÍA Y CRITERIO TÉCNICO</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display uppercase tracking-tight">
+        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-display uppercase tracking-tight">
           Enfoque de Desarrollo
         </h2>
       </div>
@@ -50,12 +50,12 @@ const pillars = [
       </p>
     </div>
 
-    <!-- 4 Comic Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- 4 Comic Cards Grid (Responsive 1-col on mobile, 2-col on tablet, 4-col on desktop) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
       <div 
         v-for="p in pillars" 
         :key="p.num"
-        class="comic-panel p-6 bg-white flex flex-col justify-between"
+        class="comic-panel p-5 sm:p-6 bg-white flex flex-col justify-between"
       >
         <div>
           <div class="flex items-center justify-between border-b-2 border-slate-900/10 pb-3 mb-4">
@@ -67,7 +67,7 @@ const pillars = [
             <component :is="p.icon" class="w-5 h-5" />
           </div>
 
-          <h3 class="text-lg font-black text-slate-900 font-display mb-2 uppercase">
+          <h3 class="text-base sm:text-lg font-black text-slate-900 font-display mb-2 uppercase">
             {{ p.title }}
           </h3>
 
@@ -76,7 +76,7 @@ const pillars = [
           </p>
         </div>
 
-        <div class="mt-6 pt-3 border-t-2 border-slate-900/10 flex items-center gap-1.5 text-xs font-bold text-emerald-800">
+        <div class="mt-5 sm:mt-6 pt-3 border-t-2 border-slate-900/10 flex items-center gap-1.5 text-xs font-bold text-emerald-800">
           <CheckCircle class="w-4 h-4 text-emerald-600" />
           <span>Estándar en cada entrega</span>
         </div>

@@ -3,14 +3,14 @@ import { techList } from '../../utils/siteData'
 </script>
 
 <template>
-  <section id="tecnologias" class="w-full py-16 bg-[#f5f4ef] border-y-2 border-slate-900 overflow-hidden relative no-print select-none">
+  <section id="tecnologias" class="w-full py-12 sm:py-16 bg-[#f5f4ef] border-y-2 border-slate-900 overflow-hidden relative no-print select-none">
     
-    <div class="max-w-[1400px] mx-auto px-6 lg:px-12 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 mb-6 sm:mb-8 flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4">
       <div>
-        <div class="comic-caption mb-2">
+        <div class="comic-caption mb-2 text-[10px] sm:text-xs">
           <span>CAPÍTULO 02 // HERRAMIENTAS Y LENGUAJES</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 font-display uppercase tracking-tight">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 font-display uppercase tracking-tight">
           Stack de Desarrollo
         </h2>
       </div>
@@ -21,51 +21,51 @@ import { techList } from '../../utils/siteData'
     
     <!-- Scrolling Track with Soft Gradient Masks -->
     <div 
-      class="relative w-full flex select-none marquee-container py-3" 
-      style="mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);"
+      class="relative w-full flex select-none marquee-container py-2 sm:py-3" 
+      style="mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);"
     >
-      <div class="flex shrink-0 animate-marquee gap-5 min-w-full pr-5">
+      <div class="flex shrink-0 animate-marquee gap-3.5 sm:gap-5 min-w-full pr-3.5 sm:pr-5">
         <div 
           v-for="tech in techList" 
           :key="tech.name" 
           tabindex="0"
-          class="p-4 w-52 h-40 rounded-xl bg-white border-2 border-slate-900 flex flex-col justify-between shadow-[3px_3px_0px_#0f172a] hover:shadow-[5px_5px_0px_#0f172a] hover:-translate-y-1 transition-all cursor-pointer"
+          class="p-3.5 sm:p-4 w-44 sm:w-52 h-36 sm:h-40 rounded-xl bg-white border-2 border-slate-900 flex flex-col justify-between shadow-[3px_3px_0px_#0f172a] hover:shadow-[5px_5px_0px_#0f172a] hover:-translate-y-1 transition-all cursor-pointer"
         >
-          <div class="flex items-center justify-between border-b-2 border-slate-900/10 pb-2">
-            <span class="text-[10px] font-black uppercase text-slate-500 tracking-wider">{{ tech.category }}</span>
+          <div class="flex items-center justify-between border-b-2 border-slate-900/10 pb-1.5 sm:pb-2">
+            <span class="text-[9px] sm:text-[10px] font-black uppercase text-slate-500 tracking-wider">{{ tech.category }}</span>
             <span class="w-2 h-2 rounded-full bg-blue-600 border border-slate-900"></span>
           </div>
 
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 shrink-0 flex items-center justify-center" v-html="tech.svg"></div>
-            <span class="text-base font-black text-slate-900 font-display">{{ tech.name }}</span>
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center" v-html="tech.svg"></div>
+            <span class="text-sm sm:text-base font-black text-slate-900 font-display">{{ tech.name }}</span>
           </div>
 
-          <div class="text-[11px] text-slate-600 font-medium line-clamp-2 leading-tight">
+          <div class="text-[10px] sm:text-[11px] text-slate-600 font-medium line-clamp-2 leading-tight">
             {{ tech.role }}
           </div>
         </div>
       </div>
 
       <!-- Copy 2 for seamless loop -->
-      <div class="flex shrink-0 animate-marquee gap-5 min-w-full pr-5" aria-hidden="true">
+      <div class="flex shrink-0 animate-marquee gap-3.5 sm:gap-5 min-w-full pr-3.5 sm:pr-5" aria-hidden="true">
         <div 
           v-for="tech in techList" 
           :key="tech.name + '-dup'" 
           tabindex="-1"
-          class="p-4 w-52 h-40 rounded-xl bg-white border-2 border-slate-900 flex flex-col justify-between shadow-[3px_3px_0px_#0f172a] hover:shadow-[5px_5px_0px_#0f172a] hover:-translate-y-1 transition-all cursor-pointer"
+          class="p-3.5 sm:p-4 w-44 sm:w-52 h-36 sm:h-40 rounded-xl bg-white border-2 border-slate-900 flex flex-col justify-between shadow-[3px_3px_0px_#0f172a] hover:shadow-[5px_5px_0px_#0f172a] hover:-translate-y-1 transition-all cursor-pointer"
         >
-          <div class="flex items-center justify-between border-b-2 border-slate-900/10 pb-2">
-            <span class="text-[10px] font-black uppercase text-slate-500 tracking-wider">{{ tech.category }}</span>
+          <div class="flex items-center justify-between border-b-2 border-slate-900/10 pb-1.5 sm:pb-2">
+            <span class="text-[9px] sm:text-[10px] font-black uppercase text-slate-500 tracking-wider">{{ tech.category }}</span>
             <span class="w-2 h-2 rounded-full bg-blue-600 border border-slate-900"></span>
           </div>
 
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 shrink-0 flex items-center justify-center" v-html="tech.svg"></div>
-            <span class="text-base font-black text-slate-900 font-display">{{ tech.name }}</span>
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center" v-html="tech.svg"></div>
+            <span class="text-sm sm:text-base font-black text-slate-900 font-display">{{ tech.name }}</span>
           </div>
 
-          <div class="text-[11px] text-slate-600 font-medium line-clamp-2 leading-tight">
+          <div class="text-[10px] sm:text-[11px] text-slate-600 font-medium line-clamp-2 leading-tight">
             {{ tech.role }}
           </div>
         </div>
