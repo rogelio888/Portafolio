@@ -13,7 +13,8 @@ import {
   GraduationCap,
   Tractor,
   Flame,
-  Globe
+  Globe,
+  FileText
 } from 'lucide-vue-next'
 
 const selectedCategory = ref('todos')
@@ -199,21 +200,20 @@ const getIcon = (name: string) => {
           </div>
         </div>
 
-        <!-- Action Buttons (Zero modal, direct live interaction) -->
+        <!-- Action Buttons (Internal SEO link & Live Demo) -->
         <div class="pt-4 border-t-2 border-slate-900 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-          <a 
-            :href="'https://wa.me/59168787985?text=' + encodeURIComponent('Hola Rogelio, me interesa saber más sobre el ' + project.name)"
-            target="_blank"
+          <NuxtLink 
+            :to="'/proyectos/' + project.slug"
             class="comic-btn-secondary w-full sm:w-auto h-12 sm:h-11 px-4 text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5"
           >
-            <MessageSquare class="w-4 h-4 text-emerald-600" />
-            <span>Consultar Sistema</span>
-          </a>
+            <FileText class="w-4 h-4 text-blue-600" />
+            <span>Ver detalles del sistema</span>
+          </NuxtLink>
 
           <a 
             :href="project.demoUrl" 
             target="_blank"
-            class="comic-btn-primary w-full sm:w-auto h-12 sm:h-11 px-6 text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2"
+            class="comic-btn-primary w-full sm:w-auto h-12 sm:h-11 px-5 text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5"
           >
             <span>Probar Demo en Vivo</span>
             <ArrowUpRight class="w-4 h-4" />

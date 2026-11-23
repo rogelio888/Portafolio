@@ -1,10 +1,15 @@
 export interface ProjectDemo {
+  slug: string
   name: string
+  seoTitle: string
+  seoDescription: string
+  problemSolved: string
   description: string
   category: string
   targetAudience: string
   businessBenefit: string
   highlights: string[]
+  features: string[]
   frontendStack: string
   backendStack: string
   databaseStack: string
@@ -164,7 +169,11 @@ export const techList = [
 
 export const projects: ProjectDemo[] = [
   {
+    slug: 'sistema-farmacia-kardex',
     name: 'Sistema de Farmacia & KARDEX',
+    seoTitle: 'Sistema Web de Farmacia y KARDEX con Método FEFO | Demo en Vivo',
+    seoDescription: 'Software web especializado para farmacias y droguerías: control de inventario KARDEX, semáforo preventivo de vencimientos FEFO, punto de venta rápido y arqueo diario.',
+    problemSolved: 'Las farmacias tradicionales sufren mermas económicas constantes por medicamentos vencidos que quedan olvidados en anaqueles y demoras en mostrador por búsquedas lentas de principios activos. Este sistema automatiza la rotación de stock aplicando el método FEFO (primero en expirar, primero en salir) e integra un punto de venta con emisión de recibos y cálculo automático de cambio.',
     description: 'Gestión integral de inventario con control de lotes y fechas de vencimiento bajo método FEFO, punto de venta y arqueo diario.',
     category: 'Sistemas Web',
     targetAudience: 'Farmacias independientes, cadenas de boticas, distribuidoras médicas y laboratorios.',
@@ -174,6 +183,13 @@ export const projects: ProjectDemo[] = [
       'Semáforo preventivo de vencimientos (FEFO) para rotación óptima de producto',
       'Punto de venta rápido con cálculo de cambio, descuentos y emisión de ticket',
       'Buscador instantáneo por principio activo, marca y código de barras'
+    ],
+    features: [
+      'Control de inventario automatizado mediante fichas KARDEX con cálculo en tiempo real',
+      'Semáforo preventivo de lotes y fechas de vencimiento bajo criterio FEFO',
+      'Punto de venta (POS) optimizado para atención rápida con lectura de código de barras',
+      'Buscador inteligente por principio activo, laboratorio comercial y presentación',
+      'Caja registradora con arqueo diario, control de turnos y registro de mermas'
     ],
     frontendStack: 'Angular 18 & Tailwind CSS',
     backendStack: 'Laravel 11 (API REST)',
@@ -185,7 +201,11 @@ export const projects: ProjectDemo[] = [
     iconName: 'Activity'
   },
   {
+    slug: 'sistema-clinica-medica-citas',
     name: 'Clínica Médica & Citas Online',
+    seoTitle: 'Sistema Web de Gestión Clínica y Reserva de Citas Médicas | Demo en Vivo',
+    seoDescription: 'Plataforma médica para policonsultorios y clínicas privadas: agenda de turnos en tiempo real, expediente clínico digital, caja de recepción y gestión de especialistas.',
+    problemSolved: 'La desorganización de turnos médicos en planillas manuales genera ausentismo de pacientes, salas de espera abarrotadas y pérdida de expedientes en papel. Esta solución centraliza la agenda interactiva por consultorio y médico, permitiendo fichas clínicas digitales seguras con diagnósticos, recetas y cobros directos en caja.',
     description: 'Plataforma médica para reserva de turnos, fichas clínicas digitales, control de doctores y caja registradora en recepción.',
     category: 'Sistemas Web',
     targetAudience: 'Clínicas privadas, policonsultorios, consultorios odontológicos y especialistas médicos.',
@@ -195,6 +215,13 @@ export const projects: ProjectDemo[] = [
       'Expediente clínico digital con antecedentes, diagnósticos y recetas',
       'Caja registradora para cobro de consultas, laboratorios y procedimientos',
       'Directorio de médicos con especialidades, tarifas y asignación de consultorio'
+    ],
+    features: [
+      'Agenda médica interactiva con visualización de disponibilidad por doctor en tiempo real',
+      'Expediente clínico electrónico con antecedentes patológicos, recetas y diagnósticos',
+      'Módulo de recepción y caja para cobro ágil de consultas y procedimientos',
+      'Directorio de médicos con asignación de consultorio, especialidad y aranceles',
+      'Historial médico centralizado con búsqueda instantánea por documento del paciente'
     ],
     frontendStack: 'Angular 18 & Tailwind CSS',
     backendStack: 'NestJS & TypeScript',
@@ -206,7 +233,11 @@ export const projects: ProjectDemo[] = [
     iconName: 'Heart'
   },
   {
+    slug: 'sistema-control-pensiones-escolares',
     name: 'Control de Pensiones Escolares',
+    seoTitle: 'Sistema Web de Cobro de Pensiones Escolares y Control de Morosidad | Demo',
+    seoDescription: 'Software administrativo para colegios privados e institutos: portal de consulta de deudas para padres, ventanilla de caja rápida con QR y semáforo de morosidad.',
+    problemSolved: 'Los colegios privados e institutos enfrentan altos índices de morosidad y largas filas en secretaría para consultar saldos pendientes. Esta plataforma provee un portal público donde los tutores consultan su historial con su código de estudiante y una ventanilla de cobranzas en caja con emisión de recibos físicos y digitales.',
     description: 'Sistema administrativo y financiero para colegios con portal de consulta para padres, cobro en caja y semáforo de morosidad.',
     category: 'Sistemas Web',
     targetAudience: 'Colegios privados, institutos técnicos, centros de formación continua y academias.',
@@ -216,6 +247,13 @@ export const projects: ProjectDemo[] = [
       'Panel de dirección con índice global de morosidad y metas de recaudación',
       'Ventanilla de caja rápida con soporte para pagos en efectivo y QR',
       'Emisión instantánea de recibo oficial y reporte descargable de morosos'
+    ],
+    features: [
+      'Portal público de consulta de mensualidades y cuotas pendientes por código escolar',
+      'Panel directivo con semáforo global de morosidad y metas de recaudación',
+      'Caja rápida con soporte de cobros en efectivo, transferencia bancaria y QR',
+      'Emisión instantánea de comprobantes oficiales de pago y reportes descargables',
+      'Kardex financiero por alumno con trazabilidad de recargos y descuentos'
     ],
     frontendStack: 'Vue 3 & Pinia',
     backendStack: 'Laravel 11 & Sanctum',
@@ -227,7 +265,11 @@ export const projects: ProjectDemo[] = [
     iconName: 'GraduationCap'
   },
   {
+    slug: 'sistema-gimnasio-control-qr',
     name: 'Plataforma para Gimnasio & QR',
+    seoTitle: 'Software para Gimnasios y Control de Acceso por QR | Demo en Vivo',
+    seoDescription: 'Sistema web para gimnasios y clubes deportivos: validación de acceso por código QR, control de membresías mensuales, registro de rutinas y aforo en tiempo real.',
+    problemSolved: 'El ingreso no autorizado de socios con cuotas vencidas y la falta de control en horas pico reducen la rentabilidad de los gimnasios. Este sistema valida en segundos el pase activo mediante escaneo de código QR personal, gestionando inscripciones, renovaciones y aforo de forma automatizada.',
     description: 'Control de acceso de socios mediante código QR, suscripciones mensuales, seguimiento de planes y aforo en tiempo real.',
     category: 'Sistemas Web',
     targetAudience: 'Gimnasios, boxes de crossfit, centros de yoga, escuelas de artes marciales y clubes deportivos.',
@@ -237,6 +279,13 @@ export const projects: ProjectDemo[] = [
       'Administración de socios con estado de pago, vencimiento y congelamiento',
       'Catálogo de planes mensuales, trimestrales y rutinas de entrenamiento',
       'Métricas de aforo en vivo para optimizar los horarios pico del gimnasio'
+    ],
+    features: [
+      'Control de acceso mediante escaneo de QR dinámico para torniquetes o recepción',
+      'Gestión de membresías con alertas de renovación y congelamiento temporal',
+      'Monitoreo de aforo en vivo para optimizar los horarios pico del establecimiento',
+      'Catálogo de planes deportivos, membresías corporativas y servicios adicionales',
+      'Panel de caja con reporte de ingresos diarios por suscripciones'
     ],
     frontendStack: 'React & Tailwind CSS',
     backendStack: 'Supabase Serverless',
@@ -248,7 +297,11 @@ export const projects: ProjectDemo[] = [
     iconName: 'Dumbbell'
   },
   {
+    slug: 'sistema-telemetria-agroindustrial',
     name: 'Gestión de Flota Agroindustrial',
+    seoTitle: 'Software de Mantenimiento de Maquinaria y Flotas Agrícolas | Demo',
+    seoDescription: 'Sistema web para empresas agropecuarias e ingenios: monitoreo de tractores, control de horómetros, órdenes de trabajo preventivas y cálculo de costos operativos.',
+    problemSolved: 'Las averías inesperadas de maquinaria pesada en momentos críticos de siembra o cosecha provocan pérdidas millonarias. Este sistema programa mantenimientos preventivos calculados por horómetro, gestiona repuestos y asigna mecánicos con órdenes de trabajo trazables.',
     description: 'Monitoreo de maquinaria pesada y tractores agrícolas, asignación de órdenes de trabajo y control de mantenimiento de flota.',
     category: 'Sistemas Web',
     targetAudience: 'Empresas agropecuarias, ingenios azucareros, contratistas viales y flotas de transporte.',
@@ -258,6 +311,13 @@ export const projects: ProjectDemo[] = [
       'Órdenes de servicio preventivas y correctivas con detalle de repuestos',
       'Historial de reparaciones con cálculo de costo operativo por tractor',
       'Indicadores de disponibilidad de flota para planificación de siembra y cosecha'
+    ],
+    features: [
+      'Ficha técnica detallada por tractor o implemento con horómetros y consumo',
+      'Órdenes de servicio preventivas y correctivas con asignación de mecánicos',
+      'Historial de reparaciones con balance de costos operativos por equipo',
+      'Control de disponibilidad operativa de flota para planificación de faenas',
+      'Registro de stock de repuestos críticos y alertas de lubricación'
     ],
     frontendStack: 'Vue 3 & Tailwind CSS',
     backendStack: 'NestJS & TypeORM',
@@ -269,7 +329,11 @@ export const projects: ProjectDemo[] = [
     iconName: 'Leaf'
   },
   {
+    slug: 'landing-estudio-tatuajes',
     name: 'Landing Page — Estudio de Tatuajes',
+    seoTitle: 'Diseño Web Editorial para Estudio Creativo y Tatuajes | Demo en Vivo',
+    seoDescription: 'Landing page de alto impacto visual para marcas de autor: dirección de arte cinematográfica, cursor con física reactiva, galería interactiva y rendimiento ultra-rápido.',
+    problemSolved: 'Los estudios de autor pierden clientes premium cuando su presencia digital se limita a redes sociales o plantillas genéricas sin identidad artística. Este sitio transmite prestigio, estilo artesanal y exclusividad mediante una experiencia web fluida e interactiva.',
     description: 'Diseño web editorial para estudio creativo con estética visual cinematográfica, cursor con física reactiva y galería flash.',
     category: 'Landing Pages',
     targetAudience: 'Estudios de tatuajes de autor, barberías premium, boutiques de diseño y estudios creativos.',
@@ -279,6 +343,13 @@ export const projects: ProjectDemo[] = [
       'Galería de diseños flash con animaciones reveladas al hacer scroll',
       'Composición tipográfica editorial de gran escala y alto contraste',
       'Carga instantánea optimizada en Nuxt 4 para navegación fluida en móviles'
+    ],
+    features: [
+      'Cursor interactivo personalizado con respuesta física cinematográfica',
+      'Galería flash interactiva con animaciones progresivas al scroll',
+      'Tipografía editorial de alta jerarquía con diseño visual de autor',
+      'Carga instantánea optimizada en Nuxt 4 para navegación fluida en móviles',
+      'Canal de reserva y cotización directa integrado a mensajería'
     ],
     frontendStack: 'Nuxt 4 & Motion',
     backendStack: 'Sitio estático ultra-rápido',
@@ -290,7 +361,11 @@ export const projects: ProjectDemo[] = [
     iconName: 'Flame'
   },
   {
+    slug: 'landing-chronos-neural-bci',
     name: 'CHRONOS — Wearable Neural & BCI',
+    seoTitle: 'Landing Page Tecnológica e Interfaz Cerebro-Computadora | Demo',
+    seoDescription: 'Landing page futurista para producto deep-tech: simulador en tiempo real de ondas cerebrales, navegación horizontal cinemática y presentación de hardware.',
+    problemSolved: 'Las startups de hardware y biotecnología necesitan captar capital e interés de clientes en segundos con interfaces de presentación que demuestren innovación tecnológica real. CHRONOS presenta especificaciones complejas a través de simuladores visuales interactivos.',
     description: 'Landing page tecnológica para presentación de dispositivo de interfaz cerebro-computadora con visualizador de ondas y slide-snap.',
     category: 'Landing Pages',
     targetAudience: 'Startups de neurotecnología, dispositivos bio-médicos y proyectos deep-tech.',
@@ -300,6 +375,13 @@ export const projects: ProjectDemo[] = [
       'Simulador interactivo de ondas cerebrales (ritmos Delta, Alfa y Beta)',
       'Consola de estado de electrodos y telemetría de señal neuronal',
       'Efectos visuales de baja latencia ejecutados en Next.js con Framer Motion'
+    ],
+    features: [
+      'Navegación cinemática horizontal con slide-snap por etapas del producto',
+      'Simulador de ondas electroencefalográficas (ritmos Delta, Alfa, Beta) en tiempo real',
+      'Visualizador de telemetría de electrodos y latencia de conexión',
+      'Arquitectura Next.js optimizada para rendimiento y gráficos fluidos',
+      'Sección de preventa y captura de leads para rondas de inversión'
     ],
     frontendStack: 'Next.js 16 & Framer Motion',
     backendStack: 'Sitio estático SSR optimizado',
