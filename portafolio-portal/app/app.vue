@@ -22,17 +22,16 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
 
-// Scroll-driven physical compression of Hero as the overlapping sheet covers it
+// Subtle receding depth for Hero as the sheet slides over it
 const heroStyle = computed(() => {
-  const progress = Math.min(Math.max((scrollY.value - 220) / 450, 0), 1)
+  const progress = Math.min(Math.max(scrollY.value / 700, 0), 1)
   const scale = 1 - progress * 0.04
-  const opacity = 1 - progress * 0.35
-  const translateY = progress * -20
+  const opacity = 1 - progress * 0.25
 
   return {
-    transform: `scale(${scale}) translateY(${translateY}px)`,
+    transform: `scale(${scale})`,
     opacity: opacity,
-    transition: 'transform 0.06s ease-out, opacity 0.06s ease-out'
+    transition: 'transform 0.08s ease-out, opacity 0.08s ease-out'
   }
 })
 </script>
@@ -48,19 +47,15 @@ const heroStyle = computed(() => {
     
     <main class="relative w-full">
       
-      <!-- STICKY HERO SCROLL TRACK -->
-      <!-- Pinned in place for 125vh so the cards animate cleanly, then the sheet smoothly covers it -->
-      <div class="relative w-full z-10 lg:h-[125vh]">
-        <div class="lg:sticky lg:top-0 w-full lg:h-screen flex flex-col justify-start lg:justify-center overflow-hidden">
-          <div :style="heroStyle" class="w-full h-full flex flex-col justify-start lg:justify-center">
-            <SectionsHero />
-          </div>
+      <!-- STICKY HERO: Pinned at top:0, stays centered without scrolling into header -->
+      <div class="relative lg:sticky lg:top-0 w-full min-h-screen lg:h-screen z-10 flex flex-col justify-center overflow-hidden bg-[#faf9f6]">
+        <div :style="heroStyle" class="w-full flex flex-col justify-center">
+          <SectionsHero />
         </div>
       </div>
 
-      <!-- OVERLAPPING COMIC SHEET -->
-      <!-- Physical comic page with 3px solid ink border and shadow that rises over the hero -->
-      <div class="comic-stack-sheet relative z-20 w-full overflow-hidden">
+      <!-- OVERLAPPING COMIC SHEET: Slides cleanly over the pinned Hero -->
+      <div class="comic-stack-sheet relative z-20 w-full overflow-hidden bg-[#faf9f6] rounded-t-[2.5rem] border-t-3 border-slate-900 shadow-[0_-25px_50px_rgba(15,23,42,0.18)]">
         
         <!-- Subtle Top Accent Drag Bar -->
         <div class="w-full flex justify-center pt-5 pb-2 relative z-10 pointer-events-none">
