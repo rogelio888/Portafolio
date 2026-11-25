@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Bell, Building2, Clock, ShieldCheck, LogOut, Sun, Moon, Smartphone, ChevronRight } from 'lucide-react';
+import { Search, Bell, Building2, Clock, ShieldCheck, LogOut, Sun, Moon, Smartphone, ChevronRight, Menu } from 'lucide-react';
 import { useClientStore } from '../../features/clients/state/useClientStore';
 import { useAuthStore } from '../../features/auth/state/useAuthStore';
 import { useBranchStore } from '../../features/settings/state/useBranchStore';
 
-export const Navbar: React.FC = () => {
+interface NavbarProps {
+  onOpenSidebar?: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ onOpenSidebar }) => {
   const { theme, toggleTheme, pendingPayments } = useClientStore();
   const { user, logout } = useAuthStore();
   const { branches, activeBranchId, setActiveBranchId, fetchBranches } = useBranchStore();
@@ -47,35 +51,45 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-950/60 backdrop-blur-md sticky top-0 z-20 flex items-center justify-between px-6 ml-64 transition-colors duration-200 print:hidden">
-      {/* Search Input */}
-      <div className="relative w-80">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-        <input
-          type="text"
-          placeholder="Buscar cliente, membresía o folio..."
-          className="w-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-4 py-1.5 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30 transition-all"
-        />
+    <header className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-950/60 backdrop-blur-md sticky top-0 z-20 flex items-center justify-between gap-2 px-3 sm:px-6 lg:ml-64 transition-colors duration-200 print:hidden">
+      {/* Left: Mobile Hamburger + Search Input on Desktop */}
+      <div className="flex items-center gap-2 min-w-0">
+        <button
+          type="button"
+          onClick={onOpenSidebar}
+          aria-label="Abrir navegación"
+          className="lg:hidden p-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors shrink-0 cursor-pointer"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+
+        <div className="relative hidden lg:block lg:w-72 xl:w-80">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <input
+            type="text"
+            placeholder="Buscar cliente, membresía o folio..."
+            className="w-full bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-xl pl-9 pr-4 py-1.5 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/30 transition-all"
+          />
+        </div>
       </div>
 
       {/* Right controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
         {/* Dynamic Branch Selector Dropdown */}
-        <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-1.5 text-xs">
-          <Building2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
+        <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-2 sm:px-3 py-1.5 text-xs min-w-0">
+          <Building2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
           <select
             value={activeBranchId}
             disabled={isSingleBranchLocked}
             onChange={(e) => {
               setActiveBranchId(e.target.value);
-              // Trigger a subtle window event so pages re-fetch if needed
               window.dispatchEvent(new Event('branch-changed'));
             }}
-            className="bg-transparent text-slate-800 dark:text-slate-200 font-bold text-xs focus:outline-none cursor-pointer max-w-[200px] truncate disabled:opacity-75 disabled:cursor-not-allowed"
+            className="bg-transparent text-slate-800 dark:text-slate-200 font-bold text-[11px] sm:text-xs focus:outline-none cursor-pointer max-w-[110px] sm:max-w-[190px] truncate disabled:opacity-75 disabled:cursor-not-allowed"
           >
             {isAdmin && (
               <option value="all" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-200">
-                Todas las Sucursales (Consolidado)
+                Todas (Cadena)
               </option>
             )}
             {branches.map((b) => (
@@ -90,30 +104,30 @@ export const Navbar: React.FC = () => {
         <button
           type="button"
           onClick={toggleTheme}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 transition-all cursor-pointer shadow-sm"
+          className="flex items-center gap-1.5 p-2 sm:px-3 sm:py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 transition-all cursor-pointer shadow-sm shrink-0"
           title={theme === 'dark' ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro'}
         >
           {theme === 'dark' ? (
             <>
               <Sun className="h-4 w-4 text-amber-400 animate-spin" style={{ animationDuration: '10s' }} />
-              <span className="text-xs font-bold text-slate-300">Modo Claro</span>
+              <span className="hidden sm:inline text-xs font-bold text-slate-300">Modo Claro</span>
             </>
           ) : (
             <>
               <Moon className="h-4 w-4 text-emerald-600" />
-              <span className="text-xs font-bold text-slate-800">Modo Oscuro</span>
+              <span className="hidden sm:inline text-xs font-bold text-slate-800">Modo Oscuro</span>
             </>
           )}
         </button>
 
         {/* Live Clock */}
-        <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-300 rounded-xl px-3 py-1.5 text-xs font-mono font-bold">
+        <div className="hidden md:flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-300 rounded-xl px-3 py-1.5 text-xs font-mono font-bold shrink-0">
           <Clock className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400 animate-pulse" />
           <span>{time || '00:00:00'}</span>
         </div>
 
         {/* Notifications Button & Interactive Dropdown */}
-        <div className="relative">
+        <div className="relative shrink-0">
           <button
             type="button"
             onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
@@ -131,9 +145,9 @@ export const Navbar: React.FC = () => {
             )}
           </button>
 
-          {/* Dropdown Popover Panel */}
+          {/* Dropdown Popover Panel (Bounded inside 360px mobile viewport) */}
           {isNotificationsOpen && (
-            <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-4 z-50 text-xs select-none">
+            <div className="fixed sm:absolute left-3 right-3 sm:left-auto sm:right-0 top-[68px] sm:top-auto sm:mt-2 w-auto sm:w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-4 z-50 text-xs select-none">
               <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800 mb-3">
                 <h4 className="font-extrabold text-slate-900 dark:text-white flex items-center gap-1.5">
                   <Bell className="h-3.5 w-3.5 text-emerald-500" /> Notificaciones
@@ -183,11 +197,11 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Profile & Logout */}
-        <div className="flex items-center gap-3 pl-3 border-l border-slate-200 dark:border-slate-800">
+        <div className="flex items-center gap-1.5 sm:gap-3 pl-1.5 sm:pl-3 border-l border-slate-200 dark:border-slate-800 shrink-0">
           <img
             src={user?.avatarUrl || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80'}
             alt={user?.name || 'Usuario'}
-            className="h-8 w-8 rounded-full object-cover ring-2 ring-emerald-500/40"
+            className="hidden sm:block h-8 w-8 rounded-full object-cover ring-2 ring-emerald-500/40"
           />
           <div className="text-left hidden md:block">
             <p className="text-xs font-bold text-slate-900 dark:text-slate-200 flex items-center gap-1">

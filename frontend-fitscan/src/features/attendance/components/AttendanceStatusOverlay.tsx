@@ -89,7 +89,7 @@ export const AttendanceStatusOverlay: React.FC<ScanOverlayProps> = ({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 !m-0 z-[100] flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm cursor-pointer"
+        className="fixed inset-0 !m-0 z-[100] overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-sm cursor-pointer"
       >
         <motion.div
           initial={{ scale: 0.85, y: 20 }}
@@ -97,7 +97,7 @@ export const AttendanceStatusOverlay: React.FC<ScanOverlayProps> = ({
           exit={{ scale: 0.85, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           onClick={(e) => e.stopPropagation()}
-          className={`w-full max-w-lg rounded-3xl p-8 border text-center shadow-2xl relative overflow-hidden cursor-default ${
+          className={`w-full max-w-lg my-auto rounded-3xl p-5 sm:p-8 border text-center shadow-2xl relative overflow-hidden cursor-default ${
             status === 'success'
               ? 'bg-slate-900/95 border-emerald-500/50 shadow-emerald-500/20'
               : status === 'already_checked'
@@ -201,7 +201,7 @@ export const AttendanceStatusOverlay: React.FC<ScanOverlayProps> = ({
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-2 text-xs">
                 <div>
                   <span className="text-slate-500 block">Tipo Membresía</span>
                   <span className="text-slate-200 font-semibold">{client.membershipType}</span>
@@ -224,7 +224,7 @@ export const AttendanceStatusOverlay: React.FC<ScanOverlayProps> = ({
                   </span>
                 </div>
                 {previousCheckIn && (
-                  <div className="col-span-2 bg-amber-500/10 rounded-xl p-2.5 border border-amber-500/20 text-amber-300">
+                  <div className="sm:col-span-2 bg-amber-500/10 rounded-xl p-2.5 border border-amber-500/20 text-amber-300">
                     <span className="block text-[11px] font-bold">Último Ingreso Registrado Hoy:</span>
                     <span className="font-mono text-sm font-extrabold">{previousCheckIn} hrs</span>
                   </div>

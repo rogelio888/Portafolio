@@ -178,12 +178,12 @@ export const MembershipsPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 select-none">
+    <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-6 select-none">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className={`text-2xl font-black tracking-wide flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            <CreditCard className={`h-7 w-7 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
+          <h1 className={`text-xl sm:text-2xl font-black tracking-wide flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <CreditCard className={`h-6 w-6 sm:h-7 sm:w-7 shrink-0 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
             Catálogo de Planes de Membresía
           </h1>
           <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -194,9 +194,9 @@ export const MembershipsPage: React.FC = () => {
         {canManageMemberships && (
           <button
             onClick={() => handleOpenModal()}
-            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+            className="w-full sm:w-auto justify-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-90 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4 shrink-0" />
             Crear Nuevo Plan de Membresía
           </button>
         )}
@@ -238,11 +238,11 @@ export const MembershipsPage: React.FC = () => {
         </div>
       ) : (
         /* Plans Grid */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`rounded-3xl border p-6 flex flex-col justify-between relative transition-all duration-300 ${
+              className={`rounded-3xl border p-4 sm:p-6 flex flex-col justify-between relative transition-all duration-300 ${
                 plan.is_popular
                   ? 'border-emerald-500/50 shadow-xl shadow-emerald-500/10 ring-1 ring-emerald-500/30'
                   : isDark
@@ -267,7 +267,7 @@ export const MembershipsPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="my-5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/80 flex items-center justify-between">
+                <div className="my-4 sm:my-5 p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800/80 flex flex-wrap items-center justify-between gap-2">
                   <div>
                     <span className="text-3xl font-black text-emerald-600 dark:text-emerald-400">Bs. {plan.price}</span>
                     <span className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold ml-1">/ {plan.duration_days} días</span>
@@ -332,20 +332,20 @@ export const MembershipsPage: React.FC = () => {
 
       {/* CREATE / EDIT PLAN MODAL */}
       {isModalOpen && createPortal(
-        <div className="fixed inset-0 !m-0 z-[9999] flex items-center justify-center p-4 bg-slate-950/80">
+        <div className="fixed inset-0 !m-0 z-[9999] overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4 bg-slate-950/80">
           <div
-            className={`w-full max-w-lg rounded-3xl p-6 border shadow-2xl space-y-4 ${
+            className={`my-auto w-full max-w-lg rounded-3xl p-4 sm:p-6 border shadow-2xl space-y-4 ${
               isDark ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
             }`}
           >
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h2 className="font-black text-base flex items-center gap-2">
-                {editingPlan ? <Edit className="h-5 w-5 text-sky-400" /> : <CreditCard className="h-5 w-5 text-emerald-500" />}
-                {editingPlan ? 'Editar Plan de Membresía' : 'Registrar Nuevo Plan de Membresía'}
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h2 className="font-black text-base flex items-center gap-2 pr-2">
+                {editingPlan ? <Edit className="h-5 w-5 text-sky-400 shrink-0" /> : <CreditCard className="h-5 w-5 text-emerald-500 shrink-0" />}
+                <span>{editingPlan ? 'Editar Plan de Membresía' : 'Registrar Nuevo Plan de Membresía'}</span>
               </h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-slate-400 hover:text-white p-1 cursor-pointer"
+                className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 cursor-pointer shrink-0"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -366,7 +366,7 @@ export const MembershipsPage: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-bold mb-1">Duración (Días de Vigencia) *</label>
                   <input

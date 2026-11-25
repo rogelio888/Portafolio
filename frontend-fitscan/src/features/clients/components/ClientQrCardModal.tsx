@@ -248,13 +248,13 @@ export const ClientQrCardModal: React.FC<QrModalProps> = ({ client, onClose }) =
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 !m-0 z-[9999] bg-slate-950/80 flex items-center justify-center p-4 print:p-0 print:bg-transparent"
+        className="fixed inset-0 !m-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4 print:p-0 print:bg-transparent"
       >
         <motion.div
           initial={{ scale: 0.9, y: 15 }}
           animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.9, y: 15 }}
-          className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl relative print:border-none print:shadow-none print:p-0"
+          className="w-full max-w-md my-auto bg-slate-900 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-2xl relative print:border-none print:shadow-none print:p-0"
         >
           <button
             onClick={onClose}
@@ -263,12 +263,12 @@ export const ClientQrCardModal: React.FC<QrModalProps> = ({ client, onClose }) =
             <X className="h-4 w-4" />
           </button>
 
-          <h2 className="text-lg font-bold text-white mb-4 text-center print:hidden">Tarjeta Digital de Acceso QR</h2>
+          <h2 className="text-base sm:text-lg font-bold text-white mb-4 pr-8 text-center print:hidden">Tarjeta Digital de Acceso QR</h2>
 
           <div
             ref={cardRef}
             id="printable-qr-card"
-            className="bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/70 border border-emerald-500/30 rounded-3xl p-6 shadow-2xl text-white relative overflow-hidden mb-6"
+            className="bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950/70 border border-emerald-500/30 rounded-3xl p-4 sm:p-6 shadow-2xl text-white relative overflow-hidden mb-5 sm:mb-6"
           >
             <div className="absolute top-0 right-0 -mr-12 -mt-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none print:hidden" />
 
@@ -315,7 +315,7 @@ export const ClientQrCardModal: React.FC<QrModalProps> = ({ client, onClose }) =
               </div>
 
               <div className="flex items-center justify-center gap-1.5 text-[10px] font-mono text-slate-400">
-                <span className="truncate max-w-[240px]">UUID: {client.id}</span>
+                <span className="truncate max-w-[175px] sm:max-w-[240px]">UUID: {client.id}</span>
                 <button
                   type="button"
                   onClick={handleCopyUuid}
@@ -335,7 +335,7 @@ export const ClientQrCardModal: React.FC<QrModalProps> = ({ client, onClose }) =
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 print:hidden">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 print:hidden">
             <button
               onClick={handlePrint}
               disabled={isProcessing}
@@ -359,7 +359,7 @@ export const ClientQrCardModal: React.FC<QrModalProps> = ({ client, onClose }) =
             <button
               onClick={handleDownload}
               disabled={isProcessing}
-              className="py-2.5 px-3 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 text-xs font-bold rounded-xl transition-all shadow-md shadow-emerald-500/20 flex items-center justify-center gap-1.5 cursor-pointer"
+              className="col-span-2 sm:col-span-1 py-2.5 px-3 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 text-xs font-bold rounded-xl transition-all shadow-md shadow-emerald-500/20 flex items-center justify-center gap-1.5 cursor-pointer"
             >
               {isProcessing ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

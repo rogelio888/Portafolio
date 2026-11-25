@@ -322,12 +322,12 @@ export const UsersManagementPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 select-none">
+    <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-6 select-none">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className={`text-2xl font-black tracking-wide flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            <UserCog className={`h-7 w-7 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
+          <h1 className={`text-xl sm:text-2xl font-black tracking-wide flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <UserCog className={`h-6 w-6 sm:h-7 sm:w-7 shrink-0 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
             Usuarios & Permisos de Acceso
           </h1>
           <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -336,28 +336,28 @@ export const UsersManagementPage: React.FC = () => {
         </div>
 
         {/* Tab Selector */}
-        <div className={`flex items-center p-1 rounded-2xl border ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-slate-100 border-slate-200'}`}>
+        <div className={`flex flex-wrap sm:flex-nowrap items-center p-1 rounded-2xl border w-full sm:w-auto gap-1 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-slate-100 border-slate-200'}`}>
           <button
             onClick={() => setActiveTab('users')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`flex-1 sm:flex-initial justify-center px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'users'
                 ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
                 : isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <UserCheck className="h-4 w-4" />
-            Personal ({users.length})
+            <UserCheck className="h-4 w-4 shrink-0" />
+            <span>Personal ({users.length})</span>
           </button>
           <button
             onClick={() => setActiveTab('roles')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+            className={`flex-1 sm:flex-initial justify-center px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'roles'
                 ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
                 : isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <ShieldCheck className="h-4 w-4" />
-            Matriz de Permisos ({roles.length} Perfiles)
+            <ShieldCheck className="h-4 w-4 shrink-0" />
+            <span>Matriz Permisos ({roles.length})</span>
           </button>
         </div>
       </div>
@@ -409,17 +409,17 @@ export const UsersManagementPage: React.FC = () => {
                       }`}
                     >
                       <div>
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-3">
-                            <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center text-slate-950 font-black text-lg shadow-md">
+                        <div className="flex items-start justify-between gap-2 mb-4">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="h-11 w-11 sm:h-12 sm:w-12 shrink-0 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center text-slate-950 font-black text-lg shadow-md">
                               {u.name.charAt(0)}
                             </div>
-                            <div>
-                              <h3 className={`font-extrabold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>{u.name}</h3>
+                            <div className="min-w-0">
+                              <h3 className={`font-extrabold text-sm truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>{u.name}</h3>
                               <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full mt-0.5 ${
                                 roleName === 'admin'
-                                  ? 'bg-teal-500/20 text-teal-300 border border-teal-500/30'
-                                  : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                                  ? 'bg-teal-500/20 text-teal-500 dark:text-teal-300 border border-teal-500/30'
+                                  : 'bg-emerald-500/20 text-emerald-500 dark:text-emerald-300 border border-emerald-500/30'
                               }`}>
                                 {formatRoleLabel(roleName)}
                               </span>
@@ -561,7 +561,7 @@ export const UsersManagementPage: React.FC = () => {
                 <button
                   onClick={handleSavePermissions}
                   disabled={isSavingPermissions}
-                  className="bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 font-extrabold text-xs px-6 py-3 rounded-2xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto justify-center bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 font-extrabold text-xs px-6 py-3 rounded-2xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer"
                 >
                   {isSavingPermissions ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -578,23 +578,23 @@ export const UsersManagementPage: React.FC = () => {
 
       {/* CREATE / EDIT USER MODAL */}
       {showUserModal && createPortal(
-        <div className="fixed inset-0 !m-0 z-[9999] bg-slate-950/80 flex items-center justify-center p-4">
+        <div className="fixed inset-0 !m-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4">
           <div
-            className={`w-full max-w-md rounded-3xl p-6 border shadow-2xl space-y-4 ${
+            className={`my-auto w-full max-w-md rounded-3xl p-4 sm:p-6 border shadow-2xl space-y-4 ${
               isDark ? 'bg-slate-900 border-slate-800 text-white' : 'bg-white border-slate-200 text-slate-900'
             }`}
           >
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h2 className="font-black text-base flex items-center gap-2">
-                {editingUser ? <Edit className="h-5 w-5 text-sky-400" /> : <UserPlus className="h-5 w-5 text-emerald-500" />}
-                {editingUser ? 'Editar Usuario de Personal' : 'Nuevo Usuario de Personal'}
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+              <h2 className="font-black text-base flex items-center gap-2 pr-2">
+                {editingUser ? <Edit className="h-5 w-5 text-sky-400 shrink-0" /> : <UserPlus className="h-5 w-5 text-emerald-500 shrink-0" />}
+                <span>{editingUser ? 'Editar Usuario de Personal' : 'Nuevo Usuario de Personal'}</span>
               </h2>
               <button
                 onClick={() => {
                   setShowUserModal(false);
                   setEditingUser(null);
                 }}
-                className="text-slate-400 hover:text-white p-1"
+                className="text-slate-400 hover:text-slate-700 dark:hover:text-white p-1 shrink-0"
               >
                 <X className="h-5 w-5" />
               </button>

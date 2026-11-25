@@ -381,13 +381,13 @@ const DEFAULT_PLANS: MembershipPlan[] = [
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 !m-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-center justify-center p-4"
+        className="fixed inset-0 !m-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4"
       >
         <motion.div
           initial={{ scale: 0.9, y: 15 }}
           animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.9, y: 15 }}
-          className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl relative my-8"
+          className="w-full max-w-lg my-auto bg-slate-900 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-2xl relative"
         >
           <button
             type="button"
@@ -397,7 +397,7 @@ const DEFAULT_PLANS: MembershipPlan[] = [
             <X className="h-4 w-4" />
           </button>
 
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-5 pr-8">
             <div className="h-10 w-10 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center">
               {isEditing ? <Edit className="h-5 w-5" /> : <UserPlus className="h-5 w-5" />}
             </div>
@@ -413,7 +413,7 @@ const DEFAULT_PLANS: MembershipPlan[] = [
 
           {paymentStep === 'qr_simulator' ? (
             <div className="space-y-5 text-center py-2 animate-fadeIn">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3 text-left">
                 <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs">
                   <QrCode className="h-4 w-4" />
                   <span>PASARELA LIBÉLULA PAY · PAGO QR BANCO</span>
@@ -469,7 +469,7 @@ const DEFAULT_PLANS: MembershipPlan[] = [
                 </div>
               )}
 
-              <div className="flex gap-3 pt-2">
+              <div className="flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3 pt-2">
                 <button
                   type="button"
                   disabled={isSubmitting}
@@ -491,7 +491,7 @@ const DEFAULT_PLANS: MembershipPlan[] = [
             </div>
           ) : paymentStep === 'pos_simulator' ? (
             <div className="space-y-5 text-center py-2 animate-fadeIn">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3 text-left">
                 <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs">
                   <CreditCard className="h-4 w-4" />
                   <span>PASARELA REDENLACE / LIBÉLULA · TERMINAL POS</span>
@@ -550,7 +550,7 @@ const DEFAULT_PLANS: MembershipPlan[] = [
                 </div>
               )}
 
-              <div className="flex gap-3 pt-2">
+              <div className="flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3 pt-2">
                 <button
                   type="button"
                   disabled={isSubmitting}
@@ -572,7 +572,7 @@ const DEFAULT_PLANS: MembershipPlan[] = [
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs text-slate-400 mb-1">Nombre(s) *</label>
                   <input
@@ -598,7 +598,7 @@ const DEFAULT_PLANS: MembershipPlan[] = [
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs text-slate-400 mb-1">Correo Electrónico</label>
                   <input
@@ -696,7 +696,7 @@ const DEFAULT_PLANS: MembershipPlan[] = [
                         </select>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <label className="block text-[11px] font-bold text-slate-400 mb-1">Monto Cobrado (Bs.) *</label>
                           <input
@@ -763,18 +763,18 @@ const DEFAULT_PLANS: MembershipPlan[] = [
                 </div>
               )}
 
-              <div className="pt-2 border-t border-slate-800 flex justify-end gap-3">
+              <div className="pt-2 border-t border-slate-800 flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-white cursor-pointer"
+                  className="w-full sm:w-auto px-4 py-2.5 sm:py-2 text-xs font-semibold text-slate-400 hover:text-white bg-slate-800/60 sm:bg-transparent rounded-xl cursor-pointer text-center"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <>

@@ -68,7 +68,7 @@ export const LoginPage: React.FC = () => {
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
 
       {/* Main Login Card */}
-      <div className="w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-7 sm:p-8 shadow-2xl backdrop-blur-2xl relative z-10 space-y-5">
+      <div className="w-full max-w-md bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-2xl backdrop-blur-2xl relative z-10 space-y-5">
         
         {/* Brand Header */}
         <div className="flex flex-col items-center text-center">
@@ -91,7 +91,7 @@ export const LoginPage: React.FC = () => {
             <span className="text-[10px] text-slate-500 font-semibold">1-Clic Directo</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <button
               type="button"
               disabled={isLoading}

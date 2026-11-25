@@ -161,15 +161,20 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
 
       {/* Popover Calendar */}
       {isOpen && (
-        <div className={`absolute top-full mt-2 left-0 z-[200] w-72 rounded-3xl p-4 border shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-150 ${
-          isDark
-            ? 'bg-slate-900/95 border-slate-800 text-white shadow-slate-950/80'
-            : 'bg-white border-slate-200 text-slate-900 shadow-slate-300/50'
-        }`}>
+        <>
+          <div
+            className="fixed inset-0 z-[190] bg-slate-950/50 backdrop-blur-[1px] sm:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+          <div className={`fixed sm:absolute left-1/2 sm:left-0 top-1/2 sm:top-full -translate-x-1/2 sm:translate-x-0 -translate-y-1/2 sm:translate-y-0 mt-0 sm:mt-2 z-[200] w-[calc(100vw-2rem)] max-w-[300px] sm:w-72 rounded-3xl p-4 border shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-150 ${
+            isDark
+              ? 'bg-slate-900/95 border-slate-800 text-white shadow-slate-950/80'
+              : 'bg-white border-slate-200 text-slate-900 shadow-slate-300/50'
+          }`}>
           {/* Calendar Header: Month/Year & Nav */}
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
-            <span className="font-extrabold text-sm capitalize text-white tracking-wide">
-              {monthNames[month]} <span className="text-emerald-400 font-mono">{year}</span>
+          <div className={`flex items-center justify-between pb-3 border-b ${isDark ? 'border-slate-800/80' : 'border-slate-200'}`}>
+            <span className={`font-extrabold text-sm capitalize tracking-wide ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              {monthNames[month]} <span className="text-emerald-500 dark:text-emerald-400 font-mono">{year}</span>
             </span>
             <div className="flex items-center gap-1">
               <button
@@ -225,8 +230,10 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
                     selected
                       ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black shadow-md shadow-emerald-500/30 scale-105'
                       : today
-                      ? 'border border-emerald-500/60 text-emerald-400 font-extrabold hover:bg-slate-800'
-                      : 'hover:bg-slate-800/80 text-slate-200 hover:text-emerald-400'
+                      ? 'border border-emerald-500/60 text-emerald-500 dark:text-emerald-400 font-extrabold hover:bg-emerald-500/10'
+                      : isDark
+                      ? 'hover:bg-slate-800/80 text-slate-200 hover:text-emerald-400'
+                      : 'hover:bg-slate-100 text-slate-700 hover:text-emerald-600'
                   }`}
                 >
                   {dayNum}
@@ -248,12 +255,13 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
             <button
               type="button"
               onClick={handleSelectToday}
-              className="px-3 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg font-extrabold transition-colors cursor-pointer"
+              className="px-3 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 border border-emerald-500/30 rounded-lg font-extrabold transition-colors cursor-pointer"
             >
               Hoy
             </button>
           </div>
-        </div>
+          </div>
+        </>
       )}
     </div>
   );

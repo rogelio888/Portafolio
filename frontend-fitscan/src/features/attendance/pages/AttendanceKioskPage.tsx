@@ -144,7 +144,10 @@ export const AttendanceKioskPage: React.FC = () => {
           { facingMode: 'user' }, // Laptop front camera
           {
             fps: 15,
-            qrbox: { width: 340, height: 340 },
+            qrbox: (vw, vh) => {
+              const size = Math.max(160, Math.floor(Math.min(vw, vh, 300) * 0.72));
+              return { width: size, height: size };
+            },
           },
           async (decodedText) => {
             const now = Date.now();
@@ -227,57 +230,57 @@ export const AttendanceKioskPage: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen ${isKioskMode ? 'bg-slate-950 p-6 flex flex-col justify-between' : 'p-6 space-y-6'}`}>
+    <div className={`min-h-screen ${isKioskMode ? 'bg-slate-950 p-3.5 sm:p-6 flex flex-col justify-between gap-4' : 'p-3.5 sm:p-6 space-y-4 sm:space-y-6'}`}>
       {/* Navigation Tab Header when not in Kiosk Mode */}
       {!isKioskMode && (
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 p-2.5 rounded-2xl border border-slate-800 shadow-lg backdrop-blur-md">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-900/80 p-2.5 rounded-2xl border border-slate-800 shadow-lg backdrop-blur-md">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <button
               onClick={() => setActiveTab('kiosk')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all cursor-pointer ${
                 activeTab === 'kiosk'
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-md shadow-emerald-500/20'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
               }`}
             >
-              <QrCode className="h-4 w-4" />
+              <QrCode className="h-4 w-4 shrink-0" />
               <span>Escáner Live Kiosco</span>
             </button>
 
             <button
               onClick={() => setActiveTab('history')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all cursor-pointer ${
                 activeTab === 'history'
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-md shadow-emerald-500/20'
                   : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
               }`}
             >
-              <History className="h-4 w-4" />
+              <History className="h-4 w-4 shrink-0" />
               <span>Bitácora & Historial de Asistencias</span>
             </button>
           </div>
 
           <div className="text-xs text-slate-400 font-semibold px-3 py-1 flex items-center gap-2">
-            <Building2 className="h-4 w-4 text-emerald-400" />
-            <span>{selectedBranch}</span>
+            <Building2 className="h-4 w-4 text-emerald-400 shrink-0" />
+            <span className="truncate">{selectedBranch}</span>
           </div>
         </div>
       )}
 
       {/* Top Banner if in Kiosk Mode */}
       {isKioskMode && (
-        <div className="flex items-center justify-between bg-slate-900/90 border border-slate-800 rounded-2xl p-4 pr-48 shadow-xl backdrop-blur-md">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40">
-              <QrCode className="h-6 w-6" />
+        <div className="flex items-center justify-between bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 sm:p-4 pr-24 sm:pr-48 shadow-xl backdrop-blur-md">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="h-10 w-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 shrink-0">
+              <QrCode className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div>
-              <h1 className="font-extrabold text-lg text-white tracking-wide flex items-center gap-2">
-                FITSCAN KIOSK <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-md">LIVE</span>
+            <div className="min-w-0">
+              <h1 className="font-extrabold text-base sm:text-lg text-white tracking-wide flex flex-wrap items-center gap-2">
+                FITSCAN KIOSK <span className="text-[10px] sm:text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-md">LIVE</span>
               </h1>
-              <p className="text-xs text-slate-400 flex items-center gap-1">
-                <Building2 className="h-3.5 w-3.5 text-emerald-400" />
-                {selectedBranch} • Apunte la cámara hacia el código QR
+              <p className="text-[11px] sm:text-xs text-slate-400 flex items-center gap-1 truncate">
+                <Building2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                <span className="truncate">{selectedBranch} • Apunte cámara al QR</span>
               </p>
             </div>
           </div>
@@ -288,12 +291,12 @@ export const AttendanceKioskPage: React.FC = () => {
       {activeTab === 'history' && !isKioskMode ? (
         <div className="space-y-6">
           {/* Filters Bar */}
-          <div className={`p-5 rounded-3xl border transition-colors shadow-sm ${
+          <div className={`p-3.5 sm:p-5 rounded-3xl border transition-colors shadow-sm ${
             isDark ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200'
           }`}>
-            <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+            <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
               {/* Search */}
-              <div className="relative flex-1">
+              <div className="relative flex-1 min-w-0">
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <input
                   type="text"
@@ -308,30 +311,34 @@ export const AttendanceKioskPage: React.FC = () => {
               </div>
 
               {/* Date Filters */}
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold text-slate-400">Desde:</span>
-                  <CustomDatePicker
-                    value={historyStartDate}
-                    onChange={setHistoryStartDate}
-                    isDark={isDark}
-                  />
-                </div>
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3">
+                <div className="grid grid-cols-1 min-[420px]:grid-cols-2 sm:flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-[11px] sm:text-xs font-semibold text-slate-400 shrink-0">Desde:</span>
+                    <CustomDatePicker
+                      value={historyStartDate}
+                      onChange={setHistoryStartDate}
+                      isDark={isDark}
+                      className="w-full sm:w-auto"
+                    />
+                  </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold text-slate-400">Hasta:</span>
-                  <CustomDatePicker
-                    value={historyEndDate}
-                    onChange={setHistoryEndDate}
-                    isDark={isDark}
-                  />
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-[11px] sm:text-xs font-semibold text-slate-400 shrink-0">Hasta:</span>
+                    <CustomDatePicker
+                      value={historyEndDate}
+                      onChange={setHistoryEndDate}
+                      isDark={isDark}
+                      className="w-full sm:w-auto"
+                    />
+                  </div>
                 </div>
 
                 {/* Scan Method Filter */}
                 <select
                   value={historyScanMethod}
                   onChange={(e) => setHistoryScanMethod(e.target.value)}
-                  className={`px-3 py-2 text-xs font-semibold rounded-xl border focus:outline-none focus:border-emerald-500 ${
+                  className={`w-full sm:w-auto px-3 py-2 text-xs font-semibold rounded-xl border focus:outline-none focus:border-emerald-500 ${
                     isDark ? 'bg-slate-950 border-slate-700 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'
                   }`}
                 >
@@ -341,10 +348,11 @@ export const AttendanceKioskPage: React.FC = () => {
                 </select>
 
                 {/* Action Buttons */}
+                <div className="flex items-center gap-2">
                 <button
                   onClick={() => loadHistory(1)}
                   disabled={historyLoading}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs rounded-xl hover:opacity-90 transition-all cursor-pointer shadow-md shadow-emerald-500/20 disabled:opacity-50"
+                  className="flex-1 sm:flex-initial justify-center flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs rounded-xl hover:opacity-90 transition-all cursor-pointer shadow-md shadow-emerald-500/20 disabled:opacity-50"
                 >
                   <Filter className="h-3.5 w-3.5" />
                   <span>Filtrar</span>
@@ -397,6 +405,7 @@ export const AttendanceKioskPage: React.FC = () => {
                     <RefreshCw className="h-4 w-4" />
                   </button>
                 )}
+                </div>
               </div>
             </div>
           </div>
@@ -458,13 +467,72 @@ export const AttendanceKioskPage: React.FC = () => {
                 <div className="h-12 w-12 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-500">
                   <History className="h-6 w-6" />
                 </div>
-                <h4 className="text-sm font-bold text-white">No se encontraron registros de asistencia</h4>
+                <h4 className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>No se encontraron registros de asistencia</h4>
                 <p className="text-xs text-slate-400 max-w-sm">
                   Pruebe ajustando el rango de fechas o limpiando los filtros de búsqueda.
                 </p>
               </div>
             ) : (
-              <div className="overflow-x-auto">
+              <>
+              {/* Mobile Cards View */}
+              <div className={`md:hidden divide-y ${isDark ? 'divide-slate-800/80' : 'divide-slate-200'}`}>
+                {historyItems.map((item) => (
+                  <div key={item.id} className="p-3.5 space-y-2.5">
+                    <div className="flex items-start justify-between gap-2.5">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <img
+                          src={item.client?.photo_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'}
+                          alt={item.client?.full_name || 'Socio'}
+                          className="h-10 w-10 rounded-full object-cover border-2 border-emerald-500/40 shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <p className={`font-bold text-sm truncate ${isDark ? 'text-white' : 'text-slate-900'}`}>{item.client?.full_name || 'Socio Desconocido'}</p>
+                          <p className="text-[11px] text-slate-400 font-mono truncate">
+                            {item.client?.phone ? `Tel: ${item.client.phone}` : (item.client?.email || 'Socio Registrado')}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0">
+                        <CheckCircle2 className="h-3 w-3" />
+                        Permitido
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] pt-1">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-md font-bold bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border border-emerald-500/20">
+                        {item.membership_type}
+                      </span>
+                      <div className="font-mono font-bold text-xs">
+                        <span className={isDark ? 'text-white' : 'text-slate-900'}>{item.check_in_date_formatted || item.check_in_at?.split(' ')[0]}</span>
+                        <span className="text-emerald-500 dark:text-emerald-400 ml-1.5">{item.check_in_time_formatted || item.check_in_at?.split(' ')[1]}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 pt-1 border-t border-slate-800/40">
+                      <span className="flex items-center gap-1 truncate">
+                        <Building2 className="h-3 w-3 text-emerald-400 shrink-0" />
+                        {item.branch_name}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        {item.scan_method === 'manual' ? (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            <Keyboard className="h-3 w-3" />
+                            Manual
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                            <QrCode className="h-3 w-3" />
+                            QR
+                          </span>
+                        )}
+                        <span className="truncate max-w-[110px]">{item.scanned_by_name || 'Kiosco'}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className={`border-b text-[11px] uppercase tracking-wider font-extrabold ${
@@ -556,15 +624,16 @@ export const AttendanceKioskPage: React.FC = () => {
                   </tbody>
                 </table>
               </div>
+              </>
             )}
 
             {/* Pagination Footer */}
             {historyTotal > 0 && (
-              <div className={`px-5 py-4 border-t flex items-center justify-between ${
+              <div className={`px-4 sm:px-5 py-4 border-t flex flex-col sm:flex-row items-center justify-between gap-3 ${
                 isDark ? 'bg-slate-950/80 border-slate-800' : 'bg-slate-50 border-slate-200'
               }`}>
-                <p className="text-xs text-slate-400">
-                  Mostrando página <span className="font-bold text-white">{historyPage}</span> de <span className="font-bold text-white">{historyLastPage}</span> ({historyTotal} registros en total)
+                <p className={`text-xs text-center sm:text-left ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  Mostrando página <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{historyPage}</span> de <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{historyLastPage}</span> ({historyTotal} registros en total)
                 </p>
 
                 <div className="flex items-center gap-2">
@@ -595,7 +664,7 @@ export const AttendanceKioskPage: React.FC = () => {
         <div className={`grid grid-cols-1 ${isKioskMode ? 'lg:grid-cols-3 flex-1 gap-6 my-4' : 'lg:grid-cols-3 gap-6'}`}>
         
         {/* Camera View Finder (2 Columns) */}
-        <div className={`lg:col-span-2 rounded-3xl border p-4 sm:p-6 flex flex-col items-center justify-center relative overflow-hidden transition-colors shadow-2xl min-h-[520px] ${
+        <div className={`lg:col-span-2 rounded-3xl border p-3.5 sm:p-6 flex flex-col items-center justify-center relative overflow-hidden transition-colors shadow-2xl min-h-[420px] sm:min-h-[520px] ${
           isDark || isKioskMode
             ? 'bg-slate-900/80 border-slate-800 shadow-xl'
             : 'bg-white border-slate-200 shadow-sm'
@@ -611,15 +680,15 @@ export const AttendanceKioskPage: React.FC = () => {
 
           {/* Live Webcam Scanner Viewfinder */}
           {isCameraActive ? (
-            <div className="relative w-full max-w-2xl h-[460px] md:h-[520px] rounded-3xl overflow-hidden border-2 border-emerald-500/60 shadow-2xl bg-black flex flex-col items-center justify-center">
+            <div className="relative w-full max-w-2xl h-[340px] sm:h-[460px] md:h-[520px] rounded-3xl overflow-hidden border-2 border-emerald-500/60 shadow-2xl bg-black flex flex-col items-center justify-center">
               {/* Real Video Stream Reader */}
               <div id="webcam-reader" className="absolute inset-0 w-full h-full" />
 
               {/* Integrated Scanner Corner Markers */}
-              <div className="absolute top-5 left-5 w-14 h-14 border-t-4 border-l-4 border-emerald-400 rounded-tl-2xl pointer-events-none z-10" />
-              <div className="absolute top-5 right-5 w-14 h-14 border-t-4 border-r-4 border-emerald-400 rounded-tr-2xl pointer-events-none z-10" />
-              <div className="absolute bottom-5 left-5 w-14 h-14 border-b-4 border-l-4 border-emerald-400 rounded-bl-2xl pointer-events-none z-10" />
-              <div className="absolute bottom-5 right-5 w-14 h-14 border-b-4 border-r-4 border-emerald-400 rounded-br-2xl pointer-events-none z-10" />
+              <div className="absolute top-3 left-3 sm:top-5 sm:left-5 w-10 h-10 sm:w-14 sm:h-14 border-t-4 border-l-4 border-emerald-400 rounded-tl-2xl pointer-events-none z-10" />
+              <div className="absolute top-3 right-3 sm:top-5 sm:right-5 w-10 h-10 sm:w-14 sm:h-14 border-t-4 border-r-4 border-emerald-400 rounded-tr-2xl pointer-events-none z-10" />
+              <div className="absolute bottom-3 left-3 sm:bottom-5 sm:left-5 w-10 h-10 sm:w-14 sm:h-14 border-b-4 border-l-4 border-emerald-400 rounded-bl-2xl pointer-events-none z-10" />
+              <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-5 w-10 h-10 sm:w-14 sm:h-14 border-b-4 border-r-4 border-emerald-400 rounded-br-2xl pointer-events-none z-10" />
 
               {/* Laser Scanning Line Overlay */}
               <div className="absolute inset-x-8 top-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_15px_#10b981] animate-scan-line pointer-events-none z-10" />
@@ -627,7 +696,7 @@ export const AttendanceKioskPage: React.FC = () => {
               {/* Floating Glassmorphism Stop Button */}
               <button
                 onClick={toggleCamera}
-                className="absolute bottom-6 z-20 text-xs font-bold text-slate-200 hover:text-white flex items-center gap-2 bg-slate-950/85 hover:bg-slate-900 px-5 py-2.5 rounded-full border border-slate-700/80 shadow-2xl backdrop-blur-md cursor-pointer transition-all hover:scale-105"
+                className="absolute bottom-4 sm:bottom-6 z-20 text-xs font-bold text-slate-200 hover:text-white flex items-center gap-2 bg-slate-950/85 hover:bg-slate-900 px-5 py-2.5 rounded-full border border-slate-700/80 shadow-2xl backdrop-blur-md cursor-pointer transition-all hover:scale-105"
               >
                 <CameraOff className="h-4 w-4 text-rose-400" />
                 <span>Detener Cámara</span>
@@ -636,16 +705,16 @@ export const AttendanceKioskPage: React.FC = () => {
           ) : (
             <>
               {/* Scanner Corner Borders (Default Inactive State) */}
-              <div className="absolute top-6 left-6 w-14 h-14 border-t-4 border-l-4 border-emerald-500/80 rounded-tl-2xl pointer-events-none" />
-              <div className="absolute top-6 right-6 w-14 h-14 border-t-4 border-r-4 border-emerald-500/80 rounded-tr-2xl pointer-events-none" />
-              <div className="absolute bottom-6 left-6 w-14 h-14 border-b-4 border-l-4 border-emerald-500/80 rounded-bl-2xl pointer-events-none" />
-              <div className="absolute bottom-6 right-6 w-14 h-14 border-b-4 border-r-4 border-emerald-500/80 rounded-br-2xl pointer-events-none" />
+              <div className="absolute top-3 left-3 sm:top-6 sm:left-6 w-10 h-10 sm:w-14 sm:h-14 border-t-4 border-l-4 border-emerald-500/80 rounded-tl-2xl pointer-events-none" />
+              <div className="absolute top-3 right-3 sm:top-6 sm:right-6 w-10 h-10 sm:w-14 sm:h-14 border-t-4 border-r-4 border-emerald-500/80 rounded-tr-2xl pointer-events-none" />
+              <div className="absolute bottom-3 left-3 sm:bottom-6 sm:left-6 w-10 h-10 sm:w-14 sm:h-14 border-b-4 border-l-4 border-emerald-500/80 rounded-bl-2xl pointer-events-none" />
+              <div className="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 w-10 h-10 sm:w-14 sm:h-14 border-b-4 border-r-4 border-emerald-500/80 rounded-br-2xl pointer-events-none" />
 
               {/* Laser Scanning Line Animation */}
               <div className="absolute inset-x-12 top-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_15px_#10b981] animate-scan-line pointer-events-none" />
 
               {/* Central Camera Target View (Default State) */}
-            <div className={`relative z-10 flex flex-col items-center text-center p-8 rounded-3xl border backdrop-blur-md max-w-sm w-full transition-colors ${
+            <div className={`relative z-10 flex flex-col items-center text-center p-5 sm:p-8 rounded-3xl border backdrop-blur-md max-w-sm w-full transition-colors ${
               isDark || isKioskMode
                 ? 'bg-slate-950/70 border-slate-800/90'
                 : 'bg-slate-50 border-slate-200 shadow-inner'
@@ -835,8 +904,8 @@ export const AttendanceKioskPage: React.FC = () => {
 
       {/* Modal Device Info Alert */}
       {showNoDeviceAlert && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[9999] overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4">
+          <div className="my-auto bg-slate-900 border border-slate-800 rounded-3xl p-4 sm:p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2 text-emerald-400">
                 <Smartphone className="h-5 w-5" />

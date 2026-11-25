@@ -101,8 +101,8 @@ export const BranchFormModal: React.FC<BranchFormModalProps> = ({
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] bg-slate-950/80 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4">
+      <div className="my-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
         <button
           type="button"
           onClick={onClose}
@@ -111,7 +111,7 @@ export const BranchFormModal: React.FC<BranchFormModalProps> = ({
           <X className="h-5 w-5" />
         </button>
 
-        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center gap-2 mb-4 pb-3 pr-8 border-b border-slate-200 dark:border-slate-800">
           <Building2 className="h-5 w-5 text-emerald-500 dark:text-emerald-400" />
           <h2 className="text-base font-bold text-slate-900 dark:text-white">
             {branch ? 'Editar Sucursal' : 'Registrar Nueva Sucursal'}
@@ -152,7 +152,7 @@ export const BranchFormModal: React.FC<BranchFormModalProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Teléfono de Contacto
@@ -180,7 +180,7 @@ export const BranchFormModal: React.FC<BranchFormModalProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Hora de Apertura
@@ -216,7 +216,7 @@ export const BranchFormModal: React.FC<BranchFormModalProps> = ({
             />
           </div>
 
-          <div className="pt-3 flex gap-3">
+          <div className="pt-3 flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3">
             <button
               type="button"
               onClick={onClose}

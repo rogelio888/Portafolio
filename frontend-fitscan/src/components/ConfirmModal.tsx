@@ -51,16 +51,16 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   const styles = variantStyles[variant];
 
   return createPortal(
-    <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[99999] overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fadeIn"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm animate-fadeIn"
         onClick={!isLoading ? onClose : undefined}
       />
 
       {/* Modal */}
       <div
-        className={`relative w-full max-w-md rounded-2xl shadow-2xl border animate-scaleIn ${
+        className={`relative my-auto w-full max-w-md rounded-2xl shadow-2xl border animate-scaleIn ${
           isDark
             ? 'bg-slate-800/95 border-slate-700/60'
             : 'bg-white border-slate-200'
@@ -97,7 +97,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
         </div>
 
         {/* Actions */}
-        <div className={`flex gap-3 p-4 pt-0`}>
+        <div className="flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3 p-4 pt-0">
           <button
             onClick={onClose}
             disabled={isLoading}

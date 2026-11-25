@@ -172,7 +172,7 @@ export const ReportsPage: React.FC = () => {
   const summary = reportData?.summary || {};
 
   return (
-    <div className="p-6 space-y-6 print:p-0 print:space-y-4 select-none">
+    <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-6 print:p-0 print:space-y-4 select-none">
       {/* Printable Official Header */}
       <div className="hidden print:block mb-4 pb-4 border-b-2 border-slate-900 text-center">
         <h1 className="text-xl font-black text-slate-900 tracking-wider uppercase">FITSCAN GYM OS — REPORTE OFICIAL AUDITADO</h1>
@@ -181,15 +181,15 @@ export const ReportsPage: React.FC = () => {
       </div>
 
       {/* Header & Export Controls */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 print:hidden">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-4 print:hidden">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <BarChart3 className={`h-4 w-4 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
-            <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>
+            <span className={`text-[11px] sm:text-xs font-bold uppercase tracking-widest ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>
               Centro de Reportes & Analítica Centralizada
             </span>
           </div>
-          <h1 className={`text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+          <h1 className={`text-xl sm:text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
             Inteligencia de Negocio & Auditoría
           </h1>
           <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -197,11 +197,11 @@ export const ReportsPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
           <button
             onClick={handleExportCSV}
             disabled={isExporting}
-            className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs py-2.5 px-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            className="flex-1 sm:flex-initial justify-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs py-2.5 px-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center gap-2 cursor-pointer disabled:opacity-50"
           >
             {isExporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <FileSpreadsheet className="h-4 w-4" />}
             <span>Exportar CSV</span>
@@ -209,7 +209,7 @@ export const ReportsPage: React.FC = () => {
 
           <button
             onClick={handlePrint}
-            className={`font-extrabold text-xs py-2.5 px-4 rounded-xl transition-all border flex items-center gap-2 cursor-pointer ${
+            className={`flex-1 sm:flex-initial justify-center font-extrabold text-xs py-2.5 px-4 rounded-xl transition-all border flex items-center gap-2 cursor-pointer ${
               isDark
                 ? 'bg-slate-800 hover:bg-slate-700 text-white border-slate-700'
                 : 'bg-white hover:bg-slate-50 text-slate-900 border-slate-200 shadow-sm'
@@ -222,12 +222,12 @@ export const ReportsPage: React.FC = () => {
       </div>
 
       {/* Module Navigation Tabs */}
-      <div className={`p-1.5 rounded-2xl border flex flex-wrap items-center gap-1 print:hidden ${
+      <div className={`p-1.5 rounded-2xl border flex items-center gap-1 overflow-x-auto print:hidden ${
         isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
       }`}>
         <button
           onClick={() => setActiveTab('financial')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+          className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
             activeTab === 'financial'
               ? 'bg-emerald-500 text-slate-950 shadow-md font-black'
               : isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' : 'text-slate-600 hover:bg-slate-100'
@@ -239,7 +239,7 @@ export const ReportsPage: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('attendances')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+          className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
             activeTab === 'attendances'
               ? 'bg-emerald-500 text-slate-950 shadow-md font-black'
               : isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' : 'text-slate-600 hover:bg-slate-100'
@@ -251,7 +251,7 @@ export const ReportsPage: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('memberships')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+          className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
             activeTab === 'memberships'
               ? 'bg-emerald-500 text-slate-950 shadow-md font-black'
               : isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' : 'text-slate-600 hover:bg-slate-100'
@@ -263,7 +263,7 @@ export const ReportsPage: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('shifts')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+          className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
             activeTab === 'shifts'
               ? 'bg-emerald-500 text-slate-950 shadow-md font-black'
               : isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' : 'text-slate-600 hover:bg-slate-100'
@@ -275,7 +275,7 @@ export const ReportsPage: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('clients')}
-          className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+          className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0 ${
             activeTab === 'clients'
               ? 'bg-emerald-500 text-slate-950 shadow-md font-black'
               : isDark ? 'text-slate-400 hover:text-white hover:bg-slate-800/60' : 'text-slate-600 hover:bg-slate-100'
@@ -288,13 +288,13 @@ export const ReportsPage: React.FC = () => {
 
       {/* Filters & Date Range Bar */}
       <div
-        className={`p-4 rounded-3xl border space-y-3.5 print:hidden transition-colors ${
+        className={`p-3.5 sm:p-4 rounded-3xl border space-y-3.5 print:hidden transition-colors ${
           isDark ? 'bg-slate-900/80 border-slate-800 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
         }`}
       >
         {/* Row 1: Presets & Dates */}
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-1.5">
+        <div className="flex flex-col lg:flex-row lg:flex-wrap lg:items-center gap-3">
+          <div className="flex flex-wrap items-center gap-1.5">
             {(['today', 'week', 'month', 'custom'] as const).map((preset) => (
               <button
                 key={preset}
@@ -319,32 +319,38 @@ export const ReportsPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className={`text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Desde:</span>
-            <CustomDatePicker
-              value={startDate}
-              onChange={(val) => {
-                setDateRangePreset('custom');
-                setStartDate(val);
-              }}
-              isDark={isDark}
-            />
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 sm:flex items-center gap-2">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className={`text-[11px] sm:text-xs font-bold shrink-0 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Desde:</span>
+              <CustomDatePicker
+                value={startDate}
+                onChange={(val) => {
+                  setDateRangePreset('custom');
+                  setStartDate(val);
+                }}
+                isDark={isDark}
+                className="w-full sm:w-auto"
+              />
+            </div>
 
-            <span className={`text-xs font-bold ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Hasta:</span>
-            <CustomDatePicker
-              value={endDate}
-              onChange={(val) => {
-                setDateRangePreset('custom');
-                setEndDate(val);
-              }}
-              isDark={isDark}
-            />
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className={`text-[11px] sm:text-xs font-bold shrink-0 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Hasta:</span>
+              <CustomDatePicker
+                value={endDate}
+                onChange={(val) => {
+                  setDateRangePreset('custom');
+                  setEndDate(val);
+                }}
+                isDark={isDark}
+                className="w-full sm:w-auto"
+              />
+            </div>
           </div>
         </div>
 
         {/* Row 2: Search & Module Filters */}
-        <div className="flex flex-wrap items-center gap-3 pt-2.5 border-t border-slate-800/60">
-          <form onSubmit={handleSearchSubmit} className="relative flex-1 min-w-[240px]">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 pt-2.5 border-t border-slate-200 dark:border-slate-800/60">
+          <form onSubmit={handleSearchSubmit} className="relative flex-1 min-w-0 sm:min-w-[240px]">
             <input
               type="text"
               placeholder={
@@ -369,13 +375,13 @@ export const ReportsPage: React.FC = () => {
 
           {/* Module-Specific Dropdown Filter */}
           {activeTab === 'financial' && (
-            <div className="flex items-center gap-2 shrink-0">
-              <Filter className={`h-4 w-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`} />
-              <span className={`text-xs font-bold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Método:</span>
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <Filter className={`h-4 w-4 shrink-0 ${isDark ? 'text-slate-400' : 'text-slate-500'}`} />
+              <span className={`text-xs font-bold shrink-0 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Método:</span>
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
-                className={`px-3 py-2 rounded-xl text-xs font-bold border focus:outline-none focus:border-emerald-500 ${
+                className={`flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-bold border focus:outline-none focus:border-emerald-500 ${
                   isDark ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
                 }`}
               >
@@ -388,13 +394,13 @@ export const ReportsPage: React.FC = () => {
           )}
 
           {activeTab === 'attendances' && (
-            <div className="flex items-center gap-2 shrink-0">
-              <Filter className={`h-4 w-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`} />
-              <span className={`text-xs font-bold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Método Escaneo:</span>
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <Filter className={`h-4 w-4 shrink-0 ${isDark ? 'text-slate-400' : 'text-slate-500'}`} />
+              <span className={`text-xs font-bold shrink-0 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Método Escaneo:</span>
               <select
                 value={scanMethodFilter}
                 onChange={(e) => setScanMethodFilter(e.target.value)}
-                className={`px-3 py-2 rounded-xl text-xs font-bold border focus:outline-none focus:border-emerald-500 ${
+                className={`flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-bold border focus:outline-none focus:border-emerald-500 ${
                   isDark ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
                 }`}
               >
@@ -406,13 +412,13 @@ export const ReportsPage: React.FC = () => {
           )}
 
           {(activeTab === 'shifts' || activeTab === 'clients') && (
-            <div className="flex items-center gap-2 shrink-0">
-              <Filter className={`h-4 w-4 ${isDark ? 'text-slate-400' : 'text-slate-500'}`} />
-              <span className={`text-xs font-bold ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Estado:</span>
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <Filter className={`h-4 w-4 shrink-0 ${isDark ? 'text-slate-400' : 'text-slate-500'}`} />
+              <span className={`text-xs font-bold shrink-0 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Estado:</span>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className={`px-3 py-2 rounded-xl text-xs font-bold border focus:outline-none focus:border-emerald-500 ${
+                className={`flex-1 sm:flex-initial px-3 py-2 rounded-xl text-xs font-bold border focus:outline-none focus:border-emerald-500 ${
                   isDark ? 'bg-slate-950 border-slate-800 text-white' : 'bg-slate-50 border-slate-200 text-slate-900'
                 }`}
               >
@@ -651,7 +657,7 @@ export const ReportsPage: React.FC = () => {
             <div>
               <p className={`text-xs font-semibold ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Diferencia Auditada</p>
               <h3 className={`text-2xl font-black mt-1 ${
-                (summary?.total_difference_bs ?? 0) < 0 ? 'text-rose-400' : (summary?.total_difference_bs ?? 0) > 0 ? 'text-emerald-400' : 'text-slate-200'
+                (summary?.total_difference_bs ?? 0) < 0 ? 'text-rose-400' : (summary?.total_difference_bs ?? 0) > 0 ? 'text-emerald-400' : isDark ? 'text-slate-200' : 'text-slate-900'
               }`}>
                 Bs. {(summary?.total_difference_bs ?? 0).toLocaleString('es-BO', { minimumFractionDigits: 2 })}
               </h3>
@@ -713,8 +719,8 @@ export const ReportsPage: React.FC = () => {
           isDark ? 'bg-slate-900/80 border-slate-800' : 'bg-white border-slate-200'
         }`}
       >
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-          <h3 className={`font-black text-base ${isDark ? 'text-white' : 'text-slate-900'}`}>
+        <div className={`p-4 sm:p-5 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'} flex flex-col sm:flex-row sm:items-center justify-between gap-1.5`}>
+          <h3 className={`font-black text-sm sm:text-base ${isDark ? 'text-white' : 'text-slate-900'}`}>
             {activeTab === 'financial' && `Detalle de Comprobantes (${reportData?.payments?.length || 0})`}
             {activeTab === 'attendances' && `Historial de Asistencias (${reportData?.attendances?.length || 0})`}
             {activeTab === 'memberships' && `Registro de Membresías (${reportData?.memberships?.length || 0})`}
@@ -726,9 +732,14 @@ export const ReportsPage: React.FC = () => {
           </span>
         </div>
 
+        <div className="md:hidden px-4 py-1.5 text-[11px] font-medium text-slate-400 border-b border-slate-200 dark:border-slate-800/60 flex items-center justify-between print:hidden">
+          <span>Desliza la tabla horizontalmente</span>
+          <span className="font-mono text-emerald-500">↔</span>
+        </div>
+
         <div className="overflow-x-auto">
           {activeTab === 'financial' && (
-            <table className="w-full text-left text-xs">
+            <table className="w-full min-w-[760px] text-left text-xs">
               <thead className={`uppercase tracking-wider text-[10px] font-bold border-b ${isDark ? 'bg-slate-950/80 border-slate-800 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-600'}`}>
                 <tr>
                   <th className="py-3.5 px-4">Comprobante</th>
@@ -769,7 +780,7 @@ export const ReportsPage: React.FC = () => {
           )}
 
           {activeTab === 'attendances' && (
-            <table className="w-full text-left text-xs">
+            <table className="w-full min-w-[680px] text-left text-xs">
               <thead className={`uppercase tracking-wider text-[10px] font-bold border-b ${isDark ? 'bg-slate-950/80 border-slate-800 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-600'}`}>
                 <tr>
                   <th className="py-3.5 px-4">Socio</th>
@@ -809,7 +820,7 @@ export const ReportsPage: React.FC = () => {
           )}
 
           {activeTab === 'memberships' && (
-            <table className="w-full text-left text-xs">
+            <table className="w-full min-w-[720px] text-left text-xs">
               <thead className={`uppercase tracking-wider text-[10px] font-bold border-b ${isDark ? 'bg-slate-950/80 border-slate-800 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-600'}`}>
                 <tr>
                   <th className="py-3.5 px-4">Socio</th>
@@ -829,7 +840,7 @@ export const ReportsPage: React.FC = () => {
                 ) : (
                   reportData.memberships.map((m: any) => (
                     <tr key={m.id} className={isDark ? 'hover:bg-slate-800/40' : 'hover:bg-slate-50'}>
-                      <td className="py-3.5 px-4 font-bold text-white">{m.client_name}</td>
+                      <td className={`py-3.5 px-4 font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{m.client_name}</td>
                       <td className="py-3.5 px-4 font-bold text-emerald-400">{m.plan_name}</td>
                       <td className={`py-3.5 px-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{m.start_date}</td>
                       <td className={`py-3.5 px-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{m.end_date}</td>
@@ -848,7 +859,7 @@ export const ReportsPage: React.FC = () => {
           )}
 
           {activeTab === 'shifts' && (
-            <table className="w-full text-left text-xs">
+            <table className="w-full min-w-[780px] text-left text-xs">
               <thead className={`uppercase tracking-wider text-[10px] font-bold border-b ${isDark ? 'bg-slate-950/80 border-slate-800 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-600'}`}>
                 <tr>
                   <th className="py-3.5 px-4">Sucursal</th>
@@ -893,7 +904,7 @@ export const ReportsPage: React.FC = () => {
           )}
 
           {activeTab === 'clients' && (
-            <table className="w-full text-left text-xs">
+            <table className="w-full min-w-[720px] text-left text-xs">
               <thead className={`uppercase tracking-wider text-[10px] font-bold border-b ${isDark ? 'bg-slate-950/80 border-slate-800 text-slate-400' : 'bg-slate-50 border-slate-200 text-slate-600'}`}>
                 <tr>
                   <th className="py-3.5 px-4">Socio</th>
@@ -913,7 +924,7 @@ export const ReportsPage: React.FC = () => {
                 ) : (
                   reportData.clients.map((c: any) => (
                     <tr key={c.id} className={isDark ? 'hover:bg-slate-800/40' : 'hover:bg-slate-50'}>
-                      <td className="py-3.5 px-4 font-bold text-white">{c.full_name}</td>
+                      <td className={`py-3.5 px-4 font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{c.full_name}</td>
                       <td className={`py-3.5 px-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{c.email}</td>
                       <td className={`py-3.5 px-4 ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>{c.phone}</td>
                       <td className="py-3.5 px-4 font-bold text-indigo-400">{c.branch_name}</td>

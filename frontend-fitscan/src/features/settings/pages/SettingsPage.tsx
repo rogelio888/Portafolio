@@ -148,12 +148,12 @@ export const SettingsPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 select-none">
+    <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-6 select-none">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className={`text-2xl font-black tracking-wide flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-            <Settings className={`h-6 w-6 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
+          <h1 className={`text-xl sm:text-2xl font-black tracking-wide flex items-center gap-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+            <Settings className={`h-5 w-5 sm:h-6 sm:w-6 shrink-0 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
             Configuración General del Sistema
           </h1>
           <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -169,10 +169,10 @@ export const SettingsPage: React.FC = () => {
         )}
       </div>
 
-      <form onSubmit={handleSaveGeneralSettings} className="space-y-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <form onSubmit={handleSaveGeneralSettings} className="space-y-4 sm:space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Gym Company Information */}
-          <div className={`rounded-3xl border p-6 shadow-sm space-y-4 transition-colors ${
+          <div className={`rounded-3xl border p-4 sm:p-6 shadow-sm space-y-4 transition-colors ${
             isDark ? 'bg-slate-900/80 border-slate-800 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
           }`}>
             <div className={`flex items-center gap-2 pb-3 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
@@ -193,7 +193,7 @@ export const SettingsPage: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className={`block text-xs mb-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>NIT / RUC *</label>
                   <input
@@ -244,7 +244,7 @@ export const SettingsPage: React.FC = () => {
           </div>
 
           {/* QR Scanner Parameters */}
-          <div className={`rounded-3xl border p-6 shadow-sm space-y-4 transition-colors ${
+          <div className={`rounded-3xl border p-4 sm:p-6 shadow-sm space-y-4 transition-colors ${
             isDark ? 'bg-slate-900/80 border-slate-800 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
           }`}>
             <div className={`flex items-center gap-2 pb-3 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
@@ -304,35 +304,35 @@ export const SettingsPage: React.FC = () => {
           </div>
 
           {/* Dynamic Branches Card */}
-          <div className={`col-span-1 lg:col-span-2 rounded-3xl border p-6 shadow-sm space-y-4 transition-colors ${
+          <div className={`col-span-1 lg:col-span-2 rounded-3xl border p-4 sm:p-6 shadow-sm space-y-4 transition-colors ${
             isDark ? 'bg-slate-900/80 border-slate-800 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
           }`}>
-            <div className={`flex items-center justify-between pb-3 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+            <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
               <div className="flex items-center gap-2">
-                <Building2 className={`h-5 w-5 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
+                <Building2 className={`h-5 w-5 shrink-0 ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`} />
                 <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                   Gestión de Sucursales Activas ({branches.length})
                 </h3>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => setIsAuditModalOpen(true)}
-                  className={`border text-xs font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                  className={`flex-1 sm:flex-initial justify-center border text-xs font-bold px-3 py-2 sm:py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
                     isDark
                       ? 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
                       : 'bg-slate-900 hover:bg-slate-800 text-white border-slate-800 shadow-sm'
                   }`}
                 >
-                  <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                  <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" />
                   <span>Bitácora de Auditoría</span>
                 </button>
                 <button
                   type="button"
                   onClick={handleOpenCreateModal}
-                  className="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/40 text-xs font-extrabold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="flex-1 sm:flex-initial justify-center bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-500 dark:text-emerald-400 border border-emerald-500/40 text-xs font-extrabold px-3 py-2 sm:py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus className="h-4 w-4 shrink-0" />
                   <span>Nueva Sucursal</span>
                 </button>
               </div>
@@ -445,7 +445,7 @@ export const SettingsPage: React.FC = () => {
         <div className={`flex justify-end pt-4 border-t ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
           <button
             type="submit"
-            className="bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black text-xs py-3 px-6 rounded-2xl shadow-lg shadow-emerald-500/20 hover:opacity-90 transition-all flex items-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto justify-center bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-black text-xs py-3 px-6 rounded-2xl shadow-lg shadow-emerald-500/20 hover:opacity-90 transition-all flex items-center gap-2 cursor-pointer"
           >
             <Save className="h-4 w-4" />
             Guardar Configuración General

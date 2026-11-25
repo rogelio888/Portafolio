@@ -48,8 +48,8 @@ export const AuditLogViewerModal: React.FC<AuditLogViewerModalProps> = ({
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] bg-slate-950/80 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-3xl w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4">
+      <div className="my-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-3xl w-full p-4 sm:p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
         <button
           type="button"
           onClick={onClose}
@@ -58,7 +58,7 @@ export const AuditLogViewerModal: React.FC<AuditLogViewerModalProps> = ({
           <X className="h-5 w-5" />
         </button>
 
-        <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-start sm:items-center justify-between gap-2 pb-3 mb-4 pr-10 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
             <ShieldAlert className="h-5 w-5 text-emerald-500 dark:text-emerald-400" />
             <div>
@@ -86,21 +86,21 @@ export const AuditLogViewerModal: React.FC<AuditLogViewerModalProps> = ({
             No hay registros de auditoría almacenados.
           </div>
         ) : (
-          <div className="max-h-96 overflow-y-auto space-y-2 pr-1">
+          <div className="max-h-[55dvh] sm:max-h-96 overflow-y-auto space-y-2 pr-1">
             {logs.map((log) => (
               <div
                 key={log.id}
-                className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 flex items-start justify-between text-xs transition-colors hover:border-slate-300 dark:hover:border-slate-700"
+                className="p-3 sm:p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-start justify-between gap-2 text-xs transition-colors hover:border-slate-300 dark:hover:border-slate-700"
               >
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="font-mono text-[10px] px-2 py-0.5 rounded-md font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
                       {log.action}
                     </span>
                     <span className="text-slate-800 dark:text-slate-200 font-semibold">{log.description}</span>
                   </div>
 
-                  <div className="flex items-center gap-4 text-[10px] text-slate-400 pt-1">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] text-slate-400 pt-1">
                     {log.branch && (
                       <span className="flex items-center gap-1">
                         <Building2 className="h-3 w-3 text-emerald-400 shrink-0" />

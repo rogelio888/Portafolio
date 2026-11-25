@@ -37,8 +37,8 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ paymentId, onClose }
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] bg-slate-950/80 flex items-center justify-center p-4 print:p-0 print:bg-transparent">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 print:bg-transparent print:border-none print:shadow-none print:p-0">
+    <div className="fixed inset-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4 print:p-0 print:bg-transparent">
+      <div className="my-auto bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-4 sm:p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 print:bg-transparent print:border-none print:shadow-none print:p-0">
         <button
           type="button"
           onClick={onClose}
@@ -71,17 +71,17 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ paymentId, onClose }
 
             {/* Receipt Items */}
             <div className="space-y-2 text-xs py-1">
-              <div className="flex justify-between">
-                <span className="text-slate-400">Cliente:</span>
-                <span className="font-bold text-white">{receiptData.client_name}</span>
+              <div className="flex justify-between gap-3">
+                <span className="text-slate-400 shrink-0">Cliente:</span>
+                <span className="font-bold text-white text-right break-words">{receiptData.client_name}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Concepto / Plan:</span>
-                <span className="font-bold text-emerald-300">{receiptData.plan_name}</span>
+              <div className="flex justify-between gap-3">
+                <span className="text-slate-400 shrink-0">Concepto / Plan:</span>
+                <span className="font-bold text-emerald-300 text-right break-words">{receiptData.plan_name}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Método de Pago:</span>
-                <span className="font-semibold text-slate-200 uppercase">
+              <div className="flex justify-between gap-3">
+                <span className="text-slate-400 shrink-0">Método de Pago:</span>
+                <span className="font-semibold text-slate-200 uppercase text-right">
                   {receiptData.payment_method === 'cash'
                     ? 'Efectivo'
                     : receiptData.payment_method === 'qr_transfer'
@@ -89,13 +89,13 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ paymentId, onClose }
                     : 'Tarjeta'}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Atendido Por:</span>
-                <span className="text-slate-300">{receiptData.processed_by || 'Recepción'}</span>
+              <div className="flex justify-between gap-3">
+                <span className="text-slate-400 shrink-0">Atendido Por:</span>
+                <span className="text-slate-300 text-right break-words">{receiptData.processed_by || 'Recepción'}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-400">Fecha y Hora:</span>
-                <span className="font-mono text-slate-300">{receiptData.paid_at}</span>
+              <div className="flex justify-between gap-3">
+                <span className="text-slate-400 shrink-0">Fecha y Hora:</span>
+                <span className="font-mono text-slate-300 text-right">{receiptData.paid_at}</span>
               </div>
             </div>
 
@@ -117,7 +117,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ paymentId, onClose }
             </div>
 
             {/* Print Action Buttons */}
-            <div className="pt-3 flex gap-3 print:hidden">
+            <div className="pt-3 flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3 print:hidden">
               <button
                 type="button"
                 onClick={onClose}

@@ -132,25 +132,25 @@ export const CashManagementPage: React.FC = () => {
   const totalDigitalSales = branchesSummary.reduce((acc, b) => acc + ((b.shift?.qr_sales || 0) + (b.shift?.card_sales || 0)), 0);
 
   return (
-    <div className="p-6 space-y-6 animate-in fade-in duration-300">
+    <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-6 animate-in fade-in duration-300">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
-            <DollarSign className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
-            Control de Caja Chica & Turnos
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+            <DollarSign className="h-6 w-6 sm:h-7 sm:w-7 text-emerald-500 dark:text-emerald-400 shrink-0" />
+            <span>Control de Caja Chica & Turnos</span>
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Gestión de apertura, arqueo de caja y rendimiento de cobros en Bolivianos (Bs.)
           </p>
         </div>
 
-        <div>
+        <div className="w-full md:w-auto">
           {isAdmin && (isConsolidated || activeBranchId === 'all') ? (
             <button
               type="button"
               onClick={() => setIsOpenModalOpen(true)}
-              className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer"
+              className="w-full md:w-auto justify-center px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Unlock className="h-4 w-4" />
               <span>Abrir Caja en Sucursal</span>
@@ -159,7 +159,7 @@ export const CashManagementPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsCloseModalOpen(true)}
-              className="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2 cursor-pointer"
+              className="w-full md:w-auto justify-center px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Lock className="h-4 w-4" />
               <span>Arqueo & Cerrar Caja ({activeShift.branch_name || 'Sede'})</span>
@@ -168,7 +168,7 @@ export const CashManagementPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsOpenModalOpen(true)}
-              className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer"
+              className="w-full md:w-auto justify-center px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Unlock className="h-4 w-4" />
               <span>Abrir Caja Chica</span>
@@ -188,7 +188,7 @@ export const CashManagementPage: React.FC = () => {
           {isAdmin && isConsolidated ? (
             <div className="space-y-6">
               {/* Summary Banner */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 flex items-center gap-3 shadow-sm dark:shadow-md">
                   <div className="h-10 w-10 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-xl flex items-center justify-center shrink-0">
                     <CheckCircle2 className="h-5 w-5" />
@@ -237,19 +237,19 @@ export const CashManagementPage: React.FC = () => {
                   Estado de Caja Chica por Sucursal (Cadena FitScan)
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
                   {branchesSummary.map((item) => (
                     <div
                       key={item.branch.id}
-                      className={`bg-white dark:bg-slate-900 border rounded-3xl p-5 shadow-sm dark:shadow-xl transition-all relative overflow-hidden ${
+                      className={`bg-white dark:bg-slate-900 border rounded-3xl p-4 sm:p-5 shadow-sm dark:shadow-xl transition-all relative overflow-hidden ${
                         item.is_open
                           ? 'border-emerald-500/40 shadow-emerald-500/5'
                           : 'border-slate-200 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700'
                       }`}
                     >
                       {/* Status Header */}
-                      <div className="flex items-start justify-between gap-3 mb-4 border-b border-slate-200 dark:border-slate-800/80 pb-4">
-                        <div>
+                      <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3 mb-4 border-b border-slate-200 dark:border-slate-800/80 pb-3.5 sm:pb-4">
+                        <div className="min-w-0">
                           <h4 className="text-base font-black text-slate-900 dark:text-white tracking-tight">{item.branch.name}</h4>
                           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.branch.address || 'Sede Central'}</p>
                         </div>
@@ -270,7 +270,7 @@ export const CashManagementPage: React.FC = () => {
                       {item.is_open ? (
                         <div className="space-y-4">
                           {/* Receptionist info */}
-                          <div className="flex items-center justify-between text-xs bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-3">
+                          <div className="flex flex-wrap items-center justify-between gap-2 text-xs bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-3">
                             <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
                               <UserCheck className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
                               <span>Atendido por: <strong className="text-slate-900 dark:text-white">{item.shift.opened_by}</strong></span>
@@ -330,19 +330,19 @@ export const CashManagementPage: React.FC = () => {
             activeShift ? (
               <div className="space-y-3">
                 {activeShift.is_overdue && (
-                  <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-amber-200 text-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg backdrop-blur-md">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center shrink-0 animate-pulse">
+                  <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-amber-800 dark:text-amber-200 text-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-lg backdrop-blur-md">
+                    <div className="flex items-start sm:items-center gap-3">
+                      <div className="h-10 w-10 rounded-xl bg-amber-500/20 text-amber-500 dark:text-amber-400 border border-amber-500/40 flex items-center justify-center shrink-0 animate-pulse">
                         <AlertCircle className="h-6 w-6" />
                       </div>
                       <div>
-                        <h4 className="font-extrabold text-amber-300 text-xs flex items-center gap-2">
-                          ⚠️ Turno de Caja Abierto de Fecha Anterior ({activeShift.opened_at_formatted || activeShift.opened_at})
-                          <span className="bg-amber-500/20 text-amber-200 px-2 py-0.5 rounded-md font-mono text-[10px]">
+                        <h4 className="font-extrabold text-amber-700 dark:text-amber-300 text-xs flex flex-wrap items-center gap-2">
+                          <span>⚠️ Turno de Caja Abierto de Fecha Anterior ({activeShift.opened_at_formatted || activeShift.opened_at})</span>
+                          <span className="bg-amber-500/20 text-amber-800 dark:text-amber-200 px-2 py-0.5 rounded-md font-mono text-[10px]">
                             {activeShift.days_overdue} día{activeShift.days_overdue === 1 ? '' : 's'} sin cerrar
                           </span>
                         </h4>
-                        <p className="text-[11px] text-amber-200/90 mt-0.5">
+                        <p className="text-[11px] text-amber-700/90 dark:text-amber-200/90 mt-0.5">
                           Atención: El turno activo no fue cerrado al finalizar el día. Realice el arqueo y cierre extemporáneo inmediatamente para no descuadrar la contabilidad de hoy.
                         </p>
                       </div>
@@ -351,7 +351,7 @@ export const CashManagementPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setIsCloseModalOpen(true)}
-                      className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl shadow-md transition-all shrink-0 cursor-pointer flex items-center gap-1.5"
+                      className="w-full md:w-auto justify-center px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs rounded-xl shadow-md transition-all shrink-0 cursor-pointer flex items-center gap-1.5"
                     >
                       <Lock className="h-3.5 w-3.5" />
                       <span>Arqueo & Cerrar Caja Vencida</span>
@@ -359,11 +359,11 @@ export const CashManagementPage: React.FC = () => {
                   </div>
                 )}
 
-                <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-xl w-fit">
-                  <Building2 className="h-4 w-4" />
-                  <span>Turno Activo en: {activeShift.branch_name || 'Sucursal Asignada'}</span>
+                <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-xl w-fit max-w-full">
+                  <Building2 className="h-4 w-4 shrink-0" />
+                  <span className="truncate">Turno Activo en: {activeShift.branch_name || 'Sucursal Asignada'}</span>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                   <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
                     <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-bold mb-2">
                       <span>Fondo Inicial en Caja</span>
@@ -412,7 +412,7 @@ export const CashManagementPage: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-12 text-center max-w-xl mx-auto space-y-4 shadow-xl">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-12 text-center max-w-xl mx-auto space-y-4 shadow-xl">
                 <div className="h-16 w-16 bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 rounded-2xl flex items-center justify-center mx-auto">
                   <AlertCircle className="h-8 w-8" />
                 </div>
@@ -435,20 +435,20 @@ export const CashManagementPage: React.FC = () => {
           )}
 
           {/* History Table */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 space-y-4 shadow-sm dark:shadow-xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-3.5 sm:p-5 space-y-4 shadow-sm dark:shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
               <div className="flex items-center gap-2">
-                <History className="h-5 w-5 text-emerald-500 dark:text-emerald-400" />
-                <h2 className="text-base font-bold text-slate-900 dark:text-white">Historial Auditado de Turnos de Caja</h2>
+                <History className="h-5 w-5 text-emerald-500 dark:text-emerald-400 shrink-0" />
+                <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Historial Auditado de Turnos de Caja</h2>
               </div>
             </div>
 
             {/* Filter Bar */}
-            <div className="p-3.5 bg-slate-50 dark:bg-slate-950/80 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="p-3 sm:p-3.5 bg-slate-50 dark:bg-slate-950/80 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
+              <div className="flex flex-col lg:flex-row lg:flex-wrap lg:items-center justify-between gap-3">
                 {/* Presets & Dates */}
-                <div className="flex flex-wrap items-center gap-3">
-                  <div className="flex items-center gap-1.5">
+                <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2.5 sm:gap-3">
+                  <div className="flex flex-wrap items-center gap-1.5">
                     {(['today', 'week', 'month', 'custom'] as const).map((preset) => (
                       <button
                         key={preset}
@@ -471,36 +471,42 @@ export const CashManagementPage: React.FC = () => {
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Desde:</span>
-                    <CustomDatePicker
-                      value={historyStartDate}
-                      onChange={(val) => {
-                        setHistoryPreset('custom');
-                        setHistoryStartDate(val);
-                      }}
-                    />
+                  <div className="grid grid-cols-1 min-[420px]:grid-cols-2 sm:flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 shrink-0">Desde:</span>
+                      <CustomDatePicker
+                        value={historyStartDate}
+                        onChange={(val) => {
+                          setHistoryPreset('custom');
+                          setHistoryStartDate(val);
+                        }}
+                        className="w-full sm:w-auto"
+                      />
+                    </div>
 
-                    <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Hasta:</span>
-                    <CustomDatePicker
-                      value={historyEndDate}
-                      onChange={(val) => {
-                        setHistoryPreset('custom');
-                        setHistoryEndDate(val);
-                      }}
-                    />
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 shrink-0">Hasta:</span>
+                      <CustomDatePicker
+                        value={historyEndDate}
+                        onChange={(val) => {
+                          setHistoryPreset('custom');
+                          setHistoryEndDate(val);
+                        }}
+                        className="w-full sm:w-auto"
+                      />
+                    </div>
                   </div>
                 </div>
 
                 {/* Status & Reset */}
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2">
-                    <Filter className="h-4 w-4 text-slate-400" />
-                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Estado:</span>
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex items-center gap-2 flex-1 sm:flex-initial">
+                    <Filter className="h-4 w-4 text-slate-400 shrink-0" />
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300 shrink-0">Estado:</span>
                     <select
                       value={historyStatus}
                       onChange={(e) => setHistoryStatus(e.target.value)}
-                      className="px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
+                      className="flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
                     >
                       <option value="all">Todos los Estados</option>
                       <option value="closed">Cerradas</option>
@@ -517,7 +523,7 @@ export const CashManagementPage: React.FC = () => {
                         setHistoryPreset('custom');
                         setTimeout(() => fetchHistory(1), 50);
                       }}
-                      className="p-2 text-xs font-semibold text-slate-400 hover:text-slate-200 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer"
+                      className="p-2 text-xs font-semibold text-slate-400 hover:text-slate-200 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer shrink-0"
                       title="Limpiar Filtros"
                     >
                       <RefreshCw className="h-4 w-4" />
@@ -527,7 +533,76 @@ export const CashManagementPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="overflow-x-auto">
+            {/* Mobile Shifts Cards */}
+            <div className="md:hidden divide-y divide-slate-100 dark:divide-slate-800/80 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden">
+              {historyShifts.length === 0 ? (
+                <div className="py-8 px-4 text-center text-xs text-slate-500 dark:text-slate-400">
+                  No se encontraron turnos de caja con los filtros aplicados.
+                </div>
+              ) : (
+                historyShifts.map((shift: any) => {
+                  const diff = parseFloat(shift.difference || '0');
+                  const isOpenShift = shift.status === 'open';
+                  return (
+                    <div key={shift.id} className="p-3.5 space-y-2.5 bg-white dark:bg-slate-950/40">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <span className="font-bold text-xs text-emerald-600 dark:text-emerald-400 block truncate">
+                            {shift.branch?.name || 'Sede'}
+                          </span>
+                          <p className="text-[11px] font-semibold text-slate-800 dark:text-slate-200">
+                            {shift.opened_by?.name || 'Recepción'}
+                          </p>
+                        </div>
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border shrink-0 ${
+                          isOpenShift
+                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                        }`}>
+                          {isOpenShift ? 'Abierta' : 'Cerrada'}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                        <div>
+                          <span className="block font-sans text-slate-400">Apertura:</span>
+                          <span>{shift.opened_at ? new Date(shift.opened_at).toLocaleString('es-BO') : '-'}</span>
+                        </div>
+                        <div>
+                          <span className="block font-sans text-slate-400">Cierre:</span>
+                          <span>{shift.closed_at ? new Date(shift.closed_at).toLocaleString('es-BO') : '-'}</span>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 text-[11px] pt-1">
+                        <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                          <span className="text-[10px] text-slate-400 block">Inicial / Esperado</span>
+                          <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
+                            Bs. {parseFloat(shift.initial_amount || '0').toFixed(2)}
+                          </span>
+                          <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 block">
+                            Esp: Bs. {parseFloat(shift.expected_amount || '0').toFixed(2)}
+                          </span>
+                        </div>
+                        <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-right">
+                          <span className="text-[10px] text-slate-400 block">Contado / Dif.</span>
+                          <span className="font-mono font-black text-slate-900 dark:text-white block">
+                            Bs. {parseFloat(shift.actual_amount || '0').toFixed(2)}
+                          </span>
+                          <span className={`font-mono font-bold block ${
+                            diff === 0 ? 'text-emerald-600 dark:text-emerald-400' : diff > 0 ? 'text-blue-600 dark:text-blue-400' : 'text-rose-600 dark:text-rose-400'
+                          }`}>
+                            {diff > 0 ? '+' : ''}Bs. {diff.toFixed(2)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            <div className="hidden md:block overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold uppercase text-[10px] tracking-wider bg-slate-50 dark:bg-slate-950/60">
@@ -594,8 +669,8 @@ export const CashManagementPage: React.FC = () => {
 
             {/* Pagination Controls */}
             {historyTotal > 0 && (
-              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                <p>
+              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-center sm:text-left">
                   Página <span className="font-bold text-slate-900 dark:text-white">{historyCurrentPage}</span> de <span className="font-bold text-slate-900 dark:text-white">{historyLastPage}</span> ({historyTotal} turnos de caja)
                 </p>
 

@@ -308,42 +308,42 @@ export const PaymentsListPage: React.FC = () => {
   });
 
   return (
-    <div className="p-6 space-y-6 animate-in fade-in duration-300">
+    <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-6 animate-in fade-in duration-300">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
-            <CreditCard className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
-            Pagos, Cobros & Bitácora de Ingresos
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+            <CreditCard className="h-6 w-6 sm:h-7 sm:w-7 text-emerald-500 dark:text-emerald-400 shrink-0" />
+            <span>Pagos, Cobros & Bitácora de Ingresos</span>
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Historial auditado de transacciones, recaudaciones en Bolivianos (Bs.) y emisión de comprobantes.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2.5 w-full sm:w-auto">
           <button
             onClick={() => setIsChargeModalOpen(true)}
-            className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-xs py-2.5 px-4 rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+            className="flex-1 sm:flex-initial justify-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold text-xs py-2.5 px-4 rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 cursor-pointer active:scale-95"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4 shrink-0" />
             <span>Registrar Nuevo Cobro</span>
           </button>
 
           <button
             onClick={handleExportCsv}
             disabled={payments.length === 0}
-            className="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs py-2.5 px-3.5 rounded-xl border border-slate-200 dark:border-slate-700 transition-all cursor-pointer disabled:opacity-40 flex items-center gap-1.5"
+            className="flex-1 sm:flex-initial justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs py-2.5 px-3.5 rounded-xl border border-slate-200 dark:border-slate-700 transition-all cursor-pointer disabled:opacity-40 flex items-center gap-1.5"
             title="Exportar bitácora a CSV/Excel"
           >
-            <FileSpreadsheet className="h-4 w-4 text-emerald-500" />
+            <FileSpreadsheet className="h-4 w-4 text-emerald-500 shrink-0" />
             <span>Exportar</span>
           </button>
         </div>
       </div>
 
       {/* KPI Financial Breakdown Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white dark:bg-slate-900/80 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 flex items-center justify-between shadow-sm dark:shadow-md">
           <div>
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Recaudación Total</span>
@@ -394,10 +394,10 @@ export const PaymentsListPage: React.FC = () => {
       </div>
 
       {/* Filters Bar */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 space-y-3.5 shadow-sm dark:shadow-md">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-3.5 sm:p-4 space-y-3.5 shadow-sm dark:shadow-md">
         {/* Row 1: Period Presets & Date Range Inputs */}
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-1.5">
+        <div className="flex flex-col lg:flex-row lg:flex-wrap lg:items-center gap-3">
+          <div className="flex flex-wrap items-center gap-1.5">
             {(['today', 'week', 'month', 'custom'] as const).map((preset) => (
               <button
                 key={preset}
@@ -422,32 +422,38 @@ export const PaymentsListPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Desde:</span>
-            <CustomDatePicker
-              value={startDate}
-              onChange={(val) => {
-                setDateRangePreset('custom');
-                setStartDate(val);
-              }}
-              isDark={isDark}
-            />
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 sm:flex items-center gap-2">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 shrink-0">Desde:</span>
+              <CustomDatePicker
+                value={startDate}
+                onChange={(val) => {
+                  setDateRangePreset('custom');
+                  setStartDate(val);
+                }}
+                isDark={isDark}
+                className="w-full sm:w-auto"
+              />
+            </div>
 
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Hasta:</span>
-            <CustomDatePicker
-              value={endDate}
-              onChange={(val) => {
-                setDateRangePreset('custom');
-                setEndDate(val);
-              }}
-              isDark={isDark}
-            />
+            <div className="flex items-center gap-1.5 min-w-0">
+              <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 shrink-0">Hasta:</span>
+              <CustomDatePicker
+                value={endDate}
+                onChange={(val) => {
+                  setDateRangePreset('custom');
+                  setEndDate(val);
+                }}
+                isDark={isDark}
+                className="w-full sm:w-auto"
+              />
+            </div>
           </div>
         </div>
 
         {/* Row 2: Search Bar & Payment Method Selector */}
-        <div className="flex flex-wrap items-center gap-3 pt-2.5 border-t border-slate-200 dark:border-slate-800/60">
-          <div className="relative flex-1 min-w-[240px]">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 pt-2.5 border-t border-slate-200 dark:border-slate-800/60">
+          <div className="relative flex-1 min-w-0 sm:min-w-[240px]">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 dark:text-slate-500" />
             <input
               type="text"
@@ -460,13 +466,13 @@ export const PaymentsListPage: React.FC = () => {
           </div>
 
           {/* Payment Method Selector */}
-          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-2xl border border-slate-200 dark:border-slate-800 shrink-0">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-1 bg-slate-100 dark:bg-slate-950 p-1 rounded-2xl border border-slate-200 dark:border-slate-800 w-full sm:w-auto">
             {(['all', 'cash', 'qr_transfer', 'card'] as const).map((method) => (
               <button
                 key={method}
                 type="button"
                 onClick={() => setSelectedMethod(method)}
-                className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex-1 sm:flex-initial px-2.5 sm:px-3 py-1.5 sm:py-1 rounded-xl text-[11px] sm:text-xs font-bold transition-all cursor-pointer whitespace-nowrap text-center ${
                   selectedMethod === method
                     ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -504,7 +510,78 @@ export const PaymentsListPage: React.FC = () => {
 
       {/* Payments Table */}
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm dark:shadow-xl">
-        <div className="overflow-x-auto">
+        {/* Mobile Payment Cards */}
+        <div className="md:hidden divide-y divide-slate-100 dark:divide-slate-800/80">
+          {isLoading ? (
+            <div className="py-12 text-center">
+              <Loader2 className="h-7 w-7 text-emerald-500 dark:text-emerald-400 animate-spin mx-auto mb-2" />
+              <span className="text-slate-500 dark:text-slate-400 text-xs font-semibold">Cargando bitácora de pagos...</span>
+            </div>
+          ) : payments.length === 0 ? (
+            <div className="py-12 px-4 text-center text-xs text-slate-500 dark:text-slate-400">
+              No se encontraron cobros registrados con los filtros aplicados.
+            </div>
+          ) : (
+            payments.map((p: any) => {
+              const clientName = p.client?.full_name || p.client_name || (p.client?.first_name ? `${p.client.first_name} ${p.client.last_name || ''}`.trim() : 'Socio');
+              const branchName = p.branch?.name || p.branch_name || p.client?.branch?.name || 'Sucursal Sede';
+              return (
+              <div key={p.id} className="p-3.5 space-y-2.5">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <span className="font-mono text-[11px] font-bold text-emerald-600 dark:text-emerald-400 block">
+                      {p.receipt_number || 'REC-GENERAL'}
+                    </span>
+                    <p className="font-bold text-sm text-slate-900 dark:text-white truncate">
+                      {clientName}
+                    </p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className="font-mono font-black text-base text-slate-900 dark:text-white block">
+                      Bs. {parseFloat(p.amount || '0').toFixed(2)}
+                    </span>
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      p.payment_method === 'cash'
+                        ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30'
+                        : p.payment_method === 'qr_transfer'
+                        ? 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30'
+                        : 'bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/30'
+                    }`}>
+                      {p.payment_method === 'cash' ? 'Efectivo' : p.payment_method === 'qr_transfer' ? 'QR Pago' : 'Tarjeta'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+                  <span className="font-medium text-slate-700 dark:text-slate-300">
+                    {p.client_membership?.membership?.name || p.concept || p.plan_name || 'Pago de Membresía'}
+                  </span>
+                  <span className="font-mono text-[10px]">
+                    {p.paid_at ? new Date(p.paid_at).toLocaleString('es-BO') : '-'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/60">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 truncate">
+                    <Building2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                    <span className="truncate">{branchName}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedReceiptId(p.id)}
+                    className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-emerald-600 dark:text-emerald-400 font-bold text-xs rounded-xl transition-all inline-flex items-center gap-1.5 cursor-pointer shrink-0"
+                  >
+                    <Receipt className="h-3.5 w-3.5" />
+                    <span>Recibo</span>
+                  </button>
+                </div>
+              </div>
+              );
+            })
+          )}
+        </div>
+
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold uppercase text-[10px] tracking-wider bg-slate-50 dark:bg-slate-950/60">
@@ -547,7 +624,7 @@ export const PaymentsListPage: React.FC = () => {
                     <td className="py-3.5 px-4 font-bold text-slate-700 dark:text-slate-300">
                       <div className="flex items-center gap-1">
                         <Building2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                        <span>{p.branch?.name || p.client?.branch?.name || 'Sucursal Sede'}</span>
+                        <span>{p.branch?.name || p.branch_name || p.client?.branch?.name || 'Sucursal Sede'}</span>
                       </div>
                     </td>
 
@@ -555,7 +632,7 @@ export const PaymentsListPage: React.FC = () => {
                     <td className="py-3.5 px-4">
                       <div>
                         <p className="font-bold text-slate-900 dark:text-white">
-                          {p.client ? `${p.client.first_name} ${p.client.last_name}` : 'Socio'}
+                          {p.client?.full_name || p.client_name || (p.client?.first_name ? `${p.client.first_name} ${p.client.last_name || ''}`.trim() : 'Socio')}
                         </p>
                         <p className="text-[10px] text-slate-400 font-mono">
                           {p.client?.phone ? `Tel: ${p.client.phone}` : (p.client?.email || 'Socio Registrado')}
@@ -565,7 +642,7 @@ export const PaymentsListPage: React.FC = () => {
 
                     {/* Concepto */}
                     <td className="py-3.5 px-4 text-slate-700 dark:text-slate-300 font-medium">
-                      {p.client_membership?.membership?.name || p.concept || 'Pago de Membresía'}
+                      {p.client_membership?.membership?.name || p.concept || p.plan_name || 'Pago de Membresía'}
                     </td>
 
                     {/* Metodo */}
@@ -600,7 +677,7 @@ export const PaymentsListPage: React.FC = () => {
 
                     {/* Atendido Por */}
                     <td className="py-3.5 px-4 text-slate-500 dark:text-slate-400 text-xs">
-                      {p.processed_by?.name || 'Recepción'}
+                      {typeof p.processed_by === 'string' ? p.processed_by : (p.processed_by?.name || 'Recepción')}
                     </td>
 
                     {/* Fecha */}
@@ -629,8 +706,8 @@ export const PaymentsListPage: React.FC = () => {
 
         {/* Pagination Controls */}
         {totalCount > 0 && (
-          <div className="px-5 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-950/80">
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+          <div className="px-4 sm:px-5 py-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-50 dark:bg-slate-950/80">
+            <p className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
               Mostrando página <span className="font-bold text-slate-900 dark:text-white">{currentPage}</span> de <span className="font-bold text-slate-900 dark:text-white">{lastPage}</span> ({totalCount} cobros registrados)
             </p>
 
@@ -659,8 +736,8 @@ export const PaymentsListPage: React.FC = () => {
 
       {/* Modal: New Charge */}
       {isChargeModalOpen && (
-        <div className="fixed inset-0 !m-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-2xl relative my-8">
+        <div className="fixed inset-0 !m-0 z-[100] overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="my-auto w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-2xl relative">
             <button
               onClick={() => setIsChargeModalOpen(false)}
               className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-white rounded-full bg-slate-100 dark:bg-slate-800 transition-all cursor-pointer"
@@ -668,7 +745,7 @@ export const PaymentsListPage: React.FC = () => {
               <X className="h-4 w-4" />
             </button>
 
-            <h2 className="text-lg font-extrabold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
+            <h2 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white mb-1 pr-8 flex items-center gap-2">
               <DollarSign className="h-5 w-5 text-emerald-500" />
               Registrar Nuevo Cobro Presencial
             </h2>
@@ -804,7 +881,7 @@ export const PaymentsListPage: React.FC = () => {
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
                   Tipo de Cobro *
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => handleActionTypeChange('renewal')}
@@ -901,7 +978,7 @@ export const PaymentsListPage: React.FC = () => {
                 <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                   Método de Pago *
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {[
                     { id: 'cash', label: 'Efectivo', icon: DollarSign },
                     { id: 'qr_transfer', label: 'QR / Transf.', icon: QrCode },
@@ -928,18 +1005,18 @@ export const PaymentsListPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-3">
+              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={() => setIsChargeModalOpen(false)}
-                  className="px-4 py-2 text-xs text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white cursor-pointer"
+                  className="w-full sm:w-auto px-4 py-2.5 sm:py-2 text-xs text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white bg-slate-100 dark:bg-slate-800/60 sm:bg-transparent rounded-xl cursor-pointer text-center"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmittingCharge}
-                  className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 cursor-pointer disabled:opacity-50 flex items-center gap-2"
+                  className="w-full sm:w-auto px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {isSubmittingCharge ? (
                     <>

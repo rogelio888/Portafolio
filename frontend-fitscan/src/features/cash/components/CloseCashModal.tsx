@@ -57,8 +57,8 @@ export const CloseCashModal: React.FC<CloseCashModalProps> = ({
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] bg-slate-950/80 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4">
+      <div className="my-auto bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
         <button
           type="button"
           onClick={onClose}
@@ -67,7 +67,7 @@ export const CloseCashModal: React.FC<CloseCashModalProps> = ({
           <X className="h-5 w-5" />
         </button>
 
-        <div className="flex items-center gap-3 mb-5">
+        <div className="flex items-center gap-3 mb-5 pr-8">
           <div className="h-12 w-12 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
             <Calculator className="h-6 w-6" />
           </div>
@@ -121,7 +121,7 @@ export const CloseCashModal: React.FC<CloseCashModalProps> = ({
           </div>
 
           {/* Difference Indicator */}
-          <div className={`p-3 rounded-xl text-xs font-bold flex items-center justify-between border ${
+          <div className={`p-3 rounded-xl text-xs font-bold flex flex-wrap items-center justify-between gap-2 border ${
             difference === 0
               ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
               : difference > 0
@@ -156,7 +156,7 @@ export const CloseCashModal: React.FC<CloseCashModalProps> = ({
             />
           </div>
 
-          <div className="pt-2 flex gap-3">
+          <div className="pt-2 flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3">
             <button
               type="button"
               onClick={onClose}

@@ -49,6 +49,7 @@ const INITIAL_MEMBERSHIPS = [
     id: 'mem-1',
     name: 'Plan Mensual Pase Libre',
     duration_days: 30,
+    price: 250,
     price_bs: 250,
     description: 'Acceso ilimitado a sala de musculación, cardio y clases grupales.',
     features: ['Musculación ilimitada', 'Evaluación física inicial', 'Acceso QR Kiosco'],
@@ -61,6 +62,7 @@ const INITIAL_MEMBERSHIPS = [
     id: 'mem-2',
     name: 'Plan Estudiante AM',
     duration_days: 30,
+    price: 180,
     price_bs: 180,
     description: 'Ingreso en horario matutino de 06:00 a 14:00 horas con carnet.',
     features: ['Horario 06:00 - 14:00', 'Rutina personalizada', 'Acceso QR'],
@@ -73,6 +75,7 @@ const INITIAL_MEMBERSHIPS = [
     id: 'mem-3',
     name: 'Plan Trimestral Multi-Sede',
     duration_days: 90,
+    price: 650,
     price_bs: 650,
     description: 'Entrena en cualquier sucursal FitScan durante 3 meses continuos.',
     features: ['Acceso Multi-Sede', 'Congelamiento 10 días', 'Asesoría nutricional'],
@@ -85,6 +88,7 @@ const INITIAL_MEMBERSHIPS = [
     id: 'mem-4',
     name: 'Plan Anual VIP',
     duration_days: 365,
+    price: 2200,
     price_bs: 2200,
     description: 'Membresía anual completa con casillero privado y toallas.',
     features: ['Multi-Sede total', 'Invitados fines de semana', 'Locker privado'],
@@ -512,11 +516,18 @@ export const fitscanMockAdapter: AxiosAdapter = async (config) => {
 
   // Memberships
   if (url === '/memberships' && method === 'get') {
-    return makeResponse(config, { data: getStore(KEYS.memberships, INITIAL_MEMBERSHIPS) });
+    const rawList = getStore(KEYS.memberships, INITIAL_MEMBERSHIPS);
+    const normalized = rawList.map((m: any) => ({
+      ...m,
+      price: Number(m.price ?? m.price_bs ?? 0),
+      price_bs: Number(m.price_bs ?? m.price ?? 0),
+    }));
+    return makeResponse(config, { data: normalized });
   }
   if (url === '/memberships' && method === 'post') {
     const list = getStore(KEYS.memberships, INITIAL_MEMBERSHIPS);
-    const created = { id: `mem-${Date.now()}`, ...body, active_clients_count: 0 };
+    const val = Number(body.price ?? body.price_bs ?? 0);
+    const created = { id: `mem-${Date.now()}`, ...body, price: val, price_bs: val, active_clients_count: 0 };
     setStore(KEYS.memberships, [...list, created]);
     return makeResponse(config, { data: created });
   }
@@ -876,9 +887,20 @@ export const fitscanMockAdapter: AxiosAdapter = async (config) => {
   // Reports
   if (url === '/reports/financial') {
     const payments = getStore(KEYS.payments, INITIAL_PAYMENTS);
-    const total = payments.reduce((a: number, p: any) => a + p.amount, 0);
+    const sumByMethod = (m: string) =>
+      payments
+        .filter((p: any) => p.payment_method === m)
+        .reduce((a: number, p: any) => a + Number(p.amount ?? p.amount_bs ?? 0), 0);
+    const total = payments.reduce((a: number, p: any) => a + Number(p.amount ?? p.amount_bs ?? 0), 0);
     return makeResponse(config, {
-      summary: { total_revenue_bs: total, total_transactions: payments.length, cash_bs: 650, qr_bs: 250, card_bs: 180 },
+      summary: {
+        total_amount_bs: total,
+        total_revenue_bs: total,
+        total_transactions: payments.length,
+        cash_total_bs: sumByMethod('cash'),
+        qr_total_bs: sumByMethod('qr_transfer'),
+        card_total_bs: sumByMethod('card'),
+      },
       payments,
     });
   }

@@ -86,8 +86,8 @@ export const TransferBranchModal: React.FC<TransferBranchModalProps> = ({
   const currentBranchName = client.branch_name || currentBranch?.name || 'Sucursal Matriz Actual';
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] bg-slate-950/80 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[9999] bg-slate-950/80 overflow-y-auto flex items-start sm:items-center justify-center p-3 sm:p-4">
+      <div className="my-auto bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
         <button
           type="button"
           onClick={onClose}
@@ -96,7 +96,7 @@ export const TransferBranchModal: React.FC<TransferBranchModalProps> = ({
           <X className="h-5 w-5" />
         </button>
 
-        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-800">
+        <div className="flex items-center gap-2 mb-4 pb-3 pr-8 border-b border-slate-800">
           <ArrowRightLeft className="h-5 w-5 text-emerald-400" />
           <div>
             <h2 className="text-base font-bold text-white">Transferir Socio de Sucursal</h2>
@@ -152,7 +152,7 @@ export const TransferBranchModal: React.FC<TransferBranchModalProps> = ({
             />
           </div>
 
-          <div className="pt-3 flex gap-3">
+          <div className="pt-3 flex flex-col-reverse sm:flex-row gap-2.5 sm:gap-3">
             <button
               type="button"
               onClick={onClose}

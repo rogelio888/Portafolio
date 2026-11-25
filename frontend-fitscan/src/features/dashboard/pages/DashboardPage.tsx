@@ -186,10 +186,10 @@ export const DashboardPage: React.FC = () => {
   const peakHoursChart = data?.peak_hours_chart || [];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-6">
       {/* Banner Superior */}
       <div
-        className={`rounded-3xl border p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl transition-colors ${
+        className={`rounded-3xl border p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl transition-colors ${
           isDark
             ? 'bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/60 border-emerald-500/20'
             : 'bg-gradient-to-r from-white via-slate-50 to-emerald-50 border-emerald-200'
@@ -202,7 +202,7 @@ export const DashboardPage: React.FC = () => {
               Panel de Control Principal
             </span>
           </div>
-          <h1 className={`text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
+          <h1 className={`text-xl sm:text-2xl font-black ${isDark ? 'text-white' : 'text-slate-900'}`}>
             Resumen General del Gimnasio
           </h1>
           <p className={`text-xs mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
@@ -210,11 +210,11 @@ export const DashboardPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3 w-full md:w-auto">
           <button
             onClick={() => fetchDashboardStats(true)}
             disabled={isRefreshing}
-            className={`p-3 rounded-2xl border transition-all cursor-pointer ${
+            className={`p-3 rounded-2xl border transition-all cursor-pointer shrink-0 ${
               isDark
                 ? 'bg-slate-800/80 border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800'
                 : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50'
@@ -226,10 +226,10 @@ export const DashboardPage: React.FC = () => {
 
           <button
             onClick={handleLaunchKiosk}
-            className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs py-3 px-5 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center gap-2 cursor-pointer"
+            className="flex-1 md:flex-initial justify-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs py-3 px-4 sm:px-5 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center gap-2 cursor-pointer"
           >
-            <QrCode className="h-4 w-4" />
-            Abrir Módulo de Asistencia Kiosco
+            <QrCode className="h-4 w-4 shrink-0" />
+            <span>Abrir Módulo de Asistencia Kiosco</span>
           </button>
         </div>
       </div>
@@ -241,7 +241,7 @@ export const DashboardPage: React.FC = () => {
           {/* Alerta de Caja Chica */}
           {stats && (activeBranchId !== 'all' || stats.cash_shift_active) && (
             <div
-          className={`p-4 rounded-2xl border flex items-center justify-between gap-3 text-xs ${
+          className={`p-3.5 sm:p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 text-xs ${
             stats.cash_shift_active
               ? isDark
                 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
@@ -397,7 +397,7 @@ export const DashboardPage: React.FC = () => {
             {isLoading ? (
               <div className="h-7 w-24 bg-slate-800 animate-pulse rounded mt-1" />
             ) : (
-              <h3 className={`text-2xl font-black mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              <h3 className={`text-xl sm:text-2xl font-black mt-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Bs. {(stats?.month_revenue_bs ?? 0).toLocaleString('es-BO', { minimumFractionDigits: 2 })}
               </h3>
             )}
@@ -432,7 +432,7 @@ export const DashboardPage: React.FC = () => {
 
       {/* Desglose por Método de Pago */}
       <div
-        className={`rounded-3xl border p-5 transition-colors ${
+        className={`rounded-3xl border p-4 sm:p-5 transition-colors ${
           isDark ? 'bg-slate-900/80 border-slate-800 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
         }`}
       >
@@ -447,7 +447,7 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
           <div
             className={`p-4 rounded-2xl border flex items-center justify-between ${
               isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200'
@@ -505,14 +505,14 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       {/* Gráficos Estadísticos */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Gráfico 1: Horas Pico */}
         <div
-          className={`rounded-3xl border p-5 transition-colors ${
+          className={`rounded-3xl border p-4 sm:p-5 transition-colors ${
             isDark ? 'bg-slate-900/80 border-slate-800 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
           }`}
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div>
               <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Horas Pico de Asistencia
@@ -522,7 +522,7 @@ export const DashboardPage: React.FC = () => {
               </p>
             </div>
             <span
-              className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${
+              className={`text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0 ${
                 isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'
               }`}
             >
@@ -530,7 +530,7 @@ export const DashboardPage: React.FC = () => {
             </span>
           </div>
 
-          <div className="h-64 w-full">
+          <div className="h-56 sm:h-64 w-full">
             {isLoading ? (
               <div className="h-full w-full bg-slate-950/50 animate-pulse rounded-2xl flex items-center justify-center">
                 <Loader2 className="h-6 w-6 animate-spin text-slate-500" />
@@ -558,11 +558,11 @@ export const DashboardPage: React.FC = () => {
 
         {/* Gráfico 2: Tendencia Semanal */}
         <div
-          className={`rounded-3xl border p-5 transition-colors ${
+          className={`rounded-3xl border p-4 sm:p-5 transition-colors ${
             isDark ? 'bg-slate-900/80 border-slate-800 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
           }`}
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div>
               <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Tendencia de Asistencias e Ingresos
@@ -572,7 +572,7 @@ export const DashboardPage: React.FC = () => {
               </p>
             </div>
             <span
-              className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${
+              className={`text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0 ${
                 isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'
               }`}
             >
@@ -580,7 +580,7 @@ export const DashboardPage: React.FC = () => {
             </span>
           </div>
 
-          <div className="h-64 w-full">
+          <div className="h-56 sm:h-64 w-full">
             {isLoading ? (
               <div className="h-full w-full bg-slate-950/50 animate-pulse rounded-2xl flex items-center justify-center">
                 <Loader2 className="h-6 w-6 animate-spin text-slate-500" />
@@ -623,11 +623,11 @@ export const DashboardPage: React.FC = () => {
       {/* Gráfico 3: Rendimiento Comparativo por Sucursal */}
       {data?.branch_comparison && data.branch_comparison.length > 0 && (
         <div
-          className={`rounded-3xl border p-5 transition-colors ${
+          className={`rounded-3xl border p-4 sm:p-5 transition-colors ${
             isDark ? 'bg-slate-900/80 border-slate-800 shadow-xl' : 'bg-white border-slate-200 shadow-sm'
           }`}
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div>
               <h3 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Rendimiento Comparativo por Sucursal
@@ -637,7 +637,7 @@ export const DashboardPage: React.FC = () => {
               </p>
             </div>
             <span
-              className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${
+              className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${
                 isDark ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
               }`}
             >
@@ -645,7 +645,7 @@ export const DashboardPage: React.FC = () => {
             </span>
           </div>
 
-          <div className="h-64 w-full">
+          <div className="h-56 sm:h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data.branch_comparison}>
                 <XAxis dataKey="branch_name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} tickLine={false} />
