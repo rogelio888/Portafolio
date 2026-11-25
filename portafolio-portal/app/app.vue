@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Global layout wrapper
+import SocialLinks from './components/SocialLinks.vue'
 </script>
 
 <template>
@@ -15,8 +15,8 @@
     <NuxtPage />
 
     <!-- Clean Global Footer -->
-    <footer class="relative z-10 py-10 border-t border-slate-200/80 text-center bg-slate-50 font-sans text-xs text-slate-500 no-print">
-      <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer class="relative z-10 py-8 sm:py-10 border-t border-slate-200/80 text-center bg-slate-50 font-sans text-xs text-slate-500 no-print">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-blue-600"></span>
           <span class="text-slate-800 font-bold">Rogelio &bull; Portafolio de Software</span>
@@ -24,8 +24,9 @@
         <p>
           Desarrollo full-stack de sistemas web y aplicaciones interactivas.
         </p>
-        <div class="text-[11px] text-slate-400">
-          © {{ new Date().getFullYear() }} Todos los derechos reservados.
+        <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] text-slate-400">
+          <span>© {{ new Date().getFullYear() }} Todos los derechos reservados.</span>
+          <SocialLinks />
         </div>
       </div>
     </footer>

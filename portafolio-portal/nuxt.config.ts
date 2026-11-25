@@ -23,6 +23,7 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'es' },
       title: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida',
       link: [
+        { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'canonical', href: 'https://portafoliorogelio888.dpdns.org/' }
       ],
@@ -52,7 +53,8 @@ export default defineNuxtConfig({
               {
                 "@type": "WebSite",
                 "@id": "https://portafoliorogelio888.dpdns.org/#website",
-                "name": "Rogelio | Portafolio Desarrollador Full-Stack",
+                "name": "Portafolio de Rogelio",
+                "alternateName": ["Rogelio", "Rogelio Full-Stack"],
                 "url": "https://portafoliorogelio888.dpdns.org/",
                 "description": "Portafolio de desarrollo de software y sistemas web interactivos a medida.",
                 "publisher": {
@@ -66,16 +68,18 @@ export default defineNuxtConfig({
                 "jobTitle": "Desarrollador Full-Stack & Ingeniero de Software",
                 "url": "https://portafoliorogelio888.dpdns.org/",
                 "sameAs": [
-                  "https://github.com/rogelio888"
+                  "https://github.com/rogelio888",
+                  "https://www.tiktok.com/@nexoraasystems"
                 ]
               },
               {
                 "@type": "ProfessionalService",
                 "@id": "https://portafoliorogelio888.dpdns.org/#service",
-                "name": "Rogelio - Desarrollo de Software y Sistemas Web a Medida",
+                "name": "Portafolio de Rogelio",
                 "url": "https://portafoliorogelio888.dpdns.org/",
                 "sameAs": [
-                  "https://github.com/rogelio888"
+                  "https://github.com/rogelio888",
+                  "https://www.tiktok.com/@nexoraasystems"
                 ],
                 "areaServed": "Santa Cruz, Bolivia",
                 "serviceType": [

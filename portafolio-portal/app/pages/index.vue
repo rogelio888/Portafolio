@@ -2,6 +2,8 @@
 import { onMounted, onUnmounted, ref, computed } from 'vue'
 
 const scrollY = ref(0)
+const isMobile = ref(false)
+const prefersReducedMotion = ref(false)
 let ticking = false
 
 const handleScroll = () => {
@@ -14,24 +16,38 @@ const handleScroll = () => {
   }
 }
 
+const handleResize = () => {
+  isMobile.value = window.innerWidth < 1024
+}
+
 onMounted(() => {
+  handleResize()
+  prefersReducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   window.addEventListener('scroll', handleScroll, { passive: true })
+  window.addEventListener('resize', handleResize, { passive: true })
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', handleResize)
 })
 
-// Subtle receding depth for Hero as the sheet slides over it
+// Scroll-driven depth recede as the Bottom Sheet rises over the Hero
 const heroStyle = computed(() => {
-  const progress = Math.min(Math.max(scrollY.value / 700, 0), 1)
-  const scale = 1 - progress * 0.04
-  const opacity = 1 - progress * 0.25
+  if (prefersReducedMotion.value) {
+    return {}
+  }
+  const threshold = isMobile.value ? 420 : 700
+  const progress = Math.min(Math.max(scrollY.value / threshold, 0), 1)
+  const scale = 1 - progress * (isMobile.value ? 0.06 : 0.04)
+  const opacity = 1 - progress * (isMobile.value ? 0.45 : 0.25)
+  const translateY = progress * (isMobile.value ? -14 : -8)
 
   return {
-    transform: `scale(${scale})`,
-    opacity: opacity,
-    transition: 'transform 0.08s ease-out, opacity 0.08s ease-out'
+    transform: `translate3d(0, ${translateY}px, 0) scale(${scale})`,
+    opacity,
+    transformOrigin: 'center top',
+    willChange: 'transform, opacity'
   }
 })
 
@@ -59,19 +75,19 @@ useSeoMeta({
 <template>
   <main class="relative w-full">
     
-    <!-- STICKY HERO: Pinned at top:0, stays centered without scrolling into header -->
-    <div class="relative lg:sticky lg:top-0 w-full min-h-screen lg:h-screen z-10 flex flex-col justify-center overflow-hidden bg-[#faf9f6]">
-      <div :style="heroStyle" class="w-full flex flex-col justify-center">
+    <!-- STICKY HERO: Hugs natural content height on mobile so Bottom Sheet rises immediately beneath it, full viewport on desktop -->
+    <div class="sticky top-0 w-full lg:h-screen z-10 flex flex-col justify-start lg:justify-center overflow-hidden bg-[#faf9f6]">
+      <div :style="heroStyle" class="w-full flex flex-col justify-start lg:justify-center">
         <SectionsHero />
       </div>
     </div>
 
-    <!-- OVERLAPPING COMIC SHEET: Slides cleanly over the pinned Hero -->
-    <div class="comic-stack-sheet relative z-20 w-full overflow-hidden bg-[#faf9f6] rounded-t-[2.5rem] border-t-3 border-slate-900 shadow-[0_-25px_50px_rgba(15,23,42,0.18)]">
+    <!-- OVERLAPPING BOTTOM SHEET: Slides smoothly up over the pinned Hero on mobile & desktop -->
+    <div class="comic-stack-sheet relative z-20 w-full overflow-x-clip bg-[#faf9f6]">
       
-      <!-- Subtle Top Accent Drag Bar -->
-      <div class="w-full flex justify-center pt-5 pb-2 relative z-10 pointer-events-none">
-        <div class="w-16 h-1.5 bg-slate-900/20 rounded-full border border-slate-900/30"></div>
+      <!-- Tactile Bottom Sheet Grabber Handle -->
+      <div class="w-full flex flex-col items-center pt-3.5 sm:pt-5 pb-1 relative z-10 pointer-events-none">
+        <div class="w-14 sm:w-16 h-1.5 bg-slate-900/25 rounded-full border border-slate-900/35"></div>
       </div>
 
       <!-- Section 1: Proyectos y Demos -->

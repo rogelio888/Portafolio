@@ -454,7 +454,7 @@ export const projects: ProjectDemo[] = [
     demoUrl: '/frontend-perfumeria/index.html',
     thumbnail: '/screenshots/frontend-perfumeria.webp',
     githubUrl: 'https://github.com/rogelio888',
-    iconName: 'Sparkles'
+    iconName: 'Droplets'
   },
   {
     slug: 'sistema-gimnasio-fitscan-qr',

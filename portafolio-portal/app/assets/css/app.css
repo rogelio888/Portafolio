@@ -5,7 +5,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 5rem;
 }
 
 @theme inline {
@@ -22,6 +22,7 @@ body {
   background-color: #faf9f6;
   color: #0f172a;
   font-family: var(--font-sans);
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
@@ -34,12 +35,14 @@ h1, h2, h3, h4, h5, h6, .font-display {
   border: 2px solid #0f172a;
   box-shadow: 4px 4px 0px #0f172a;
   border-radius: 0.75rem;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.22s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.comic-panel:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px #0f172a;
+@media (hover: hover) {
+  .comic-panel:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #0f172a;
+  }
 }
 
 .comic-panel-flat {
@@ -58,7 +61,9 @@ h1, h2, h3, h4, h5, h6, .font-display {
   color: #0f172a;
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.65rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0.22rem 0.6rem;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -71,11 +76,13 @@ h1, h2, h3, h4, h5, h6, .font-display {
   font-weight: 700;
   color: #1e40af;
   border-radius: 9999px;
-  padding: 0.25rem 0.75rem;
+  padding: 0.22rem 0.65rem;
   font-size: 0.75rem;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Halftone Ben-Day Dot Matrix Pattern */
@@ -99,18 +106,20 @@ h1, h2, h3, h4, h5, h6, .font-display {
   box-shadow: 3px 3px 0px #0f172a;
   border-radius: 0.5rem;
   font-weight: 800;
-  transition: all 0.15s ease;
+  transition: transform 0.14s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.14s ease, box-shadow 0.14s ease;
 }
 
-.comic-btn-primary:hover {
-  background-color: #2563eb;
-  border-color: #0f172a;
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0px #0f172a;
+@media (hover: hover) {
+  .comic-btn-primary:hover {
+    background-color: #2563eb;
+    border-color: #0f172a;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #0f172a;
+  }
 }
 
 .comic-btn-primary:active {
-  transform: translate(2px, 2px);
+  transform: translate(2px, 2px) scale(0.98);
   box-shadow: 1px 1px 0px #0f172a;
 }
 
@@ -121,21 +130,23 @@ h1, h2, h3, h4, h5, h6, .font-display {
   box-shadow: 3px 3px 0px #0f172a;
   border-radius: 0.5rem;
   font-weight: 800;
-  transition: all 0.15s ease;
+  transition: transform 0.14s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.14s ease, box-shadow 0.14s ease;
 }
 
-.comic-btn-secondary:hover {
-  background-color: #f8fafc;
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0px #0f172a;
+@media (hover: hover) {
+  .comic-btn-secondary:hover {
+    background-color: #f8fafc;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #0f172a;
+  }
 }
 
 .comic-btn-secondary:active {
-  transform: translate(2px, 2px);
+  transform: translate(2px, 2px) scale(0.98);
   box-shadow: 1px 1px 0px #0f172a;
 }
 
-/* Comic Book Overlapping Sheet */
+/* Comic Book Overlapping Bottom Sheet */
 .comic-stack-sheet {
   position: relative;
   z-index: 20;
@@ -144,15 +155,14 @@ h1, h2, h3, h4, h5, h6, .font-display {
   border-top: 3px solid #0f172a;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
-  box-shadow: 0 -15px 35px rgba(15, 23, 42, 0.12);
-  transition: all 0.3s ease;
+  box-shadow: 0 -22px 48px rgba(15, 23, 42, 0.2);
 }
 
 @media (min-width: 1024px) {
   .comic-stack-sheet {
     border-top-left-radius: 3rem;
     border-top-right-radius: 3rem;
-    box-shadow: 0 -25px 45px rgba(15, 23, 42, 0.15);
+    box-shadow: 0 -25px 45px rgba(15, 23, 42, 0.16);
   }
 }
 
@@ -168,8 +178,10 @@ h1, h2, h3, h4, h5, h6, .font-display {
   animation: marquee 35s linear infinite;
 }
 
-.animate-marquee:hover {
-  animation-play-state: paused;
+@media (hover: hover) {
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
 }
 
 /* No scrollbar utility for clean horizontal touch trays */
@@ -181,20 +193,20 @@ h1, h2, h3, h4, h5, h6, .font-display {
   scrollbar-width: none;
 }
 
-/* Touch feedback and mobile bottom sheet animation */
-@keyframes sheetSlideUp {
-  from {
-    transform: translateY(100%);
-    opacity: 0.8;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+  .animate-marquee,
+  .animate-bounce,
+  .animate-pulse {
+    animation: none !important;
   }
-}
-
-.animate-sheet-up {
-  animation: sheetSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .comic-panel,
+  .comic-btn-primary,
+  .comic-btn-secondary {
+    transition: none !important;
+  }
 }
 
 /* Print optimizations */

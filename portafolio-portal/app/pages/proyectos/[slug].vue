@@ -7,8 +7,8 @@ import {
   ArrowUpRight, 
   MessageSquare, 
   CheckCircle2, 
-  Sparkles, 
-  Layers, 
+  ListChecks, 
+  Layers,  
   Cpu, 
   ShieldCheck, 
   Building2,
@@ -232,7 +232,7 @@ const getIcon = (name: string) => {
           <!-- 2. Módulos y Flujos de Trabajo Incluidos -->
           <section class="comic-panel p-6 sm:p-8 bg-white">
             <div class="flex items-center gap-2 text-amber-900 font-black text-xs uppercase tracking-wider mb-2">
-              <Sparkles class="w-4 h-4 text-amber-600" />
+              <ListChecks class="w-4 h-4 text-blue-600" />
               <span>Funcionalidades &bull; Flujos Clave</span>
             </div>
             <h2 class="text-xl sm:text-2xl font-black text-slate-900 font-display uppercase mb-4">
