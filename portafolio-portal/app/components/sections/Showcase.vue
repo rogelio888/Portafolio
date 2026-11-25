@@ -19,12 +19,22 @@ import {
 
 const selectedCategory = ref('todos')
 
+const isSalud = (p: ProjectDemo) =>
+  p.name.includes('Farmacia') || p.name.includes('Clínica') || p.name.includes('Veterinaria')
+const isEducacion = (p: ProjectDemo) => p.name.includes('Pensiones')
+const isAgro = (p: ProjectDemo) => p.name.includes('Agroindustrial')
+const isComercio = (p: ProjectDemo) =>
+  p.name.includes('Gimnasio') ||
+  p.name.includes('FitScan') ||
+  p.name.includes('Perfumería') ||
+  p.category === 'Landing Pages'
+
 const filterCategories = [
-  { id: 'todos', label: 'Todos', count: 7, icon: Globe },
-  { id: 'salud', label: 'Salud & Clínicas', count: 2, icon: Activity },
-  { id: 'educacion', label: 'Educación & Cobros', count: 1, icon: GraduationCap },
-  { id: 'agro', label: 'Agro & Flotas', count: 1, icon: Tractor },
-  { id: 'comercio', label: 'Servicios & Landing', count: 3, icon: Flame }
+  { id: 'todos', label: 'Todos', count: projects.length, icon: Globe },
+  { id: 'salud', label: 'Salud & Clínicas', count: projects.filter(isSalud).length, icon: Activity },
+  { id: 'educacion', label: 'Educación & Cobros', count: projects.filter(isEducacion).length, icon: GraduationCap },
+  { id: 'agro', label: 'Agro & Flotas', count: projects.filter(isAgro).length, icon: Tractor },
+  { id: 'comercio', label: 'Servicios & Landing', count: projects.filter(isComercio).length, icon: Flame }
 ]
 
 const filteredProjects = computed(() => {
@@ -32,16 +42,16 @@ const filteredProjects = computed(() => {
     return projects
   }
   if (selectedCategory.value === 'salud') {
-    return projects.filter(p => p.name.includes('Farmacia') || p.name.includes('Clínica'))
+    return projects.filter(isSalud)
   }
   if (selectedCategory.value === 'educacion') {
-    return projects.filter(p => p.name.includes('Pensiones'))
+    return projects.filter(isEducacion)
   }
   if (selectedCategory.value === 'agro') {
-    return projects.filter(p => p.name.includes('Agroindustrial'))
+    return projects.filter(isAgro)
   }
   if (selectedCategory.value === 'comercio') {
-    return projects.filter(p => p.name.includes('Gimnasio') || p.category === 'Landing Pages')
+    return projects.filter(isComercio)
   }
   return projects
 })

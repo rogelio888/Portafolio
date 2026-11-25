@@ -113,7 +113,10 @@ export default defineNuxtConfig({
       '/proyectos/sistema-gimnasio-control-qr',
       '/proyectos/sistema-telemetria-agroindustrial',
       '/proyectos/landing-estudio-tatuajes',
-      '/proyectos/landing-chronos-neural-bci'
+      '/proyectos/landing-chronos-neural-bci',
+      '/proyectos/sistema-veterinaria-carnet-digital',
+      '/proyectos/sistema-perfumeria-atelier-erp',
+      '/proyectos/sistema-gimnasio-fitscan-qr'
     ]
   },
   shadcn: {
@@ -159,7 +162,10 @@ export default defineNuxtConfig({
         '/proyectos/sistema-gimnasio-control-qr',
         '/proyectos/sistema-telemetria-agroindustrial',
         '/proyectos/landing-estudio-tatuajes',
-        '/proyectos/landing-chronos-neural-bci'
+        '/proyectos/landing-chronos-neural-bci',
+        '/proyectos/sistema-veterinaria-carnet-digital',
+        '/proyectos/sistema-perfumeria-atelier-erp',
+        '/proyectos/sistema-gimnasio-fitscan-qr'
       ]
     }
   }

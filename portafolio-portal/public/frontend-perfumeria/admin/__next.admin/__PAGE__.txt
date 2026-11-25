@@ -1,0 +1,33 @@
+1:"$Sreact.fragment"
+2:"/frontend-perfumeria/_next/static/chunks/1ua2kfq9s-me6.js"
+3:I[39756,["$2"],"default"]
+4:I[37457,["$2"],"default"]
+a:I[47257,["$2"],"ClientPageRoot"]
+b:"/frontend-perfumeria/_next/static/chunks/0lzgtefm5jpv_.js"
+c:"/frontend-perfumeria/_next/static/chunks/1y9ncaot7lg1l.js"
+d:"/frontend-perfumeria/_next/static/chunks/34jvqrgcob6pj.js"
+e:"/frontend-perfumeria/_next/static/chunks/3bpz8c4xnaoni.js"
+f:I[72906,["$2","$b","$c","$d","$e"],"default"]
+12:I[97367,["$2"],"OutletBoundary"]
+13:"$Sreact.suspense"
+16:"ViewportBoundary"
+17:I[97367,["$2"],"$16"]
+18:"MetadataBoundary"
+19:I[97367,["$2"],"$18"]
+1a:I[27201,["$2"],"IconMark"]
+:HL["/frontend-perfumeria/_next/static/chunks/2sgtjcx4jdvbt.css","style"]
+6:X
+9:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","$La",null,{"Component":"$f","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@10","$@11"]}}],[["$","script","script-0",{"src":"/frontend-perfumeria/_next/static/chunks/0lzgtefm5jpv_.js","async":true}],["$","script","script-1",{"src":"/frontend-perfumeria/_next/static/chunks/1y9ncaot7lg1l.js","async":true}],["$","script","script-2",{"src":"/frontend-perfumeria/_next/static/chunks/34jvqrgcob6pj.js","async":true}],["$","script","script-3",{"src":"/frontend-perfumeria/_next/static/chunks/3bpz8c4xnaoni.js","async":true}]],["$","$L12",null,{"children":["$","$13",null,{"name":"Next.MetadataOutlet","children":"$@14"}]}]]}],"p":"$@15","v":null,"s":"$6"}}]]
+7:[["children",{"s":"admin","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","div",null,{"className":"min-h-screen bg-[#0C0B0A] text-[#F5EFEB]","children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]}]]}],"p":"$@8","v":null,"s":"$6"},"c":"$Q9"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/frontend-perfumeria/_next/static/chunks/2sgtjcx4jdvbt.css","precedence":"next"}],["$","script","script-0",{"src":"/frontend-perfumeria/_next/static/chunks/1ua2kfq9s-me6.js","async":true}]],["$","html",null,{"lang":"es","className":"usSmua_variable cUusyG_variable h-full antialiased","children":["$","body",null,{"className":"min-h-full flex flex-col font-sans bg-[#0C0B0A] text-[#F5EFEB] selection:bg-[#C5A880] selection:text-[#0C0B0A]","children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}]]}],"p":"$@5","v":null,"s":"$6"},"c":"$Q7"},"h":{"r":["$","$1","h",{"children":[null,["$","$L17",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"}],["$","meta","2",{"name":"theme-color","content":"#0C0B0A","media":"(prefers-color-scheme: dark)"}],["$","meta","3",{"name":"theme-color","content":"#0C0B0A","media":"(prefers-color-scheme: light)"}]]}],["$","$L19",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$13",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Atelier Admin · Control Multisede & Catálogo"}],["$","meta","1",{"name":"description","content":"Panel de administración privado para gestión de catálogo, inventario y sucursales."}],["$","link","2",{"rel":"icon","href":"/frontend-perfumeria/favicon.ico?favicon.117ezoe8m31dk.ico","sizes":"48x48","type":"image/x-icon"}],["$","$L1a","3",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1b","v":null,"s":"$6"}},"a":"$@1c","u":"$@1d","b":"NtqxRqOFxGN2TuFK4Cqha"}
+10:{}
+11:"$9:0:1:d:r:props:children:0:props:serverProvidedParams:params"
+14:null
+6:300
+1d:true
+6:C
+1c:0
+8:"$undefined"
+5:"$undefined"
+1b:"$undefined"
+15:"$undefined"

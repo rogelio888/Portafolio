@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0C0B0A;
+  --foreground: #F5EFEB;
+  --surface: #141312;
+  --surface-card: #181715;
+  --border-subtle: rgba(197, 168, 128, 0.15);
+  --gold-primary: #C5A880;
+  --gold-light: #E5D3B3;
+  --gold-dark: #8F7249;
+  --accent-amber: #D4AF37;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-card: var(--surface-card);
+  --color-border-subtle: var(--border-subtle);
+  --color-gold: var(--gold-primary);
+  --color-amber: var(--accent-amber);
+  --font-serif: var(--font-serif), Cormorant Garamond, Georgia, serif;
+  --font-sans: var(--font-sans), Outfit, -apple-system, sans-serif;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+button, a, [role="button"], input, select {
+  touch-action: manipulation;
+}
+
+button, [role="button"], .tab, .chip {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+input, textarea, select {
+  font-size: 16px;
+}
+
+/* Ocultar barra de desplazamiento en rieles táctiles */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background-color: #0C0B0A;
+  overflow-x: hidden;
+}
+
+/* Selección en tono oro champán */
+::selection {
+  background-color: #C5A880;
+  color: #0C0B0A;
+}

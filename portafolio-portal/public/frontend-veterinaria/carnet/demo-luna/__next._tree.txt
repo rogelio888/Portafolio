@@ -1,0 +1,8 @@
+:HL["/frontend-veterinaria/_next/static/chunks/2ki17ra55887-.css","style"]
+:HL["/frontend-veterinaria/_next/static/chunks/06jq9yen4x8l9.css","style"]
+:HL["/frontend-veterinaria/_next/static/media/9a321a2c78eff0b5-s.p.1bkzbscqrt8rl.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/frontend-veterinaria/_next/static/media/d8aeca813a9ab546-s.p.18rizl4rsrl42.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":{"n":"token","t":"d","k":"demo-luna","s":[]},"h":96,"c":"$Q3"}]]
+1:[["children",{"s":"carnet","h":96,"c":"$Q2"}]]
+0:{"b":"4_gTizPJ8H8pOrTXrM08d","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

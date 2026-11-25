@@ -391,5 +391,101 @@ export const projects: ProjectDemo[] = [
     thumbnail: '/screenshots/landing-chronos-final.webp',
     githubUrl: 'https://github.com/rogel/chronos-landing-next',
     iconName: 'Cpu'
+  },
+  {
+    slug: 'sistema-veterinaria-carnet-digital',
+    name: 'VetControl Pro — Clínica Veterinaria',
+    seoTitle: 'Sistema Web de Gestión Veterinaria, POS y Carnet Digital | Demo en Vivo',
+    seoDescription: 'Plataforma web para clínicas veterinarias y pet shops: historial clínico de mascotas, sala de espera, farmacia con lotes, punto de venta a granel y carnet de vacunación digital.',
+    problemSolved: 'Las clínicas veterinarias y pet shops pierden trazabilidad entre consultas médicas, dosis calculadas por peso y ventas fraccionadas de alimentos o medicamentos. VetControl Pro unifica la sala de espera, expedientes médicos, farmacia veterinaria, cuentas de tutores y carnet sanitario digital en un solo flujo.',
+    description: 'Plataforma integral para clínicas veterinarias con historial clínico de mascotas, sala de espera, POS a granel, farmacia y carnet sanitario digital.',
+    category: 'Sistemas Web',
+    targetAudience: 'Clínicas veterinarias, hospitales de mascotas, consultorios zootécnicos y pet shops.',
+    businessBenefit: 'Centraliza expedientes clínicos, evita mermas de fármacos veterinarios y agiliza ventas fraccionadas por kilo o dosis.',
+    highlights: [
+      'Sala de espera interactiva y fichas médicas para caninos, felinos y exóticos',
+      'Punto de venta (POS) adaptado a alimentos a granel y fraccionamiento clínico',
+      'Control de tutores, cuentas corrientes, alertas de vacunas y WhatsApp directo',
+      'Carnet sanitario digital consultable en línea para propietarios de mascotas'
+    ],
+    features: [
+      'Login con accesos directos por rol (Médico Veterinario, Cirugía, Caja & Pet Shop)',
+      'Agenda y sala de espera en tiempo real con priorización de emergencias',
+      'Historial clínico de pacientes con cálculo de dosis según peso corporal',
+      'Punto de venta con soporte para pesaje a granel y descuentos automáticos',
+      'Carnet digital público de vacunación y control antiparasitario'
+    ],
+    frontendStack: 'Next.js 16 & Tailwind CSS',
+    backendStack: 'API REST & Prisma ORM (Simulado)',
+    databaseStack: 'PostgreSQL (Demo LocalStorage)',
+    relatedPlanId: 7,
+    demoUrl: '/frontend-veterinaria/index.html',
+    thumbnail: '/screenshots/frontend-veterinaria.webp',
+    githubUrl: 'https://github.com/rogelio888',
+    iconName: 'Stethoscope'
+  },
+  {
+    slug: 'sistema-perfumeria-atelier-erp',
+    name: "L'Atelier — Perfumería & ERP",
+    seoTitle: 'E-Commerce de Perfumería de Autor y ERP de Formulación | Demo en Vivo',
+    seoDescription: 'Plataforma web para perfumerías de nicho y laboratorios cosméticos: catálogo olfativo por notas, combos inteligentes, tickets QR/PDF y panel administrativo de formulación.',
+    problemSolved: 'Las perfumerías artesanales y multisede requieren mostrar pirámides olfativas complejas al cliente final mientras calculan exactamente cuántos mililitros de esencia madre, alcohol y fijador consume cada venta. Esta plataforma conecta la experiencia boutique pública con un ERP de laboratorio y tickets QR.',
+    description: 'Boutique digital de alta perfumería con buscador por notas olfativas, creador de combos, tickets QR en PDF y ERP de formulación en laboratorio.',
+    category: 'Sistemas Web',
+    targetAudience: 'Perfumerías de autor, boutiques de fragancias, laboratorios cosméticos y tiendas multisede.',
+    businessBenefit: 'Controla al mililitro el stock de esencias madre y tanques por sede mientras aumenta el ticket promedio con combos automáticos.',
+    highlights: [
+      'Catálogo boutique con pirámide olfativa (notas de salida, corazón y fondo)',
+      'Generador automático de combos promocionales (3x2, segundo al 50%, packs)',
+      'Emisión de tickets de retiro con código QR verificable y descarga en PDF',
+      'Panel administrativo con asistente matemático de formulación y tanques por sede'
+    ],
+    features: [
+      'Buscador olfativo por notas aromáticas, estela, familia y género',
+      'Carrito inteligente con motor de promociones y envío directo por WhatsApp',
+      'Generación instantánea de comprobante QR descargable en formato PDF',
+      'Asistente de formulación química en el panel admin (esencia, alcohol, fijador)',
+      'Escáner QR de mostrador y control de inventario de insumos por sucursal'
+    ],
+    frontendStack: 'Next.js 16 & Framer Motion',
+    backendStack: 'Supabase Cloud (Simulado)',
+    databaseStack: 'PostgreSQL (Demo LocalStorage)',
+    relatedPlanId: 8,
+    demoUrl: '/frontend-perfumeria/index.html',
+    thumbnail: '/screenshots/frontend-perfumeria.webp',
+    githubUrl: 'https://github.com/rogelio888',
+    iconName: 'Sparkles'
+  },
+  {
+    slug: 'sistema-gimnasio-fitscan-qr',
+    name: 'FitScan Gym OS — SaaS Multisede QR',
+    seoTitle: 'FitScan Gym OS — SaaS Multisede para Gimnasios y Kiosco QR | Demo',
+    seoDescription: 'Software SaaS comercial para cadenas de gimnasios: modo kiosco con escáner QR en vivo, caja chica en Bs., gestión multisede, roles RBAC y reportes financieros.',
+    problemSolved: 'Los gimnasios con una o más sucursales pierden ingresos por ingresos sin membresía vigente, cierres de caja poco claros y falta de métricas operativas. FitScan Gym OS centraliza el control de accesos autónomo en Modo Kiosco QR junto con auditoría de caja chica y reportes exportables.',
+    description: 'Sistema SaaS multisede para gimnasios con Modo Kiosco de escaneo QR y alertas sonoras, control de caja chica en Bs., roles RBAC y analítica.',
+    category: 'Sistemas Web',
+    targetAudience: 'Cadenas de gimnasios, clubes deportivos, centros fitness multisede y boxes de entrenamiento.',
+    businessBenefit: 'Evita ingresos de socios vencidos con verificación QR en menos de un segundo y audita la caja diaria por cada sucursal.',
+    highlights: [
+      'Modo Kiosco QR autónomo con feedback visual y auditivo (Vigente vs Vencida)',
+      'Gestión multisede con transferencia de socios y reportes consolidados',
+      'Control de caja chica (apertura, arqueo, pagos en efectivo, QR y tarjeta)',
+      'Matriz de permisos por rol (Administrador General y Recepcionista Kiosco)'
+    ],
+    features: [
+      'Modo Kiosco QR con cámara web, entrada manual de prueba y alertas sonoras',
+      'Emisión de credenciales digitales QR únicas por socio y control de vigencia',
+      'Apertura, seguimiento y cierre auditado de turnos de caja en Bolivianos (Bs.)',
+      'Gráficos interactivos de asistencias semanales, horas pico e ingresos mensuales',
+      'Reportes financieros, membresías y bitácora de auditoría exportables a CSV'
+    ],
+    frontendStack: 'React 19, Vite & TypeScript',
+    backendStack: 'Laravel 11 API (Simulado)',
+    databaseStack: 'PostgreSQL (Demo LocalStorage)',
+    relatedPlanId: 8,
+    demoUrl: '/frontend-fitscan/index.html',
+    thumbnail: '/screenshots/frontend-fitscan.webp',
+    githubUrl: 'https://github.com/rogelio888',
+    iconName: 'QrCode'
   }
 ]
