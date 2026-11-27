@@ -56,9 +56,13 @@ useHead({
               "priceCurrency": "USD"
             },
             "author": {
-              "@type": "Person",
-              "name": "Rogelio",
-              "url": "https://nexorasystem.site"
+              "@type": "Organization",
+              "name": "Nexora Systems",
+              "url": "https://nexorasystem.site",
+              "founder": {
+                "@type": "Person",
+                "name": "Rogelio"
+              }
             }
           },
           {
@@ -67,13 +71,13 @@ useHead({
               {
                 "@type": "ListItem",
                 "position": 1,
-                "name": "Inicio",
+                "name": "Nexora Systems",
                 "item": "https://nexorasystem.site"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
-                "name": "Proyectos",
+                "name": "Portafolio de Proyectos",
                 "item": "https://nexorasystem.site/#proyectos"
               },
               {
@@ -92,15 +96,15 @@ useHead({
 })
 
 useSeoMeta({
-  title: `${project.seoTitle} | Rogelio`,
-  description: project.seoDescription,
-  ogTitle: `${project.seoTitle} | Rogelio`,
+  title: `${project.seoTitle} | Nexora Systems`,
+  description: `${project.seoDescription} Demo del portafolio Nexora Systems (Bolivia).`,
+  ogTitle: `${project.seoTitle} | Nexora Systems`,
   ogDescription: project.seoDescription,
   ogUrl: canonicalUrl,
   ogImage: ogImageUrl,
   ogType: 'article',
   twitterCard: 'summary_large_image',
-  twitterTitle: `${project.seoTitle} | Rogelio`,
+  twitterTitle: `${project.seoTitle} | Nexora Systems`,
   twitterDescription: project.seoDescription,
   twitterImage: ogImageUrl
 })

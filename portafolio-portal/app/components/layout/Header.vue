@@ -25,16 +25,18 @@ onUnmounted(() => {
       <div class="max-w-[1400px] mx-auto px-3.5 sm:px-6 lg:px-12 flex items-center justify-between gap-2">
         
         <!-- Brand Logo / Comic Title -->
-        <NuxtLink to="/" class="group flex items-center gap-2 sm:gap-3 outline-none min-w-0">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 bg-slate-900 text-white font-black text-xs sm:text-sm flex items-center justify-center font-mono border-2 border-slate-900 shadow-[2px_2px_0px_#2563eb] transition-transform duration-200 group-hover:scale-95 shrink-0">
-            R8
-          </div>
+        <NuxtLink to="/" class="group flex items-center gap-1.5 sm:gap-3 outline-none min-w-0">
+          <img
+            src="/favicon-48x48.png"
+            alt="Nexora Systems logo"
+            class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg border-2 border-slate-900 shadow-[2px_2px_0px_#2563eb] transition-transform duration-200 group-hover:scale-95 shrink-0 object-cover bg-[#0b1224]"
+          />
           <div class="flex flex-col min-w-0">
-            <span class="text-xs sm:text-sm font-black tracking-tight text-slate-900 uppercase leading-none font-display truncate">
-              Rogelio
+            <span class="text-[11px] sm:text-sm font-black tracking-[-0.02em] sm:tracking-tight text-slate-900 uppercase leading-tight font-display whitespace-nowrap">
+              Nexora Systems
             </span>
-            <span class="text-[10px] sm:text-[11px] font-bold text-slate-600 mt-0.5 sm:mt-1 leading-none truncate">
-              Full-Stack Dev
+            <span class="text-[10px] sm:text-[11px] font-bold text-slate-600 leading-tight whitespace-nowrap">
+              Portafolio · Rogelio
             </span>
           </div>
         </NuxtLink>
@@ -68,7 +70,7 @@ onUnmounted(() => {
           <a 
             href="https://wa.me/59168787985" 
             target="_blank" 
-            class="comic-btn-primary h-10 sm:h-auto px-3 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-black uppercase tracking-wider flex items-center gap-1.5 whitespace-nowrap"
+            class="comic-btn-primary h-10 sm:h-auto px-2.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs font-black uppercase tracking-wider flex items-center gap-1 sm:gap-1.5 whitespace-nowrap"
           >
             <span>Hablemos</span>
             <ArrowUpRight class="w-3.5 h-3.5 shrink-0" />

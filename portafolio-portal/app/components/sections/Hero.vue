@@ -218,7 +218,7 @@ const getCardStyle = (index: number) => {
         
         <!-- Comic Narration Box -->
         <div class="hero-stagger comic-caption mb-3 sm:mb-4 text-[10px] sm:text-xs select-none">
-          <span>PORTAFOLIO DE SISTEMAS // CASOS REALES</span>
+          <span>NEXORA SYSTEMS // PORTAFOLIO DE SISTEMAS</span>
         </div>
 
         <!-- Main Headline (Fluid font sizing that fits 360px up to 1440px cleanly) -->
@@ -232,7 +232,7 @@ const getCardStyle = (index: number) => {
         
         <!-- Subtitle -->
         <p class="hero-stagger text-[13px] sm:text-base lg:text-lg text-slate-700 max-w-xl leading-relaxed mb-4 sm:mb-7 font-medium">
-          Diseño e implemento plataformas web completas para empresas, centros médicos y colegios. Cada sistema incluye base de datos interactiva en tu navegador para que pruebes los flujos de punta a punta.
+          En <strong class="font-bold text-slate-900">Nexora Systems</strong> diseño e implemento plataformas web completas en Bolivia para empresas, clínicas y colegios. Explora este portafolio con demos reales y base de datos interactiva en tu navegador.
         </p>
 
         <!-- CTAs (On mobile: single direct contact CTA so rotating viewer has zero redundancy; desktop keeps both) -->

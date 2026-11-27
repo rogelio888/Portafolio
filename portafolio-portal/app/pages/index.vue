@@ -59,15 +59,15 @@ useHead({
 })
 
 useSeoMeta({
-  title: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida',
-  description: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, clínicas, agroindustria y más.',
-  ogTitle: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida',
-  ogDescription: 'Lleva tu negocio al siguiente nivel con plataformas digitales diseñadas exclusivamente para ti. Explora demostraciones interactivas de sistemas web.',
+  title: 'Nexora Systems | Portafolio de Sistemas Web y Software a Medida',
+  description: 'Nexora Systems (Portafolio de Rogelio): desarrollo de software y sistemas web a medida en Bolivia. Prueba 10 demos reales para farmacias, clínicas, gimnasios y agroindustria.',
+  ogTitle: 'Nexora Systems | Portafolio de Sistemas Web y Software a Medida',
+  ogDescription: 'Lleva tu negocio al siguiente nivel con Nexora Systems. Explora nuestro portafolio con 10 demostraciones interactivas de sistemas web.',
   ogUrl: 'https://nexorasystem.site/',
   ogImage: 'https://nexorasystem.site/screenshots/frontend-farmacia.webp',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida',
-  twitterDescription: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, clínicas, agroindustria y más.',
+  twitterTitle: 'Nexora Systems | Portafolio de Sistemas Web y Software a Medida',
+  twitterDescription: 'Nexora Systems (Portafolio de Rogelio): desarrollo de software y sistemas web a medida en Bolivia.',
   twitterImage: 'https://nexorasystem.site/screenshots/frontend-farmacia.webp'
 })
 </script>

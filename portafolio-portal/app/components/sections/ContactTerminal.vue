@@ -68,7 +68,7 @@ const copyPhone = async () => {
         <div class="lg:col-span-5 bg-blue-50/60 rounded-2xl border-2 border-slate-900 p-4 sm:p-8 space-y-3.5 text-xs shadow-[4px_4px_0px_#0f172a]">
           
           <div class="text-xs font-black text-slate-900 uppercase tracking-wider pb-3 border-b-2 border-slate-900">
-            Disponibilidad &bull; Servicios
+            Nexora Systems &bull; Disponibilidad
           </div>
 
           <div class="space-y-2.5 text-slate-700 font-medium">

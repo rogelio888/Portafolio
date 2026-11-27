@@ -19,10 +19,10 @@ import SocialLinks from './components/SocialLinks.vue'
       <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
         <div class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-          <span class="text-slate-800 font-bold">Rogelio &bull; Portafolio de Software</span>
+          <span class="text-slate-800 font-bold">Nexora Systems &bull; Portafolio de Rogelio</span>
         </div>
         <p>
-          Desarrollo full-stack de sistemas web y aplicaciones interactivas.
+          Desarrollo full-stack de sistemas web a medida y aplicaciones interactivas en Bolivia.
         </p>
         <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] text-slate-400">
           <span>© {{ new Date().getFullYear() }} Todos los derechos reservados.</span>

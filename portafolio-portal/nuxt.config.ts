@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'es' },
-      title: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida',
+      title: 'Nexora Systems | Portafolio de Sistemas Web y Software a Medida',
       link: [
         { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
         { rel: 'icon', type: 'image/png', sizes: '48x48', href: '/favicon-48x48.png' },
@@ -33,17 +33,17 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, clínicas, agroindustria y más.' },
-        { property: 'og:site_name', content: 'Nexora System' },
-        { property: 'og:title', content: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida' },
-        { property: 'og:description', content: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, clínicas, agroindustria y más.' },
+        { name: 'description', content: 'Nexora Systems (Portafolio de Rogelio): desarrollo de software y sistemas web a medida en Bolivia. Prueba 10 demos reales para farmacias, clínicas, gimnasios y agroindustria.' },
+        { property: 'og:site_name', content: 'Nexora Systems' },
+        { property: 'og:title', content: 'Nexora Systems | Portafolio de Sistemas Web y Software a Medida' },
+        { property: 'og:description', content: 'Nexora Systems (Portafolio de Rogelio): desarrollo de software y sistemas web a medida en Bolivia. Explora demos interactivas en navegador.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://nexorasystem.site/' },
         { property: 'og:image', content: 'https://nexorasystem.site/screenshots/frontend-farmacia.webp' },
-        { property: 'og:image:alt', content: 'Vista previa de sistemas web desarrollados por Rogelio — Nexora System' },
+        { property: 'og:image:alt', content: 'Nexora Systems — Portafolio de sistemas web desarrollados por Rogelio' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida' },
-        { name: 'twitter:description', content: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, clínicas, agroindustria y más.' },
+        { name: 'twitter:title', content: 'Nexora Systems | Portafolio de Sistemas Web y Software a Medida' },
+        { name: 'twitter:description', content: 'Nexora Systems (Portafolio de Rogelio): desarrollo de software y sistemas web a medida en Bolivia. Explora 10 demos reales en navegador.' },
         { name: 'twitter:image', content: 'https://nexorasystem.site/screenshots/frontend-farmacia.webp' },
         { name: 'theme-color', content: '#faf9f6' }
       ],
@@ -56,20 +56,24 @@ export default defineNuxtConfig({
               {
                 "@type": "WebSite",
                 "@id": "https://nexorasystem.site/#website",
-                "name": "Nexora System",
-                "alternateName": ["Nexora System | Rogelio", "Rogelio Full-Stack"],
+                "name": "Nexora Systems",
+                "alternateName": ["Nexora System", "Portafolio de Rogelio", "Nexora Systems Bolivia"],
                 "url": "https://nexorasystem.site/",
-                "description": "Portafolio de desarrollo de software y sistemas web interactivos a medida.",
+                "description": "Nexora Systems — Portafolio de desarrollo de software y sistemas web interactivos a medida por Rogelio en Bolivia.",
                 "publisher": {
-                  "@id": "https://nexorasystem.site/#person"
+                  "@id": "https://nexorasystem.site/#service"
                 }
               },
               {
                 "@type": "Person",
                 "@id": "https://nexorasystem.site/#person",
                 "name": "Rogelio",
-                "jobTitle": "Desarrollador Full-Stack & Ingeniero de Software",
+                "alternateName": ["Rogelio Full-Stack", "Portafolio de Rogelio"],
+                "jobTitle": "Desarrollador Full-Stack & Fundador de Nexora Systems",
                 "url": "https://nexorasystem.site/",
+                "worksFor": {
+                  "@id": "https://nexorasystem.site/#service"
+                },
                 "sameAs": [
                   "https://github.com/rogelio888",
                   "https://www.tiktok.com/@nexoraasystems"
@@ -78,8 +82,11 @@ export default defineNuxtConfig({
               {
                 "@type": "ProfessionalService",
                 "@id": "https://nexorasystem.site/#service",
-                "name": "Nexora System",
+                "name": "Nexora Systems",
+                "alternateName": ["Nexora System", "Portafolio de Software Rogelio"],
                 "url": "https://nexorasystem.site/",
+                "logo": "https://nexorasystem.site/icon-192.png",
+                "image": "https://nexorasystem.site/screenshots/frontend-farmacia.webp",
                 "sameAs": [
                   "https://github.com/rogelio888",
                   "https://www.tiktok.com/@nexoraasystems"
@@ -91,7 +98,7 @@ export default defineNuxtConfig({
                   "Aplicaciones Web a Medida",
                   "Diseño y Desarrollo Frontend / Backend"
                 ],
-                "provider": {
+                "founder": {
                   "@id": "https://nexorasystem.site/#person"
                 }
               }
@@ -109,7 +116,7 @@ export default defineNuxtConfig({
   ],
   site: {
     url: 'https://nexorasystem.site',
-    name: 'Nexora System'
+    name: 'Nexora Systems'
   },
   sitemap: {
     urls: [
