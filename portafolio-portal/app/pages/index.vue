@@ -54,7 +54,7 @@ const heroStyle = computed(() => {
 // Page-level SEO tags
 useHead({
   link: [
-    { rel: 'canonical', href: 'https://portafoliorogelio888.dpdns.org/' }
+    { rel: 'canonical', href: 'https://nexorasystem.site/' }
   ]
 })
 
@@ -63,12 +63,12 @@ useSeoMeta({
   description: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, clínicas, agroindustria y más.',
   ogTitle: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida',
   ogDescription: 'Lleva tu negocio al siguiente nivel con plataformas digitales diseñadas exclusivamente para ti. Explora demostraciones interactivas de sistemas web.',
-  ogUrl: 'https://portafoliorogelio888.dpdns.org/',
-  ogImage: 'https://portafoliorogelio888.dpdns.org/screenshots/frontend-farmacia.webp',
+  ogUrl: 'https://nexorasystem.site/',
+  ogImage: 'https://nexorasystem.site/screenshots/frontend-farmacia.webp',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Rogelio | Portafolio Desarrollador Full-Stack y Sistemas Web a Medida',
   twitterDescription: 'Desarrollo de Software y Sistemas Web a Medida. Explora demostraciones reales de sistemas para farmacias, clínicas, agroindustria y más.',
-  twitterImage: 'https://portafoliorogelio888.dpdns.org/screenshots/frontend-farmacia.webp'
+  twitterImage: 'https://nexorasystem.site/screenshots/frontend-farmacia.webp'
 })
 </script>
 

@@ -29,8 +29,8 @@ if (!project) {
   })
 }
 
-const canonicalUrl = `https://portafoliorogelio888.dpdns.org/proyectos/${project.slug}`
-const ogImageUrl = `https://portafoliorogelio888.dpdns.org${project.thumbnail}`
+const canonicalUrl = `https://nexorasystem.site/proyectos/${project.slug}`
+const ogImageUrl = `https://nexorasystem.site${project.thumbnail}`
 
 useHead({
   link: [
@@ -58,7 +58,7 @@ useHead({
             "author": {
               "@type": "Person",
               "name": "Rogelio",
-              "url": "https://portafoliorogelio888.dpdns.org"
+              "url": "https://nexorasystem.site"
             }
           },
           {
@@ -68,13 +68,13 @@ useHead({
                 "@type": "ListItem",
                 "position": 1,
                 "name": "Inicio",
-                "item": "https://portafoliorogelio888.dpdns.org"
+                "item": "https://nexorasystem.site"
               },
               {
                 "@type": "ListItem",
                 "position": 2,
                 "name": "Proyectos",
-                "item": "https://portafoliorogelio888.dpdns.org/#proyectos"
+                "item": "https://nexorasystem.site/#proyectos"
               },
               {
                 "@type": "ListItem",
