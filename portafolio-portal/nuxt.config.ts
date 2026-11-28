@@ -130,7 +130,8 @@ export default defineNuxtConfig({
       '/proyectos/landing-chronos-neural-bci',
       '/proyectos/sistema-veterinaria-carnet-digital',
       '/proyectos/sistema-perfumeria-atelier-erp',
-      '/proyectos/sistema-gimnasio-fitscan-qr'
+      '/proyectos/sistema-gimnasio-fitscan-qr',
+      '/proyectos/sistema-maquinaria-control-ventas'
     ]
   },
   shadcn: {

@@ -60,9 +60,9 @@ useHead({
 
 useSeoMeta({
   title: 'Nexora Systems | Portafolio de Sistemas Web y Software a Medida',
-  description: 'Nexora Systems (Portafolio de Rogelio): desarrollo de software y sistemas web a medida en Bolivia. Prueba 10 demos reales para farmacias, clínicas, gimnasios y agroindustria.',
+  description: 'Nexora Systems (Portafolio de Rogelio): desarrollo de software y sistemas web a medida en Bolivia. Prueba 11 demos reales para farmacias, clínicas, gimnasios, maquinaria y agroindustria.',
   ogTitle: 'Nexora Systems | Portafolio de Sistemas Web y Software a Medida',
-  ogDescription: 'Lleva tu negocio al siguiente nivel con Nexora Systems. Explora nuestro portafolio con 10 demostraciones interactivas de sistemas web.',
+  ogDescription: 'Lleva tu negocio al siguiente nivel con Nexora Systems. Explora nuestro portafolio con 11 demostraciones interactivas de sistemas web.',
   ogUrl: 'https://nexorasystem.site/',
   ogImage: 'https://nexorasystem.site/screenshots/frontend-farmacia.webp',
   twitterCard: 'summary_large_image',

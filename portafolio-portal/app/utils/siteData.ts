@@ -487,5 +487,37 @@ export const projects: ProjectDemo[] = [
     thumbnail: '/screenshots/frontend-fitscan.webp',
     githubUrl: 'https://github.com/rogelio888',
     iconName: 'QrCode'
+  },
+  {
+    slug: 'sistema-maquinaria-control-ventas',
+    name: 'Maquinaria Central — Inventario USD/Bs & POS',
+    seoTitle: 'Sistema Web de Inventario en USD/Bs, Compras y Ventas POS para Maquinaria | Demo en Vivo',
+    seoDescription: 'Software de gestión para tiendas de maquinaria y equipos industriales en Bolivia: control por lotes USD/Bs con protección cambiaria y sincronización BCB, POS de mostrador, proformas, proveedores, gastos y roles RBAC.',
+    problemSolved: 'Las tiendas y distribuidoras de maquinaria en Bolivia pierden rentabilidad cuando compran equipos en dólares pero venden al mostrador con el tipo de cambio desactualizado, o pierden trazabilidad entre números de serie, fletes prorrateados y cierres de caja. Maquinaria Central protege automáticamente el margen por lote USD/Bs, prorratea fletes e integra POS, proformas y compras en un solo panel operativo.',
+    description: 'Control operativo para importadoras y tiendas de maquinaria: inventario por lotes con protección cambiaria USD/Bs, POS con seriales, proformas, proveedores y caja diaria.',
+    category: 'Sistemas Web',
+    targetAudience: 'Importadoras de maquinaria pesada, ferreterías industriales, distribuidoras de equipos y sucursales comerciales.',
+    businessBenefit: 'Evita vender por debajo del costo de reposición ante variaciones del dólar y controla números de serie, garantías, compras y gastos desde cualquier dispositivo.',
+    highlights: [
+      'Inventario por lotes en USD/Bs con cálculo automático de costo real, flete prorrateado y protección cambiaria',
+      'Punto de venta (POS) de mostrador con selección de seriales, descuentos, pagos mixtos (Efectivo/QR/Tarjeta) y proformas',
+      'Control de órdenes de compra a proveedores, recepción por lotes, cartera de clientes y gastos fijos/variables',
+      'Roles RBAC configurables (Dueño, Vendedor de Mostrador, Almacén) con ocultamiento de costos y márgenes'
+    ],
+    features: [
+      'Sincronización de tipo de cambio oficial BCB o ajuste manual con recálculo instantáneo de precios en Bs.',
+      'Fichas rápidas para WhatsApp, alertas de stock mínimo, seguimiento de garantías y análisis de capital parado (+60 días)',
+      'Proformas descargables e imprimibles convertibles en venta directa con reserva y descuento automático de seriales',
+      'Reportes financieros diarios, utilidad neta estimada, Kardex de movimientos y arqueo completo de caja',
+      'Sistema de permisos granulares y modo demostración con cambio rápido de perfil operativo'
+    ],
+    frontendStack: 'React 19, Vite & Tailwind CSS v4',
+    backendStack: 'API REST & BCB Sync (Demo Local)',
+    databaseStack: 'PostgreSQL (Demo LocalStorage)',
+    relatedPlanId: 8,
+    demoUrl: '/frontend-maquinaria/index.html',
+    thumbnail: '/screenshots/frontend-maquinaria.webp',
+    githubUrl: 'https://github.com/rogelio888',
+    iconName: 'Cog'
   }
 ]

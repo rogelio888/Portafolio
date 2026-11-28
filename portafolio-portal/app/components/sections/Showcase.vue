@@ -43,6 +43,7 @@ const isComercio = (p: ProjectDemo) =>
   p.name.includes('Gimnasio') ||
   p.name.includes('FitScan') ||
   p.name.includes('Perfumería') ||
+  p.name.includes('Maquinaria') ||
   p.category === 'Landing Pages'
 
 const filterCategories = [
